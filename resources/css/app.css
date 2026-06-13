@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap");
+@import "tailwindcss";
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* ── Tailwind v4: custom theme (ganti tailwind.config.js) ── */
+@theme {
+    --color-primary: #7c3aed;
+    --color-secondary: #a855f7;
+    --color-dark-bg: #090613;
+    --color-dark-sidebar: #120d22;
+    --color-dark-card: #17122b;
+    --color-border-custom: #2d2644;
+    --color-deep-dark: #0f0a19;
+    --color-card-dark: #1c1826;
+    --color-icon-bg-dark: #1a142f;
+
+    --font-sans:
+        "Inter", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes fadeScale {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}
+
+/* ── Dark mode via class (ganti darkMode: 'class' di config) ── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+    html {
+        font-size: 15px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    body {
+        @apply bg-slate-50 text-slate-900 transition-colors duration-300;
+        font-family:
+            "Inter",
+            "Plus Jakarta Sans",
+            system-ui,
+            -apple-system,
+            sans-serif;
+        letter-spacing: -0.01em;
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        @apply font-bold tracking-tight;
+        letter-spacing: -0.025em;
+        line-height: 1.2;
+    }
+
+    .dark body {
+        @apply bg-[#121128] text-white;
+    }
+}
+
+@layer components {
+    .card-bg {
+        @apply bg-gray-50 border border-gray-200 rounded-2xl transition-all duration-300;
+    }
+    .dark .card-bg {
+        @apply bg-[var(--color-dark-card)] border-[var(--color-border-custom)];
+    }
+
+    .sidebar-bg {
+        @apply bg-gray-50 border-r border-gray-200 transition-all duration-300;
+    }
+    .dark .sidebar-bg {
+        @apply bg-[var(--color-dark-sidebar)] border-[var(--color-border-custom)];
+    }
+
+    .chart-container {
+        @apply relative h-[200px] w-full;
+    }
+
+    .card-header-clean {
+        @apply p-5 border-b border-gray-100 flex flex-wrap justify-between items-center gap-6 bg-white transition-colors duration-300;
+    }
+    .dark .card-header-clean {
+        @apply bg-[var(--color-dark-card)] border-[var(--color-border-custom)];
+    }
+
+    /* Wadah Icon di kotak statistik agar warnanya deep sesuai gambar */
+    .stat-icon-bg {
+        @apply w-12 h-12 flex items-center justify-center rounded-xl bg-slate-100 transition-all;
+    }
+    .dark .stat-icon-bg {
+        @apply bg-[var(--color-icon-bg-dark)];
+    }
+
+    /* Status Badge Berhasil */
+    .status-badge-success {
+        @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-500/10 text-green-500 border border-green-500/20;
+    }
+
+    nav {
+        @apply fixed top-0 w-full z-50 transition-all duration-300 h-20 flex items-center justify-between px-10;
+        @apply bg-white/80 backdrop-blur-md border-b border-slate-200;
+    }
+    .dark nav {
+        @apply bg-[#121128]/95 border-white/5;
+    }
+
+    .card-landing {
+        @apply rounded-[40px] transition-all duration-300 border;
+        @apply bg-white border-slate-200 shadow-sm hover:shadow-md;
+    }
+    .dark .card-landing {
+        @apply bg-[#1a1932] border-white/5 shadow-none hover:border-purple-500/30;
+    }
+
+    .btn-gradient-glow {
+        @apply bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg;
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        transition: all 0.3s ease;
+    }
+    .btn-gradient-glow:hover {
+        @apply -translate-y-0.5;
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+    }
+
+    .text-muted-custom {
+        @apply text-slate-500;
+    }
+    .dark .text-muted-custom {
+        @apply text-slate-400;
+    }
+
+    footer {
+        @apply pt-24 pb-12 px-12 border-t transition-colors duration-300;
+        @apply bg-white border-slate-200;
+    }
+    .dark footer {
+        @apply bg-[#121128] border-white/5;
+    }
+
+    .glow-center {
+        @apply absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full -z-10 blur-[120px] transition-all duration-700;
+        background: rgba(139, 92, 246, 0.15);
+    }
+    .dark .glow-center {
+        background: rgba(139, 92, 246, 0.1);
+    }
+
+    .role-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .role-card:hover {
+        transform: translateY(-5px);
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes fadeScale {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    .animate-fade-up {
+        animation: fadeUp 0.5s ease forwards;
+    }
+    .animate-fade-scale {
+        animation: fadeScale 0.5s ease 0.2s both;
+    }
+
+    .grid-pattern {
+        background-image:
+            linear-gradient(to right, #7c3aed10 1px, transparent 1px),
+            linear-gradient(to bottom, #7c3aed10 1px, transparent 1px);
+        background-size: 4rem 4rem;
+    }
+    * {
+        transition:
+            background-color 0.3s ease,
+            border-color 0.3s ease,
+            color 0.3s ease;
+    }
+
+    .input-custom {
+        padding-left: 3rem !important;
+    }
+
+    /* Warna Biru Muda untuk kolom Aktif/Email/LinkedIn/Password */
+    .input-active {
+        background-color: #eef2ff !important;
+        color: #1a1a1a !important;
+        border: none !important;
+    }
+
+    .dark .input-active {
+        background-color: #1a1423 !important;
+        /* Kembali ke gelap saat dark mode */
+        color: white !important;
+    }
+
+    /* Styling tombol upload file */
+    input[type="file"]::file-selector-button {
+        background-color: #2d2438;
+        color: #a855f7;
+        padding: 0.4rem 1rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}

@@ -1,0 +1,403 @@
+@extends('layouts.dashboard')
+
+@section('title', 'Rancang Kurikulum | Dashboard Mentor | Clearn')
+
+@section('content')
+
+<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
+    <div class="max-w-5xl mx-auto">
+
+        <div class="mb-8">
+            <a href="{{ route('mentor.courses.show', $course->id) }}"
+                class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                Kembali ke Detail Course
+            </a>
+
+            <h1 class="text-2xl font-extrabold dark:text-white text-slate-800 tracking-tight mt-4">
+                Rancang Kurikulum
+            </h1>
+
+            <p class="text-[11px] dark:text-slate-400 text-slate-500 mt-1 uppercase tracking-widest font-black">
+                {{ $course->course_title }}
+            </p>
+        </div>
+
+        @if(session('success'))
+        <div class="mb-6 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 px-4 py-3 rounded-xl text-xs font-bold">
+            {{ session('success') }}
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="mb-6 bg-red-500/10 border border-red-500/20 text-red-500 px-4 py-3 rounded-xl text-xs font-bold">
+            {{ session('error') }}
+        </div>
+        @endif
+
+        @if ($errors->any())
+        <div class="mb-6 bg-red-500/10 border border-red-500/20 text-red-500 px-4 py-3 rounded-xl text-xs font-semibold">
+            <ul class="list-disc pl-5 space-y-1">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
+        {{-- FORM UTAMA UPDATE SESSION --}}
+        <form action="{{ route('mentor.courses.sessions.update', $course->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-3xl p-6 lg:p-8 shadow-sm">
+
+                <div class="mb-6">
+                    <h2 class="text-sm font-black dark:text-white text-slate-800 uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-1 h-5 bg-primary rounded-full"></span>
+                        Kurikulum & Materi
+                    </h2>
+
+                    <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-2">
+                        Isi judul dan deskripsi setiap session. Session terakhir khusus untuk final project.
+                    </p>
+                </div>
+
+                <div class="space-y-5">
+                    @foreach($course->sessions as $index => $session)
+
+                    @php
+                    $isLastSession = $loop->last;
+                    $hasLesson = $session->lessons->count() > 0;
+                    $hasExercise = $session->exercises->count() > 0;
+
+                    $courseHasFinalProject = $course->sessions->contains(function ($item) {
+                    return $item->finalProjects->count() > 0;
+                    });
+
+                    $canCreateLesson = !$isLastSession;
+                    $canCreateExercise = !$isLastSession && $hasLesson && !$hasExercise;
+                    $canCreateFinalProject = $isLastSession && !$courseHasFinalProject;
+                    @endphp
+
+                    <div class="dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/5 border-slate-200 rounded-2xl p-5">
+
+                        <div class="flex items-center justify-between gap-4 mb-4">
+                            <span class="text-[10px] font-black {{ $isLastSession ? 'text-emerald-500' : 'text-primary' }} uppercase tracking-widest">
+                                @if($isLastSession)
+                                Final Project Session
+                                @else
+                                Pertemuan {{ $index + 1 }}
+                                @endif
+                            </span>
+
+                            <span class="text-[9px] font-black dark:text-slate-500 text-slate-400 uppercase tracking-widest">
+                                {{ $session->lessons->count() }} Lesson •
+                                {{ $session->exercises->count() }} Exercise •
+                                {{ $session->finalProjects->count() }} Project
+                            </span>
+                        </div>
+
+                        @if($isLastSession)
+                        <div class="mb-5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 px-4 py-3 rounded-xl text-[10px] font-bold">
+                            Session terakhir hanya untuk Final Project. Lesson dan Exercise tidak bisa ditambahkan di session ini.
+                        </div>
+                        @endif
+
+                        <input type="hidden"
+                            name="sessions[{{ $index }}][id]"
+                            value="{{ $session->id }}">
+
+                        <div class="mb-4">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
+                                Judul Pertemuan
+                            </label>
+
+                            <input type="text"
+                                name="sessions[{{ $index }}][sessions_title]"
+                                value="{{ old("sessions.$index.sessions_title", $session->sessions_title) }}"
+                                required
+                                placeholder="{{ $isLastSession ? 'Final Project' : 'Judul Pertemuan ' . ($index + 1) }}"
+                                class="w-full bg-transparent border-b border-slate-300 dark:border-white/10 pb-3 text-sm font-bold dark:text-white text-slate-800 outline-none focus:border-primary transition">
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
+                                Deskripsi Pertemuan
+                            </label>
+
+                            <textarea name="sessions[{{ $index }}][sessions_description]"
+                                rows="3"
+                                placeholder="{{ $isLastSession ? 'Deskripsi final project...' : 'Deskripsi materi...' }}"
+                                class="w-full bg-transparent border-b border-slate-300 dark:border-white/10 pb-3 text-xs dark:text-slate-300 text-slate-600 outline-none focus:border-primary transition">{{ old("sessions.$index.sessions_description", $session->sessions_description) }}</textarea>
+                        </div>
+
+                        {{-- Lesson yang sudah ada --}}
+                        @if(!$isLastSession && $session->lessons->count() > 0)
+                        <div class="mb-5 space-y-4">
+                            <p class="text-[9px] font-black uppercase tracking-widest text-slate-400">
+                                Lesson di Pertemuan Ini
+                            </p>
+
+                            @foreach($session->lessons as $lesson)
+                            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden">
+
+                                <div class="p-4 flex items-start justify-between gap-4">
+                                    <div class="min-w-0">
+                                        <h4 class="text-sm font-black dark:text-white text-slate-800">
+                                            {{ $lesson->lessons_title }}
+                                        </h4>
+
+                                        <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-1">
+                                            {{ $lesson->lessons_description ?? 'Tidak ada deskripsi lesson.' }}
+                                        </p>
+                                    </div>
+
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        <a href="{{ route('mentor.lessons.edit', $lesson->id) }}"
+                                            class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center hover:bg-amber-500 hover:text-white transition">
+                                            <i class="fa-solid fa-pen text-xs"></i>
+                                        </a>
+
+                                        <button type="submit"
+                                            form="delete-lesson-{{ $lesson->id }}"
+                                            onclick="return confirm('Yakin ingin menghapus lesson ini? Semua material di dalamnya juga akan dihapus.')"
+                                            class="w-9 h-9 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition">
+                                            <i class="fa-solid fa-trash text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {{-- Preview material --}}
+                                @if($lesson->materials->count() > 0)
+                                <div class="px-4 pb-4 space-y-3">
+                                    @foreach($lesson->materials as $material)
+                                    @php
+                                    $type = strtolower($material->type ?? '');
+                                    $file = $material->file_path ?? null;
+                                    $url = $material->url ?? null;
+
+                                    $fileSource = $file ? asset('storage/' . $file) : null;
+                                    $source = $url ?: $fileSource;
+                                    @endphp
+
+                                    @if($type === 'video')
+                                    @if($url)
+                                    <div class="aspect-video w-full max-w-xl overflow-hidden rounded-xl bg-black border dark:border-white/10 border-slate-200">
+                                        <iframe
+                                            src="{{ $url }}"
+                                            class="w-full h-full"
+                                            allowfullscreen
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                                        </iframe>
+                                    </div>
+                                    @elseif($fileSource)
+                                    <div class="aspect-video w-full max-w-xl overflow-hidden rounded-xl bg-black border dark:border-white/10 border-slate-200">
+                                        <video controls class="w-full h-full object-contain bg-black">
+                                            <source src="{{ $fileSource }}">
+                                            Browser kamu tidak mendukung video.
+                                        </video>
+                                    </div>
+                                    @endif
+
+                                    @elseif($type === 'pdf')
+                                    @if($source)
+                                    <a href="{{ $source }}"
+                                        target="_blank"
+                                        class="flex items-center gap-3 p-3 rounded-xl border dark:border-white/5 border-slate-200 dark:bg-[#0f0a19] bg-slate-50 hover:border-primary hover:bg-primary/5 transition">
+
+                                        <div class="w-9 h-9 rounded-lg bg-cyan-500/10 text-cyan-500 flex items-center justify-center shrink-0">
+                                            <i class="fa-regular fa-file-pdf"></i>
+                                        </div>
+
+                                        <div>
+                                            <p class="text-xs font-bold text-primary">
+                                                {{ $lesson->lessons_title }}
+                                            </p>
+                                            <p class="text-[10px] dark:text-slate-500 text-slate-400">
+                                                PDF
+                                            </p>
+                                        </div>
+                                    </a>
+                                    @endif
+
+                                    @elseif($type === 'link')
+                                    @if($source)
+                                    <a href="{{ $source }}"
+                                        target="_blank"
+                                        class="flex items-center gap-3 p-3 rounded-xl border dark:border-white/5 border-slate-200 dark:bg-[#0f0a19] bg-slate-50 hover:border-primary hover:bg-primary/5 transition">
+
+                                        <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-link"></i>
+                                        </div>
+
+                                        <div class="min-w-0">
+                                            <p class="text-xs font-bold text-primary truncate">
+                                                {{ $lesson->lessons_title }}
+                                            </p>
+                                            <p class="text-[10px] dark:text-slate-500 text-slate-400 truncate">
+                                                {{ $source }}
+                                            </p>
+                                        </div>
+                                    </a>
+                                    @endif
+                                    @endif
+                                    @endforeach
+                                </div>
+                                @endif
+
+                            </div>
+                            @endforeach
+                        </div>
+                        @endif
+
+                        {{-- Exercise yang sudah ada --}}
+                        @if(!$isLastSession && $hasExercise)
+                        @php
+                        $exercise = $session->exercises->first();
+                        @endphp
+
+                        <div class="mb-5 dark:bg-purple-500/10 bg-purple-50 border dark:border-purple-500/20 border-purple-200 rounded-2xl p-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div>
+                                    <p class="text-[9px] font-black uppercase tracking-widest text-primary">
+                                        Kuis
+                                    </p>
+
+                                    <h4 class="text-sm font-black dark:text-white text-slate-800 mt-1">
+                                        {{ $exercise->exercise_title }}
+                                    </h4>
+
+                                    <p class="text-[10px] dark:text-slate-400 text-slate-500 mt-1">
+                                        {{ $exercise->questions->count() }} Soal
+                                    </p>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <a href="{{ route('mentor.sessions.exercises.edit', $exercise->id) }}"
+                                        class="px-4 py-2 rounded-xl bg-primary text-white text-[9px] font-black uppercase tracking-widest hover:brightness-110 transition">
+                                        Edit Kuis
+                                    </a>
+
+                                    <button type="submit"
+                                        form="delete-exercise-{{ $exercise->id }}"
+                                        onclick="return confirm('Yakin ingin menghapus kuis ini? Semua soal dan pilihan jawaban akan ikut terhapus.')"
+                                        class="px-4 py-2 rounded-xl bg-red-500/10 text-red-500 text-[9px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition">
+                                        Hapus Kuis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+                        {{-- Action buttons --}}
+                        <div class="pt-4 border-t border-slate-200 dark:border-white/5 flex flex-wrap gap-2">
+
+                            {{-- Lesson --}}
+                            @if($canCreateLesson)
+                            <a href="{{ route('mentor.sessions.lessons.create', $session->id) }}"
+                                class="px-4 py-2 rounded-xl bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition">
+                                + Lesson
+                            </a>
+                            @else
+                            <button type="button"
+                                class="px-4 py-2 rounded-xl bg-slate-500/10 text-slate-500 text-[9px] font-black uppercase tracking-widest cursor-not-allowed">
+                                Lesson Tidak Tersedia
+                            </button>
+                            @endif
+
+                            {{-- Exercise / Kuis --}}
+                            @if($canCreateExercise)
+                            <button type="submit"
+                                form="create-exercise-{{ $session->id }}"
+                                class="px-4 py-2 rounded-xl bg-purple-500/10 text-purple-500 text-[9px] font-black uppercase tracking-widest hover:bg-purple-500 hover:text-white transition">
+                                + Kuis
+                            </button>
+                            @elseif($hasExercise)
+                            <button type="button"
+                                class="px-4 py-2 rounded-xl bg-slate-500/10 text-slate-500 text-[9px] font-black uppercase tracking-widest cursor-not-allowed">
+                                Kuis Sudah Ada
+                            </button>
+                            @else
+                            <button type="button"
+                                class="px-4 py-2 rounded-xl bg-slate-500/10 text-slate-500 text-[9px] font-black uppercase tracking-widest cursor-not-allowed">
+                                + Kuis
+                            </button>
+                            @endif
+
+                            {{-- Final Project --}}
+                            @if($canCreateFinalProject)
+                            <a href="{{ route('mentor.sessions.projects.create', $session->id) }}"
+                                class="px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-500 text-[9px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition">
+                                + Final Project
+                            </a>
+                            @else
+                            <button type="button"
+                                class="px-4 py-2 rounded-xl bg-slate-500/10 text-slate-500 text-[9px] font-black uppercase tracking-widest cursor-not-allowed">
+                                Final Project Tidak Tersedia
+                            </button>
+                            @endif
+
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                <div class="flex justify-end gap-3 mt-8">
+                    <a href="{{ route('mentor.courses.show', $course->id) }}"
+                        class="px-8 py-3 rounded-xl bg-slate-200 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-[10px] font-black uppercase tracking-widest">
+                        Kembali
+                    </a>
+
+                    <button type="submit"
+                        class="px-10 py-3 rounded-xl bg-primary text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20 hover:brightness-110 transition">
+                        Simpan Semua
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+        {{-- FORM DELETE LESSON --}}
+        {{-- Taruh di luar form utama supaya DELETE tidak masuk ke route sessions.update --}}
+        @foreach($course->sessions as $session)
+        @foreach($session->lessons as $lesson)
+        <form id="delete-lesson-{{ $lesson->id }}"
+            action="{{ route('mentor.lessons.destroy', $lesson->id) }}"
+            method="POST"
+            class="hidden">
+            @csrf
+            @method('DELETE')
+        </form>
+        @endforeach
+        @endforeach
+
+        {{-- FORM DELETE EXERCISE --}}
+        {{-- Taruh di luar form utama supaya DELETE tidak masuk ke route sessions.update --}}
+        @foreach($course->sessions as $session)
+        @foreach($session->exercises as $exercise)
+        <form id="delete-exercise-{{ $exercise->id }}"
+            action="{{ route('mentor.sessions.exercises.destroy', $exercise->id) }}"
+            method="POST"
+            class="hidden">
+            @csrf
+            @method('DELETE')
+        </form>
+        @endforeach
+        @endforeach
+
+        {{-- FORM CREATE EXERCISE --}}
+        {{-- Taruh di luar form utama supaya POST create kuis tidak masuk ke route sessions.update --}}
+        @foreach($course->sessions as $session)
+        <form id="create-exercise-{{ $session->id }}"
+            action="{{ route('mentor.sessions.exercises.storeEmpty', $session->id) }}"
+            method="POST"
+            class="hidden">
+            @csrf
+        </form>
+        @endforeach
+
+    </div>
+</main>
+
+@endsection
