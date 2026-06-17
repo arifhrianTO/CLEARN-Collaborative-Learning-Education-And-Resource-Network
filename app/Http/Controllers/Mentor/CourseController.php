@@ -107,18 +107,18 @@ class CourseController extends Controller
                 'max:50',
             ],
         ], [
-            'course_title.required' => 'Judul course wajib diisi.',
-            'course_description.required' => 'Deskripsi course wajib diisi.',
+            'course_title.required' => 'Judul kursus wajib diisi.',
+            'course_description.required' => 'Deskripsi kursus wajib diisi.',
             'category_id.required' => 'Kategori wajib dipilih.',
             'category_id.exists' => 'Kategori tidak ditemukan.',
-            'course_price.required' => 'Harga course wajib diisi.',
-            'course_price.numeric' => 'Harga course harus berupa angka.',
-            'course_thumbnail.required' => 'Thumbnail course wajib dipilih.',
-            'course_thumbnail.image' => 'Thumbnail harus berupa gambar.',
-            'course_thumbnail.max' => 'Ukuran thumbnail maksimal 2 MB.',
+            'course_price.required' => 'Harga kursus wajib diisi.',
+            'course_price.numeric' => 'Harga kursus harus berupa angka.',
+            'course_thumbnail.required' => 'Sampul kursus wajib dipilih.',
+            'course_thumbnail.image' => 'Sampul harus berupa gambar.',
+            'course_thumbnail.max' => 'Ukuran sampul maksimal 2 MB.',
             'session_count.required' => 'Jumlah session wajib diisi.',
-            'session_count.min' => 'Jumlah session minimal 1.',
-            'session_count.max' => 'Jumlah session maksimal 50.',
+            'session_count.min' => 'Jumlah pertemuan minimal 1.',
+            'session_count.max' => 'Jumlah pertemuan maksimal 50.',
         ]);
 
         $thumbnailPath = null;
@@ -310,7 +310,7 @@ class CourseController extends Controller
                 ) {
                     Session::create([
                         'course_id' => $course->id,
-                        'sessions_title' => 'Session ' . $i,
+                        'sessions_title' => 'Judul pertemuan ' . $i,
                         'sessions_description' => null,
                     ]);
                 }
@@ -330,7 +330,7 @@ class CourseController extends Controller
                 ->route('mentor.courses.show', $course->id)
                 ->with(
                     'success',
-                    'Course berhasil diperbarui dan kembali menjadi draft.'
+                    'Kursus berhasil diperbarui dan kembali menjadi drafs.'
                 );
         } catch (\Throwable $error) {
             DB::rollBack();
@@ -346,7 +346,7 @@ class CourseController extends Controller
 
             return back()
                 ->withInput()
-                ->with('error', 'Course gagal diperbarui.');
+                ->with('error', 'kursus gagal diperbarui.');
         }
     }
 
@@ -365,7 +365,7 @@ class CourseController extends Controller
         ) {
             return back()->with(
                 'error',
-                'Course yang sudah diverifikasi dan dipublikasikan tidak dapat dihapus.'
+                'kursus yang sudah diverifikasi dan dipublikasikan tidak dapat dihapus.'
             );
         }
 
@@ -410,7 +410,7 @@ class CourseController extends Controller
         if ($course->status_review === 'pending') {
             return back()->with(
                 'error',
-                'Course sedang menunggu verifikasi admin.'
+                'kursus sedang menunggu verifikasi admin.'
             );
         }
 
@@ -420,7 +420,7 @@ class CourseController extends Controller
         ) {
             return back()->with(
                 'error',
-                'Course sudah disetujui dan dipublikasikan.'
+                'kursus sudah disetujui dan dipublikasikan.'
             );
         }
 
@@ -433,7 +433,7 @@ class CourseController extends Controller
         if ($course->sessions->isEmpty()) {
             return back()->with(
                 'error',
-                'Course belum memiliki session.'
+                'kursus belum memiliki sesi pertemuan.'
             );
         }
 
@@ -449,7 +449,7 @@ class CourseController extends Controller
             if ($session->lessons->isEmpty()) {
                 return back()->with(
                     'error',
-                    "Session {$sessionNumber} belum memiliki lesson."
+                    "Pertemuan {$sessionNumber} belum memiliki materi."
                 );
             }
 
@@ -457,7 +457,7 @@ class CourseController extends Controller
                 if ($lesson->materials->isEmpty()) {
                     return back()->with(
                         'error',
-                        "Lesson \"{$lesson->lessons_title}\" pada Session {$sessionNumber} belum memiliki materi."
+                        "Materi \"{$lesson->lessons_title}\" pada pertemuan {$sessionNumber} belum memiliki materi."
                     );
                 }
             }
@@ -474,14 +474,14 @@ class CourseController extends Controller
         if (!$lastSession) {
             return back()->with(
                 'error',
-                'Session terakhir tidak ditemukan.'
+                'Pertemuan terakhir tidak ditemukan.'
             );
         }
 
         if ($lastSession->finalProjects->isEmpty()) {
             return back()->with(
                 'error',
-                'Session terakhir wajib memiliki final project.'
+                'Pertemuan terakhir wajib memiliki Tugas akhir.'
             );
         }
 
@@ -492,7 +492,7 @@ class CourseController extends Controller
             ) {
                 return back()->with(
                     'error',
-                    'Final project hanya boleh berada pada session terakhir.'
+                    'Tugas akhir hanya boleh berada pada session terakhir.'
                 );
             }
         }
@@ -513,7 +513,7 @@ class CourseController extends Controller
             ->route('mentor.courses.show', $course->id)
             ->with(
                 'success',
-                'Course berhasil diajukan dan sedang menunggu verifikasi admin.'
+                'Kursus berhasil diajukan dan sedang menunggu verifikasi admin.'
             );
     }
 }

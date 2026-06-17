@@ -210,7 +210,7 @@
                 <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/5">
                     <div class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
                         <i class="fa-solid fa-circle-check mr-2"></i>
-                        Course Telah Diverifikasi
+                        Kursus Telah Diverifikasi
                     </div>
                 </div>
 
@@ -264,7 +264,7 @@
 
                             <div class="min-w-0">
                                 <span class="text-[10px] font-black uppercase tracking-widest {{ $isLastSession ? 'text-emerald-500' : 'text-primary' }}">
-                                    {{ $isLastSession ? 'Final Project Session' : 'Pertemuan ' . ($index + 1) }}
+                                    {{ $isLastSession ? 'Sesi Tugas Akhir' : 'Pertemuan ' . ($index + 1) }}
                                 </span>
 
                                 <h3 class="text-lg lg:text-xl font-black dark:text-white text-slate-800 truncate">
@@ -290,7 +290,7 @@
                             </p>
                             @else
                             <p class="text-[10px] text-slate-400">
-                                {{ $session->finalProjects->count() }} Proyek Akhir
+                                {{ $session->finalProjects->count() }} Tugas Akhir
                             </p>
                             @endif
                         </div>
@@ -384,7 +384,7 @@
                                     </a>
                                     @else
                                     <div class="p-4 rounded-xl bg-amber-500/10 text-amber-500 text-xs font-bold">
-                                        File PDF belum tersedia.
+                                        Dokumen PDF belum tersedia.
                                     </div>
                                     @endif
 
@@ -412,7 +412,7 @@
                                     </a>
                                     @else
                                     <div class="p-4 rounded-xl bg-amber-500/10 text-amber-500 text-xs font-bold">
-                                        Link belum tersedia.
+                                        Tautan belum tersedia.
                                     </div>
                                     @endif
 
@@ -431,7 +431,7 @@
 
                                     @empty
                                     <div class="p-4 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-400 text-xs font-bold">
-                                        Belum ada material untuk lesson ini.
+                                        Belum ada materi untuk pembelajaran ini.
                                     </div>
                                     @endforelse
 
@@ -441,7 +441,7 @@
                             @empty
                             <div class="p-6 rounded-2xl bg-slate-100 dark:bg-white/5 text-center">
                                 <p class="text-xs text-slate-400 font-bold">
-                                    Belum ada lesson di pertemuan ini.
+                                    Belum ada materi di pertemuan ini.
                                 </p>
                             </div>
                             @endforelse
@@ -455,7 +455,7 @@
                                             Kuis Pertemuan
                                         </h4>
                                         <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-1">
-                                            Preview kuis yang akan dikerjakan student setelah menyelesaikan materi.
+                                            Tinjau kuis yang akan dikerjakan pelajar setelah menyelesaikan materi.
                                         </p>
                                     </div>
                                 </div>
@@ -513,7 +513,7 @@
                                                 <button type="button"
                                                     onclick="toggleExercisePreview('{{ $exercisePreviewId }}')"
                                                     class="px-4 py-2 rounded-xl bg-white/70 dark:bg-white/5 dark:text-white text-slate-700 text-[9px] font-black uppercase tracking-widest hover:bg-purple-500 hover:text-white transition">
-                                                    Preview Soal
+                                                    Tinjau Soal
                                                 </button>
                                                 @endif
                                             </div>
@@ -607,7 +607,7 @@
                             @empty
                             <div class="p-6 rounded-2xl bg-slate-100 dark:bg-white/5 text-center">
                                 <p class="text-xs text-slate-400 font-bold">
-                                    Final project belum dibuat.
+                                    Tugas Akhir belum dibuat.
                                 </p>
                             </div>
                             @endforelse
@@ -625,11 +625,11 @@
                     </div>
 
                     <h3 class="text-lg font-black dark:text-white text-slate-800">
-                        Belum Ada Session
+                        Belum Ada Pertemuan
                     </h3>
 
                     <p class="text-xs dark:text-slate-500 text-slate-400 mt-2 max-w-md mx-auto">
-                        Session akan otomatis dibuat saat kamu menambahkan course.
+                        Pertemuan akan otomatis dibuat saat kamu menambahkan kursus.
                     </p>
                 </div>
                 @endforelse

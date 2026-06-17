@@ -65,7 +65,7 @@
                             name="course_title"
                             value="{{ old('course_title', $course->course_title) }}"
                             required
-                            placeholder="Contoh: Laravel Dasar untuk Pemula"
+                            placeholder="Masukkan judul kursus"
                             class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
                     </div>
 
