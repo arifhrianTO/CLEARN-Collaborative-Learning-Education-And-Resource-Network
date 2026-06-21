@@ -82,12 +82,11 @@
                 </div>
 
                 <div class="p-6">
-                    <h2 class="text-sm font-black dark:text-white text-slate-800 uppercase tracking-widest mb-3">
+                    <h2 class="text-sm font-black dark:text-white text-slate-800 uppercase tracking-widest mb-3 ">
                         Deskripsi Kursus
                     </h2>
 
-                    <p class="text-sm dark:text-slate-400 text-slate-600 leading-relaxed">
-                        {{ $course->course_description }}
+                    <p class="text-sm dark:text-slate-400 text-slate-600 leading-relaxed whitespace-pre-wrap">{{ $course->course_description }}
                     </p>
                 </div>
             </div>

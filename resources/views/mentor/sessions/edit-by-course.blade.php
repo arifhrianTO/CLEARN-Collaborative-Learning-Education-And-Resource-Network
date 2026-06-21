@@ -59,7 +59,7 @@
                     </h2>
 
                     <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-2">
-                        Isi judul dan deskripsi setiap session. Session terakhir khusus untuk final project.
+                        Isi judul dan deskripsi setiap session. Session terakhir khusus untuk tugas akhir.
                     </p>
                 </div>
 
@@ -72,7 +72,7 @@
                     $hasExercise = $session->exercises->count() > 0;
 
                     $courseHasFinalProject = $course->sessions->contains(function ($item) {
-                    return $item->finalProjects->count() > 0;
+                        return $item->finalProjects->count() > 0;
                     });
 
                     $canCreateLesson = !$isLastSession;
@@ -85,7 +85,7 @@
                         <div class="flex items-center justify-between gap-4 mb-4">
                             <span class="text-[10px] font-black {{ $isLastSession ? 'text-emerald-500' : 'text-primary' }} uppercase tracking-widest">
                                 @if($isLastSession)
-                                Final Project Session
+                                Sesi Tugas Akhir
                                 @else
                                 Pertemuan {{ $index + 1 }}
                                 @endif
@@ -94,13 +94,13 @@
                             <span class="text-[9px] font-black dark:text-slate-500 text-slate-400 uppercase tracking-widest">
                                 {{ $session->lessons->count() }} Lesson •
                                 {{ $session->exercises->count() }} Exercise •
-                                {{ $session->finalProjects->count() }} Project
+                                {{ $session->finalProjects->count() }} Tugas Akhir
                             </span>
                         </div>
 
                         @if($isLastSession)
                         <div class="mb-5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 px-4 py-3 rounded-xl text-[10px] font-bold">
-                            Session terakhir hanya untuk Final Project. Lesson dan Exercise tidak bisa ditambahkan di session ini.
+                            Session terakhir hanya untuk Tugas Akhir. Lesson dan Exercise tidak bisa ditambahkan di session ini.
                         </div>
                         @endif
 
@@ -117,7 +117,7 @@
                                 name="sessions[{{ $index }}][sessions_title]"
                                 value="{{ old("sessions.$index.sessions_title", $session->sessions_title) }}"
                                 required
-                                placeholder="{{ $isLastSession ? 'Final Project' : 'Judul Pertemuan ' . ($index + 1) }}"
+                                placeholder="{{ $isLastSession ? 'Tugas Akhir' : 'Judul Pertemuan ' . ($index + 1) }}"
                                 class="w-full bg-transparent border-b border-slate-300 dark:border-white/10 pb-3 text-sm font-bold dark:text-white text-slate-800 outline-none focus:border-primary transition">
                         </div>
 
@@ -128,7 +128,7 @@
 
                             <textarea name="sessions[{{ $index }}][sessions_description]"
                                 rows="3"
-                                placeholder="{{ $isLastSession ? 'Deskripsi final project...' : 'Deskripsi materi...' }}"
+                                placeholder="{{ $isLastSession ? 'Deskripsi tugas akhir...' : 'Deskripsi materi...' }}"
                                 class="w-full bg-transparent border-b border-slate-300 dark:border-white/10 pb-3 text-xs dark:text-slate-300 text-slate-600 outline-none focus:border-primary transition">{{ old("sessions.$index.sessions_description", $session->sessions_description) }}</textarea>
                         </div>
 
@@ -140,7 +140,7 @@
                             </p>
 
                             @foreach($session->lessons as $lesson)
-                            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden">
+                            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
 
                                 <div class="p-4 flex items-start justify-between gap-4">
                                     <div class="min-w-0">
@@ -168,7 +168,7 @@
                                     </div>
                                 </div>
 
-                                {{-- Preview material --}}
+                                {{-- Preview material Lesson --}}
                                 @if($lesson->materials->count() > 0)
                                 <div class="px-4 pb-4 space-y-3">
                                     @foreach($lesson->materials as $material)
@@ -184,12 +184,7 @@
                                     @if($type === 'video')
                                     @if($url)
                                     <div class="aspect-video w-full max-w-xl overflow-hidden rounded-xl bg-black border dark:border-white/10 border-slate-200">
-                                        <iframe
-                                            src="{{ $url }}"
-                                            class="w-full h-full"
-                                            allowfullscreen
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                                        </iframe>
+                                        <iframe src="{{ $url }}" class="w-full h-full" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                                     </div>
                                     @elseif($fileSource)
                                     <div class="aspect-video w-full max-w-xl overflow-hidden rounded-xl bg-black border dark:border-white/10 border-slate-200">
@@ -200,35 +195,13 @@
                                     </div>
                                     @endif
 
-                                    @elseif($type === 'pdf')
+                                    @elseif($type === 'pdf' || $type === 'link')
                                     @if($source)
-                                    <a href="{{ $source }}"
-                                        target="_blank"
-                                        class="flex items-center gap-3 p-3 rounded-xl border dark:border-white/5 border-slate-200 dark:bg-[#0f0a19] bg-slate-50 hover:border-primary hover:bg-primary/5 transition">
-
-                                        <div class="w-9 h-9 rounded-lg bg-cyan-500/10 text-cyan-500 flex items-center justify-center shrink-0">
-                                            <i class="fa-regular fa-file-pdf"></i>
-                                        </div>
-
-                                        <div>
-                                            <p class="text-xs font-bold text-primary">
-                                                {{ $lesson->lessons_title }}
-                                            </p>
-                                            <p class="text-[10px] dark:text-slate-500 text-slate-400">
-                                                PDF
-                                            </p>
-                                        </div>
-                                    </a>
-                                    @endif
-
-                                    @elseif($type === 'link')
-                                    @if($source)
-                                    <a href="{{ $source }}"
-                                        target="_blank"
-                                        class="flex items-center gap-3 p-3 rounded-xl border dark:border-white/5 border-slate-200 dark:bg-[#0f0a19] bg-slate-50 hover:border-primary hover:bg-primary/5 transition">
-
-                                        <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                                            <i class="fa-solid fa-link"></i>
+                                    <a href="{{ $source }}" target="_blank"
+                                        class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0b0a1a] bg-slate-50 border dark:border-white/5 border-slate-200 hover:border-primary/50 transition">
+                                        
+                                        <div class="w-10 h-10 rounded-lg dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 text-{{ $type === 'pdf' ? 'cyan' : 'primary' }}-500 flex items-center justify-center shrink-0">
+                                            <i class="{{ $type === 'pdf' ? 'fa-regular fa-file-pdf' : 'fa-solid fa-link' }} text-lg"></i>
                                         </div>
 
                                         <div class="min-w-0">
@@ -236,13 +209,122 @@
                                                 {{ $lesson->lessons_title }}
                                             </p>
                                             <p class="text-[10px] dark:text-slate-500 text-slate-400 truncate">
-                                                {{ $source }}
+                                                {{ $type === 'pdf' ? 'PDF' : $source }}
                                             </p>
                                         </div>
                                     </a>
                                     @endif
                                     @endif
                                     @endforeach
+                                </div>
+                                @endif
+
+                            </div>
+                            @endforeach
+                        </div>
+                        @endif
+
+                        {{-- Tugas Akhir yang sudah ada --}}
+                        @if($isLastSession && $session->finalProjects->count() > 0)
+                        <div class="mb-5 space-y-4">
+                            <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500">
+                                Modul Tugas Akhir
+                            </p>
+
+                            @foreach($session->finalProjects as $project)
+                            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                                
+                                {{-- Top Section: Details & Buttons --}}
+                                <div class="p-4 flex items-start justify-between gap-4">
+                                    <div class="min-w-0">
+                                        <h4 class="text-sm font-black dark:text-white text-slate-800">
+                                            {{ $project->title ?? 'Tugas Akhir' }}
+                                        </h4>
+
+                                        <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-1">
+                                            {{ $project->description ?? 'Tidak ada deskripsi.' }}
+                                        </p>
+
+                                        {{-- Duration and Format Info --}}
+                                        <div class="flex flex-wrap gap-2 mt-3">
+                                            @if(!empty($project->duration_days))
+                                            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg dark:bg-[#0b0a1a] bg-slate-100 text-slate-500 text-[10px] font-bold border dark:border-white/5 border-slate-200">
+                                                <i class="fa-regular fa-clock text-emerald-500"></i>
+                                                {{ $project->duration_days }} Hari
+                                            </div>
+                                            @endif
+
+                                            @if(!empty($project->allowed_format))
+                                            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg dark:bg-[#0b0a1a] bg-slate-100 text-slate-500 text-[10px] font-bold uppercase border dark:border-white/5 border-slate-200">
+                                                <i class="fa-solid fa-file-circle-check text-sky-500"></i>
+                                                {{ $project->allowed_format }}
+                                            </div>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    {{-- Action Buttons --}}
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        <a href=""
+                                            class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center hover:bg-amber-500 hover:text-white transition">
+                                            <i class="fa-solid fa-pen text-xs"></i>
+                                        </a>
+
+                                        <button type="submit"
+                                            form="delete-project-{{ $project->id }}"
+                                            onclick="return confirm('Yakin ingin menghapus Tugas Akhir ini?')"
+                                            class="w-9 h-9 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition">
+                                            <i class="fa-solid fa-trash text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {{-- Bottom Section: File & Link Upload Preview --}}
+                                @if(!empty($project->file_path) || !empty($project->link_url))
+                                <div class="px-4 pb-4 space-y-3">
+                                    
+                                    {{-- File Preview (Styled like the PDF link in the reference image) --}}
+                                    @if(!empty($project->file_path))
+                                    <a href="{{ asset('storage/' . $project->file_path) }}"
+                                        target="_blank"
+                                        class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0b0a1a] bg-slate-50 border dark:border-white/5 border-slate-200 hover:border-primary/50 transition">
+                                        
+                                        <div class="w-10 h-10 rounded-lg dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 text-cyan-500 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-file-pdf text-lg"></i>
+                                        </div>
+
+                                        <div class="min-w-0">
+                                            <p class="text-xs font-bold text-primary truncate">
+                                                {{ $project->title ?? 'Lampiran Tugas Akhir' }}
+                                            </p>
+                                            <p class="text-[10px] dark:text-slate-500 text-slate-400 truncate uppercase">
+                                                FILE DOCUMENT
+                                            </p>
+                                        </div>
+                                    </a>
+                                    @endif
+
+                                    {{-- Link Preview --}}
+                                    @if(!empty($project->link_url))
+                                    <a href="{{ $project->link_url }}"
+                                        target="_blank"
+                                        class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0b0a1a] bg-slate-50 border dark:border-white/5 border-slate-200 hover:border-primary/50 transition">
+                                        
+                                        <div class="w-10 h-10 rounded-lg dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 text-primary flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-link text-lg"></i>
+                                        </div>
+
+                                        <div class="min-w-0">
+                                            <p class="text-xs font-bold text-primary truncate">
+                                                Tautan Referensi Tambahan
+                                            </p>
+                                            <p class="text-[10px] dark:text-slate-500 text-slate-400 truncate">
+                                                {{ $project->link_url }}
+                                            </p>
+                                        </div>
+                                    </a>
+                                    @endif
+
                                 </div>
                                 @endif
 
@@ -325,16 +407,16 @@
                             </button>
                             @endif
 
-                            {{-- Final Project --}}
+                            {{-- Tugas Akhir --}}
                             @if($canCreateFinalProject)
                             <a href="{{ route('mentor.sessions.projects.create', $session->id) }}"
                                 class="px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-500 text-[9px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition">
-                                + Final Project
+                                + Tugas Akhir
                             </a>
                             @else
                             <button type="button"
                                 class="px-4 py-2 rounded-xl bg-slate-500/10 text-slate-500 text-[9px] font-black uppercase tracking-widest cursor-not-allowed">
-                                Final Project Tidak Tersedia
+                                Tugas Akhir Tidak Tersedia
                             </button>
                             @endif
 
@@ -359,7 +441,6 @@
         </form>
 
         {{-- FORM DELETE LESSON --}}
-        {{-- Taruh di luar form utama supaya DELETE tidak masuk ke route sessions.update --}}
         @foreach($course->sessions as $session)
         @foreach($session->lessons as $lesson)
         <form id="delete-lesson-{{ $lesson->id }}"
@@ -373,7 +454,6 @@
         @endforeach
 
         {{-- FORM DELETE EXERCISE --}}
-        {{-- Taruh di luar form utama supaya DELETE tidak masuk ke route sessions.update --}}
         @foreach($course->sessions as $session)
         @foreach($session->exercises as $exercise)
         <form id="delete-exercise-{{ $exercise->id }}"
@@ -387,7 +467,6 @@
         @endforeach
 
         {{-- FORM CREATE EXERCISE --}}
-        {{-- Taruh di luar form utama supaya POST create kuis tidak masuk ke route sessions.update --}}
         @foreach($course->sessions as $session)
         <form id="create-exercise-{{ $session->id }}"
             action="{{ route('mentor.sessions.exercises.storeEmpty', $session->id) }}"
@@ -395,6 +474,19 @@
             class="hidden">
             @csrf
         </form>
+        @endforeach
+
+        {{-- FORM DELETE TUGAS AKHIR --}}
+        @foreach($course->sessions as $session)
+        @foreach($session->finalProjects as $project)
+        <form id="delete-project-{{ $project->id }}"
+            action="{{ route('mentor.projects.destroy', $project->id) }}"
+            method="POST"
+            class="hidden">
+            @csrf
+            @method('DELETE')
+        </form>
+        @endforeach
         @endforeach
 
     </div>

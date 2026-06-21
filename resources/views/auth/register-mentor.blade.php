@@ -62,7 +62,15 @@
 
     <div class="max-w-5xl mx-auto">
         <div class="mb-4">
-            <img src="{{asset('images/logo.png')}}" alt="logo" class="w-24 h-24 object-contain">
+            <img
+                src="{{ asset('images/logo-light.png') }}"
+                alt="logo"
+                class="w-24 h-24 object-contain dark:hidden">
+
+            <img
+                src="{{ asset('images/logo-dark.png') }}"
+                alt="logo"
+                class="w-24 h-24 object-contain hidden dark:block">
         </div>
 
         <div class="mb-10">
@@ -227,7 +235,17 @@
                 <div class="flex items-start gap-3 max-w-2xl">
                     <input type="checkbox" id="terms" class="mt-1 w-4 h-4 accent-primary rounded cursor-pointer">
                     <label for="terms" class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-medium cursor-pointer">
-                        Saya mengonfirmasi bahwa data yang diisi adalah benar, dan saya menyetujui <span class="text-primary font-bold">Syarat Layanan</span> serta <span class="text-primary font-bold">Kebijakan Privasi</span> clearn.
+                        Saya mengonfirmasi bahwa data yang diisi adalah benar, dan saya menyetujui
+                        <button type="button"
+                            onclick="document.getElementById('termsModal').classList.remove('hidden')"
+                            class="text-[#7C3AED] font-bold hover:underline">
+                            Syarat Layanan
+                        </button> serta
+                        <button type="button"
+                            onclick="document.getElementById('conModal').classList.remove('hidden')"
+                            class="text-[#7C3AED] font-bold hover:underline">
+                            Kebijakan Privasi
+                        </button> clearn.
                     </label>
                 </div>
             </div>
@@ -252,6 +270,118 @@
             localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         });
     </script>
+    {{-- Modal Syarat Layanan --}}
+    <div id="termsModal"
+        class="fixed inset-0 z-[200] flex items-center justify-center hidden p-4 bg-black/30 backdrop-blur-sm">
+
+        <div
+            class="overflow-y-auto scrollbar-hide bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
+
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold dark:text-white">Syarat Layanan</h2>
+                <button onclick="document.getElementById('termsModal').classList.add('hidden')"
+                    class="text-gray-400 hover:text-[#7C3AED]">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="overflow-y-auto pr-2 space-y-5 text-sm text-slate-600 dark:text-gray-400 leading-relaxed font-medium">
+
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <p class="text-xs text-slate-500 italic">Terakhir diperbarui: 27-04-2026</p>
+                    <p class="mt-2 text-xs">
+                        Dengan menggunakan platform clearn, pengguna dianggap telah membaca, memahami, dan menyetujui
+                        syarat layanan berikut.
+                    </p>
+                </div>
+
+                <section>
+                    <h4 class="font-bold text-slate-800 dark:text-white mb-2">1. Penggunaan Layanan</h4>
+                    <ul class="list-disc ml-4 space-y-1 text-xs">
+                        <li>Layanan digunakan sesuai hukum yang berlaku</li>
+                        <li>Dilarang menyalahgunakan sistem</li>
+                        <li>Menjaga keamanan akun dan kata sandi</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h4 class="font-bold text-slate-800 dark:text-white mb-2">2. Akun & Pendaftaran</h4>
+                    <p class="text-xs">
+                        Pengguna wajib memberikan data yang benar dan bertanggung jawab atas aktivitas akun.
+                    </p>
+                </section>
+
+                <section>
+                    <h4 class="font-bold text-slate-800 dark:text-white mb-2">3. Penangguhan Akun</h4>
+                    <p class="text-xs">
+                        clearn berhak menangguhkan atau menghapus akun yang melanggar ketentuan.
+                    </p>
+                </section>
+
+            </div>
+
+            <button type="button"
+                onclick="document.getElementById('termsModal').classList.add('hidden')"
+                class="mt-6 w-full py-2.5 bg-[#7C3AED] text-white rounded-xl font-bold text-xs hover:bg-[#6d34d1] transition-all">
+                Saya Mengerti
+            </button>
+        </div>
+    </div>
+
+    {{-- Modal Kebijakan Privasi --}}
+    <div id="conModal"
+        class="fixed inset-0 z-[200] flex items-center justify-center hidden p-4 bg-black/30 backdrop-blur-sm">
+
+        <div
+            class="overflow-y-auto scrollbar-hide bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
+
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold dark:text-white">Kebijakan Privasi</h2>
+                <button onclick="document.getElementById('conModal').classList.add('hidden')"
+                    class="text-gray-400 hover:text-[#7C3AED]">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="overflow-y-auto pr-2 space-y-5 text-sm text-slate-600 dark:text-gray-400 leading-relaxed font-medium">
+
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <p class="text-xs text-slate-500 italic">Terakhir diperbarui: 27-04-2026</p>
+                    <p class="mt-2 text-xs">
+                        clearn menghargai privasi pengguna dan berkomitmen melindungi data pribadi.
+                    </p>
+                </div>
+
+                <section>
+                    <h4 class="font-bold text-slate-800 dark:text-white mb-2">1. Data yang Dikumpulkan</h4>
+                    <p class="text-xs">
+                        Nama, email, data akun, dan aktivitas pembelajaran.
+                    </p>
+                </section>
+
+                <section>
+                    <h4 class="font-bold text-slate-800 dark:text-white mb-2">2. Penggunaan Data</h4>
+                    <p class="text-xs">
+                        Data digunakan untuk pengelolaan akun dan peningkatan layanan.
+                    </p>
+                </section>
+
+                <section>
+                    <h4 class="font-bold text-slate-800 dark:text-white mb-2">3. Keamanan</h4>
+                    <p class="text-xs">
+                        Data dilindungi dengan sistem keamanan dan enkripsi.
+                    </p>
+                </section>
+
+            </div>
+
+            <button type="button"
+                onclick="document.getElementById('conModal').classList.add('hidden')"
+                class="mt-6 w-full py-2.5 bg-[#7C3AED] text-white rounded-xl font-bold text-xs hover:bg-[#6d34d1] transition-all">
+                Saya Mengerti
+            </button>
+        </div>
+    </div>
 </body>
 
 </html>

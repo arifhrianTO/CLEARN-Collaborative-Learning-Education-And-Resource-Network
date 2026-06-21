@@ -148,7 +148,7 @@ class CourseController extends Controller
             for ($i = 1; $i <= $validated['session_count']; $i++) {
                 Session::create([
                     'course_id' => $course->id,
-                    'sessions_title' => 'Session ' . $i,
+                    'sessions_title' => 'Pertemuan ' . $i,
                     'sessions_description' => null,
                 ]);
             }
@@ -449,7 +449,7 @@ class CourseController extends Controller
             if ($session->lessons->isEmpty()) {
                 return back()->with(
                     'error',
-                    "Session {$sessionNumber} belum memiliki lesson."
+                    "Pertemuan {$sessionNumber} belum memiliki Materi."
                 );
             }
 
@@ -457,7 +457,7 @@ class CourseController extends Controller
                 if ($lesson->materials->isEmpty()) {
                     return back()->with(
                         'error',
-                        "Lesson \"{$lesson->lessons_title}\" pada Session {$sessionNumber} belum memiliki materi."
+                        "Pelajaran \"{$lesson->lessons_title}\" pada Pertemuan {$sessionNumber} belum memiliki materi."
                     );
                 }
             }

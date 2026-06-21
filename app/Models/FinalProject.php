@@ -13,13 +13,12 @@ class FinalProject extends Model
         'sessions_id',
         'project_title',
         'project_description',
-        'start_date',
-        'due_date',
+        'duration_days',
+        'allowed_extensions',
     ];
 
     protected $casts = [
-        'start_date' => 'datetime',
-        'due_date'   => 'datetime',
+        'duration_days' => 'integer',
     ];
 
     // ─── Relationships ────────────────────────────────────────────────────────

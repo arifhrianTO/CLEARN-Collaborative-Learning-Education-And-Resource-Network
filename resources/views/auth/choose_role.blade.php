@@ -21,7 +21,15 @@
 
     <div class="flex justify-center mb-1">
         <div class="mb-1">
-            <img src="{{ asset('images/logo.png') }}" alt="logo" class="w-20 h-20 object-contain">
+            <img
+                src="{{ asset('images/logo-light.png') }}"
+                alt="logo"
+                class="w-20 h-20 object-contain dark:hidden">
+
+            <img
+                src="{{ asset('images/logo-dark.png') }}"
+                alt="logo"
+                class="w-20 h-20 object-contain hidden dark:block">
         </div>
     </div>
 

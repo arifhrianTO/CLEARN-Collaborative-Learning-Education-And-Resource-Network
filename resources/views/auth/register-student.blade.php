@@ -33,7 +33,15 @@
 
             {{-- Logo --}}
             <div class="flex mb-0 justify-center lg:justify-start">
-                <img src="{{ asset('images/logo.png') }}" alt="logo" class="w-14 h-14 object-contain">
+                <img
+                    src="{{ asset('images/logo-light.png') }}"
+                    alt="logo"
+                    class="w-14 h-14 object-contain dark:hidden">
+
+                <img
+                    src="{{ asset('images/logo-dark.png') }}"
+                    alt="logo"
+                    class="w-14 h-14 object-contain hidden dark:block">
             </div>
 
             {{-- Header --}}
@@ -120,10 +128,9 @@
             </form>
 
             {{-- Login Link --}}
-            <div class="mt-5 text-center text-xs">
-                <span class="text-slate-500 dark:text-gray-400">Sudah punya akun?</span>
-
-                <a href="{{ route('login') }}" class="text-[#7C3AED] hover:underline font-extrabold ml-1">
+            <div class="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
+                Sudah punya akun?
+                <a href="{{ route('login') }}" class="text-primary font-bold hover:underline ml-1">
                     Masuk
                 </a>
             </div>

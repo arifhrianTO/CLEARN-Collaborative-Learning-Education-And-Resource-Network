@@ -9,6 +9,7 @@ use App\Models\LessonMaterial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class LessonController extends Controller
 {
@@ -16,7 +17,7 @@ class LessonController extends Controller
     {
         $session->load('course.sessions');
 
-        if ($session->course->mentor_id !== auth()->id()) {
+        if ($session->course->mentor_id !==  Auth::id()) {
             abort(403);
         }
 
@@ -33,7 +34,7 @@ class LessonController extends Controller
     {
         $session->load('course.sessions');
 
-        if ($session->course->mentor_id !== auth()->id()) {
+        if ($session->course->mentor_id !==  Auth::id()) {
             abort(403);
         }
 
@@ -73,7 +74,7 @@ class LessonController extends Controller
     {
         $lesson->load('session.course.sessions', 'materials');
 
-        if ($lesson->session->course->mentor_id !== auth()->id()) {
+        if ($lesson->session->course->mentor_id !== Auth::id()) {
             abort(403);
         }
 
@@ -90,7 +91,7 @@ class LessonController extends Controller
     {
         $lesson->load('session.course.sessions', 'materials');
 
-        if ($lesson->session->course->mentor_id !== auth()->id()) {
+        if ($lesson->session->course->mentor_id !==  Auth::id()) {
             abort(403);
         }
 
@@ -125,7 +126,7 @@ class LessonController extends Controller
     {
         $lesson->load('session.course', 'materials');
 
-        if ($lesson->session->course->mentor_id !== auth()->id()) {
+        if ($lesson->session->course->mentor_id !==  Auth::id()) {
             abort(403);
         }
 

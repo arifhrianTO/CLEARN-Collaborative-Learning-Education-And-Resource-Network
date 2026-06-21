@@ -9,8 +9,15 @@
     <div class="flex items-center justify-center px-4 py-12">
         <div class="w-full max-w-md">
 
-            <img src="{{ asset('images/logo.png') }}" alt="logo"
-                class="w-16 h-16 mb-8 object-contain">
+            <img
+                src="{{ asset('images/logo-light.png') }}"
+                alt="logo"
+                class="w-16 h-16 mb-8 object-contain dark:hidden">
+
+            <img
+                src="{{ asset('images/logo-dark.png') }}"
+                alt="logo"
+                class="w-16 h-16 mb-8 object-contain hidden dark:block">
 
             <h1 class="text-3xl font-bold mb-8">Selamat Datang Kembali</h1>
 

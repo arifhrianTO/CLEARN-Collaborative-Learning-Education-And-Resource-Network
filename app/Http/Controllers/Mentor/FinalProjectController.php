@@ -8,6 +8,7 @@ use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class FinalProjectController extends Controller
 {
@@ -168,15 +169,17 @@ class FinalProjectController extends Controller
                 'string',
             ],
 
-            'start_date' => [
+            'duration_days' => [
                 'required',
-                'date',
+                'integer',
+                'min:1',
+                'max:365',
             ],
 
-            'due_date' => [
+            'allowed_extensions' => [
                 'required',
-                'date',
-                'after_or_equal:start_date',
+                'string',
+                Rule::in(['.zip,.rar', '.pdf', '.zip,.rar,.pdf']),
             ],
 
             'material_type' => [
@@ -229,14 +232,23 @@ class FinalProjectController extends Controller
                 'project_description.required' =>
                 'Panduan atau deskripsi Final Project wajib diisi.',
 
-                'start_date.required' =>
-                'Tanggal mulai wajib diisi.',
+                'duration_days.required' =>
+                'Durasi pengerjaan wajib diisi.',
 
-                'due_date.required' =>
-                'Batas pengumpulan wajib diisi.',
+                'duration_days.integer' =>
+                'Durasi pengerjaan harus berupa angka.',
 
-                'due_date.after_or_equal' =>
-                'Batas pengumpulan tidak boleh sebelum tanggal mulai.',
+                'duration_days.min' =>
+                'Durasi pengerjaan minimal 1 hari.',
+
+                'duration_days.max' =>
+                'Durasi pengerjaan maksimal 365 hari.',
+
+                'allowed_extensions.required' =>
+                'Format file yang diizinkan wajib dipilih.',
+
+                'allowed_extensions.in' =>
+                'Format file yang dipilih tidak valid.',
 
                 'material_file.required' =>
                 'File panduan wajib dipilih.',
@@ -266,11 +278,11 @@ class FinalProjectController extends Controller
             |--------------------------------------------------------------------------
             */
             $finalProject = FinalProject::create([
-                'sessions_id'        => $session->id,
+                'sessions_id'         => $session->id,
                 'project_title'       => $validated['project_title'],
                 'project_description' => $validated['project_description'],
-                'start_date'          => $validated['start_date'],
-                'due_date'            => $validated['due_date'],
+                'duration_days'       => $validated['duration_days'],
+                'allowed_extensions'  => $validated['allowed_extensions'],
             ]);
 
             /*

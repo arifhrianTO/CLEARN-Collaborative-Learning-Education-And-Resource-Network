@@ -183,51 +183,6 @@
                                 <li>Paste di kolom Nama Ikon.</li>
                             </ol>
                         </div>
-
-                        {{-- Contoh icon --}}
-                        <div class="p-4 bg-slate-50 dark:bg-[#0f0a19] rounded-xl border dark:border-white/5">
-                            <h4 class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">
-                                Contoh Icon:
-                            </h4>
-
-                            <div class="grid grid-cols-3 gap-2 text-center">
-                                <button type="button"
-                                    onclick="setIcon('fa-code')"
-                                    class="p-2 rounded-lg bg-white dark:bg-[#161525] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
-                                    <i class="fas fa-code text-[#7C3AED]"></i>
-                                </button>
-
-                                <button type="button"
-                                    onclick="setIcon('fa-book')"
-                                    class="p-2 rounded-lg bg-white dark:bg-[#161525] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
-                                    <i class="fas fa-book text-[#7C3AED]"></i>
-                                </button>
-
-                                <button type="button"
-                                    onclick="setIcon('fa-laptop-code')"
-                                    class="p-2 rounded-lg bg-white dark:bg-[#161525] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
-                                    <i class="fas fa-laptop-code text-[#7C3AED]"></i>
-                                </button>
-
-                                <button type="button"
-                                    onclick="setIcon('fa-palette')"
-                                    class="p-2 rounded-lg bg-white dark:bg-[#161525] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
-                                    <i class="fas fa-palette text-[#7C3AED]"></i>
-                                </button>
-
-                                <button type="button"
-                                    onclick="setIcon('fa-chart-line')"
-                                    class="p-2 rounded-lg bg-white dark:bg-[#161525] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
-                                    <i class="fas fa-chart-line text-[#7C3AED]"></i>
-                                </button>
-
-                                <button type="button"
-                                    onclick="setIcon('fa-database')"
-                                    class="p-2 rounded-lg bg-white dark:bg-[#161525] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
-                                    <i class="fas fa-database text-[#7C3AED]"></i>
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
 

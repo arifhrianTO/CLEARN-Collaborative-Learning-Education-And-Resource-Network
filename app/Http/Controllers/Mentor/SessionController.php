@@ -16,9 +16,9 @@ class SessionController extends Controller
         }
 
         $course->load([
-            'sessions.lessons',
-            'sessions.exercises',
-            'sessions.finalProjects',
+            'sessions.lessons.materials',
+            'sessions.exercises.questions',
+            'sessions.finalProjects.materials',
         ]);
 
         return view('mentor.sessions.edit-by-course', compact('course'));
@@ -31,9 +31,9 @@ class SessionController extends Controller
         }
 
         $request->validate([
-            'sessions' => 'required|array',
-            'sessions.*.id' => 'required|exists:sessions,id',
-            'sessions.*.sessions_title' => 'required|string|max:255',
+            'sessions'                        => 'required|array',
+            'sessions.*.id'                   => 'required|exists:sessions,id',
+            'sessions.*.sessions_title'       => 'required|string|max:255',
             'sessions.*.sessions_description' => 'nullable|string',
         ]);
 
@@ -44,7 +44,7 @@ class SessionController extends Controller
 
             if ($session) {
                 $session->update([
-                    'sessions_title' => $sessionData['sessions_title'],
+                    'sessions_title'       => $sessionData['sessions_title'],
                     'sessions_description' => $sessionData['sessions_description'] ?? null,
                 ]);
             }

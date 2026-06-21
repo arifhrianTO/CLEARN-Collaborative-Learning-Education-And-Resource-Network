@@ -14,10 +14,14 @@ class FinalProjectResult extends Model
         'enrollment_id',
         'final_project_score',
         'submission_file',
+        'deadline',
+        'started_at',
     ];
 
     protected $casts = [
         'final_project_score' => 'integer',
+        'deadline'            => 'datetime',
+        'started_at'          => 'datetime',
     ];
 
     // ─── Relationships ────────────────────────────────────────────────────────

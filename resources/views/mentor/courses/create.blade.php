@@ -78,7 +78,8 @@
                             rows="5"
                             required
                             placeholder="Jelaskan isi dan tujuan kursus ini..."
-                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">{{ old('course_description') }}</textarea>
+                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition overflow-hidden resize-none"
+                            oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">{{ old('course_description') }}</textarea>
                     </div>
 
                     {{-- Kategori --}}

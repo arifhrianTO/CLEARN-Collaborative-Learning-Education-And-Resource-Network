@@ -11,10 +11,10 @@ return new class extends Migration
         Schema::create('final_projects', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sessions_id')->constrained('sessions')->cascadeOnDelete();
-            $table->string('project_title');
+            $table->string('project_title')->nullable();
             $table->text('project_description')->nullable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('due_date')->nullable();
+            $table->integer('duration_days')->nullable();
+            $table->string('allowed_extensions')->nullable();
             $table->timestamps();
         });
     }

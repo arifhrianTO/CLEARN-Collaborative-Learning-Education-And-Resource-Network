@@ -35,16 +35,14 @@ class User extends Authenticatable
 
     // ─── Relationships ────────────────────────────────────────────────────────
 
-    /** Wallet milik user ini (1-to-1) */
     public function wallet()
     {
         return $this->hasOne(Wallet::class);
     }
 
-    /** Rekening bank milik user ini (1-to-many) */
     public function banks()
     {
-        return $this->hasMany(Bank::class);
+        return $this->hasOne(Bank::class);
     }
 
     /** Profil akun (mentor/student) */

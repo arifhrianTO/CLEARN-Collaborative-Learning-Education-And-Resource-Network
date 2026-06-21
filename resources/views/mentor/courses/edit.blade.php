@@ -79,7 +79,8 @@
                             rows="5"
                             required
                             placeholder="Jelaskan isi dan tujuan course ini..."
-                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">{{ old('course_description', $course->course_description) }}</textarea>
+                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition overflow-hidden resize-none"
+                            oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">{{ old('course_description', $course->course_description) }}</textarea>
                     </div>
 
                     {{-- Kategori --}}
@@ -179,5 +180,20 @@
 
     </div>
 </main>
+
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cari textarea berdasarkan namanya
+        let descTextarea = document.querySelector('textarea[name="course_description"]');
+        
+        // Jika ditemukan dan ada isinya, sesuaikan tinggi kotak dengan tinggi teks (scrollHeight)
+        if (descTextarea) {
+            descTextarea.style.height = 'auto';
+            descTextarea.style.height = descTextarea.scrollHeight + 'px';
+        }
+    });
+</script>
+@endpush
 
 @endsection
