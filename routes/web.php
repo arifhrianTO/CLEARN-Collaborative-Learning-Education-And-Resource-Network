@@ -152,5 +152,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/settings', fn() => view('settings.settings'))->name('settings');
         });
 });
-
+Route::get('/checkout', function () {
+    return view('student.courses.checkout');
+});
 require __DIR__ . '/auth.php';

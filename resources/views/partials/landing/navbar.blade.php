@@ -1,6 +1,14 @@
 <nav class="nav-landing">
     <div class="flex items-center">
-        <img src="{{ asset('images/logo.png') }}" alt="logo" class="h-12 w-auto object-contain">
+        <img
+            src="{{ asset('images/logo-light.png') }}"
+            alt="logo"
+            class="h-12 w-auto object-contain dark:hidden">
+
+        <img
+            src="{{ asset('images/logo-dark.png') }}"
+            alt="logo"
+            class="h-12 w-auto object-contain hidden dark:block">
     </div>
 
     <div class="hidden md:flex gap-8 text-sm font-semibold">

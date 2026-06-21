@@ -14,6 +14,8 @@ return new class extends Migration
             $table->foreignId('enrollment_id')->constrained('enrollments')->cascadeOnDelete();
             $table->integer('final_project_score')->nullable();
             $table->string('submission_file')->nullable();
+            $table->dateTime('started_at')->nullable();
+            $table->dateTime('deadline')->nullable();
             $table->timestamps();
         });
     }
