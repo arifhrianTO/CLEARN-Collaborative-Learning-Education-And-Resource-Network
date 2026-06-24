@@ -10,8 +10,7 @@
     name="{{ auth()->user()->name }}"
     initials="{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}"
     photo="{{ auth()->user()->profile_picture }}"
-    active="mentor-verification" 
-/>
+    active="mentor-verification" />
 
 <!-- Content -->
 <main class="flex-1 p-6 pt-10">
@@ -42,11 +41,11 @@
             @forelse($pendingMentors as $item)
 
             {{-- Card --}}
-            <div class="card-bg p-7 rounded-[2rem] flex flex-col transition-all hover:border-primary/30 group">
+            <div class="card-bg p-7 rounded-[2rem] flex flex-col border border-slate-200/60 dark:border-white/10 transition-all hover:border-primary/30 group">
 
-                {{-- Profil --}}
-                <div class="flex items-center gap-4 mb-7">
-                    <div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-primary/20 overflow-hidden">
+                {{-- Header --}}
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-primary/20 overflow-hidden shrink-0">
                         @if($item->profile_picture)
                         <img
                             src="{{ asset('storage/' . $item->profile_picture) }}"
@@ -57,101 +56,86 @@
                         @endif
                     </div>
 
-                    <div class="flex-1 min-w-0">
+                    <div class="min-w-0">
                         <h3 class="font-bold text-[15px] truncate">
                             {{ trim(($item->profileAccount?->front_title ?? '') . ' ' . ($item->name ?? 'Tanpa Nama') . ' ' . ($item->profileAccount?->back_title ?? '')) }}
                         </h3>
 
                         <p class="text-[10px] text-primary font-extrabold uppercase tracking-[0.15em] mt-0.5">
-                            {{ $item->profileAccount?->expertise ?? 'PENDING MENTOR' }}
+                            {{ $item->profileAccount?->expertise ?? 'Pending Mentor' }}
                         </p>
                     </div>
                 </div>
 
-                {{-- Links --}}
-                <div class="grid grid-cols-3 gap-2 mb-7">
-                    <a href="{{ $item->profileAccount?->linkedin_link ?? '#' }}"
-                        target="_blank"
-                        class="flex flex-col items-center p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-blue-500/10 transition-colors">
+                {{-- Bio --}}
+                <div class="mb-6">
+                    <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                        {{ $item->profileAccount?->bio ?? 'Bio mentor belum tersedia.' }}
+                    </p>
+                </div>
+
+                {{-- Social Links --}}
+                <div class="grid grid-cols-3 gap-2 mb-6">
+                    <a href="{{ $item->profileAccount?->linkedin_link ?? '#' }}" target="_blank"
+                        class="flex flex-col items-center p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-blue-500/10 transition">
                         <i class="fab fa-linkedin text-blue-500 mb-1"></i>
                         <span class="text-[8px] font-bold text-slate-400">LINKEDIN</span>
                     </a>
 
-                    <a href="{{ $item->profileAccount?->sinta_link ?? '#' }}"
-                        target="_blank"
-                        class="flex flex-col items-center p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-emerald-500/10 transition-colors">
+                    <a href="{{ $item->profileAccount?->sinta_link ?? '#' }}" target="_blank"
+                        class="flex flex-col items-center p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-emerald-500/10 transition">
                         <i class="fas fa-graduation-cap text-emerald-500 mb-1"></i>
                         <span class="text-[8px] font-bold text-slate-400">SINTA</span>
                     </a>
 
-                    <a href="{{ $item->profileAccount?->scopus_link ?? '#' }}"
-                        target="_blank"
-                        class="flex flex-col items-center p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-orange-500/10 transition-colors">
+                    <a href="{{ $item->profileAccount?->scopus_link ?? '#' }}" target="_blank"
+                        class="flex flex-col items-center p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-orange-500/10 transition">
                         <i class="fas fa-link text-orange-500 mb-1"></i>
                         <span class="text-[8px] font-bold text-slate-400">SCOPUS</span>
                     </a>
                 </div>
 
-                {{-- Dokumen --}}
-                <div class="space-y-2 mb-8">
+                {{-- Documents --}}
+                <div class="space-y-2 mb-7">
                     <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">
                         Dokumen Pendukung
                     </label>
 
-                    @if($item->profileAccount?->cv_file)
-                    <a href="{{ asset('storage/' . $item->profileAccount->cv_file) }}"
-                        target="_blank"
-                        class="flex items-center justify-between p-3.5 px-4 rounded-xl bg-slate-100 dark:bg-white/5 text-[11px] font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition-all">
-                        <span>CV & Identitas</span>
-                        <i class="fa-solid fa-file-pdf"></i>
-                    </a>
-                    @else
-                    <div class="flex items-center justify-between p-3.5 px-4 rounded-xl bg-slate-100 dark:bg-white/5 text-[11px] font-bold text-slate-400">
-                        <span>CV belum diupload</span>
-                        <i class="fa-solid fa-circle-xmark"></i>
-                    </div>
-                    @endif
+                    @php
+                    $documents = [
+                    ['file' => $item->profileAccount?->cv_file, 'label' => 'CV & Identitas'],
+                    ['file' => $item->profileAccount?->diploma_file, 'label' => 'Ijazah Terakhir'],
+                    ['file' => $item->profileAccount?->certificate_file, 'label' => 'Gabungan Sertifikat'],
+                    ];
+                    @endphp
 
-                    @if($item->profileAccount?->diploma_file)
-                    <a href="{{ asset('storage/' . $item->profileAccount->diploma_file) }}"
-                        target="_blank"
-                        class="flex items-center justify-between p-3.5 px-4 rounded-xl bg-slate-100 dark:bg-white/5 text-[11px] font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition-all">
-                        <span>Ijazah Terakhir</span>
+                    @foreach($documents as $doc)
+                    @if($doc['file'])
+                    <a href="{{ asset('storage/' . $doc['file']) }}" target="_blank"
+                        class="flex items-center justify-between p-3.5 px-4 rounded-xl bg-slate-100 dark:bg-white/5 text-[11px] font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition">
+                        <span>{{ $doc['label'] }}</span>
                         <i class="fa-solid fa-file-pdf"></i>
                     </a>
                     @else
                     <div class="flex items-center justify-between p-3.5 px-4 rounded-xl bg-slate-100 dark:bg-white/5 text-[11px] font-bold text-slate-400">
-                        <span>Ijazah belum diupload</span>
+                        <span>{{ $doc['label'] }} belum diupload</span>
                         <i class="fa-solid fa-circle-xmark"></i>
                     </div>
                     @endif
-
-                    @if($item->profileAccount?->certificate_file)
-                    <a href="{{ asset('storage/' . $item->profileAccount->certificate_file) }}"
-                        target="_blank"
-                        class="flex items-center justify-between p-3.5 px-4 rounded-xl bg-slate-100 dark:bg-white/5 text-[11px] font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition-all">
-                        <span>Gabungan Sertifikat</span>
-                        <i class="fa-solid fa-file-pdf"></i>
-                    </a>
-                    @else
-                    <div class="flex items-center justify-between p-3.5 px-4 rounded-xl bg-slate-100 dark:bg-white/5 text-[11px] font-bold text-slate-400">
-                        <span>Sertifikat belum diupload</span>
-                        <i class="fa-solid fa-circle-xmark"></i>
-                    </div>
-                    @endif
+                    @endforeach
                 </div>
 
-                {{-- Buttons --}}
+                {{-- Actions --}}
                 <div class="mt-auto grid grid-cols-2 gap-3">
-                    <button type="button"
+                    <button
                         onclick="confirmApprove('{{ $item->id }}')"
-                        class="w-full py-3.5 bg-primary text-white text-[11px] font-extrabold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all active:scale-95">
+                        class="py-3.5 bg-primary text-white text-[11px] font-extrabold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 transition active:scale-95">
                         TERIMA
                     </button>
 
-                    <button type="button"
+                    <button
                         onclick="confirmReject('{{ $item->id }}')"
-                        class="w-full py-3.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-[11px] font-extrabold rounded-xl hover:bg-red-500 hover:text-white hover:border-red-500 transition-all active:scale-95">
+                        class="py-3.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-[11px] font-extrabold rounded-xl hover:bg-red-500 hover:text-white hover:border-red-500 transition active:scale-95">
                         TOLAK
                     </button>
                 </div>

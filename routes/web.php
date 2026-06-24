@@ -69,8 +69,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/settings/password', [ProfileController::class, 'updatePassword'])
         ->name('settings.password.update');
 
-    Route::delete('/settings/account', [ProfileController::class, 'destroy'])
-        ->name('settings.account.destroy');
+    Route::patch('/settings/bank', [ProfileController::class, 'updateBank'])
+    ->name('settings.bank.update');
 
     Route::middleware('role:student')
         ->prefix('student')

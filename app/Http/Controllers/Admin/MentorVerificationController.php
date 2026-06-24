@@ -3,37 +3,99 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\RejectMentorRequest;
-use App\Services\Admin\MentorVerificationService;
+use App\Models\DetailVerify;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class MentorVerificationController extends Controller
 {
-    public function __construct(
-        private readonly MentorVerificationService $mentorVerificationService
-    ) {}
-
+    /**
+     * List mentor pending
+     */
     public function index(): View
     {
-        $pendingMentors = $this->mentorVerificationService->getPendingMentors();
+        $pendingMentors = User::with(['profileAccount', 'verifyRecord'])
+            ->where('role', 'mentor')
+            ->where('status', 'pending')
+            ->latest()
+            ->paginate(3);
 
         return view('admin.verify.mentors', compact('pendingMentors'));
     }
 
-    public function approve(int|string $id): RedirectResponse
+    /**
+     * Approve mentor
+     */
+    public function approve(int|string $mentorId): RedirectResponse
     {
-        $this->mentorVerificationService->approve($id);
+        $admin = Auth::user();
+
+        if (!$admin || $admin->role !== 'admin') {
+            abort(403, 'Hanya admin yang dapat menyetujui mentor.');
+        }
+
+        DB::transaction(function () use ($mentorId, $admin) {
+            $mentor = User::where('role', 'mentor')->findOrFail($mentorId);
+
+            $mentor->update([
+                'status' => 'active',
+            ]);
+
+            DetailVerify::updateOrCreate(
+                ['mentor_id' => $mentor->id],
+                [
+                    'admin_id' => $admin->id,
+                    'action' => 'approved',
+                    'mentor_rejection_reason' => null,
+                    'verify_at' => now(),
+                ]
+            );
+        });
 
         return back()->with('success', 'Mentor berhasil disetujui.');
     }
 
-    public function reject(RejectMentorRequest $request, int|string $id): RedirectResponse
+    /**
+     * Reject mentor
+     */
+    public function reject(Request $request, int|string $mentorId): RedirectResponse
     {
-        $this->mentorVerificationService->reject(
-            $id,
-            $request->validated('reason')
-        );
+        $admin = Auth::user();
+
+        if (!$admin || $admin->role !== 'admin') {
+            abort(403, 'Hanya admin yang dapat menolak mentor.');
+        }
+
+        // VALIDASI LANGSUNG DI CONTROLLER
+        $validated = $request->validate([
+            'reason' => ['required', 'string', 'max:1000'],
+        ], [
+            'reason.required' => 'Alasan penolakan wajib diisi.',
+            'reason.string'   => 'Alasan penolakan harus berupa teks.',
+            'reason.max'      => 'Alasan penolakan maksimal 1000 karakter.',
+        ]);
+
+        DB::transaction(function () use ($mentorId, $admin, $validated) {
+            $mentor = User::where('role', 'mentor')->findOrFail($mentorId);
+
+            $mentor->update([
+                'status' => 'rejected',
+            ]);
+
+            DetailVerify::updateOrCreate(
+                ['mentor_id' => $mentor->id],
+                [
+                    'admin_id' => $admin->id,
+                    'action' => 'rejected',
+                    'mentor_rejection_reason' => $validated['reason'],
+                    'verify_at' => now(),
+                ]
+            );
+        });
 
         return back()->with('success', 'Mentor berhasil ditolak.');
     }
