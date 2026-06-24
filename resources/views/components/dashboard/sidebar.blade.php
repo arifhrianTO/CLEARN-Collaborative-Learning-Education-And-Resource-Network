@@ -12,11 +12,12 @@
             <div class="w-10 h-10 rounded-full overflow-hidden bg-purple-400 flex items-center justify-center text-white text-base font-bold shadow-lg shadow-purple-400/20 shrink-0">
                 @if(!empty($photo))
                 <img
+                    id="sidebar-avatar-img"
                     src="{{ asset('storage/' . $photo) }}"
                     alt="{{ $name }}"
                     class="w-full h-full object-cover rounded-full">
                 @else
-                {{ $initials }}
+                <span id="sidebar-avatar-initials">{{ $initials }}</span>
                 @endif
             </div>
             <div class="flex-1 min-w-0">
@@ -25,7 +26,7 @@
                     @if($role == 'admin' || $role == 'Admin')
                     Admin
                     @elseif($role == 'mentor' || $role == 'Pengajar')
-                    Mentor
+                    Pengajar
                     @else
                     Pelajar
                     @endif

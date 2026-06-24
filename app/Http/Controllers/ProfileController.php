@@ -33,13 +33,20 @@ class ProfileController extends Controller
 
         $user->fill($request->validated());
 
-        // Upload foto profil jika ada
-        if ($request->hasFile('photo')) {
-            // Hapus foto lama kalau ada
-            if ($user->photo) {
-                Storage::disk('public')->delete($user->photo);
+        // Hapus foto jika user klik tombol ×
+        if ($request->input('remove_photo') == '1') {
+            if ($user->profile_picture) {
+                Storage::disk('public')->delete($user->profile_picture);
             }
-            $user->photo = $request->file('photo')->store('avatars', 'public');
+            $user->profile_picture = null;
+        }
+        // Upload foto baru jika ada
+        elseif ($request->hasFile('photo')) {
+            if ($user->profile_picture) {
+                Storage::disk('public')->delete($user->profile_picture);
+            }
+            // Sesuai folder: storage/app/public/profile/
+            $user->profile_picture = $request->file('photo')->store('profile', 'public');
         }
 
         if ($user->isDirty('email')) {
@@ -48,9 +55,81 @@ class ProfileController extends Controller
 
         $user->save();
 
+        // Hanya mentor yang punya data tambahan
+        if ($user->role === 'mentor') {
+            $this->updateMentorProfile($request, $user);
+        }
+
         return Redirect::route('settings.edit')
             ->with('status', 'profile-updated')
             ->with('tab', 'profile');
+    }
+
+    /**
+     * Simpan / update data tambahan profil mentor (tabel profile_accounts).
+     * Relasi: $user->profileAccount()
+     */
+    protected function updateMentorProfile(Request $request, $user): void
+    {
+        $data = $request->validate([
+            'bio'              => ['nullable', 'string', 'max:2000'],
+            'expertise'        => ['nullable', 'string', 'max:255'],
+            'linkedin_link'    => ['nullable', 'url', 'max:255'],
+            'sinta_link'       => ['nullable', 'url', 'max:255'],
+            'scopus_link'      => ['nullable', 'url', 'max:255'],
+            'front_title'      => ['nullable', 'string', 'max:50'],
+            'back_title'       => ['nullable', 'string', 'max:50'],
+            'cv_file'          => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:2048'],
+            'certificate_file' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:2048'],
+            'diploma_file'     => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:2048'],
+        ]);
+
+        $existing = $user->profileAccount;
+
+        // Mapping field ke folder storage yang sudah ada
+        $folderMap = [
+            'cv_file'          => 'cv_file',       // storage/app/public/cv_file/
+            'certificate_file' => 'certificates',  // storage/app/public/certificates/
+            'diploma_file'     => 'diploma_file',  // storage/app/public/diploma_file/
+        ];
+
+        // File: hanya timpa kalau ada upload baru, file lama tidak hilang
+        foreach ($folderMap as $field => $folder) {
+            if ($request->hasFile($field)) {
+                // Hapus file lama jika ada
+                if ($existing && $existing->{$field}) {
+                    Storage::disk('public')->delete($existing->{$field});
+                }
+                $data[$field] = $request->file($field)->store($folder, 'public');
+            } else {
+                unset($data[$field]);
+            }
+        }
+
+        $user->profileAccount()->updateOrCreate([], $data);
+    }
+
+    /**
+     * Update rekening bank mentor (tabel banks).
+     * Relasi: $user->banks()
+     */
+    public function updateBank(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        abort_unless($user->role === 'mentor', 403);
+
+        $data = $request->validate([
+            'bank_name'    => ['required', 'string', 'max:255'],
+            'bank_account' => ['required', 'string', 'max:255'],
+            'bank_holder'  => ['required', 'string', 'max:255'],
+        ]);
+
+        $user->banks()->updateOrCreate([], $data);
+
+        return Redirect::route('settings.edit')
+            ->with('status', 'bank-updated')
+            ->with('tab', 'bank');
     }
 
     /**
@@ -59,8 +138,8 @@ class ProfileController extends Controller
     public function updatePassword(Request $request): RedirectResponse
     {
         $request->validate([
-            'current_password'      => ['required', 'current_password'],
-            'password'              => ['required', Password::defaults(), 'confirmed'],
+            'current_password' => ['required', 'current_password'],
+            'password'         => ['required', Password::defaults(), 'confirmed'],
         ], [
             'current_password.current_password' => 'Password saat ini tidak sesuai.',
             'password.confirmed'                => 'Konfirmasi password tidak cocok.',
@@ -87,9 +166,9 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
-        // Hapus foto profil kalau ada
-        if ($user->photo) {
-            Storage::disk('public')->delete($user->photo);
+        // Hapus foto profil dari storage/app/public/profile/
+        if ($user->profile_picture) {
+            Storage::disk('public')->delete($user->profile_picture);
         }
 
         Auth::logout();
