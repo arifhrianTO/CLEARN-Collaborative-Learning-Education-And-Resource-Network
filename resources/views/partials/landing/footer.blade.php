@@ -3,7 +3,7 @@
 
         <div class="space-y-6">
             <div class="flex items-center">
-                <img src="{{ asset('images/logo.png') }}" alt="logo" class="h-12 w-auto object-contain">
+                <img src="{{ asset('images/logo-dark.png') }}" alt="logo" class="h-12 w-auto object-contain">
             </div>
             <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
                 Platform pembelajaran online Indonesia untuk membantu siapa saja meningkatkan skill masa depan.
@@ -48,13 +48,13 @@
             <h4 class="text-white font-bold mb-7 text-sm tracking-widest">Dukungan</h4>
             <ul class="space-y-4 text-gray-400 text-sm">
                 <li class="flex items-center gap-3">
-                    <i class="fas fa-envelope text-purple-500"></i> hello@clearn.id
+                    <i class="fas fa-envelope text-purple-500"></i> clearn@gmail.com
                 </li>
                 <li class="flex items-center gap-3">
                     <i class="fas fa-phone-alt text-purple-500"></i> +62 812-3456-7890
                 </li>
                 <li class="flex items-center gap-3">
-                    <i class="fas fa-map-marker-alt text-purple-500"></i> Jakarta, Indonesia
+                    <i class="fas fa-map-marker-alt text-purple-500"></i> Batam, Indonesia
                 </li>
             </ul>
         </div>
@@ -62,6 +62,6 @@
     </div>
 
     <div class="max-w-[1400px] mx-auto text-center mt-20 pt-8 border-t border-gray-900 text-gray-500 text-xs tracking-wide">
-        © 2026 <span class="text-purple-500 font-semibold">Clearn Indonesia</span>. Semua hak dilindungi.
+        © 2026 <span class="text-purple-500 font-semibold">Clearn Indonesia</span>. All rights reserved.
     </div>
 </footer>

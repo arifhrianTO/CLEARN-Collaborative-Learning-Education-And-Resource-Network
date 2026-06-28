@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Course;
 
 class LandingController extends Controller
 {
     public function index()
     {
-        return view('landing.index');
+        $courses = Course::where('status_publish', 'published')
+            ->with('enrollments')
+            ->latest()
+            ->take(6)
+            ->get();
+
+        return view('landing.index', compact('courses'));
     }
 
     public function course()
     {
-        return view('landing.course');
+        $courses = Course::where('status_publish', 'published')
+            ->with('enrollments')
+            ->latest()
+            ->get();
+
+        return view('landing.course', compact('courses'));
     }
 
     public function category()

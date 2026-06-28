@@ -14,6 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
+        
+        $middleware->validateCsrfTokens(except: [
+            '/api/midtrans/webhook',
+        ]);
 
         $middleware->redirectUsersTo(function () {
             $role = auth()->user()->role;

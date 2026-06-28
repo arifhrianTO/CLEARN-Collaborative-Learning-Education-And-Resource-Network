@@ -64,18 +64,18 @@
                         <i class="fas fa-certificate"></i>
                     </div>
                     <div>
-                        <h2 class="text-xl font-black leading-none">3</h2>
+                        <h2 class="text-xl font-black leading-none">{{ $totalCertificates }}</h2>
                         <span class="text-[9px] font-bold text-muted-custom uppercase tracking-widest">Total Sertifikat</span>
                     </div>
                 </div>
 
                 <div class="card-bg p-5 flex items-center gap-4">
                     <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 text-sm">
-                        <i class="fas fa-calendar-check"></i>
+                        <i class="fas fa-check-circle"></i>
                     </div>
                     <div>
-                        <h2 class="text-xl font-black leading-none">2</h2>
-                        <span class="text-[9px] font-bold text-muted-custom uppercase tracking-widest">Bulan Ini</span>
+                        <h2 class="text-xl font-black leading-none">{{ $completedCourses }}</h2>
+                        <span class="text-[9px] font-bold text-muted-custom uppercase tracking-widest">Kursus Selesai</span>
                     </div>
                 </div>
 
@@ -84,7 +84,7 @@
                         <i class="fas fa-share-nodes"></i>
                     </div>
                     <div>
-                        <h2 class="text-xl font-black leading-none">15</h2>
+                        <h2 class="text-xl font-black leading-none">0</h2>
                         <span class="text-[9px] font-bold text-muted-custom uppercase tracking-widest">Dibagikan</span>
                     </div>
                 </div>
@@ -92,8 +92,8 @@
 
             {{-- Grid Sertifikat (Ukuran Selaras dengan Course Card) --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                {{-- Sertifikat 1 --}}
+                @forelse($certificates as $cert)
+                {{-- Sertifikat --}}
                 <div class="card-bg overflow-hidden flex flex-col group">
                     <div class="p-8 bg-slate-100/50 dark:bg-[#161226] flex-1 relative overflow-hidden">
                         <i class="fas fa-award absolute -right-4 -bottom-4 text-8xl text-black/5 dark:text-white/5"></i>
@@ -106,21 +106,21 @@
                             <p class="text-[8px] font-black text-muted-custom uppercase tracking-[0.2em]">Certificate of Completion</p>
                         </div>
 
-                        <h3 class="text-lg font-black mb-4 leading-tight tracking-tight group-hover:text-primary transition-colors">Program Pelatihan Lengkap Pengembangan Web</h3>
+                        <h3 class="text-lg font-black mb-4 leading-tight tracking-tight group-hover:text-primary transition-colors">{{ $cert->enrollment->course->course_title }}</h3>
 
                         <div class="mb-6">
                             <p class="text-[9px] text-muted-custom font-bold uppercase mb-0.5">Awarded to:</p>
-                            <p class="text-lg font-extrabold border-b-2 border-primary/20 inline-block pb-0.5">{{ Auth::user()->name ?? 'User Pelajar' }}</p>
+                            <p class="text-lg font-extrabold border-b-2 border-primary/20 inline-block pb-0.5">{{ Auth::user()->name }}</p>
                         </div>
 
                         <div class="flex justify-between items-end text-[10px] font-bold">
                             <div>
                                 <p class="text-muted-custom uppercase mb-0.5">Instructor</p>
-                                <p>Sarah Johnson</p>
+                                <p>{{ $cert->enrollment->course->mentor->name ?? 'Mentor Clearn' }}</p>
                             </div>
                             <div class="text-right">
                                 <p class="text-muted-custom uppercase mb-0.5">Issue Date</p>
-                                <p>March 15, 2026</p>
+                                <p>{{ $cert->issue_date->format('F d, Y') }}</p>
                             </div>
                         </div>
                     </div>
@@ -132,50 +132,27 @@
                         </button>
                         <button
                             type="button"
-                            onclick="window.location='{{ route('student.certificate.show') }}'"
+                            onclick="window.location='{{ route('student.certificate.show', $cert->id) }}'"
                             class="flex-1 border border-gray-200 dark:border-[#2d2644] text-muted-custom text-[10px] font-extrabold py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all uppercase tracking-widest active:scale-95">
                             <i class="fas fa-solid fa-play mr-2"></i>Detail
                         </button>
                     </div>
                 </div>
-
-                {{-- Sertifikat 2 --}}
-                <div class="card-bg overflow-hidden flex flex-col group">
-                    <div class="p-8 bg-slate-100/50 dark:bg-[#161226] flex-1 relative overflow-hidden">
-                        <i class="fas fa-award absolute -right-4 -bottom-4 text-8xl text-black/5 dark:text-white/5"></i>
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-graduation-cap text-primary text-xl"></i>
-                                <span class="font-black text-lg tracking-tighter italic">clearn</span>
-                            </div>
-                            <p class="text-[8px] font-black text-muted-custom uppercase tracking-[0.2em]">Certificate of Completion</p>
-                        </div>
-                        <h3 class="text-lg font-black mb-4 leading-tight tracking-tight group-hover:text-primary transition-colors">Dasar UI/UX Design untuk Pemula</h3>
-                        <div class="mb-6">
-                            <p class="text-[9px] text-muted-custom font-bold uppercase mb-0.5">Awarded to:</p>
-                            <p class="text-lg font-extrabold border-b-2 border-primary/20 inline-block pb-0.5">{{ Auth::user()->name ?? 'User Pelajar' }}</p>
-                        </div>
-                        <div class="flex justify-between items-end text-[10px] font-bold">
-                            <div>
-                                <p class="text-muted-custom uppercase mb-0.5">Instructor</p>
-                                <p>Mentor Desain Clearn</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-muted-custom uppercase mb-0.5">Issue Date</p>
-                                <p>Januari 10, 2026</p>
-                            </div>
-                        </div>
+                @empty
+                <div class="col-span-full card-bg p-10 text-center">
+                    <div class="w-16 h-16 bg-gray-100 dark:bg-[#1a1429] rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+                        <i class="fas fa-certificate text-2xl"></i>
                     </div>
-                    <div class="p-4 flex gap-3 bg-white dark:bg-[#110D1F] border-t border-gray-100 dark:border-[#2d2644]">
-                        <button class="flex-1 bg-primary text-white text-[10px] font-extrabold py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
-                            <i class="fas fa-download mr-2"></i>Unduh
-                        </button>
-                        <button class="flex-1 border border-gray-200 dark:border-[#2d2644] text-muted-custom text-[10px] font-extrabold py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all uppercase tracking-widest active:scale-95">
-                            <i class="fas fa-share-alt mr-2"></i>Bagikan
-                        </button>
-                    </div>
+                    <h3 class="text-lg font-bold mb-2">Belum ada sertifikat</h3>
+                    <p class="text-muted-custom text-sm mb-6">Selesaikan kursus Anda hingga 100% untuk mendapatkan sertifikat.</p>
+                    <a href="{{ route('student.course.index') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Lanjutkan Belajar</a>
                 </div>
+                @endforelse
 
+            </div>
+
+            <div class="mt-6">
+                {{ $certificates->links() }}
             </div>
 
             {{-- CTA Section (Dikecilkan agar lebih proporsional) --}}

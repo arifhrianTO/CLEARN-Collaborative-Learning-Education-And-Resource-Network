@@ -17,7 +17,7 @@ class StoreCourseRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
-            'price' => ['required', 'numeric', 'min:0'],
+            'price' => ['required', 'numeric', 'min:50000'],
             'thumbnail' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
 
             'modules' => ['required', 'array', 'min:1'],

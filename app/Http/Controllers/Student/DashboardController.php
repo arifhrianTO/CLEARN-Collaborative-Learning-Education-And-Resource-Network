@@ -14,8 +14,8 @@ class DashboardController extends Controller
 
     public function index(): View
     {
-        $user = $this->dashboardService->studentData();
+        $data = $this->dashboardService->studentData();
 
-        return view('student.dashboard', compact('user'));
+        return view('student.dashboard', $data);
     }
 }
