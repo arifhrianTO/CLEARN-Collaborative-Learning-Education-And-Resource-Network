@@ -41,15 +41,11 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         | Supaya aman, cek dulu kolom student_id atau user_id.
         */
-        $studentColumn = Schema::hasColumn('enrollments', 'student_id')
-            ? 'student_id'
-            : 'user_id';
-
         $totalPelajar = Enrollment::whereHas('course', function ($query) use ($mentorId) {
             $query->where('mentor_id', $mentorId);
         })
-            ->distinct($studentColumn)
-            ->count($studentColumn);
+            ->distinct('student_id')
+            ->count('student_id');
 
         /*
         |--------------------------------------------------------------------------

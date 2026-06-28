@@ -21,11 +21,11 @@
 
     <header class="h-16 border-b border-gray-200 dark:border-border-custom bg-white/80 dark:bg-dark-sidebar backdrop-blur-md px-6 flex items-center justify-between shrink-0 z-50">
         <div class="flex items-center gap-4">
-            <a href="" class="p-2 hover:bg-gray-500/10 rounded-lg transition text-slate-500 hover:text-primary">
+            <a href="{{ route('student.course.show', $course->course_slug) }}" class="p-2 hover:bg-gray-500/10 rounded-lg transition text-slate-500 hover:text-primary">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h2 class="font-bold text-sm tracking-tight hidden md:block">
-                Program Pelatihan Lengkap Pengembangan Web
+                {{ $course->course_title }}
             </h2>
         </div>
 
@@ -52,44 +52,37 @@
             <div class="p-6">
                 <h3 class="font-black text-lg tracking-tighter mb-6 dark:text-white">Kurikulum Kursus</h3>
 
-                <div class="mb-8">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Pendahuluan</h4>
-                        <span class="text-[10px] font-bold bg-slate-100 dark:bg-border-custom px-2 py-0.5 rounded dark:text-slate-400">4 Materi</span>
-                    </div>
-
-                    <div class="space-y-2">
-                        <div class="flex flex-col gap-1 px-4 py-3 rounded-xl bg-primary/10 text-primary transition-all cursor-pointer">
-                            <div class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-xs"></i>
-                                <span class="text-[13px] font-bold leading-tight">Selamat Datang di Program Pelatihan</span>
-                            </div>
-                            <div class="flex items-center gap-1 ml-6 text-[10px] opacity-70">
-                                <i class="far fa-clock"></i> 05:30
-                            </div>
+                    @foreach($course->sessions as $session)
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-[11px] font-black text-slate-400 uppercase tracking-widest">{{ $session->sessions_title }}</h4>
+                            <span class="text-[10px] font-bold bg-slate-100 dark:bg-border-custom px-2 py-0.5 rounded dark:text-slate-400">{{ count($session->lessons) }} Materi</span>
                         </div>
 
-                        <div class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group">
-                            <div class="flex items-center gap-3">
-                                <i class="far fa-play-circle text-xs group-hover:text-primary"></i>
-                                <span class="text-[13px] font-semibold leading-tight group-hover:text-primary transition-colors">Persiapan Tools Web Developer</span>
+                        <div class="space-y-2">
+                            @foreach($session->lessons as $lesson)
+                            <div class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group">
+                                <div class="flex items-center gap-3">
+                                    <i class="far fa-play-circle text-xs group-hover:text-primary"></i>
+                                    <span class="text-[13px] font-semibold leading-tight group-hover:text-primary transition-colors">{{ $lesson->lessons_title }}</span>
+                                </div>
+                                <div class="flex items-center gap-1 ml-6 text-[10px] opacity-60 group-hover:text-primary">
+                                    <i class="far fa-clock"></i> --:--
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1 ml-6 text-[10px] opacity-60 group-hover:text-primary">
-                                <i class="far fa-clock"></i> 12:45
+                            @endforeach
+                            
+                            @if($session->exercise)
+                            <div class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group">
+                                <div class="flex items-center gap-3">
+                                    <i class="far fa-file-alt text-xs group-hover:text-primary"></i>
+                                    <span class="text-[13px] font-semibold leading-tight group-hover:text-primary transition-colors text-zinc-300">Latihan: {{ $session->exercise->exercise_title }}</span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group">
-                            <div class="flex items-center gap-3">
-                                <i class="far fa-file-code text-xs group-hover:text-primary"></i>
-                                <span class="text-[13px] font-semibold leading-tight group-hover:text-primary transition-colors text-zinc-300">Latihan Membuat Landing Page</span>
-                            </div>
-                            <div class="flex items-center gap-1 ml-6 text-[10px] opacity-60 group-hover:text-primary">
-                                <i class="far fa-file mr-1"></i> PDF Resource
-                            </div>
+                            @endif
                         </div>
                     </div>
-                </div>
+                    @endforeach
             </div>
         </aside>
 

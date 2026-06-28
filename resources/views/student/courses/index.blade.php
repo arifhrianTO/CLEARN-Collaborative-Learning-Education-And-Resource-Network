@@ -23,7 +23,7 @@
                     <i class="fas fa-play"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">2</h2>
+                    <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">{{ $enrollments->total() }}</h2>
                     <span class="text-[9px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-widest">Kursus</span>
                 </div>
             </div>
@@ -34,7 +34,10 @@
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">1</h2>
+                    @php
+                        $ongoing = collect($enrollments->items())->filter(function($enrollment) { return $enrollment->progress > 0 && $enrollment->progress < 100; })->count();
+                    @endphp
+                    <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">{{ $ongoing }}</h2>
                     <span class="text-[9px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-widest">Belajar</span>
                 </div>
             </div>
@@ -45,7 +48,10 @@
                     <i class="fas fa-check-circle"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">1</h2>
+                    @php
+                        $completed = collect($enrollments->items())->filter(function($enrollment) { return $enrollment->progress == 100; })->count();
+                    @endphp
+                    <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">{{ $completed }}</h2>
                     <span class="text-[9px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-widest">Selesai</span>
                 </div>
             </div>
@@ -56,7 +62,10 @@
                     <i class="fas fa-award"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">1</h2>
+                    @php
+                        $totalCertificates = \App\Models\Certificate::where('user_id', auth()->id())->count();
+                    @endphp
+                    <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">{{ $totalCertificates }}</h2>
                     <span class="text-[9px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-widest">Sertifikat</span>
                 </div>
             </div>
@@ -78,45 +87,82 @@
         {{-- Grid Course List: 1 Baris 3 Kolom --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
-            {{-- Kursus 1: Program Pelatihan Lengkap --}}
-            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm">
-                <div class="relative aspect-[16/10] overflow-hidden bg-slate-200">
-                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop" alt="Web Dev" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    <span class="absolute top-3 right-3 bg-primary text-white text-[8px] font-black uppercase tracking-wider px-2 py-1 rounded-md">DIBELI</span>
-                </div>
-
-                <div class="p-5 flex-1 flex flex-col justify-between">
-                    <div class="mb-4">
-                        <h3 class="text-xs font-bold leading-tight tracking-tight dark:text-white text-slate-800 mb-1 line-clamp-2">Program Pelatihan Lengkap Pengembangan Web</h3>
-                        <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">Tim Mentor Clearn</p>
+            @foreach($enrollments as $enrollment)
+                @php
+                    $isCompleted = $enrollment->progress == 100;
+                    $colorClass = $isCompleted ? 'emerald' : 'primary';
+                    $coverImage = $enrollment->course->course_cover 
+                        ? (Str::startsWith($enrollment->course->course_cover, 'http') 
+                            ? $enrollment->course->course_cover 
+                            : Storage::url($enrollment->course->course_cover)) 
+                        : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop';
+                @endphp
+                <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 block" onclick="window.location='{{ route('student.course.show', $enrollment->course->course_slug) }}'">
+                        <img src="{{ $coverImage }}" alt="{{ $enrollment->course->course_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer">
+                        <span class="absolute top-3 right-3 bg-{{ $isCompleted ? 'emerald' : 'primary' }} text-white text-[8px] font-black uppercase tracking-wider px-2 py-1 rounded-md">
+                            {{ $isCompleted ? 'LULUS' : 'DIBELI' }}
+                        </span>
+                        @if($enrollment->course->category)
+                            <div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-1 rounded">
+                                {{ $enrollment->course->category->category_name }}
+                            </div>
+                        @endif
                     </div>
 
-                    <div class="space-y-3">
-                        <div class="space-y-1">
-                            <div class="flex justify-between text-[9px] font-bold uppercase tracking-wider dark:text-slate-500 text-slate-400">
-                                <span>Progress Belajar</span>
-                                <span class="text-primary">35%</span>
-                            </div>
-                            <div class="w-full h-1.5 dark:bg-[#0b0a1a] bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-primary rounded-full" style="width: 35%"></div>
-                            </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div class="mb-4 cursor-pointer" onclick="window.location='{{ route('student.course.show', $enrollment->course->course_slug) }}'">
+                            <h3 class="text-xs font-bold leading-tight tracking-tight dark:text-white text-slate-800 mb-1 line-clamp-2">{{ $enrollment->course->course_title }}</h3>
+                            <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">{{ $enrollment->course->mentor->name ?? 'Tim Mentor Clearn' }}</p>
                         </div>
 
-                        <button class="w-full bg-primary text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
-                            Lanjutkan Kursus
-                        </button>
+                        <div class="space-y-3">
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[9px] font-bold uppercase tracking-wider dark:text-slate-500 text-slate-400">
+                                    <span>{{ $isCompleted ? 'Selesai' : 'Progress Belajar' }}</span>
+                                    <span class="text-{{ $isCompleted ? 'emerald' : 'primary' }}">{{ $enrollment->progress }}%</span>
+                                </div>
+                                <div class="w-full h-1.5 dark:bg-[#0b0a1a] bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-{{ $isCompleted ? 'emerald' : 'primary' }} rounded-full" style="width: {{ $enrollment->progress }}%"></div>
+                                </div>
+                            </div>
+
+                            @if($isCompleted)
+                                <div class="grid grid-cols-2 gap-2">
+                                    <a href="{{ route('student.certif') }}" class="block text-center w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
+                                        Klaim
+                                    </a>
+                                    <button onclick="showReviewModal()" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
+                                        Beri Nilai
+                                    </button>
+                                </div>
+                            @else
+                                <a href="{{ route('student.course.lesson', $enrollment->course->course_slug) }}" class="block text-center w-full bg-primary text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
+                                    Lanjutkan
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </div>
+            @endforeach
+
+            {{-- Slot Kosong / Tambah Kursus Baru --}}
+            <div class="dark:bg-[#161525]/40 bg-slate-100/50 border-2 border-dashed dark:border-white/5 border-slate-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center group min-h-[330px]">
+                <div class="w-12 h-12 rounded-xl dark:bg-[#161525] bg-slate-200/50 flex items-center justify-center text-slate-400 mb-3 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-plus text-sm"></i>
+                </div>
+                <p class="text-xs font-bold dark:text-slate-400 text-slate-600 mb-1">Ingin Belajar Hal Baru?</p>
+                <p class="text-[10px] dark:text-slate-500 text-slate-400 max-w-[180px] mb-4">Temukan ratusan materi berkualitas lainnya.</p>
+                <a href="{{ route('home') }}" class="px-5 py-2 inline-block border dark:border-white/5 border-slate-300 dark:text-white text-slate-700 text-[10px] font-bold rounded-xl uppercase tracking-widest hover:bg-white dark:hover:bg-[#161525] transition-all">
+                    Jelajahi Kursus
+                </a>
             </div>
 
-            {{-- Kursus 2: UI/UX Design --}}
-            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm">
-                <div class="relative aspect-[16/10] overflow-hidden bg-slate-200">
-                    <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?q=80&w=600" alt="UI/UX" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    <span class="absolute top-3 right-3 bg-emerald-500 text-white text-[8px] font-black uppercase tracking-wider px-2 py-1 rounded-md">LULUS</span>
-                </div>
+        </div>
 
-                <div class="p-5 flex-1 flex flex-col justify-between">
+        <div class="mt-6">
+            {{ collect($enrollments->items())->isEmpty() ? '' : $enrollments->links() }}
+        </div>
                     <div class="mb-4">
                         <h3 class="text-xs font-bold leading-tight tracking-tight dark:text-white text-slate-800 mb-1 line-clamp-2">Dasar UI/UX Design untuk Pemula</h3>
                         <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">Mentor Desain Clearn</p>

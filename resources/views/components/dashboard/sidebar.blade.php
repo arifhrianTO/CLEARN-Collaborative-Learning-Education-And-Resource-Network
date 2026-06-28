@@ -48,7 +48,7 @@
             <x-dashboard.sidebar-item
                 href="{{ route('admin.verify.mentors') }}"
                 icon="fa-user-check"
-                label="Verifikasi Mentor"
+                label="Verifikasi Pengajar"
                 :active="request()->routeIs('admin.verify.mentors')" />
 
             <x-dashboard.sidebar-item
@@ -116,7 +116,7 @@
                 :active="request()->is('dashboard-student')" />
 
             <x-dashboard.sidebar-item
-                href="{{ route('student.courses') }}"
+                href="{{ route('student.course.index') }}"
                 icon="fa-book-open"
                 label="Kursus Saya"
                 :active="request()->is('courses*')" />

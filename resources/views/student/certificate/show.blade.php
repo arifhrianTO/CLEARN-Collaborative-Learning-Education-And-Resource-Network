@@ -76,17 +76,17 @@
                     
                     {{-- Nama Siswa (Ungu/Active Color) --}}
                     <h1 class="text-5xl font-black mb-6 tracking-tighter text-[#7C3AED]">
-                        
+                        {{ $certificate->enrollment->student->name }}
                     </h1>
                     
                     <p class="text-sm text-gray-500 mb-6 font-medium">telah berhasil menyelesaikan kursus</p>
                     
                     {{-- Nama Kursus --}}
                     <h3 class="text-3xl font-extrabold mb-10 tracking-tight leading-tight max-w-xl mx-auto">
-                       
+                       {{ $certificate->enrollment->course->course_title }}
                     </h3>
                     
-                    <p class="text-xs text-gray-500 mb-10">Selesai pada </p>
+                    <p class="text-xs text-gray-500 mb-10">Selesai pada {{ $certificate->issue_date->translatedFormat('d F Y') }}</p>
 
                     {{-- Garis Putus-putus Dekoratif --}}
                     <div class="w-full h-px border-t border-dashed border-gray-200 mb-10"></div>
@@ -94,11 +94,11 @@
                     {{-- Bagian Tanda Tangan --}}
                     <div class="grid grid-cols-2 gap-8 text-center max-w-3xl mx-auto mb-10">
                         <div>
-                            <p class="font-extrabold text-sm mb-1.5"></p>
+                            <p class="font-extrabold text-sm mb-1.5">{{ $certificate->enrollment->course->mentor->name ?? 'Mentor Clearn' }}</p>
                             <p class="text-xs text-gray-400 font-medium tracking-wide">Tanda Tangan Pengajar</p>
                         </div>
                         <div>
-                            <p class="font-extrabold text-sm mb-1.5"></p>
+                            <p class="font-extrabold text-sm mb-1.5">Admin Clearn</p>
                             <p class="text-xs text-gray-400 font-medium tracking-wide">Administrator Platform</p>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                     <div class="flex justify-between items-end border-t border-gray-100 pt-10 text-left">
                         <div>
                             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Certificate ID</p>
-                            <p class="text-sm font-extrabold"></p>
+                            <p class="text-sm font-extrabold">{{ $certificate->certificate_number }}</p>
                         </div>
                         
                         <div class="flex items-center gap-3">
@@ -130,9 +130,9 @@
 
             {{-- Tombol Aksi --}}
             <div class="flex flex-col md:flex-row justify-center gap-4 animate-fade-up">
-                <button class="bg-[#9F67F2] text-white font-bold px-8 py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all hover:bg-[#8B5CF6] shadow-lg shadow-violet-500/20 active:scale-95 uppercase tracking-widest text-[10px]">
+                <a href="{{ route('student.certificate.download', $certificate->id) }}" class="bg-[#9F67F2] text-white font-bold px-8 py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all hover:bg-[#8B5CF6] shadow-lg shadow-violet-500/20 active:scale-95 uppercase tracking-widest text-[10px]">
                     <i class="fas fa-download"></i> Download Certificate (PDF)
-                </button>
+                </a>
                 <button class="bg-white text-[#9F67F2] border border-gray-100 font-bold px-8 py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all hover:bg-gray-50 shadow-sm active:scale-95 uppercase tracking-widest text-[10px]">
                     <i class="fas fa-share-alt"></i> Share Certificate
                 </button>

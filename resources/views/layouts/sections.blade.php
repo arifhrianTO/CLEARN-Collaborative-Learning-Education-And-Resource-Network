@@ -26,6 +26,8 @@
     <main class="transition-colors duration-300 bg-slate-50 dark:bg-[#08070d] min-h-screen text-slate-900 dark:text-white">
         @yield('content')
     </main>
+    
+    @stack('scripts')
 </body>
 
 </html>

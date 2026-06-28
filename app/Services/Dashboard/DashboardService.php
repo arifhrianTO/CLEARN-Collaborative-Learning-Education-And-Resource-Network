@@ -9,9 +9,33 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardService
 {
-    public function studentData(): ?User
+    public function studentData(): ?array
     {
-        return User::with('profileAccount')->find(session('user_id', auth()->id()));
+        $user = User::with('profileAccount')->find(session('user_id', auth()->id()));
+        
+        $activeEnrollments = \App\Models\Enrollment::where('student_id', $user->id)
+            ->where(function($query) {
+                $query->whereHas('course', function($q) {
+                    $q->where('course_price', 0);
+                })->orWhereHas('payment', function($q) {
+                    $q->where('connection_status', 'success');
+                });
+            })
+            ->with(['course.category', 'course.mentor'])
+            ->get();
+            
+        $completedCoursesCount = $activeEnrollments->where('progress', 100)->count();
+        $totalCertificates = \App\Models\Certificate::whereHas('enrollment', function ($q) use ($user) {
+            $q->where('student_id', $user->id);
+        })->count();
+
+        return [
+            'user' => $user,
+            'activeEnrollments' => $activeEnrollments,
+            'completedCoursesCount' => $completedCoursesCount,
+            'totalCertificates' => $totalCertificates,
+            'totalEnrolled' => $activeEnrollments->count(),
+        ];
     }
 
     public function mentorData(): ?User

@@ -10,4 +10,11 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    server: {
+        host: '0.0.0.0', // Allow connections from all network interfaces
+        cors: true,      // Enable CORS for Ngrok
+        hmr: {
+            host: 'localhost', // Keep HMR working properly on local
+        },
+    },
 });

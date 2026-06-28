@@ -36,6 +36,8 @@ Route::get('/', fn() => redirect()->route('home'));
 
 Route::get('/landing', [LandingController::class, 'index'])->name('home');
 Route::get('/course', [LandingController::class, 'course'])->name('course');
+Route::get('/course/{slug}', [StudentCourseController::class, 'show'])->name('course.show');
+Route::post('/course/{slug}/enroll', [StudentCourseController::class, 'enroll'])->name('public.course.enroll')->middleware(['auth', 'role:student']);
 Route::get('/category', [LandingController::class, 'category'])->name('category');
 Route::get('/mentor', [LandingController::class, 'mentor'])->name('mentor');
 Route::get('/choose-role', fn() => view('auth.choose_role'))->name('choose_role');
@@ -70,7 +72,10 @@ Route::middleware('auth')->group(function () {
         ->name('settings.password.update');
 
     Route::patch('/settings/bank', [ProfileController::class, 'updateBank'])
-    ->name('settings.bank.update');
+        ->name('settings.bank.update');
+
+    Route::delete('/settings/profile', [ProfileController::class, 'destroy'])
+        ->name('settings.profile.destroy');
 
     Route::middleware('role:student')
         ->prefix('student')
@@ -79,9 +84,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
 
             Route::get('/courses', [StudentCourseController::class, 'index'])->name('courses');
-            Route::get('/courses/lesson', [StudentCourseController::class, 'showLesson'])->name('lesson');
+            Route::get('/courses', [StudentCourseController::class, 'index'])->name('course.index');
+            Route::get('/courses/{slug}', [StudentCourseController::class, 'show'])->name('course.show');
+            Route::post('/courses/{slug}/enroll', [StudentCourseController::class, 'enroll'])->name('course.enroll');
+            Route::get('/courses/{slug}/lesson', [StudentCourseController::class, 'showLesson'])->name('course.lesson');
             Route::get('/certif', [StudentCourseController::class, 'certificates'])->name('certif');
-            Route::get('/certificate/show', [StudentCourseController::class, 'showCertificates'])->name('certificate.show');
+            Route::get('/certificate/{id}/show', [StudentCourseController::class, 'showCertificates'])->name('certificate.show');
+            Route::get('/certificate/{id}/download', [StudentCourseController::class, 'downloadCertificate'])->name('certificate.download');
             Route::get('/courses/progress', [StudentCourseController::class, 'progress'])->name('progress');
 
             Route::get('/exercise/{exerciseId}', [StudentExerciseController::class, 'show'])->name('exercise.show');
@@ -121,9 +130,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/exercises/{exercise}/edit', [ExerciseController::class, 'edit'])->name('sessions.exercises.edit');
             Route::put('/exercises/{exercise}', [ExerciseController::class, 'update'])->name('sessions.exercises.update');
             Route::delete('/exercises/{exercise}', [ExerciseController::class, 'destroy'])->name('sessions.exercises.destroy');
-            Route::get('/sessions/{session}/projects/create',[FinalProjectController::class, 'create'])->name('sessions.projects.create');
-            Route::post('/sessions/{session}/projects',[FinalProjectController::class, 'store'])->name('sessions.projects.store');
-            Route::delete('/projects/{finalProject}',[FinalProjectController::class, 'destroy'])->name('projects.destroy');
+            Route::get('/sessions/{session}/projects/create', [FinalProjectController::class, 'create'])->name('sessions.projects.create');
+            Route::post('/sessions/{session}/projects', [FinalProjectController::class, 'store'])->name('sessions.projects.store');
+            Route::delete('/projects/{finalProject}', [FinalProjectController::class, 'destroy'])->name('projects.destroy');
 
             Route::get('/student', [StudentController::class, 'index'])->name('student.index');
 
@@ -152,7 +161,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/settings', fn() => view('settings.settings'))->name('settings');
         });
 });
-Route::get('/checkout', function () {
-    return view('student.courses.checkout');
-});
+            // Removed duplicated checkout view without course_id
+Route::post('/api/midtrans/webhook', [App\Http\Controllers\Student\PaymentController::class, 'webhook'])->name('midtrans.webhook');
 require __DIR__ . '/auth.php';
