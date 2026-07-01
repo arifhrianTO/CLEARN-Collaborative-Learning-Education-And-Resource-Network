@@ -236,7 +236,7 @@
     /* Styling tombol upload file */
     input[type="file"]::file-selector-button {
         background-color: #2d2438;
-        color: #a855f7;
+        color: #9E80F3;
         padding: 0.4rem 1rem;
         border-radius: 0.5rem;
         border: none;

@@ -2,9 +2,17 @@
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
         <div class="space-y-6">
-            <div class="flex items-center">
-                <img src="{{ asset('images/logo-dark.png') }}" alt="logo" class="h-12 w-auto object-contain">
-            </div>
+              <div class="flex items-center">
+        <img
+            src="{{ asset('images/logo-light.png') }}"
+            alt="logo"
+            class="h-12 w-auto object-contain dark:hidden">
+
+        <img
+            src="{{ asset('images/logo-dark.png') }}"
+            alt="logo"
+            class="h-12 w-auto object-contain hidden dark:block">
+    </div>
             <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
                 Platform pembelajaran online Indonesia untuk membantu siapa saja meningkatkan skill masa depan.
             </p>
@@ -40,7 +48,7 @@
                 <li><a href="#" class="hover:text-purple-500 transition-colors">Tentang Kami</a></li>
                 <li><a href="#" class="hover:text-purple-500 transition-colors">Karir</a></li>
                 <li><a href="#" class="hover:text-purple-500 transition-colors">Kebijakan Privasi</a></li>
-                <li><a href="#" class="hover:text-purple-500 transition-colors">Syarat &amp; Ketentuan</a></li>
+                <li><a href="#" class="hover:text-purple-500 transition-colors">Syarat & Ketentuan</a></li>
             </ul>
         </div>
 
@@ -62,6 +70,6 @@
     </div>
 
     <div class="max-w-[1400px] mx-auto text-center mt-20 pt-8 border-t border-gray-900 text-gray-500 text-xs tracking-wide">
-        © 2026 <span class="text-purple-500 font-semibold">Clearn Indonesia</span>. All rights reserved.
+        © 2026 <span class="text-purple-500 font-semibold">clearn Indonesia</span>. All rights reserved.
     </div>
 </footer>

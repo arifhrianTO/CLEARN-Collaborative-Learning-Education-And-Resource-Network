@@ -31,8 +31,10 @@
 <!-- ── KATEGORI + ULASAN ── -->
 <section id="kategori" class="py-24 px-10 transition-colors duration-300 dark:bg-[#120d22]">
     <div class="relative text-center mb-16">
-        <p class="text-slate-500 dark:text-gray-400 text-sm mb-2">Temukan kelas yang sesuai minat dan tujuan karier Anda.</p>
-        <h2 class="text-4xl font-extrabold tracking-tight">Jelajahi Kategori Populer</h2>
+         <h2 class="text-4xl font-bold mb-3">Jelajahi Kategori Populer</h2>
+        <p class="text-slate-500 dark:text-gray-400">
+           Temukan kelas yang sesuai minat dan tujuan karier Anda
+        </p>
         <a href="{{route('category') }}" class="absolute right-0 bottom-2 text-purple-600 dark:text-purple-400 text-sm font-semibold flex items-center group">
             Lihat Semua <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
         </a>
@@ -59,11 +61,8 @@
 
     <!-- ULASAN -->
     <div id="ulasan" class="text-center max-w-7xl mx-auto">
-        <h2 class="text-4xl font-extrabold mb-3">Apa Kata Pengguna Kami</h2>
-        <p class="text-slate-500 mb-20">Dipercaya oleh pelajar yang terus berkembang bersama Clearn</p>
+      
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-
-            <x-landing.testimoni />
 
         </div>
     </div>
@@ -72,7 +71,7 @@
 <!-- ── PENGAJAR ── -->
 <section id="pengajar" class="py-24 px-10 bg-slate-100 dark:bg-[#0d0c13] transition-colors duration-300">
     <div class="text-center mb-16 relative">
-        <h2 class="text-4xl font-extrabold mb-3">Belajar Dari Yang Terbaik</h2>
+        <h2 class="text-4xl font-bold mb-3">Belajar Dari Yang Terbaik</h2>
         <p class="text-slate-500 dark:text-gray-400">
             Mentor berpengalaman siap membantu proses belajar Anda
         </p>
