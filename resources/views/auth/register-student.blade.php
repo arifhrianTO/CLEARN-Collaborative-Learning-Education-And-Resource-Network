@@ -16,12 +16,12 @@
                 🚀
             </div>
 
-            <h2 class="text-4xl font-extrabold mb-4">
+            <h2 class="text-4xl font-bold mb-4">
                 Mulai Belajar Hari Ini
             </h2>
 
             <p class="text-slate-600 dark:text-slate-400 text-lg">
-                Bergabunglah dengan ribuan siswa lainnya.
+                Bergabunglah dengan ribuan pelajar lainnya.
             </p>
         </div>
     </div>
@@ -36,12 +36,12 @@
                 <img
                     src="{{ asset('images/logo-light.png') }}"
                     alt="logo"
-                    class="w-14 h-14 object-contain dark:hidden">
+                    class="w-40 h-40 object-contain dark:hidden">
 
                 <img
                     src="{{ asset('images/logo-dark.png') }}"
                     alt="logo"
-                    class="w-14 h-14 object-contain hidden dark:block">
+                    class="w-40 h-40 object-contain hidden dark:block">
             </div>
 
             {{-- Header --}}
@@ -122,8 +122,9 @@
                 </div>
 
                 {{-- Submit Button --}}
-                <button type="submit" class="w-full py-3 bg-gradient-to-r from-[#7C3AED] to-[#A855F7] text-white font-bold rounded-xl shadow-lg shadow-[#7C3AED]/20 transition-all active:scale-[0.98] text-sm">
-                    Buat Akun
+              <button type="submit"
+                    class="w-full py-3 rounded-xl font-bold text-white bg-primary hover:opacity-90 transition">
+                    Daftar
                 </button>
             </form>
 

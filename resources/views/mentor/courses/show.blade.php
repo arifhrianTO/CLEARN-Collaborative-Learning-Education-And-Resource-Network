@@ -9,11 +9,12 @@
 
         {{-- Header --}}
         <div class="mb-8">
-            <a href="{{ route('mentor.courses.index') }}"
-                class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary transition">
-                <i class="fa-solid fa-arrow-left"></i>
-                Kembali ke Kursus {{ $course->course_title }}
-            </a>
+    <button type="button"
+    onclick="window.location='{{ route('mentor.courses.index') }}'"
+    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold shadow-md hover:bg-primary/90 transition">
+    <i class="fa-solid fa-arrow-left-long"></i>
+    Kembali ke Beranda
+</button>
 
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mt-4">
                 <div>
