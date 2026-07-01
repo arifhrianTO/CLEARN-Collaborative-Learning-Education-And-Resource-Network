@@ -48,15 +48,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // — Typed.js init —
     const el = document.getElementById("typed-text");
+    const categoriesDataEl = document.getElementById("hero-categories");
     if (el) {
+        let typedStrings = [
+            "Kursus Web Development",
+            "Kursus UI/UX Design",
+            "Kursus Data Science",
+            "Kursus Digital Marketing",
+            "Kursus Bahasa Asing",
+        ];
+
+        if (categoriesDataEl && categoriesDataEl.dataset.categories) {
+            try {
+                const categories = JSON.parse(categoriesDataEl.dataset.categories);
+                if (categories && categories.length > 0) {
+                    typedStrings = categories.map(cat => "Kursus " + cat);
+                }
+            } catch (e) {
+                console.error("Failed to parse hero categories", e);
+            }
+        }
+
         new Typed("#typed-text", {
-            strings: [
-                "Kursus Web Development",
-                "Kursus UI/UX Design",
-                "Kursus Data Science",
-                "Kursus Digital Marketing",
-                "Kursus Bahasa Asing",
-            ],
+            strings: typedStrings,
             typeSpeed: 60,
             backSpeed: 30,
             backDelay: 1500,

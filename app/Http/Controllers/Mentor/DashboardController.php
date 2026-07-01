@@ -9,12 +9,13 @@ use App\Models\Payment;
 use App\Models\Rate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $mentorId = auth()->id();
+        $mentorId =  Auth::id();
 
         $successStatuses = ['success', 'settlement', 'paid', 'sukses'];
 
