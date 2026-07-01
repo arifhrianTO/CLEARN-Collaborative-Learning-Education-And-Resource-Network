@@ -43,7 +43,7 @@
                     @endif
                 </div>
 
-                <h1 class="text-xl lg:text-2xl font-extrabold tracking-tight">
+                <h1 class="text-xl lg:text-2xl font-bold tracking-tight">
                     Detail Verifikasi Kursus
                 </h1>
 
@@ -64,7 +64,7 @@
             <div class="lg:col-span-2 space-y-6">
 
                 <div class="bg-white dark:bg-[#1c1826]/50 backdrop-blur-xl border border-gray-100 dark:border-gray-800/80 rounded-3xl p-6 shadow-sm">
-                    <h2 class="text-md font-extrabold mb-6 flex items-center gap-3">
+                    <h2 class="text-md font-bold mb-6 flex items-center gap-3">
                         <span class="w-1.5 h-5 bg-[#7C3AED] rounded-full"></span>
                         Informasi Dasar Kursus
                     </h2>

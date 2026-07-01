@@ -136,9 +136,6 @@
                     </div>
                     <h3 class="text-slate-800 dark:text-white font-bold mb-2">Belum ada kursus</h3>
                     <p class="text-xs text-slate-500 mb-4">Anda belum mendaftar di kursus mana pun. Yuk cari kursus yang menarik!</p>
-                    <a href="{{ route('home') }}" class="inline-block bg-primary text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform active:scale-95">
-                        Jelajahi Kursus
-                    </a>
                 </div>
             @endforelse
         </div>
@@ -147,9 +144,9 @@
         <div class="bg-primary p-8 rounded-2xl text-center text-white shadow-xl shadow-primary/20 relative overflow-hidden">
             <div class="relative z-10">
                 <h3 class="font-bold text-sm mb-1">Siap lanjut belajar?</h3>
-                <p class="text-[11px] text-white/80 mb-6 font-medium">Temukan lebih banyak kursus untuk meningkatkan skill digital Anda</p>
+                <p class="text-[11px] text-white/80 mb-6 font-medium">Temukan lebih banyak kursus untuk meningkatkan skill Anda</p>
                 <a href="{{ route('home') }}" class="inline-block bg-white text-primary px-8 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform active:scale-95">
-                    Jelajahi Semua Kursus <i class="fa-solid fa-chevron-right ml-2 text-[9px]"></i>
+                    Jelajahi Semua Kursus <i class="ml-2 text-[9px]"></i>
                 </a>
             </div>
 
