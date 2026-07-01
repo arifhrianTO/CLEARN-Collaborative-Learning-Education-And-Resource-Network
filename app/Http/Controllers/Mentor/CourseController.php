@@ -9,6 +9,7 @@ use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class CourseController extends Controller
@@ -18,7 +19,7 @@ class CourseController extends Controller
      */
     private function authorizeCourse(Course $course): void
     {
-        if ((int) $course->mentor_id !== (int) auth()->id()) {
+        if ((int) $course->mentor_id !== (int) Auth::id()) {
             abort(403, 'Kamu tidak memiliki akses ke course ini.');
         }
     }
@@ -29,7 +30,7 @@ class CourseController extends Controller
     public function index()
     {
         $courseQuery = Course::query()
-            ->where('mentor_id', auth()->id());
+            ->where('mentor_id',  Auth::id());
 
         $totalCourse = (clone $courseQuery)->count();
 
@@ -131,7 +132,7 @@ class CourseController extends Controller
                 ->store('course-thumbnails', 'public');
 
             $course = Course::create([
-                'mentor_id' => auth()->id(),
+                'mentor_id' =>  Auth::id(),
                 'category_id' => $validated['category_id'],
                 'course_title' => $validated['course_title'],
                 'course_slug' => Str::slug($validated['course_title']) . '-' . time(),

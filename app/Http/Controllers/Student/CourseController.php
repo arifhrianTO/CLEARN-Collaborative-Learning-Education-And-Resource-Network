@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Certificate;
+use App\Models\ExerciseResult;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -14,13 +17,13 @@ class CourseController extends Controller
 {
     public function index(): View
     {
-        $user = auth()->user();
-        
-        $enrollments = \App\Models\Enrollment::where('student_id', $user->id)
-            ->where(function($query) {
-                $query->whereHas('course', function($q) {
+        $user = Auth::user();
+
+        $enrollments = Enrollment::where('student_id', $user->id)
+            ->where(function ($query) {
+                $query->whereHas('course', function ($q) {
                     $q->where('course_price', 0);
-                })->orWhereHas('payment', function($q) {
+                })->orWhereHas('payment', function ($q) {
                     $q->where('connection_status', 'success');
                 });
             })
@@ -39,13 +42,13 @@ class CourseController extends Controller
 
         $sudahEnroll = false;
         $isPaid = false;
-        
-        if (auth()->check()) {
-            $enrollment = Enrollment::where('student_id', auth()->id())
+
+        if (Auth::check()) {
+            $enrollment = Enrollment::where('student_id', Auth::id())
                 ->where('course_id', $course->id)
                 ->with('payment')
                 ->first();
-                
+
             if ($enrollment) {
                 $sudahEnroll = true;
                 // Course is free OR payment is success
@@ -62,7 +65,7 @@ class CourseController extends Controller
     {
         $course = Course::where('course_slug', $slug)->firstOrFail();
 
-        $sudahEnroll = Enrollment::where('student_id', auth()->id())
+        $sudahEnroll = Enrollment::where('student_id', Auth::id())
             ->where('course_id', $course->id)
             ->exists();
 
@@ -77,7 +80,7 @@ class CourseController extends Controller
         }
 
         Enrollment::create([
-            'student_id' => auth()->id(),
+            'student_id' => Auth::id(),
             'course_id'  => $course->id,
             'progress'   => 0,
             'start_date' => now(),
@@ -92,15 +95,15 @@ class CourseController extends Controller
         $course = Course::where('course_slug', $slug)
             ->with(['sessions.lessons.materials', 'sessions.exercise'])
             ->firstOrFail();
-        
+
         // Pengecekan akses: Pastikan student sudah enroll dan sudah bayar lunas (atau kursus gratis)
-        $enrollment = Enrollment::where('student_id', auth()->id())
+        $enrollment = Enrollment::where('student_id', Auth::id())
             ->where('course_id', $course->id)
             ->with('payment')
             ->first();
 
         $hasAccess = false;
-        
+
         if ($enrollment) {
             if ($course->course_price == 0 || ($enrollment->payment && $enrollment->payment->connection_status === 'success')) {
                 $hasAccess = true;
@@ -118,16 +121,16 @@ class CourseController extends Controller
 
     public function certificates(): View
     {
-        $user = auth()->user();
-        
-        $certificates = \App\Models\Certificate::whereHas('enrollment', function ($query) use ($user) {
-                $query->where('student_id', $user->id);
-            })
+        $user = Auth::user();
+
+        $certificates = Certificate::whereHas('enrollment', function ($query) use ($user) {
+            $query->where('student_id', $user->id);
+        })
             ->with(['enrollment.course.mentor'])
             ->latest()
             ->paginate(12);
 
-        $totalCertificates = \App\Models\Certificate::whereHas('enrollment', function ($query) use ($user) {
+        $totalCertificates = Certificate::whereHas('enrollment', function ($query) use ($user) {
             $query->where('student_id', $user->id);
         })->count();
 
@@ -140,10 +143,10 @@ class CourseController extends Controller
 
     public function showCertificates($id): View
     {
-        $certificate = \App\Models\Certificate::with(['enrollment.course.mentor', 'enrollment.student'])->findOrFail($id);
-        
+        $certificate = Certificate::with(['enrollment.course.mentor', 'enrollment.student'])->findOrFail($id);
+
         // Pastikan hanya student pemilik sertifikat yang bisa melihatnya
-        if ($certificate->enrollment->student_id !== auth()->id()) {
+        if ($certificate->enrollment->student_id !== Auth::id()) {
             abort(403);
         }
 
@@ -152,29 +155,29 @@ class CourseController extends Controller
 
     public function downloadCertificate($id)
     {
-        $certificate = \App\Models\Certificate::with(['enrollment.course.mentor', 'enrollment.student'])->findOrFail($id);
-        
-        if ($certificate->enrollment->student_id !== auth()->id()) {
+        $certificate = Certificate::with(['enrollment.course.mentor', 'enrollment.student'])->findOrFail($id);
+
+        if ($certificate->enrollment->student_id !== Auth::id()) {
             abort(403);
         }
 
         $pdf = Pdf::loadView('student.certificate.pdf', compact('certificate'))
-                  ->setPaper('a4', 'landscape');
-                  
+            ->setPaper('a4', 'landscape');
+
         return $pdf->download('certificate-' . $certificate->certificate_number . '.pdf');
     }
 
     public function progress(): View
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         // Ambil semua enrollment milik student beserta relasinya
-        $enrollments = \App\Models\Enrollment::where('student_id', $user->id)
-            ->where(function($query) {
+        $enrollments = Enrollment::where('student_id', $user->id)
+            ->where(function ($query) {
                 // Pastikan hanya course yang gratis atau sudah dibayar yang masuk hitungan progress
-                $query->whereHas('course', function($q) {
+                $query->whereHas('course', function ($q) {
                     $q->where('course_price', 0);
-                })->orWhereHas('payment', function($q) {
+                })->orWhereHas('payment', function ($q) {
                     $q->where('connection_status', 'success');
                 });
             })
@@ -184,10 +187,10 @@ class CourseController extends Controller
 
         $activeCoursesCount = $enrollments->where('progress', '<', 100)->count();
         $completedCoursesCount = $enrollments->where('progress', 100)->count();
-        
+
         // Asumsi nilai kuis diambil dari rata-rata ExerciseResult, 
         // Jika belum ada datanya, bisa kita berikan nilai default atau hitung berdasarkan yang ada.
-        $averageQuizScore = \App\Models\ExerciseResult::whereHas('attempt', function($q) use ($user) {
+        $averageQuizScore = ExerciseResult::whereHas('attempt', function ($q) use ($user) {
             $q->where('student_id', $user->id);
         })->avg('score') ?? 0;
 
