@@ -15,7 +15,6 @@
         <a href="#beranda" class="text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 pb-1">Beranda</a>
         <a href="#kursus" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Kursus Unggulan</a>
         <a href="#kategori" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Kategori</a>
-        <a href="#ulasan" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Ulasan</a>
         <a href="#pengajar" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Pengajar</a>
     </div>
 
