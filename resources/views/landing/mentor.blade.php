@@ -9,7 +9,7 @@
     <button
         onclick="window.location='{{ route('home') }}'"
         class="absolute left-6 top-6 z-50 text-white hover:opacity-80 transition">
-        <i class="fas fa-reply text-2xl -translate-x-1"></i>
+        <i class="fa-solid fa-arrow-left-long text-2xl -translate-x-1"></i>
     </button>
 
     <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-purple-900/15 blur-[120px] rounded-full -z-10 opacity-0 dark:opacity-100 transition-opacity"></div>
@@ -21,20 +21,13 @@
         Pengajar kami adalah pakar industri dari perusahaan-perusahaan ternama di indonesia
     </p>
 
-    <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-5">
-        <button
-            onclick="window.location='{{ route('register.mentor') }}'"
-            class="bg-gradient-to-r from-purple-700 to-purple-500 px-10 py-4 rounded-xl font-bold flex items-center group text-base shadow-lg text-white">
-            Menjadi Pengajar
-        </button>
-    </div>
 </section>
 
 <!-- Mentor -->
 <section id="pengajar" class="py-24 px-6 bg-slate-100 dark:bg-[#0d0c13] transition-colors duration-300">
     <div class="grid grid-cols-3 gap-6 max-w-5xl mx-auto text-center mb-16">
         <div>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">400+</h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">20</h3>
             <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pengajar Ahli</p>
         </div>
         <div>
@@ -42,7 +35,7 @@
             <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Rating</p>
         </div>
         <div>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">500+</h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">20</h3>
             <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pelajar Aktif</p>
         </div>
     </div>
@@ -122,7 +115,7 @@
         </p>
 
         <div class="flex justify-center gap-4">
-            <button class="px-6 py-3 rounded-xl bg-white text-purple-600 font-semibold hover:scale-105 transition">
+            <button class="px-6 py-3 rounded-xl bg-white text-black font-semibold hover:scale-105 transition">
                 Mulai Mengajar
             </button>
         </div>

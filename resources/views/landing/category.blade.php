@@ -10,7 +10,7 @@
         type="button"
         onclick="window.location='{{ route('home') }}'"
         class="absolute left-6 top-6 z-50 text-slate-600 dark:text-white hover:opacity-80 transition">
-        <i class="fas fa-reply text-2xl -translate-x-1"></i>
+        <i class="fa-solid fa-arrow-left-long text-2xl -translate-x-1"></i>
     </button>
 
     <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px]
