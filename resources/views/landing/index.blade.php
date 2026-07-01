@@ -16,7 +16,7 @@
             <h2 class="text-4xl font-bold mb-3 tracking-tight">Kursus Unggulan</h2>
             <p class="text-slate-500 dark:text-gray-400 text-sm">Pilihan kursus terbaik yang paling diminati pengguna baru</p>
         </div>
-       <a href="{{route('category') }}" class="absolute right-10 bottom--2 text-purple-600 dark:text-purple-400 text-sm font-semibold flex items-center group">
+       <a href="{{route('course') }}" class="absolute right-10 bottom--2 text-purple-600 dark:text-purple-400 text-sm font-semibold flex items-center group">
             Lihat Semua <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
         </a>
     </div>

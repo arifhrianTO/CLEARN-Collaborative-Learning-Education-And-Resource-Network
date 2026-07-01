@@ -9,13 +9,13 @@
 
         {{-- Header --}}
         <div class="mb-8">
-            <a href="{{ route('mentor.courses.index') }}"
-                class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary transition">
-                <i class="fa-solid fa-arrow-left"></i>
-                Kembali ke Dashboard
-            </a>
+     <a href="{{ route('mentor.courses.index') }}"
+    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition">
+    <i class="fa-solid fa-arrow-left"></i>
+    Kembali ke Dashboard
+</a>
 
-            <h1 class="text-2xl font-extrabold dark:text-white text-slate-800 tracking-tight mt-4">
+            <h1 class="text-2xl font-bold dark:text-white text-slate-800 tracking-tight mt-4">
                 Tambah Kursus Baru
             </h1>
 
@@ -64,7 +64,7 @@
                             name="course_title"
                             value="{{ old('course_title') }}"
                             required
-                            placeholder="Contoh: Laravel Dasar untuk Pemula"
+                            placeholder="Contoh: UI/UX"
                             class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
                     </div>
 
@@ -96,7 +96,7 @@
                             @foreach($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                {{ $category->category_name }}
+                                {{ $category->category_name }}  
                             </option>
                             @endforeach
                         </select>
@@ -118,7 +118,7 @@
                             class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
 
                         <p class="text-[10px] text-slate-400 mt-2">
-                            Pertemuan otomatis dibuat setelah kursus disimpan.
+                            Pertemuan akan dibuat otomatis setelah kursus disimpan. Jumlah yang diisi sudah termasuk 1 Tugas Akhir sebagai pertemuan terakhir.
                         </p>
                     </div>
 
