@@ -3,17 +3,17 @@
         <img
             src="{{ asset('images/logo-light.png') }}"
             alt="logo"
-            class="h-12 w-auto object-contain dark:hidden">
+            class="h-10 w-auto object-contain dark:hidden">
 
         <img
             src="{{ asset('images/logo-dark.png') }}"
             alt="logo"
-            class="h-12 w-auto object-contain hidden dark:block">
+            class="h-10 w-auto object-contain hidden dark:block">
     </div>
 
     <div class="hidden md:flex gap-8 text-sm font-semibold">
-        <a href="#beranda" class="text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 pb-1">Beranda</a>
-        <a href="#kursus" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Kursus Unggulan</a>
+        <a href="#beranda" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Beranda</a>
+        <a href="#kursus" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Kursus</a>
         <a href="#kategori" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Kategori</a>
         <a href="#pengajar" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Pengajar</a>
     </div>

@@ -18,11 +18,12 @@
 
         {{-- Header --}}
         <div class="mb-8">
-            <a href="{{ route('mentor.courses.sessions.edit', $session->course_id) }}"
-                class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary transition">
-                <i class="fa-solid fa-arrow-left"></i>
-                Kembali ke Kurikulum
-            </a>
+            <button type="button"
+    onclick="window.location='{{ route('mentor.courses.sessions.edit', $session->course_id) }}'"
+    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold shadow-md hover:bg-primary/90 transition">
+    <i class="fa-solid fa-arrow-left"></i>
+    Kembali ke Kurikulum
+</button>
 
             <div class="mt-5">
                 <p class="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500">

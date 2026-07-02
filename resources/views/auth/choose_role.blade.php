@@ -17,6 +17,12 @@
 @endpush
 
 @section('content')
+    <button
+        type="button"
+        onclick="window.location='{{ route('home') }}'"
+        class="absolute left-6 top-6 z-50 text-slate-600 dark:text-white hover:opacity-80 transition">
+        <i class="fa-solid fa-arrow-left-long text-2xl -translate-x-1"></i>
+    </button>
 <div class="max-w-3xl w-full text-center">
 
     <div class="flex justify-center mb-1">
@@ -24,12 +30,12 @@
             <img
                 src="{{ asset('images/logo-light.png') }}"
                 alt="logo"
-                class="w-31 h-31 mb-2 object-contain dark:hidden">
+                class="w-50 h-50 object-contain dark:hidden">
 
             <img
                 src="{{ asset('images/logo-dark.png') }}"
                 alt="logo"
-                class="w-31 h-31 mb-2 object-contain hidden dark:block">
+                class="w-50 h-50 object-contain hidden dark:block">
         </div>
     </div>
 

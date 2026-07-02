@@ -23,7 +23,7 @@
         {{-- Header --}}
         <header class="mb-8 animate-fade-down">
             <div>
-                <h1 class="text-2xl font-extrabold tracking-tight">Pendapatan Platform</h1>
+                <h1 class="text-2xl font-abold tracking-tight">Pendapatan Platform</h1>
                 <p class="text-slate-500 dark:text-gray-400 text-xs mt-0.5 font-medium">
                     Pantau total penjualan kursus, potongan komisi, dan status keuangan platform.
                 </p>
@@ -92,7 +92,7 @@
         {{-- Tabel Riwayat Transaksi --}}
         <div class="bg-white dark:bg-[#1c1826]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-1.5 shadow-sm">
             <div class="p-5 flex items-center justify-between border-b border-gray-100 dark:border-gray-800/60">
-                <h2 class="text-md font-extrabold tracking-tight">Aktivitas Transaksi Terbaru</h2>
+                <h2 class="text-md font-bold tracking-tight">Aktivitas Transaksi Terbaru</h2>
                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50 dark:bg-[#0f0a19] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800/50">
                     Real-time
                 </span>
