@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="relative w-full md:w-56 aspect-video bg-slate-900 rounded-2xl overflow-hidden group cursor-pointer border border-gray-200 dark:border-[#2d2644] shadow-lg shrink-0">
-                        <img src="{{ asset('storage/' . $course->course_thumbnail) }}"
+                        <img src="{{ $course->course_thumbnail ? asset('storage/' . $course->course_thumbnail) : asset('images/default-course.png') }}"
                             class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition duration-700">
                         <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/20">
                             <i class="far fa-play-circle text-4xl text-white mb-2 group-hover:scale-110 transition-transform"></i>
@@ -84,24 +84,46 @@
                 </div>
 
                 <div class="card-bg p-6 md:p-8">
-                    <h3 class="text-[15px] font-black mb-6">Materi Kursus</h3>
-                    <div class="space-y-3">
-                        @forelse($course->materis ?? [] as $i => $materi)
-                        <div class="inner-item flex items-center justify-between p-4 {{ !$materi->is_free ? 'opacity-50' : '' }}">
-                            <div class="flex items-center gap-4">
-                                <i class="fas {{ $materi->is_free ? 'fa-file-alt' : 'fa-lock' }} text-primary"></i>
-                                <span class="text-[12px] font-extrabold uppercase tracking-tight">
-                                    {{ $i + 1 }}. {{ $materi->title }}
-                                </span>
+                    <h3 class="text-[15px] font-black mb-6 flex items-center gap-2">
+                        <span class="w-1.5 h-5 bg-primary rounded-full"></span>
+                        Materi Kursus
+                    </h3>
+                    <div class="space-y-6">
+                        @forelse($course->sessions as $sIndex => $session)
+                            <div>
+                                <h4 class="text-[11px] font-black text-slate-400 dark:text-gray-500 uppercase tracking-widest mb-3">
+                                    {{ $session->sessions_title }}
+                                </h4>
+                                <div class="space-y-2">
+                                    @forelse($session->lessons as $lIndex => $lesson)
+                                        <div class="inner-item flex items-center justify-between p-4 bg-gray-50/50 dark:bg-[#161525] border border-gray-100 dark:border-[#2d2644] rounded-xl hover:border-primary/30 transition-all">
+                                            <div class="flex items-center gap-4">
+                                                <i class="fas fa-play-circle text-primary text-sm"></i>
+                                                <span class="text-[12px] font-extrabold uppercase tracking-tight">
+                                                    {{ $sIndex + 1 }}.{{ $lIndex + 1 }} {{ $lesson->lessons_title }}
+                                                </span>
+                                            </div>
+                                            <span class="text-[10px] text-muted-custom font-bold uppercase tracking-wider bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">Materi</span>
+                                        </div>
+                                    @empty
+                                        <p class="text-[11px] text-muted-custom pl-4 italic">Belum ada materi di bab ini.</p>
+                                    @endforelse
+
+                                    @if($session->exercise)
+                                        <div class="inner-item flex items-center justify-between p-4 bg-gray-50/50 dark:bg-[#161525] border border-gray-100 dark:border-[#2d2644] rounded-xl">
+                                            <div class="flex items-center gap-4">
+                                                <i class="fas fa-file-alt text-primary text-sm"></i>
+                                                <span class="text-[12px] font-extrabold uppercase tracking-tight">
+                                                    Latihan: {{ $session->exercise->exercise_title }}
+                                                </span>
+                                            </div>
+                                            <span class="text-[10px] text-amber-500 font-bold uppercase tracking-wider bg-amber-500/10 px-2 py-0.5 rounded">Kuis</span>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                            @if($materi->is_free)
-                            <span class="bg-primary/10 text-primary text-[8px] px-2 py-0.5 rounded font-black uppercase tracking-widest">Gratis</span>
-                            @else
-                            <i class="fas fa-video-slash text-[10px] text-muted-custom"></i>
-                            @endif
-                        </div>
                         @empty
-                        <p class="text-[12px] text-muted-custom">Belum ada materi tersedia.</p>
+                            <p class="text-[12px] text-muted-custom italic">Belum ada materi tersedia untuk kursus ini.</p>
                         @endforelse
                     </div>
                 </div>
@@ -142,7 +164,7 @@
                             </a>
                         @else
                             <a href="{{ auth()->check() ? route('public.course.enroll', $course->course_slug) : route('login') }}" 
-                               @if(auth()->check()) onclick="event.preventDefault(); document.getElementById('enroll-form').submit();" @endif
+                               @if(auth()->check()) onclick="event.preventDefault(); document.getElementById('enrollConfirmModal').classList.remove('hidden');" @endif
                                class="w-full bg-primary hover:brightness-110 text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-lg shadow-primary/20 uppercase tracking-[0.2em] text-[10px]">
                                 <i class="fas fa-shopping-bag text-sm"></i>
                                 Daftar Sekarang
@@ -157,6 +179,33 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Pendaftaran -->
+<div id="enrollConfirmModal" class="fixed inset-0 z-[200] flex items-center justify-center hidden p-4 bg-black/40 backdrop-blur-sm">
+    <div class="bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-sm flex flex-col">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-sm font-black dark:text-white uppercase tracking-wider">Konfirmasi Pendaftaran</h2>
+            <button type="button" onclick="document.getElementById('enrollConfirmModal').classList.add('hidden')" class="text-gray-400 hover:text-primary">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-gray-400 mb-6 leading-relaxed">
+            Apakah Anda yakin ingin mendaftar di kursus <strong>"{{ $course->course_title }}"</strong>?
+            @if($course->course_price > 0)
+                <br><br>
+                <span class="text-primary font-bold">Investasi Ilmu: Rp{{ number_format($course->course_price, 0, ',', '.') }}</span>
+            @endif
+        </p>
+        <div class="flex gap-3">
+            <button type="button" onclick="document.getElementById('enrollConfirmModal').classList.add('hidden')" class="flex-1 py-3 bg-gray-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-gray-200 dark:hover:bg-white/10 transition-all">
+                Batal
+            </button>
+            <button type="button" onclick="document.getElementById('enroll-form').submit();" class="flex-1 py-3 bg-primary text-white rounded-xl font-bold text-[10px] uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+                Ya, Daftar
+            </button>
         </div>
     </div>
 </div>

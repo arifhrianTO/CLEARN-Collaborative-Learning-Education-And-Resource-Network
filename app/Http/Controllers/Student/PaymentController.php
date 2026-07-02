@@ -157,101 +157,157 @@ class PaymentController extends Controller
                 return response()->json(['message' => 'Payment not found'], 404);
             }
             
-            $grossAmount = $payment->gross_amount;
+            $this->updatePaymentAndRevenue($payment, $transaction, $type, $fraud, $notification);
             
-            if ($transaction == 'capture') {
-                if ($type == 'credit_card') {
-                    if ($fraud == 'challenge') {
-                        $payment->connection_status = 'challenge';
-                    } else {
-                        $payment->connection_status = 'success';
-                    }
-                }
-            } else if ($transaction == 'settlement') {
-                $payment->connection_status = 'success';
-            } else if ($transaction == 'pending') {
-                $payment->connection_status = 'pending';
-            } else if ($transaction == 'deny') {
-                $payment->connection_status = 'failed';
-            } else if ($transaction == 'expire') {
-                $payment->connection_status = 'expired';
-            } else if ($transaction == 'cancel') {
-                $payment->connection_status = 'canceled';
-            }
-            
-            $payment->transaction_id = $notification->transaction_id;
-            $payment->payment_type = $type;
-            
-            if ($payment->connection_status == 'success') {
-                $payment->paid_at = now();
-                
-                // Distribusi Revenue Share (Opsi A: Bagi dari Gross Amount)
-                // Pastikan belum pernah dibagi hasilnya (mencegah webhook berulang membagi hasil dobel)
-                $hasShared = RevenueShare::where('payment_id', $payment->id)->exists();
-                
-                if (!$hasShared && $payment->enrollment && $payment->enrollment->course) {
-                    $course = $payment->enrollment->course;
-                    $mentorId = $course->mentor_id;
-                    
-                    // Admin mendapatkan 20%
-                    $adminPercentage = 20;
-                    $adminAmount = ($grossAmount * $adminPercentage) / 100;
-                    
-                    // Mentor mendapatkan 80%
-                    $mentorPercentage = 80;
-                    $mentorAmount = ($grossAmount * $mentorPercentage) / 100;
-                    
-                    // Create Revenue Share for Mentor
-                    $mentorShare = RevenueShare::create([
-                        'payment_id' => $payment->id,
-                        'user_id' => $mentorId,
-                        'receiver_role' => 'mentor',
-                        'percentage' => $mentorPercentage,
-                        'total_amount' => $grossAmount,
-                        'amount' => $mentorAmount,
-                        'status' => 'success',
-                    ]);
-                    
-                    // Add balance to Mentor's Wallet
-                    $mentorWallet = Wallet::firstOrCreate(
-                        ['user_id' => $mentorId],
-                        ['balance' => 0]
-                    );
-                    $mentorWallet->increment('balance', $mentorAmount);
-                    
-                    WalletTransaction::create([
-                        'wallet_id' => $mentorWallet->id,
-                        'revenue_shares_id' => $mentorShare->id,
-                        'wallet_permissions' => 'credit', // Credit means adding money
-                        'source_id' => $payment->id,
-                        'source_type' => Payment::class,
-                        'source_amount' => $grossAmount,
-                        'amount' => $mentorAmount,
-                    ]);
-                    
-                    // Note: Untuk admin, Anda bisa juga mencatatnya ke tabel Admin Wallet jika ada.
-                    // Jika tidak ada tabel dompet khusus admin, kita hanya catat RevenueShare-nya saja sebagai history laporan
-                    // Anggap User ID 1 adalah Super Admin (atau ambil dari konstan)
-                    RevenueShare::create([
-                        'payment_id' => $payment->id,
-                        'user_id' => 1, // Ganti dengan ID Admin Anda jika dinamis
-                        'receiver_role' => 'admin',
-                        'percentage' => $adminPercentage,
-                        'total_amount' => $grossAmount,
-                        'amount' => $adminAmount,
-                        'status' => 'success',
-                    ]);
-                }
-            }
-            
-            $payment->raw_response = json_encode($notification);
-            $payment->save();
-
             return response()->json(['message' => 'Webhook handled successfully']);
             
         } catch (\Exception $e) {
             Log::error('Midtrans Webhook Error: ' . $e->getMessage());
             return response()->json(['message' => 'Internal server error'], 500);
         }
+    }
+
+    public function successCallback(Request $request)
+    {
+        $orderId = $request->query('order_id');
+        if (!$orderId) {
+            return redirect()->route('student.courses')->with('error', 'Order ID tidak ditemukan.');
+        }
+
+        $payment = Payment::where('midtrans_order_id', $orderId)
+            ->whereHas('enrollment', function ($query) {
+                $query->where('student_id', Auth::id());
+            })
+            ->first();
+
+        if (!$payment) {
+            return redirect()->route('student.courses')->with('error', 'Transaksi tidak ditemukan atau tidak valid.');
+        }
+
+        if ($payment->connection_status === 'success') {
+            return redirect()->route('student.course.show', $payment->enrollment->course->course_slug)
+                ->with('success', 'Pembayaran berhasil!');
+        }
+
+        try {
+            $status = \Midtrans\Transaction::status($orderId);
+            
+            $transaction = $status->transaction_status;
+            $type = $status->payment_type;
+            $fraud = $status->fraud_status ?? null;
+
+            $this->updatePaymentAndRevenue($payment, $transaction, $type, $fraud, $status);
+
+            if ($payment->connection_status === 'success') {
+                return redirect()->route('student.course.show', $payment->enrollment->course->course_slug)
+                    ->with('success', 'Pembayaran berhasil terverifikasi!');
+            }
+
+            return redirect()->route('student.course.show', $payment->enrollment->course->course_slug)
+                ->with('info', 'Status pembayaran saat ini: ' . $payment->connection_status);
+
+        } catch (\Exception $e) {
+            Log::error('Midtrans Success Callback Verification Error: ' . $e->getMessage());
+            
+            // Bypass logic for local development if Midtrans API is unreachable or fails (e.g. sandbox credentials issue)
+            if (config('app.env') === 'local') {
+                $this->updatePaymentAndRevenue($payment, 'settlement', 'credit_card', 'accept', new \stdClass());
+                return redirect()->route('student.course.show', $payment->enrollment->course->course_slug)
+                    ->with('success', 'Pembayaran disimulasikan sukses (Mode Lokal).');
+            }
+
+            return redirect()->route('student.course.show', $payment->enrollment->course->course_slug)
+                ->with('error', 'Terjadi kesalahan saat memverifikasi pembayaran. Silakan tunggu beberapa saat.');
+        }
+    }
+
+    private function updatePaymentAndRevenue($payment, $transaction, $type, $fraud, $rawData)
+    {
+        $grossAmount = $payment->gross_amount;
+        
+        if ($transaction == 'capture') {
+            if ($type == 'credit_card') {
+                if ($fraud == 'challenge') {
+                    $payment->connection_status = 'challenge';
+                } else {
+                    $payment->connection_status = 'success';
+                }
+            }
+        } else if ($transaction == 'settlement') {
+            $payment->connection_status = 'success';
+        } else if ($transaction == 'pending') {
+            $payment->connection_status = 'pending';
+        } else if ($transaction == 'deny') {
+            $payment->connection_status = 'failed';
+        } else if ($transaction == 'expire') {
+            $payment->connection_status = 'expired';
+        } else if ($transaction == 'cancel') {
+            $payment->connection_status = 'canceled';
+        }
+        
+        $payment->transaction_id = $rawData->transaction_id ?? null;
+        $payment->payment_type = $type;
+        
+        if ($payment->connection_status == 'success') {
+            $payment->paid_at = now();
+            
+            // Distribusi Revenue Share (Opsi A: Bagi dari Gross Amount)
+            $hasShared = RevenueShare::where('payment_id', $payment->id)->exists();
+            
+            if (!$hasShared && $payment->enrollment && $payment->enrollment->course) {
+                $course = $payment->enrollment->course;
+                $mentorId = $course->mentor_id;
+                
+                // Admin mendapatkan 20%
+                $adminPercentage = 20;
+                $adminAmount = ($grossAmount * $adminPercentage) / 100;
+                
+                // Mentor mendapatkan 80%
+                $mentorPercentage = 80;
+                $mentorAmount = ($grossAmount * $mentorPercentage) / 100;
+                
+                // Create Revenue Share for Mentor
+                $mentorShare = RevenueShare::create([
+                    'payment_id' => $payment->id,
+                    'user_id' => $mentorId,
+                    'receiver_role' => 'mentor',
+                    'percentage' => $mentorPercentage,
+                    'total_amount' => $grossAmount,
+                    'amount' => $mentorAmount,
+                    'status' => 'success',
+                ]);
+                
+                // Add balance to Mentor's Wallet
+                $mentorWallet = Wallet::firstOrCreate(
+                    ['user_id' => $mentorId],
+                    ['balance' => 0]
+                );
+                $mentorWallet->increment('balance', $mentorAmount);
+                
+                WalletTransaction::create([
+                    'wallet_id' => $mentorWallet->id,
+                    'revenue_shares_id' => $mentorShare->id,
+                    'wallet_permissions' => 'credit',
+                    'source_id' => $payment->id,
+                    'source_type' => Payment::class,
+                    'source_amount' => $grossAmount,
+                    'amount' => $mentorAmount,
+                ]);
+                
+                // Create Revenue Share for Admin
+                RevenueShare::create([
+                    'payment_id' => $payment->id,
+                    'user_id' => 1,
+                    'receiver_role' => 'admin',
+                    'percentage' => $adminPercentage,
+                    'total_amount' => $grossAmount,
+                    'amount' => $adminAmount,
+                    'status' => 'success',
+                ]);
+            }
+        }
+        
+        $payment->raw_response = json_encode($rawData);
+        $payment->save();
     }
 }

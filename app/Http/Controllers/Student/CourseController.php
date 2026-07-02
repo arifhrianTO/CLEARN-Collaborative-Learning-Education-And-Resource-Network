@@ -37,7 +37,7 @@ class CourseController extends Controller
     public function show($slug): View
     {
         $course = Course::where('course_slug', $slug)
-            ->with(['enrollments', 'rates']) // Removed sessions.lessons which might not exist directly
+            ->with(['enrollments', 'rates', 'sessions.lessons'])
             ->firstOrFail();
 
         $sudahEnroll = false;
