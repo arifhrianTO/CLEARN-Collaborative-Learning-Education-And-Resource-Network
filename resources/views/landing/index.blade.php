@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- HERO -->
-<section id="beranda" class="relative py-28 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#120d22]">
+<section id="beranda" class="relative py-28 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#1A1625]">
     @include('partials.landing.hero')
 </section>
 

@@ -67,9 +67,6 @@
         </p>
 
         <div class="flex justify-center gap-4">
-            <button class="px-6 py-3 rounded-xl bg-white text-black font-semibold hover:scale-105 transition">
-                Mulai Mengajar
-            </button>
         </div>
     </div>
 </section>
