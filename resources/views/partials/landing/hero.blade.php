@@ -17,7 +17,9 @@
 </p>
 
 <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-5 px-4 sm:px-0">
-    <button class="w-full sm:w-56 bg-gradient-to-r from-purple-400 to-purple-400 px-10 py-4 rounded-xl font-bold flex items-center justify-center group text-sm md:text-base shadow-lg text-white">
+    <button
+        onclick="window.location='{{ route('tutorial') }}'"
+        class="w-full sm:w-56 bg-gradient-to-r from-purple-400 to-purple-400 px-10 py-4 rounded-xl font-bold flex items-center justify-center group text-sm md:text-base shadow-lg text-white">
         Mulai Mengajar
     </button>
     <button class="w-full sm:w-56 bg-white dark:bg-gray-900/70 border border-slate-200 dark:border-gray-800 px-10 py-4 rounded-xl font-bold text-sm md:text-base transition-colors text-slate-700 dark:text-white">
@@ -25,17 +27,17 @@
     </button>
 </div>
 
- <div class="grid grid-cols-3 gap-6 mt-32 max-w-5xl mx-auto px-6">
-     <div class="text-center">
-         <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $studentCount }}</h3>
-         <p class="text-slate-500 dark:text-gray-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pelajar Terdaftar</p>
-     </div>
-     <div class="text-center">
-         <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $courseCount }}+</h3>
-         <p class="text-slate-500 dark:text-gray-500 text-xs mt-2 uppercase tracking-widest font-semibold">Kursus Online</p>
-     </div>
-     <div class="text-center">
-         <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $mentorCount }}+</h3>
-         <p class="text-slate-500 dark:text-gray-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pengajar Aktif</p>
-     </div>
- </div>
+<div class="grid grid-cols-3 gap-6 mt-32 max-w-5xl mx-auto px-6">
+    <div class="text-center">
+        <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $studentCount }}</h3>
+        <p class="text-slate-500 dark:text-gray-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pelajar Terdaftar</p>
+    </div>
+    <div class="text-center">
+        <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $courseCount }}+</h3>
+        <p class="text-slate-500 dark:text-gray-500 text-xs mt-2 uppercase tracking-widest font-semibold">Kursus Online</p>
+    </div>
+    <div class="text-center">
+        <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $mentorCount }}+</h3>
+        <p class="text-slate-500 dark:text-gray-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pengajar Aktif</p>
+    </div>
+</div>

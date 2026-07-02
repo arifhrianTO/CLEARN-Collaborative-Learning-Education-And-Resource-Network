@@ -41,6 +41,7 @@ Route::post('/course/{slug}/enroll', [StudentCourseController::class, 'enroll'])
 Route::get('/category', [LandingController::class, 'category'])->name('category');
 Route::get('/mentor', [LandingController::class, 'mentor'])->name('mentor');
 Route::get('/choose-role', fn() => view('auth.choose_role'))->name('choose_role');
+Route::get('/tutorial', fn() => view('landing.tutorial'))->name('tutorial');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showForm'])->name('login');

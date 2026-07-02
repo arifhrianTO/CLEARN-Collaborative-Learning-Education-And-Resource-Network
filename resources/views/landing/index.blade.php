@@ -82,10 +82,17 @@
         </a>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-[1300px] mx-auto">
-
-
-        <x-landing.mentor></x-landing.mentor>
-
+        @foreach($mentors as $mentor)
+        <div class="bg-white dark:bg-[#13111a] p-8 rounded-3xl text-center border border-slate-200 dark:border-gray-800 hover:border-purple-600 transition-all shadow-md">
+            <img src="{{ $mentor->profile_picture ? asset('storage/' . $mentor->profile_picture) : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random' }}" class="w-28 h-28 rounded-full mx-auto mb-6 object-cover border-4 border-slate-200 dark:border-gray-800" alt="{{ $mentor->name }}">
+            <h6 class="font-bold text-lg mb-1.5">{{ $mentor->name }}</h6>
+            <p class="text-xs text-purple-600 dark:text-purple-400 mb-6 font-semibold tracking-wider">{{ $mentor->occupation ?? 'Mentor' }}</p>
+            <div class="text-xs text-slate-500 border-t border-slate-100 dark:border-gray-800/50 pt-5 space-y-1">
+                <p>{{ $mentor->student_count ?? 0 }} Pelajar</p>
+                <p>{{ $mentor->courses_count ?? 0 }} Kursus</p>
+            </div>
+        </div>
+        @endforeach
     </div>
 </section>
 
