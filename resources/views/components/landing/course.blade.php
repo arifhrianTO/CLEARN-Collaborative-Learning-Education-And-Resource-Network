@@ -3,7 +3,7 @@
 <a href="{{ route('course.show', $course->course_slug) }}"
     class="block bg-white dark:bg-[#13111a] rounded-2xl overflow-hidden border border-slate-200 dark:border-gray-800/60 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer shadow-sm hover:shadow-xl">
     <div class="relative h-56 overflow-hidden">
-        <img src="{{ asset('storage/' . $course->course_thumbnail) }}"
+        <img src="{{ $course->course_thumbnail ? asset('storage/' . $course->course_thumbnail) : asset('images/default-course.png') }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             alt="{{ $course->course_title }}">
         <span class="absolute top-4 right-4 bg-purple-600 text-white text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider">Populer</span>

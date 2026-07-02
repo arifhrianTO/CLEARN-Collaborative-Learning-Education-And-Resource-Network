@@ -46,8 +46,8 @@
             onSuccess: function(result){
                 console.log(result);
                 alert("Pembayaran berhasil!");
-                // Anda bisa arahkan user ke halaman dashboard/kelas
-                window.location.href = "{{ route('student.course.show', $course->course_slug) }}";
+                // Arahkan ke route verifikasi pembayaran dengan order_id
+                window.location.href = "{{ route('student.payment.success') }}?order_id=" + result.order_id;
             },
             // Callback jika pembayaran masih pending
             onPending: function(result){

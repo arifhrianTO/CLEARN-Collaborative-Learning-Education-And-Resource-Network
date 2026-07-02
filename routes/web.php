@@ -98,6 +98,7 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/history', [StudentPaymentController::class, 'history'])->name('history');
             Route::get('/checkout/{course_id}', [StudentPaymentController::class, 'checkout'])->name('checkout');
+            Route::get('/payment/success', [StudentPaymentController::class, 'successCallback'])->name('payment.success');
 
             Route::get('/settings', fn() => view('settings.settings'))->name('settings');
         });
