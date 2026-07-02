@@ -4,6 +4,7 @@
 
 @section('content')
 
+
 <main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
     <div class="max-w-4xl mx-auto">
 

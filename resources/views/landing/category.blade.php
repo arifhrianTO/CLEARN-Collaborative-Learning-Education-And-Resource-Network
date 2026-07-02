@@ -5,8 +5,7 @@
 @section('content')
 
 <section class="relative py-28 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#120d22]">
-
-<button
+    <button
         onclick="window.location='{{ route('home') }}'"
         class="absolute left-6 top-6 z-50 text-white hover:opacity-80 transition">
         <i class="fa-solid fa-arrow-left-long text-2xl -translate-x-1"></i>

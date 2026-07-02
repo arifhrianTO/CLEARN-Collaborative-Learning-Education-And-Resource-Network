@@ -57,6 +57,27 @@ class LandingController extends Controller
 
     public function mentor()
     {
-        return view('landing.mentor');
+        $mentors = User::where('role', 'mentor')
+            ->whereIn('status', ['active', 'verified', 'pending']) // Mengizinkan status lain untuk sementara
+            ->with(['profileAccount'])
+            ->withCount(['courses' => function ($query) {
+                $query->where('status_publish', 'published');
+            }])
+            ->with(['courses.enrollments'])
+            ->get()
+            ->map(function ($mentor) {
+                $mentor->student_count = $mentor->courses->sum(function ($course) {
+                    return $course->enrollments->count();
+                });
+                return $mentor;
+            });
+
+        $totalMentors = $mentors->count();
+        $totalStudents = $mentors->sum('student_count');
+        
+        // Asumsi rata-rata rating (bisa disesuaikan nanti dengan tabel review jika ada)
+        $averageRating = 4.8; 
+
+        return view('landing.mentor', compact('mentors', 'totalMentors', 'totalStudents', 'averageRating'));
     }
 }

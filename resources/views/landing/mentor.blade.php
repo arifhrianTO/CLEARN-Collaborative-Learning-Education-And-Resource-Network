@@ -27,79 +27,31 @@
 <section id="pengajar" class="py-24 px-6 bg-slate-100 dark:bg-[#0d0c13] transition-colors duration-300">
     <div class="grid grid-cols-3 gap-6 max-w-5xl mx-auto text-center mb-16">
         <div>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">20</h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $totalMentors }}</h3>
             <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pengajar Ahli</p>
         </div>
         <div>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">4.8</h3>
-            <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Rating</p>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $averageRating }}</h3>
+            <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Rating Rata-rata</p>
         </div>
         <div>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">20</h3>
-            <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pelajar Aktif</p>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $totalStudents }}</h3>
+            <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pelajar Diajar</p>
         </div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1200px] mx-auto">
-
-        <x-landing.mentor-card
-            photo="https://i.pravatar.cc/150?img=1"
-            name="Dr. Angela Yu"
-            title="Instruktur Utama, Pengembangan Web"
-            description="Mantan pengembang utama di Google. Berpengalaman membangun generasi developer."
-            :tags="['JavaScript', 'React']"
-            rating="4.9"
-            students="250"
-            courses="8" />
-
-        <x-landing.mentor-card
-            photo="https://i.pravatar.cc/150?img=2"
-            name="Sarah Johnson"
-            title="Desainer UX Senior"
-            description="Desainer UX dengan pengalaman lebih dari 15 tahun di perusahaan teknologi."
-            :tags="['UI/UX', 'Figma', 'Sistem Desain']"
-            rating="4.9"
-            students="251"
-            courses="12" />
-
-        <x-landing.mentor-card
-            photo="https://i.pravatar.cc/150?img=3"
-            name="Sarah Johnson"
-            title="Desainer UX Senior"
-            description="Desainer UX dengan pengalaman lebih dari 15 tahun di perusahaan teknologi."
-            :tags="['UI/UX', 'Figma', 'Sistem Desain']"
-            rating="4.9"
-            students="251"
-            courses="12" />
-        <x-landing.mentor-card
-            photo="https://i.pravatar.cc/150?img=1"
-            name="Dr. Angela Yu"
-            title="Instruktur Utama, Pengembangan Web"
-            description="Mantan pengembang utama di Google. Berpengalaman membangun generasi developer."
-            :tags="['JavaScript', 'React']"
-            rating="4.9"
-            students="250"
-            courses="8" />
-
-        <x-landing.mentor-card
-            photo="https://i.pravatar.cc/150?img=2"
-            name="Sarah Johnson"
-            title="Desainer UX Senior"
-            description="Desainer UX dengan pengalaman lebih dari 15 tahun di perusahaan teknologi."
-            :tags="['UI/UX', 'Figma', 'Sistem Desain']"
-            rating="4.9"
-            students="251"
-            courses="12" />
-
-        <x-landing.mentor-card
-            photo="https://i.pravatar.cc/150?img=3"
-            name="Sarah Johnson"
-            title="Desainer UX Senior"
-            description="Desainer UX dengan pengalaman lebih dari 15 tahun di perusahaan teknologi."
-            :tags="['UI/UX', 'Figma', 'Sistem Desain']"
-            rating="4.9"
-            students="251"
-            courses="12" />
+        @foreach($mentors as $mentor)
+            <x-landing.mentor-card
+                photo="{{ $mentor->profile_picture ? asset('storage/' . $mentor->profile_picture) : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random' }}"
+                name="{{ $mentor->name }}"
+                title="{{ $mentor->occupation ?? 'Instruktur' }}"
+                description="{{ $mentor->profileAccount->bio ?? 'Mentor berpengalaman di Clearn.' }}"
+                :tags="[]"
+                rating="4.9"
+                students="{{ $mentor->student_count ?? 0 }}"
+                courses="{{ $mentor->courses_count ?? 0 }}" />
+        @endforeach
     </div>
 </section>
 
