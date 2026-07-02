@@ -6,10 +6,9 @@
 
 <section id="kursus" class="relative py-10 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#120d22]">
     <button
-        type="button"
         onclick="window.location='{{ route('home') }}'"
         class="absolute left-6 top-6 z-50 text-white hover:opacity-80 transition">
-        <i class="fas fara-row-left-long text-2xl -translate-x-1"></i>
+        <i class="fa-solid fa-arrow-left-long text-2xl -translate-x-1"></i>
     </button>
 
     <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-purple-900/15 blur-[120px] rounded-full -z-10 opacity-0 dark:opacity-100 transition-opacity"></div>
@@ -67,7 +66,9 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <x-landing.course></x-landing.course>
+        @foreach($courses as $course)
+        <x-landing.course :course="$course" />
+        @endforeach
     </div>
 </section>
 
