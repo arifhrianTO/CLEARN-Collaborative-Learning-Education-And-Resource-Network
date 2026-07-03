@@ -3,7 +3,12 @@
 @section('content')
 
 <!-- Component Sidebar -->
-<x-dashboard.sidebar role="student" name="User Pelajar" active="dashboard" />
+<x-dashboard.sidebar
+    role="student"
+    name="{{ auth()->user()->name ?? 'User Pelajar' }}"
+    initials="{{ strtoupper(substr(auth()->user()->name ?? 'U', 0, 2)) }}"
+    photo="{{ auth()->user()->profile_picture }}"
+    active="dashboard" />
 
 <!-- Content -->
 <main class="flex-1 p-6 lg:p-10 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50">

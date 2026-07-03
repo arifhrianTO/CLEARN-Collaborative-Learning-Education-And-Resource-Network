@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-clearn.png') }}">
     <title>Sertifikat Saya - Clearn</title>
 
     {{-- Vite Assets --}}
@@ -46,7 +47,12 @@
 <body class="min-h-screen flex">
 
     {{-- Sidebar Pelajar --}}
-    <x-dashboard.sidebar role="Student" name="User Pelajar" initials="UP" active="certificates" />
+    <x-dashboard.sidebar
+    role="Student"
+    name="{{ auth()->user()->name ?? 'User Pelajar' }}"
+    initials="{{ strtoupper(substr(auth()->user()->name ?? 'U', 0, 2)) }}"
+    photo="{{ auth()->user()->profile_picture }}"
+    active="certificates" />
 
     <main class="flex-1 p-6 lg:p-10">
         <div class="max-w-5xl mx-auto">

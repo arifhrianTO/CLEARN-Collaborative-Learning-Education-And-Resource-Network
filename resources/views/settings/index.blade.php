@@ -72,10 +72,6 @@ $hideUsername = $isAdmin || $isStudent;
             </div>
         </div>
 
-        {{-- Hidden inputs untuk foto --}}
-        <input type="file" id="photo" name="photo" class="hidden" accept="image/*">
-        <input type="hidden" id="remove_photo" name="remove_photo" value="0">
-
         {{-- Tab Navigation --}}
         <div class="flex dark:border-white/10 border-slate-200 border-b mb-8 overflow-x-auto">
             <button
@@ -372,6 +368,9 @@ $hideUsername = $isAdmin || $isStudent;
 
                     </div>
                     @endif
+
+                    <input type="file" id="photo" name="photo" class="hidden" accept="image/*">
+                    <input type="hidden" id="remove_photo" name="remove_photo" value="0">
 
                     <button
                         type="submit"

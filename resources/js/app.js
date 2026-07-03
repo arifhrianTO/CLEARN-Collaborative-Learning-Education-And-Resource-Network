@@ -1,6 +1,57 @@
 import Typed from "typed.js";
 import './password-toggle';
 
+window.toggleMobileNav = function () {
+    const overlay = document.getElementById("mobile-nav-overlay");
+    const panel = document.getElementById("mobile-nav-panel");
+    const icon = document.getElementById("hamburger-icon");
+    if (!overlay || !panel) return;
+    const isOpen = !overlay.classList.contains("hidden");
+    if (isOpen) {
+        panel.classList.remove("translate-x-0");
+        panel.classList.add("translate-x-full");
+        setTimeout(() => {
+            overlay.classList.add("hidden");
+            document.body.style.overflow = "";
+        }, 300);
+        if (icon) {
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+        }
+    } else {
+        overlay.classList.remove("hidden");
+        panel.classList.remove("translate-x-full");
+        void panel.offsetHeight;
+        panel.classList.add("translate-x-0");
+        document.body.style.overflow = "hidden";
+        if (icon) {
+            icon.classList.remove("fa-bars");
+            icon.classList.add("fa-xmark");
+        }
+    }
+};
+
+window.toggleDashboardSidebar = function () {
+    const sidebar = document.getElementById("mobile-sidebar");
+    const panel = document.getElementById("mobile-sidebar-panel");
+    if (!sidebar || !panel) return;
+    const isOpen = !sidebar.classList.contains("hidden");
+    if (isOpen) {
+        panel.classList.remove("translate-x-0");
+        panel.classList.add("-translate-x-full");
+        setTimeout(() => {
+            sidebar.classList.add("hidden");
+            document.body.style.overflow = "";
+        }, 300);
+    } else {
+        sidebar.classList.remove("hidden");
+        panel.classList.remove("-translate-x-full");
+        void panel.offsetHeight;
+        panel.classList.add("translate-x-0");
+        document.body.style.overflow = "hidden";
+    }
+};
+
 window.toggleTheme = function () {
     const html = document.documentElement;
     const themeIcon = document.getElementById("theme-icon");
