@@ -47,14 +47,12 @@ $hideUsername = $isAdmin || $isStudent;
                 </div>
 
                 {{-- Tombol hapus foto (×) — hanya muncul jika ada foto --}}
-                @if(!empty($user->profile_picture))
                 <button type="button" id="btn-remove-photo"
                     onclick="removePhoto()"
-                    class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-slate-600 hover:bg-red-500 flex items-center justify-center transition shadow-md z-10"
+                    class="{{ empty($user->profile_picture) ? 'hidden' : '' }} absolute -top-1 -right-1 w-5 h-5 rounded-full bg-slate-600 hover:bg-red-500 flex items-center justify-center transition shadow-md z-10"
                     title="Hapus foto">
                     <i class="fa-solid fa-xmark text-white text-[9px]"></i>
                 </button>
-                @endif
 
                 {{-- Tombol kamera --}}
                 <label for="photo"
@@ -365,9 +363,14 @@ $hideUsername = $isAdmin || $isStudent;
 
                         </div>
                         {{-- ===== END DRAG & DROP ===== --}}
-
+                    
                     </div>
                     @endif
+                    
+                    {{-- Validasi Error Photo --}}
+                    @error('photo')
+                    <div class="text-red-500 text-[10px] mt-1">{{ $message }}</div>
+                    @enderror
 
                     <input type="file" id="photo" name="photo" class="hidden" accept="image/*">
                     <input type="hidden" id="remove_photo" name="remove_photo" value="0">

@@ -71,6 +71,12 @@ class CourseController extends Controller
         } elseif (Auth::user()->status === 'rejected') {
             return redirect()->route('mentor.courses.index')->with('error', 'Akun Anda ditolak. Silakan perbaiki data di menu Pengaturan.');
         }
+
+        // Cek apakah data rekening bank sudah diisi
+        $bank = Auth::user()->banks;
+        if (!$bank || empty($bank->bank_name) || empty($bank->bank_account) || empty($bank->bank_holder)) {
+            return redirect()->route('mentor.courses.index')->with('showBankPopup', true);
+        }
         
         $categories = Category::latest()->get();
 
@@ -86,6 +92,12 @@ class CourseController extends Controller
             return redirect()->route('mentor.courses.index')->with('error', 'Status akun Anda masih pending. Anda belum bisa menambahkan kursus.');
         } elseif (Auth::user()->status === 'rejected') {
             return redirect()->route('mentor.courses.index')->with('error', 'Akun Anda ditolak. Silakan perbaiki data di menu Pengaturan.');
+        }
+
+        // Cek kembali saat store (jaga-jaga user memaksa masuk via URL API/Form Bypass)
+        $bank = Auth::user()->banks;
+        if (!$bank || empty($bank->bank_name) || empty($bank->bank_account) || empty($bank->bank_holder)) {
+            return redirect()->route('mentor.courses.index')->with('showBankPopup', true);
         }
         
         $validated = $request->validate([

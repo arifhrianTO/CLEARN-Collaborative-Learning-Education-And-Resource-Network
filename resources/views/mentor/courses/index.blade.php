@@ -61,6 +61,50 @@
         </div>
         @endif
 
+        {{-- Popup Alert untuk Bank Kosong --}}
+        @if(session('showBankPopup'))
+        <div id="bankPopup" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-fade-in">
+            <div class="bg-white dark:bg-[#1c1826] border border-gray-100 dark:border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl relative animate-scale-up">
+                
+                {{-- Tombol Close --}}
+                <button onclick="document.getElementById('bankPopup').remove()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+
+                <div class="flex flex-col items-center text-center">
+                    {{-- Icon Peringatan --}}
+                    <div class="w-20 h-20 bg-amber-500/10 rounded-full flex items-center justify-center mb-5">
+                        <i class="fas fa-building-columns text-4xl text-amber-500"></i>
+                    </div>
+
+                    <h2 class="text-2xl font-black text-slate-800 dark:text-white mb-2">
+                        Data Bank Belum Lengkap!
+                    </h2>
+                    
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-8 font-medium">
+                        Untuk dapat menambahkan kursus baru dan menerima pencairan dana, Anda wajib melengkapi informasi rekening bank terlebih dahulu.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row w-full gap-3">
+                        <a href="{{ route('settings.edit') }}" class="flex-1 py-3 px-4 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-xl font-bold transition-all text-xs shadow-lg shadow-[#7C3AED]/30">
+                            Isi Data Bank <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            // Animasi untuk Popup
+            document.head.insertAdjacentHTML("beforeend", `<style>
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                @keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+                .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+                .animate-scale-up { animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+            </style>`);
+        </script>
+        @endif
+
         {{-- Statistik Ringkas --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 

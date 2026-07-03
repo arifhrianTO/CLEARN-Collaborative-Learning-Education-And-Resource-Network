@@ -12,7 +12,7 @@
             <img
                 src="{{ asset('images/logo-light.png') }}"
                 alt="logo"
-                class="w-40 h- m27b-2 object-contain dark:hidden">
+                class="w-40 h-27 mb-2 object-contain dark:hidden">
 
             <img
                 src="{{ asset('images/logo-dark.png') }}"
