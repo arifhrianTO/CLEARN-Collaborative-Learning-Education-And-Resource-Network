@@ -4,68 +4,123 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
-use App\Models\RevenueShare;
+use App\Models\WalletTransaction;
+use Illuminate\Support\Collection;
 
 class FinanceController extends Controller
 {
     public function index()
     {
+        // LOGIC DARI MENTOR (DIPINDAH KE ADMIN)
+        $mentorId = auth()->id(); // Untuk admin ini mungkin gak relevan filter per user, tapi kita keep logic aslinya
+
         $successStatuses = ['success', 'settlement', 'paid', 'sukses'];
 
         /*
         |--------------------------------------------------------------------------
-        | Total Penjualan Bruto
+        | Pemasukan
         |--------------------------------------------------------------------------
-        | Diambil dari semua pembayaran yang sudah sukses.
         */
-        $totalGross = Payment::whereIn('connection_status', $successStatuses)
-            ->sum('gross_amount');
-
-        /*
-        |--------------------------------------------------------------------------
-        | Komisi Platform
-        |--------------------------------------------------------------------------
-        | Diambil dari revenue_shares milik admin.
-        | Kalau revenue_shares belum tergenerate, fallback 20% dari gross.
-        */
-        $totalNet = RevenueShare::where('receiver_role', 'admin')
-            ->where('status', 'success')
-            ->sum('amount');
-
-        if ($totalNet <= 0 && $totalGross > 0) {
-            $totalNet = $totalGross * 0.20;
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Pending Payout Mentor
-        |--------------------------------------------------------------------------
-        | Dana mentor yang status revenue share-nya masih pending.
-        */
-        $pendingPayouts = RevenueShare::where('receiver_role', 'mentor')
-            ->where('status', 'pending')
-            ->sum('amount');
-
-        /*
-        |--------------------------------------------------------------------------
-        | Transaksi Terbaru
-        |--------------------------------------------------------------------------
-        | Ambil pembayaran terbaru beserta student, course, mentor, dan revenue share.
-        */
-        $transactions = Payment::with([
+        $payments = Payment::with([
+                'enrollment.course',
                 'enrollment.student',
-                'enrollment.course.mentor',
-                'revenueShares.user',
             ])
+            ->whereIn('connection_status', $successStatuses)
             ->latest()
-            ->take(20)
             ->get();
 
+        $totalPemasukan = $payments->sum(function ($payment) {
+            return ($payment->gross_amount ?? 0); // Admin melihat 100% dari Gross
+        });
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pengeluaran
+        |--------------------------------------------------------------------------
+        */
+        $walletTransactions = collect(); // Admin belum tentu punya wallet transaction
+        if (class_exists(\App\Models\WalletTransaction::class)) {
+            $walletTransactions = WalletTransaction::with('wallet')
+                ->whereHas('wallet', function ($query) use ($mentorId) {
+                    $query->where('user_id', $mentorId);
+                })
+                ->latest()
+                ->get();
+        }
+
+        $totalPengeluaran = $walletTransactions
+            ->filter(function ($transaction) {
+                return strtolower($transaction->wallet_permissions ?? '') === 'withdraw';
+            })
+            ->sum('amount');
+
+        // Net profit Admin adalah 20% dari total pemasukan (Gross) dikurangi pengeluaran jika ada
+        $netProfit = ($totalPemasukan * 0.20) - $totalPengeluaran;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Gabungkan Payment + Wallet Transaction
+        |--------------------------------------------------------------------------
+        */
+        $paymentCashFlows = $payments->map(function ($payment) {
+            $courseName = $payment->enrollment?->course?->course_title
+                ?? $payment->enrollment?->course?->course_name
+                ?? 'Kursus';
+
+            $studentName = $payment->enrollment?->student?->name ?? 'Pelajar';
+
+            return [
+                'id_transaksi' => $payment->midtrans_order_id
+                    ?? $payment->transaction_id
+                    ?? 'PAY-' . $payment->id,
+
+                'deskripsi' => 'Pembelian kursus ' . $courseName . ' oleh ' . $studentName,
+
+                'jenis' => 'PEMASUKAN',
+
+                'nominal' => ($payment->gross_amount ?? 0), // Admin melihat nominal gross (harga asli) di list
+
+                'tanggal' => $payment->created_at,
+
+                'status' => $payment->connection_status ?? 'success',
+            ];
+        });
+
+        $walletCashFlows = $walletTransactions->map(function ($transaction) {
+            $permission = strtoupper($transaction->wallet_permissions ?? 'TRANSAKSI');
+
+            $jenis = strtolower($transaction->wallet_permissions ?? '') === 'withdraw'
+                ? 'PENGELUARAN'
+                : $permission;
+
+            return [
+                'id_transaksi' => 'WLT-' . $transaction->id,
+
+                'deskripsi' => $transaction->source_type
+                    ? 'Transaksi wallet dari ' . $transaction->source_type
+                    : 'Transaksi wallet',
+
+                'jenis' => $jenis,
+
+                'nominal' => $transaction->amount ?? 0,
+
+                'tanggal' => $transaction->created_at,
+
+                'status' => $transaction->wallet_permissions ?? 'success',
+            ];
+        });
+
+        $cashFlows = collect()
+            ->merge($paymentCashFlows)
+            ->merge($walletCashFlows)
+            ->sortByDesc('tanggal')
+            ->values();
+
         return view('admin.finance.index', compact(
-            'totalGross',
-            'totalNet',
-            'pendingPayouts',
-            'transactions'
+            'totalPemasukan',
+            'totalPengeluaran',
+            'netProfit',
+            'cashFlows'
         ));
     }
 }

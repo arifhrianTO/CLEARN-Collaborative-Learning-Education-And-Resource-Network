@@ -3,22 +3,42 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
-use App\Services\Admin\CategoryService;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    protected CategoryService $categoryService;
-
-    public function __construct(CategoryService $categoryService)
+    /**
+     * Aturan validasi untuk create & update category.
+     */
+    protected function rules(): array
     {
-        $this->categoryService = $categoryService;
+        return [
+            'category_name'        => ['required', 'string', 'max:255'],
+            'category_description' => ['nullable', 'string'],
+            'category_icon'        => ['nullable', 'string', 'max:100'],
+            'category_color'       => ['nullable', 'string', 'max:20'],
+        ];
+    }
+
+    /**
+     * Pesan error custom untuk validasi.
+     */
+    protected function messages(): array
+    {
+        return [
+            'category_name.required' => 'Nama kategori wajib diisi.',
+            'category_name.max'      => 'Nama kategori maksimal 255 karakter.',
+            'category_icon.max'      => 'Nama icon terlalu panjang.',
+            'category_color.max'     => 'Kode warna terlalu panjang.',
+        ];
     }
 
     public function index()
     {
-        $categories = $this->categoryService->getAllCategories(5);
+        $categories = Category::latest()->paginate(5);
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -28,9 +48,17 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
-        $this->categoryService->createCategory($request->validated());
+        $data = $request->validate($this->rules(), $this->messages());
+
+        Category::create([
+            'admin_id'             => Auth::id(),
+            'category_name'        => $data['category_name'],
+            'category_description' => $data['category_description'] ?? null,
+            'category_icon'        => $this->prefixIcon($data['category_icon'] ?? 'fa-book'),
+            'category_color'       => $data['category_color'] ?? '#7C3AED',
+        ]);
 
         return redirect()
             ->route('admin.categories.index')
@@ -42,21 +70,31 @@ class CategoryController extends Controller
         return view('admin.categories.edit', compact('category'));
     }
 
-    public function update(CategoryRequest $request, Category $category)
+    public function update(Request $request, Category $category)
     {
-        $this->categoryService->updateCategory($category, $request->validated());
+        $data = $request->validate($this->rules(), $this->messages());
+
+        $category->update([
+            'category_name'        => $data['category_name'],
+            'category_description' => $data['category_description'] ?? null,
+            'category_icon'        => $this->prefixIcon($data['category_icon'] ?? 'fa-book'),
+            'category_color'       => $data['category_color'] ?? '#7C3AED',
+        ]);
 
         return redirect()
             ->route('admin.categories.index')
             ->with('success', 'Kategori berhasil diperbarui.');
     }
 
-    public function destroy(Category $category)
+    /**
+     * Tambahkan prefix fa* jika icon belum punya prefix Font Awesome.
+     */
+    private function prefixIcon(string $icon): string
     {
-        $this->categoryService->deleteCategory($category);
+        if (!preg_match('/^fa[srb] /', $icon)) {
+            return 'fas ' . $icon;
+        }
 
-        return redirect()
-            ->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil dihapus.');
+        return $icon;
     }
 }

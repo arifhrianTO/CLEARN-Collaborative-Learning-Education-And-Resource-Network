@@ -12,7 +12,7 @@
             <div class="flex items-center justify-between gap-4">
                 <div>
                     <h1 class="text-lg font-bold dark:text-white text-slate-800">
-                        Edit Kategori
+                        Perbarui Kategori
                     </h1>
                     <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium mt-0.5">
                         Ubah detail kategori yang sudah ada.

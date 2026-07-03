@@ -4,125 +4,94 @@ namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
-use App\Models\WalletTransaction;
-use Illuminate\Support\Collection;
+use App\Models\RevenueShare;
+use Illuminate\Support\Facades\Auth;
 
 class FinanceController extends Controller
 {
     public function index()
     {
-        $mentorId = auth()->id();
-
+        // LOGIC DARI ADMIN (DIPINDAH KE MENTOR)
         $successStatuses = ['success', 'settlement', 'paid', 'sukses'];
+        $mentorId = Auth::id(); // Filter tambahan untuk mentor
 
         /*
         |--------------------------------------------------------------------------
-        | Pemasukan Mentor
+        | Total Penjualan Bruto
         |--------------------------------------------------------------------------
-        | Diambil dari pembayaran course yang mentor_id-nya adalah user login.
-        | Karena platform ambil 20%, mentor dapat 80%.
         */
-        $payments = Payment::with([
-                'enrollment.course',
+        $totalGross = Payment::whereIn('connection_status', $successStatuses)
+            ->whereHas('enrollment.course', function ($query) use ($mentorId) {
+                $query->where('mentor_id', $mentorId);
+            })
+            ->sum('gross_amount');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Komisi
+        |--------------------------------------------------------------------------
+        */
+        $totalNet = RevenueShare::where('receiver_role', 'mentor')
+            ->where('user_id', $mentorId)
+            ->where('status', 'success')
+            ->sum('amount');
+
+        if ($totalNet <= 0 && $totalGross > 0) {
+            $totalNet = $totalGross * 0.80; // Fallback untuk mentor
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pending Payout Mentor
+        |--------------------------------------------------------------------------
+        */
+        $pendingPayouts = RevenueShare::where('receiver_role', 'mentor')
+            ->where('user_id', $mentorId)
+            ->where('status', 'pending')
+            ->sum('amount');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Transaksi Terbaru
+        |--------------------------------------------------------------------------
+        */
+        $transactions = Payment::with([
                 'enrollment.student',
+                'enrollment.course.mentor',
+                'revenueShares' => function ($query) use ($mentorId) {
+                    $query->where('user_id', $mentorId);
+                },
             ])
-            ->whereIn('connection_status', $successStatuses)
             ->whereHas('enrollment.course', function ($query) use ($mentorId) {
                 $query->where('mentor_id', $mentorId);
             })
             ->latest()
-            ->get();
+            ->take(20)
+            ->get()
+            ->map(function ($payment) use ($mentorId) {
+                $courseName = $payment->enrollment?->course?->course_title ?? 'Kursus';
+                $studentName = $payment->enrollment?->student?->name ?? 'Pelajar';
+                
+                // Ambil fee potongan mentor dari tabel revenue_share kalau ada
+                $mentorShare = $payment->revenueShares->first();
+                $platformFee = $payment->gross_amount - ($mentorShare ? $mentorShare->amount : ($payment->gross_amount * 0.80));
 
-        $totalPemasukan = $payments->sum(function ($payment) {
-            return ($payment->gross_amount ?? 0) * 0.80;
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | Pengeluaran Mentor
-        |--------------------------------------------------------------------------
-        | Diambil dari wallet transaction mentor.
-        | Sesuaikan wallet_permissions dengan isi database kamu.
-        */
-        $walletTransactions = WalletTransaction::with('wallet')
-            ->whereHas('wallet', function ($query) use ($mentorId) {
-                $query->where('user_id', $mentorId);
-            })
-            ->latest()
-            ->get();
-
-        $totalPengeluaran = $walletTransactions
-            ->filter(function ($transaction) {
-                return strtolower($transaction->wallet_permissions ?? '') === 'withdraw';
-            })
-            ->sum('amount');
-
-        $netProfit = $totalPemasukan - $totalPengeluaran;
-
-        /*
-        |--------------------------------------------------------------------------
-        | Gabungkan Payment + Wallet Transaction
-        |--------------------------------------------------------------------------
-        */
-        $paymentCashFlows = $payments->map(function ($payment) {
-            $courseName = $payment->enrollment?->course?->course_title
-                ?? $payment->enrollment?->course?->course_name
-                ?? 'Kursus';
-
-            $studentName = $payment->enrollment?->student?->name ?? 'Pelajar';
-
-            return [
-                'id_transaksi' => $payment->midtrans_order_id
-                    ?? $payment->transaction_id
-                    ?? 'PAY-' . $payment->id,
-
-                'deskripsi' => 'Pembelian kursus ' . $courseName . ' oleh ' . $studentName,
-
-                'jenis' => 'PEMASUKAN',
-
-                'nominal' => ($payment->gross_amount ?? 0) * 0.80,
-
-                'tanggal' => $payment->created_at,
-
-                'status' => $payment->connection_status ?? 'success',
-            ];
-        });
-
-        $walletCashFlows = $walletTransactions->map(function ($transaction) {
-            $permission = strtoupper($transaction->wallet_permissions ?? 'TRANSAKSI');
-
-            $jenis = strtolower($transaction->wallet_permissions ?? '') === 'withdraw'
-                ? 'PENGELUARAN'
-                : $permission;
-
-            return [
-                'id_transaksi' => 'WLT-' . $transaction->id,
-
-                'deskripsi' => $transaction->source_type
-                    ? 'Transaksi wallet dari ' . $transaction->source_type
-                    : 'Transaksi wallet mentor',
-
-                'jenis' => $jenis,
-
-                'nominal' => $transaction->amount ?? 0,
-
-                'tanggal' => $transaction->created_at,
-
-                'status' => $transaction->wallet_permissions ?? 'success',
-            ];
-        });
-
-        $cashFlows = collect()
-            ->merge($paymentCashFlows)
-            ->merge($walletCashFlows)
-            ->sortByDesc('tanggal')
-            ->values();
+                return [
+                    'id' => $payment->midtrans_order_id ?? 'PAY-' . $payment->id,
+                    'name' => $studentName,
+                    'description' => 'Membeli: ' . $courseName,
+                    'type' => 'Pembelian',
+                    'amount' => $payment->gross_amount,
+                    'platform_fee' => $platformFee,
+                    'status' => $payment->connection_status,
+                ];
+            });
 
         return view('mentor.finance.index', compact(
-            'totalPemasukan',
-            'totalPengeluaran',
-            'netProfit',
-            'cashFlows'
+            'totalGross',
+            'totalNet',
+            'pendingPayouts',
+            'transactions'
         ));
     }
 }

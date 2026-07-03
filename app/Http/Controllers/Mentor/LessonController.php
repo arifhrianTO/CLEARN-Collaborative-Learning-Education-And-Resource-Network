@@ -24,7 +24,7 @@ class LessonController extends Controller
         if ($this->isLastSession($session)) {
             return redirect()
                 ->route('mentor.courses.sessions.edit', $session->course_id)
-                ->with('error', 'Session terakhir khusus untuk final project. Lesson tidak bisa ditambahkan.');
+                ->with('error', 'Pertemuan terakhir khusus untuk tugas akhir. Pelajaran tidak bisa ditambahkan.');
         }
 
         return view('mentor.lessons.create', compact('session'));
@@ -41,7 +41,7 @@ class LessonController extends Controller
         if ($this->isLastSession($session)) {
             return redirect()
                 ->route('mentor.courses.sessions.edit', $session->course_id)
-                ->with('error', 'Session terakhir khusus untuk final project. Lesson tidak bisa ditambahkan.');
+                ->with('error', 'Pertemuan terakhir khusus untuk tugas akhir. Pelajaran tidak bisa ditambahkan.');
         }
 
         $request->validate([
@@ -67,7 +67,7 @@ class LessonController extends Controller
 
         return redirect()
             ->route('mentor.courses.sessions.edit', $session->course_id)
-            ->with('success', 'Lesson dan sumber materi berhasil ditambahkan.');
+            ->with('success', 'Pelajaran dan sumber materi berhasil ditambahkan.');
     }
 
     public function edit(Lesson $lesson)
@@ -81,7 +81,7 @@ class LessonController extends Controller
         if ($this->isLastSession($lesson->session)) {
             return redirect()
                 ->route('mentor.courses.sessions.edit', $lesson->session->course_id)
-                ->with('error', 'Lesson di session terakhir tidak bisa diedit.');
+                ->with('error', 'Pelajaran di pertemuan terakhir tidak bisa diperbarui.');
         }
 
         return view('mentor.lessons.edit', compact('lesson'));
@@ -98,7 +98,7 @@ class LessonController extends Controller
         if ($this->isLastSession($lesson->session)) {
             return redirect()
                 ->route('mentor.courses.sessions.edit', $lesson->session->course_id)
-                ->with('error', 'Lesson di session terakhir tidak bisa diedit.');
+                ->with('error', 'Pelajaran di pertemuan terakhir tidak bisa diperbarui.');
         }
 
         $request->validate([
@@ -119,7 +119,7 @@ class LessonController extends Controller
 
         return redirect()
             ->route('mentor.courses.sessions.edit', $lesson->session->course_id)
-            ->with('success', 'Lesson berhasil diperbarui.');
+            ->with('success', 'Pelajaran berhasil diperbarui.');
     }
 
     public function destroy(Lesson $lesson)
@@ -142,7 +142,7 @@ class LessonController extends Controller
 
         return redirect()
             ->route('mentor.courses.sessions.edit', $courseId)
-            ->with('success', 'Lesson berhasil dihapus.');
+            ->with('success', 'Pelajaran berhasil dihapus.');
     }
 
     private function storeMaterials(Request $request, Lesson $lesson): void

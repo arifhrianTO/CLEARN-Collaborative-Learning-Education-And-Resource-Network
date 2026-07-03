@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\VerifyCourse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseApprovalController extends Controller
 {
@@ -45,7 +46,7 @@ class CourseApprovalController extends Controller
         ]);
 
         VerifyCourse::create([
-            'admin_id' => auth()->id(),
+            'admin_id' => Auth::id(),
             'course_id' => $course->id,
             'action' => 'approved',
             'course_rejection_reason' => null,
@@ -71,7 +72,7 @@ class CourseApprovalController extends Controller
         ]);
 
         VerifyCourse::create([
-            'admin_id' => auth()->id(),
+            'admin_id' => Auth::id(),
             'course_id' => $course->id,
             'action' => 'rejected',
             'course_rejection_reason' => $request->course_rejection_reason,
