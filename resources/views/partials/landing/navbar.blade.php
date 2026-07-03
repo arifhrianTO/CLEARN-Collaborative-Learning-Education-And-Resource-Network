@@ -49,12 +49,12 @@
             </div>
         </div>
         @else
-        <a href="{{route('login')}}" class="hidden md:inline text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">
+        <a href="{{route('login')}}" class="hidden md:inline-block px-4 py-2 rounded-lg text-sm font-semibold bg-black/5 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/20 text-slate-900 dark:text-white hover:bg-black/10 dark:hover:bg-white/20 transition">
             Masuk
         </a>
         <button
             onclick="window.location='{{ route('choose_role') }}'"
-            class="hidden md:inline-block bg-gradient-to-r from-[#7B65BA] to-[#A487F8] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90">
+            class="hidden md:inline-block bg-[#A487F8] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition">
             Daftar
         </button>
         @endauth
@@ -93,10 +93,10 @@
                 </button>
             </form>
             @else
-            <a href="{{ route('login') }}" onclick="toggleMobileNav()" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-[#2d2644] hover:bg-primary/10 hover:text-primary transition">
+            <a href="{{ route('login') }}" onclick="toggleMobileNav()" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-semibold bg-black/5 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/20 text-slate-900 dark:text-white hover:bg-black/10 dark:hover:bg-white/20 transition">
                 Masuk
             </a>
-            <button onclick="window.location='{{ route('choose_role') }}'" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#7B65BA] to-[#A487F8] text-white hover:opacity-90 transition">
+            <button onclick="window.location='{{ route('choose_role') }}'" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-semibold bg-[#A487F8] text-white hover:opacity-90 transition">
                 Daftar
             </button>
             @endauth

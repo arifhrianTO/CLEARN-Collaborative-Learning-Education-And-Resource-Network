@@ -42,11 +42,13 @@ class LandingController extends Controller
     public function course()
     {
         $courses = Course::where('status_publish', 'published')
-            ->with('enrollments')
+            ->with('enrollments', 'category')
             ->latest()
             ->get();
 
-        return view('landing.course', compact('courses'));
+        $categories = Category::all();
+
+        return view('landing.course', compact('courses', 'categories'));
     }
 
     public function category()

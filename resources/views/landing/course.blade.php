@@ -1,6 +1,6 @@
 @extends('layouts.sections')
 
-@section('title', 'kursus | Clearn - Platform Pembelajaran Online')
+@section('title', 'kursus')
 
 @section('content')
 
@@ -36,12 +36,11 @@
                 class="w-full bg-white dark:bg-[#0f0b1a] text-slate-900 dark:text-gray-200 text-sm rounded-full py-3 pl-12 pr-4 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all placeholder:text-gray-500" />
         </div>
 
-        <div class="flex items-center gap-3">
-            <div class="flex items-center bg-white dark:bg-[#111116] p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
-               
-                
-            </div>
-
+        <div class="flex items-center gap-3 overflow-x-auto">
+            <button data-category="all" class="category-filter px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all bg-[#A487F8] text-white">Semua</button>
+            @foreach($categories as $category)
+            <button data-category="{{ $category->id }}" class="category-filter px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-white/20">{{ $category->category_name }}</button>
+            @endforeach
         </div>
     </div>
 </div>
@@ -49,20 +48,22 @@
 <section id="" class="py-20 px-10 max-w-[1400px] mx-auto">
     <div class="flex justify-between items-end mb-12 transition-colors">
         <div>
-            <p class="text-slate-500 dark:text-gray-400 text-sm">Menampilkan <?php echo "6" ?> kursus</p>
+            <p class="text-slate-500 dark:text-gray-400 text-sm result-count">Menampilkan {{ $courses->count() }} kursus</p>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div id="courseGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach($courses as $course)
-        <x-landing.course :course="$course" />
+        <div class="course-card" data-title="{{ strtolower($course->course_title) }}" data-category="{{ $course->category_id }}">
+            <x-landing.course :course="$course" />
+        </div>
         @endforeach
     </div>
 </section>
 
 </main>
 <section class="px-6 pb-24">
-    <div class="max-w-[1100px] mx-auto text-center p-12 rounded-[30px] bg-[#A184F5] text-white">
+    <div class="max-w-[1100px] mx-auto text-center p-12 rounded-[30px] bg-[#A487F8] text-white">
         <h2 class="text-2xl md:text-3xl font-bold mb-4">
             Tidak Menemukan Kursus Anda?
         </h2>
@@ -78,4 +79,50 @@
         </div>
     </div>
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('courseSearch');
+        const categoryBtns = document.querySelectorAll('.category-filter');
+        const courseCards = document.querySelectorAll('.course-card');
+        const resultCount = document.querySelector('.result-count');
+
+        function filterCourses() {
+            const query = searchInput.value.toLowerCase().trim();
+            const activeCategory = document.querySelector('.category-filter.bg-[#A487F8]')?.dataset.category |'all';
+
+            let visible = 0;
+            courseCards.forEach(card => {
+                const title = card.dataset.title |'';
+                const category = card.dataset.category;
+                const matchSearch = !query || title.includes(query);
+                const matchCategory = activeCategory === 'all' || category === activeCategory;
+
+                if (matchSearch && matchCategory) {
+                    card.style.display = '';
+                    visible++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (resultCount) {
+                resultCount.textContent = 'Menampilkan ' + visible + ' kursus';
+            }
+        }
+
+        searchInput.addEventListener('input', filterCourses);
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => {
+                    b.classList.remove('bg-[#A487F8]', 'text-white');
+                    b.classList.add('bg-slate-200', 'dark:bg-white/10', 'text-slate-600', 'dark:text-slate-300');
+                });
+                btn.classList.remove('bg-slate-200', 'dark:bg-white/10', 'text-slate-600', 'dark:text-slate-300');
+                btn.classList.add('bg-[#A487F8]', 'text-white');
+                filterCourses();
+            });
+        });
+    });
+</script>
 @endsection

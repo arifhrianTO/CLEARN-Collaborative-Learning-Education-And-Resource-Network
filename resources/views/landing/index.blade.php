@@ -1,6 +1,6 @@
 @extends('layouts.landing')
 
-@section('title', 'Clearn - Platform Pembelajaran Online')
+@section('title', 'Home')
 
 @section('content')
 

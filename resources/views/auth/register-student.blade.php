@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Daftar Pelajar – Clearn - Platform Pembelajaran Online')
+@section('title', 'Daftar Pelajar')
 
 @section('bodyClass', 'bg-white dark:bg-[#0f0a19] text-slate-900 dark:text-white min-h-screen overflow-x-hidden')
 

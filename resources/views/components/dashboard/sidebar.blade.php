@@ -13,7 +13,7 @@
 
 {{-- Desktop sidebar --}}
 <aside id="desktop-sidebar" class="w-72 hidden lg:flex flex-col sticky top-0 h-screen sidebar-bg p-6 pt-10 border-r border-transparent dark:border-white/5 transition-all">
-    <div class="flex flex-col h-full gap-6">
+        <div class="flex flex-col h-full gap-6">
 
         <div class="flex items-center gap-3 pb-6">
             <div class="w-10 h-10 rounded-full overflow-hidden bg-purple-400 flex items-center justify-center text-white text-base font-bold shadow-lg shadow-purple-400/20 shrink-0">

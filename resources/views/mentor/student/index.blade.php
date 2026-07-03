@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Daftar Pelajar | Dashboard Mentor | Clearn - Platform Pembelajaran Online')
+@section('title', 'Daftar Pelajar | Dashboard Mentor')
 
 @section('content')
 
@@ -196,8 +196,8 @@
             let rows = document.querySelectorAll('.student-row');
 
             rows.forEach(row => {
-                let name = row.querySelector('.student-name')?.innerText.toLowerCase() || '';
-                let email = row.querySelector('.student-email')?.innerText.toLowerCase() || '';
+                let name = row.querySelector('.student-name')?.innerText.toLowerCase() |'';
+                let email = row.querySelector('.student-email')?.innerText.toLowerCase() |'';
 
                 row.style.display = name.includes(input) || email.includes(input) ? '' : 'none';
             });

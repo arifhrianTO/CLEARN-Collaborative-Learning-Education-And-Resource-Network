@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Pilih Role – Clearn')
+@section('title', 'Pilih Role')
 
 @section('bodyClass', 'min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0f0a19] dark:text-white transition-colors duration-300 font-sans flex items-center justify-center p-4')
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sertifikat - Clearn</title>
+    <title>Sertifikat</title>
     <style>
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;

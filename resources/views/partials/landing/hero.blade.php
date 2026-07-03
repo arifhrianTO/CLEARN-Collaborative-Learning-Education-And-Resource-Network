@@ -1,6 +1,6 @@
 <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[90vw] max-w-[800px] h-[250px] md:h-[400px] bg-purple-900/15 blur-[120px] rounded-full -z-10 opacity-0 dark:opacity-100 transition-opacity"></div>
 
-<div class="inline-flex items-center px-4 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-700/50 text-[#A487F8] dark:text-[#A487F8] text-xs mb-6 md:mb-8">
+<div class="inline-flex items-center px-4 py-1.5 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/20 text-slate-900 dark:text-white text-xs mb-6 md:mb-8">
     <i class="fas fa-award mr-2.5"></i> Online Course Application
 </div>
 
@@ -22,7 +22,7 @@
         class="w-full sm:w-56 bg-gradient-to-r from-[#A487F8] to-[#A487F8] px-10 py-4 rounded-xl font-bold flex items-center justify-center group text-sm md:text-base shadow-lg text-white">
         Mulai Mengajar
     </button>
-    <button class="w-full sm:w-56 bg-white dark:bg-gray-900/70 border border-slate-200 dark:border-gray-800 px-10 py-4 rounded-xl font-bold text-sm md:text-base transition-colors text-slate-700 dark:text-white">
+    <button onclick="window.location='{{ route('login') }}'" class="w-full sm:w-56 bg-black/5 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/20 px-10 py-4 rounded-xl font-bold text-sm md:text-base transition-colors text-slate-900 dark:text-white">
         Mulai Belajar
     </button>
 </div>

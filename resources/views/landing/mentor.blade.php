@@ -1,6 +1,6 @@
 @extends('layouts.sections')
 
-@section('title', 'Mentor | Clearn - Platform Pembelajaran Online')
+@section('title', 'Mentor')
 
 @section('content')
 
