@@ -36,12 +36,12 @@
 
             <div class="flex flex-col gap-3 pt-2">
                 <button type="submit" 
-                    class="w-full inline-flex items-center justify-center px-4 py-3 bg-[#7C3AED] text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg shadow-[#7C3AED]/20 hover:bg-[#6d34d1] active:scale-[0.98] transition-all gap-2">
+                    class="w-full inline-flex items-center justify-center px-4 py-3 bg-[#A487F8] text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg shadow-[#A487F8]/20 hover:bg-[#947ADF] active:scale-[0.98] transition-all gap-2">
                     <i class="fa-solid fa-paper-plane text-[9px]"></i>
                     Kirim Tautan Reset
                 </button>
                 
-                <a href="{{ route('login') }}" class="text-center text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-[#7C3AED] transition-colors py-2">
+                <a href="{{ route('login') }}" class="text-center text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-[#A487F8] transition-colors py-2">
                     <i class="fa-solid fa-arrow-left text-[9px] mr-1"></i> Kembali ke Login
                 </a>
             </div>

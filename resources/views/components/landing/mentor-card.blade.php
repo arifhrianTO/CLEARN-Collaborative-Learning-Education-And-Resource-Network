@@ -6,7 +6,7 @@
 
     {{-- Badge --}}
     <span class="absolute top-4 left-1/2 -translate-x-1/2
-                 bg-purple-600/20 text-purple-400 text-xs font-semibold
+                 bg-purple-600/20 text-[#A487F8] text-xs font-semibold
                  px-3 py-1 rounded-full">
         ★ Rating Tertinggi
     </span>
@@ -27,7 +27,7 @@
     </h3>
 
     {{-- Jabatan --}}
-    <p class="text-sm text-purple-400 mb-3">
+    <p class="text-sm text-[#A487F8] mb-3">
         {{ $title }}
     </p>
 
@@ -39,7 +39,7 @@
     {{-- Tags --}}
     <div class="flex flex-wrap justify-center gap-2 mb-5">
         @foreach ($tags as $tag)
-            <span class="bg-purple-600/15 text-purple-400 text-xs px-3 py-1 rounded-full">
+            <span class="bg-purple-600/15 text-[#A487F8] text-xs px-3 py-1 rounded-full">
                 {{ $tag }}
             </span>
         @endforeach

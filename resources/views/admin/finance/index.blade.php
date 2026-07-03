@@ -54,13 +54,13 @@
             {{-- Card 2: Net Platform Share --}}
             <div class="bg-white dark:bg-[#1c1826]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-6 shadow-sm hover:shadow-md transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-xs font-bold text-[#7C3AED] uppercase tracking-wider">Komisi Platform (20%)</span>
-                    <div class="w-8 h-8 rounded-xl bg-[#7C3AED]/10 flex items-center justify-center text-[#7C3AED]">
+                    <span class="text-xs font-bold text-[#A487F8] uppercase tracking-wider">Komisi Platform (20%)</span>
+                    <div class="w-8 h-8 rounded-xl bg-[#7C3AED]/10 flex items-center justify-center text-[#A487F8]">
                         <i class="fas fa-chart-line text-sm"></i>
                     </div>
                 </div>
 
-                <h3 class="text-2xl font-black tracking-tight text-[#7C3AED] mb-1">
+                <h3 class="text-2xl font-black tracking-tight text-[#A487F8] mb-1">
                     Rp {{ number_format($totalNet ?? 0, 0, ',', '.') }}
                 </h3>
 
@@ -172,7 +172,7 @@
                                 Rp {{ number_format($transaction['amount'] ?? 0, 0, ',', '.') }}
                             </td>
 
-                            <td class="p-4 text-[#7C3AED] font-bold">
+                            <td class="p-4 text-[#A487F8] font-bold">
                                 @if (($transaction['platform_fee'] ?? 0) > 0)
                                 +Rp {{ number_format($transaction['platform_fee'], 0, ',', '.') }}
                                 @else

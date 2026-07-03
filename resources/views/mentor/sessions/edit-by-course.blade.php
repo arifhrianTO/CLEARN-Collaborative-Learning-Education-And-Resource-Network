@@ -393,7 +393,7 @@
                             @if($canCreateExercise)
                             <button type="submit"
                                 form="create-exercise-{{ $session->id }}"
-                                class="px-4 py-2 rounded-xl bg-purple-500/10 text-purple-500 text-[9px] font-black uppercase tracking-widest hover:bg-purple-500 hover:text-white transition">
+                                class="px-4 py-2 rounded-xl bg-[#A487F8]/10 text-[#A487F8] text-[9px] font-black uppercase tracking-widest hover:bg-[#A487F8] hover:text-white transition">
                                 + Kuis
                             </button>
                             @elseif($hasExercise)

@@ -36,7 +36,7 @@
             </div>
 
             <div class="card-bg p-4">
-                <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 mb-3 text-xs">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-[#A487F8] mb-3 text-xs">
                     <i class="fa-solid fa-chart-line"></i>
                 </div>
                 <h3 class="text-xl font-extrabold">{{ $totalKursus ?? 0 }}</h3>

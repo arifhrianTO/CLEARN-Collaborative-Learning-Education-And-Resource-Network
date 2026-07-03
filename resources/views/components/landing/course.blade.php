@@ -22,10 +22,10 @@
             </div>
         </div>
         <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-gray-800">
-            <div class="text-2xl font-extrabold text-purple-600 dark:text-purple-400">
+            <div class="text-2xl font-extrabold text-[#A487F8] dark:text-[#A487F8]">
                 Rp{{ number_format($course->course_price, 0, ',', '.') }}
             </div>
-            <span class="text-xs font-semibold text-purple-600 dark:text-purple-300">
+            <span class="text-xs font-semibold text-[#A487F8] dark:text-[#A487F8]">
                 Detail <i class="fas fa-chevron-right ml-1"></i>
             </span>
         </div>

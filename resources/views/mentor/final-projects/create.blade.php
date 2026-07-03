@@ -12,6 +12,12 @@
 
 @section('content')
 
+<x-dashboard.sidebar
+    role="{{ auth()->user()->role }}"
+    name="{{ auth()->user()->name }}"
+    initials="{{ strtoupper(substr(auth()->user()->name ?? 'U', 0, 1)) }}"
+    photo="{{ auth()->user()->profile_picture }}" />
+
 <main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
 
     <div class="max-w-4xl mx-auto">

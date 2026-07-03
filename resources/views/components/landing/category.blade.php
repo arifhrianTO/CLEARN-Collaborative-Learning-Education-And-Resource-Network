@@ -2,7 +2,7 @@
 'variant' => 'preview',
 'icon' => 'fas fa-circle',
 'iconBg' => 'bg-purple-500/10',
-'iconColor' => 'text-purple-500',
+'iconColor' => 'text-[#A487F8]',
 'hoverBg' => 'group-hover:bg-purple-500',
 'hoverBorder' => 'hover:border-purple-500',
 'title' => '',

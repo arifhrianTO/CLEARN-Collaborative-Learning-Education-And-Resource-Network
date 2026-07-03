@@ -86,9 +86,9 @@
 
                                 <p class="text-[9px] text-slate-500 mt-2">
                                     Masukkan class ikon, contoh:
-                                    <code class="text-[#7C3AED] font-bold">fas fa-code</code>,
-                                    <code class="text-[#7C3AED] font-bold">fas fa-book</code>,
-                                    <code class="text-[#7C3AED] font-bold">fas fa-laptop-code</code>.
+                                    <code class="text-[#A487F8] font-bold">fas fa-code</code>,
+                                    <code class="text-[#A487F8] font-bold">fas fa-book</code>,
+                                    <code class="text-[#A487F8] font-bold">fas fa-laptop-code</code>.
                                 </p>
 
                                 @error('category_icon')
@@ -173,7 +173,7 @@
                                     Buka
                                     <a href="https://fontawesome.com/icons"
                                         target="_blank"
-                                        class="text-[#7C3AED] underline">
+                                        class="text-[#A487F8] underline">
                                         fontawesome.com
                                     </a>
                                 </li>
@@ -193,7 +193,7 @@
                     </a>
 
                     <button type="submit"
-                        class="flex-1 py-3 bg-[#7C3AED] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:opacity-90 transition-all shadow-lg shadow-[#7C3AED]/20">
+                        class="flex-1 py-3 bg-[#A487F8] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:opacity-90 transition-all shadow-lg shadow-[#A487F8]/20">
                         Simpan Kategori
                     </button>
                 </div>

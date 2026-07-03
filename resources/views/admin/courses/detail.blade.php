@@ -19,7 +19,7 @@
         <header class="mb-8 flex flex-col md:flex-row md:items-center gap-4">
             <a href="{{ route('admin.courses.index') }}"
                class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-[#1c1826]/60 border border-gray-100 dark:border-gray-800 hover:scale-105 transition-all shadow-sm group">
-                <i class="fas fa-arrow-left text-[#7C3AED] group-hover:-translate-x-0.5 transition-transform text-sm"></i>
+                <i class="fas fa-arrow-left text-[#A487F8] group-hover:-translate-x-0.5 transition-transform text-sm"></i>
             </a>
 
             <div>
@@ -106,7 +106,7 @@
                                     Harga Kursus
                                 </label>
 
-                                <span class="text-xs font-black text-[#7C3AED] bg-[#7C3AED]/10 px-3 py-1.5 rounded-xl inline-block">
+                                <span class="text-xs font-black text-[#A487F8] bg-[#7C3AED]/10 px-3 py-1.5 rounded-xl inline-block">
                                     Rp {{ number_format($course->course_price ?? 0, 0, ',', '.') }}
                                 </span>
                             </div>
@@ -156,7 +156,7 @@
                             <div class="bg-slate-50 dark:bg-[#0f0a19]/50 border border-gray-100 dark:border-gray-800 rounded-3xl p-5">
 
                                 <div class="mb-4">
-                                    <label class="text-[9px] font-black uppercase text-[#7C3AED] tracking-widest block mb-0.5">
+                                    <label class="text-[9px] font-black uppercase text-[#A487F8] tracking-widest block mb-0.5">
                                         Session {{ $index + 1 }}
                                     </label>
 
@@ -225,7 +225,7 @@
                                                         @if ($target)
                                                             <a href="{{ $target }}"
                                                                target="_blank"
-                                                               class="px-3 py-1.5 bg-white dark:bg-white/5 text-[10px] font-black uppercase tracking-wider rounded-lg text-slate-500 dark:text-slate-300 hover:text-[#7C3AED] transition-colors border border-gray-100 dark:border-transparent">
+                                                               class="px-3 py-1.5 bg-white dark:bg-white/5 text-[10px] font-black uppercase tracking-wider rounded-lg text-slate-500 dark:text-slate-300 hover:text-[#A487F8] transition-colors border border-gray-100 dark:border-transparent">
                                                                 Buka
                                                             </a>
                                                         @endif
@@ -348,7 +348,7 @@
                                                                 @if ($target)
                                                                     <a href="{{ $target }}"
                                                                        target="_blank"
-                                                                       class="px-3 py-1.5 bg-white dark:bg-white/5 text-[10px] font-black uppercase tracking-wider rounded-lg text-slate-500 dark:text-slate-300 hover:text-[#7C3AED] transition-colors border border-gray-100 dark:border-transparent">
+                                                                       class="px-3 py-1.5 bg-white dark:bg-white/5 text-[10px] font-black uppercase tracking-wider rounded-lg text-slate-500 dark:text-slate-300 hover:text-[#A487F8] transition-colors border border-gray-100 dark:border-transparent">
                                                                         Buka
                                                                     </a>
                                                                 @endif

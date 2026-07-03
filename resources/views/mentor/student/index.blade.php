@@ -135,7 +135,7 @@
                         <tr class="student-row hover:bg-slate-50/50 dark:hover:bg-white/5 transition-colors">
                             <td class="p-4 pl-8">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-lg bg-[#7C3AED]/10 text-[#7C3AED] flex items-center justify-center font-bold text-sm uppercase">
+                                    <div class="w-9 h-9 rounded-lg bg-[#7C3AED]/10 text-[#A487F8] flex items-center justify-center font-bold text-sm uppercase">
                                         {{ $initials }}
                                     </div>
 

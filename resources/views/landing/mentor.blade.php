@@ -27,15 +27,15 @@
 <section id="pengajar" class="py-24 px-6 bg-slate-100 dark:bg-[#0d0c13] transition-colors duration-300">
     <div class="grid grid-cols-3 gap-6 max-w-5xl mx-auto text-center mb-16">
         <div>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $totalMentors }}</h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#A487F8] dark:text-[#A487F8]">{{ $totalMentors }}</h3>
             <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pengajar Ahli</p>
         </div>
         <div>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $averageRating }}</h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#A487F8] dark:text-[#A487F8]">{{ $averageRating }}</h3>
             <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Rating Rata-rata</p>
         </div>
         <div>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-purple-600 dark:text-purple-400">{{ $totalStudents }}</h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#A487F8] dark:text-[#A487F8]">{{ $totalStudents }}</h3>
             <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pelajar Diajar</p>
         </div>
     </div>

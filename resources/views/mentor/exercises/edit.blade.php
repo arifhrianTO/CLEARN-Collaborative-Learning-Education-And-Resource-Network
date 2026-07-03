@@ -197,7 +197,7 @@
             item.querySelector('.question-title').innerText = 'Soal ' + (questionIndex + 1);
 
             item.querySelectorAll('input, textarea').forEach(input => {
-                input.name = input.name.replace(/questions\[\d+\]/, 'questions[' + questionIndex + ']');
+                input.name = input.name.replace(/questions[\d+]/, 'questions[' + questionIndex + ']');
             });
         });
     }

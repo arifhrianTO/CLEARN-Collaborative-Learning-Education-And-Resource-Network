@@ -12,25 +12,25 @@
     </div>
 
     <div class="hidden md:flex gap-8 text-sm font-semibold">
-        <a href="#beranda" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Beranda</a>
-        <a href="#kursus" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Kursus</a>
-        <a href="#kategori" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Kategori</a>
-        <a href="#pengajar" class="text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">Pengajar</a>
+        <a href="#beranda" class="text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Beranda</a>
+        <a href="#kursus" class="text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Kursus</a>
+        <a href="#kategori" class="text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Kategori</a>
+        <a href="#pengajar" class="text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Pengajar</a>
     </div>
 
     <div class="flex items-center gap-3">
         <button onclick="toggleTheme()" class="p-2 rounded-xl hover:bg-slate-500/10 transition">
-            <i id="theme-icon" class="fa-solid fa-moon text-lg text-purple-600 dark:text-purple-400"></i>
+            <i id="theme-icon" class="fa-solid fa-moon text-lg text-[#A487F8] dark:text-[#A487F8]"></i>
         </button>
 
         {{-- Hamburger --}}
         <button onclick="toggleMobileNav()" class="md:hidden p-2 rounded-xl hover:bg-slate-500/10 transition" aria-label="Menu">
-            <i id="hamburger-icon" class="fa-solid fa-bars text-lg text-purple-600 dark:text-purple-400"></i>
+            <i id="hamburger-icon" class="fa-solid fa-bars text-lg text-[#A487F8] dark:text-[#A487F8]"></i>
         </button>
 
         @auth
         <div class="relative group hidden md:block">
-            <button class="flex items-center gap-2 text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition font-semibold">
+            <button class="flex items-center gap-2 text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition font-semibold">
                 <img src="{{ auth()->user()->profile_picture ? asset('storage/' . auth()->user()->profile_picture) : 'https://ui-avatars.com/api/?name='.urlencode(auth()->user()->name).'&color=7F9CF5&background=EBF4FF' }}" alt="Profile" class="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700">
                 <span class="hidden md:block">{{ auth()->user()->name }}</span>
                 <i class="fas fa-chevron-down text-[10px]"></i>
@@ -49,12 +49,12 @@
             </div>
         </div>
         @else
-        <a href="{{route('login')}}" class="hidden md:inline text-muted-custom hover:text-purple-600 dark:hover:text-purple-400 transition">
+        <a href="{{route('login')}}" class="hidden md:inline text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">
             Masuk
         </a>
         <button
             onclick="window.location='{{ route('choose_role') }}'"
-            class="hidden md:inline-block bg-gradient-to-r from-purple-700 to-purple-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90">
+            class="hidden md:inline-block bg-gradient-to-r from-[#7B65BA] to-[#A487F8] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90">
             Daftar
         </button>
         @endauth
@@ -96,7 +96,7 @@
             <a href="{{ route('login') }}" onclick="toggleMobileNav()" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-[#2d2644] hover:bg-primary/10 hover:text-primary transition">
                 Masuk
             </a>
-            <button onclick="window.location='{{ route('choose_role') }}'" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-purple-700 to-purple-500 text-white hover:opacity-90 transition">
+            <button onclick="window.location='{{ route('choose_role') }}'" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#7B65BA] to-[#A487F8] text-white hover:opacity-90 transition">
                 Daftar
             </button>
             @endauth

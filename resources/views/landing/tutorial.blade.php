@@ -14,7 +14,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#7C3AED',
+                        primary: '#A487F8',
                         'dark-bg': '#090613',
                         'dark-sidebar': '#120d22',
                         'dark-card': '#17122b',
@@ -126,7 +126,7 @@
               <div class="flex gap-4">
                 <button 
                 onclick="window.location='{{ route('register.mentor') }}'"
-                class="bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold">
+                class="bg-white text-[#A487F8] px-6 py-3 rounded-xl font-semibold">
                  Mulai Mengajar
                 </button>
               </div>
@@ -142,22 +142,22 @@
       <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mt-20">
 
           <div class="bg-[#151427] p-6 rounded-2xl text-center">
-              <h3 class="text-3xl font-bold text-[#A78BFA]"><?php echo "50"?></h3>
+              <h3 class="text-3xl font-bold text-[#A487F8]"><?php echo "50"?></h3>
               <p class="text-xs text-gray-400">Active Instructors</p>
           </div>
 
           <div class="bg-[#151427] p-6 rounded-2xl text-center">
-              <h3 class="text-3xl font-bold text-[#A78BFA]"><?php echo "20"?></h3>
+              <h3 class="text-3xl font-bold text-[#A487F8]"><?php echo "20"?></h3>
               <p class="text-xs text-gray-400">Paid to Instructors</p>
           </div>
 
           <div class="bg-[#151427] p-6 rounded-2xl text-center">
-              <h3 class="text-3xl font-inter font-bold text-[#A78BFA]"><?php echo "2"?></h3>
+              <h3 class="text-3xl font-inter font-bold text-[#A487F8]"><?php echo "2"?></h3>
               <p class="text-xs text-gray-400">Students Taught</p>
           </div>
 
           <div class="bg-[#151427] p-6 rounded-2xl text-center">
-              <h3 class="text-3xl font-bold text-[#A78BFA]"><?php echo "50" ?></h3>
+              <h3 class="text-3xl font-bold text-[#A487F8]"><?php echo "50" ?></h3>
               <p class="text-xs text-gray-400">Countries Reached</p>
           </div>
 
@@ -220,25 +220,25 @@
       <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto text-left">
 
           <div class="bg-[#151427] p-6 rounded-2xl">
-              <h3 class="text-purple-400 text-4xl mb-2">01</h3>
+              <h3 class="text-[#A487F8] text-4xl mb-2">01</h3>
               <h3>Ajukan Permohonan untuk Mengajar</h3>
               <p class="mt-2">Isi formulir aplikasi sederhana kami dan ceritakan tentang keahlian Anda.</p>
           </div>
 
           <div class="bg-[#151427] p-6 rounded-2xl">
-              <h3 class="text-purple-400 text-4xl mb-2">02</h3>
+              <h3 class="text-[#A487F8] text-4xl mb-2">02</h3>
               <h3>Rencanakan Kursus Anda</h3>
               <p class="mt-7">Kami akan menyediakan sumber daya dan praktik terbaik untuk menyusun konten Anda.</p>
           </div>
 
           <div class="bg-[#151427] p-6 rounded-2xl">
-              <h3 class="text-purple-400 text-4xl mb-2">03</h3>
+              <h3 class="text-[#A487F8] text-4xl mb-2">03</h3>
               <h3>Buat Konten</h3>
               <p class="mt-7">Isi formulir aplikasi sederhana kami dan ceritakan tentang keahlian Anda.</p>
           </div>
 
           <div class="bg-[#151427] p-6 rounded-2xl">
-              <h3 class="text-purple-400 text-4xl mb-2">04</h3>
+              <h3 class="text-[#A487F8] text-4xl mb-2">04</h3>
               <h3>Publikasikan & Dapatkan Penghasilan</h3>
               <p class="mt-2">Luncurkan kursus Anda dan mulai menghasilkan pendapatan sejak hari pertama.</p>
           </div>
@@ -269,7 +269,7 @@
         if (html.classList.contains('dark')) {
             themeIcon.classList.remove('fa-sun');
             themeIcon.classList.add('fa-moon');
-            themeIcon.style.color = '#a78bfa'; 
+            themeIcon.style.color = '#A487F8'; 
             
             // Simpan pilihan user ke storage
             localStorage.setItem('theme', 'dark');
@@ -291,7 +291,7 @@
             html.classList.add('dark');
             if(themeIcon) {
                 themeIcon.classList.replace('fa-sun', 'fa-moon');
-                themeIcon.style.color = '#a78bfa';
+                themeIcon.style.color = '#A487F8';
             }
         } else {
             html.classList.remove('dark');

@@ -10,7 +10,7 @@
         <img src="https://i.pravatar.cc/100?u=1" class="w-12 h-12 rounded-full mr-4 border-2 border-purple-600" alt="Hasanun Nisa">
         <div>
             <h6 class="font-bold">Hasanun Nisa</h6>
-            <p class="text-xs text-purple-600 dark:text-purple-400">Mahasiswa</p>
+            <p class="text-xs text-[#A487F8] dark:text-[#A487F8]">Mahasiswa</p>
         </div>
     </div>
 </div>

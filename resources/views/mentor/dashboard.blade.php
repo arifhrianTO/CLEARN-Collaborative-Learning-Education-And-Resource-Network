@@ -63,7 +63,7 @@
 
             {{-- Kursus Aktif --}}
             <div class="card-bg p-5">
-                <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 mb-3 text-sm">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-[#A487F8] mb-3 text-sm">
                     <i class="fa-solid fa-book-open"></i>
                 </div>
 

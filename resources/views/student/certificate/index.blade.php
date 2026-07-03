@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="card-bg p-5 flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 text-sm">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-[#A487F8] text-sm">
                         <i class="fas fa-share-nodes"></i>
                     </div>
                     <div>

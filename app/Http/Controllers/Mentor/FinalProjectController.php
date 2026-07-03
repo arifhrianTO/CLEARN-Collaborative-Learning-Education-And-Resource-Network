@@ -184,7 +184,7 @@ class FinalProjectController extends Controller
 
             'material_type' => [
                 'nullable',
-                'in:pdf,link',
+                Rule::in(['pdf', 'link', '']),
             ],
 
             'material_file' => [

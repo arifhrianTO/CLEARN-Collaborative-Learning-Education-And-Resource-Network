@@ -42,7 +42,7 @@
 </section>
 
 <section class="px-6 pb-24">
-    <div class="max-w-[1100px] mx-auto text-center p-12 rounded-[30px] bg-[#A184F5] text-white">
+    <div class="max-w-[1100px] mx-auto text-center p-12 rounded-[30px] bg-[#A487F8] text-white">
         <h2 class="text-2xl md:text-3xl font-bold mb-4">
             Tidak Menemukan Kategori Anda?
         </h2>

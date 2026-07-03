@@ -20,7 +20,7 @@
             position: relative;
         }
         .header {
-            color: #7C3AED;
+            color: #A487F8;
             font-size: 24px;
             font-weight: bold;
             text-transform: uppercase;
@@ -42,7 +42,7 @@
         .student-name {
             font-size: 50px;
             font-weight: bold;
-            color: #7C3AED;
+            color: #A487F8;
             margin-bottom: 30px;
         }
         .course-title {

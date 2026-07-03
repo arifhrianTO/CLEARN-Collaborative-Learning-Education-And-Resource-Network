@@ -63,14 +63,14 @@ window.toggleTheme = function () {
         if (themeIcon) {
             themeIcon.classList.remove("fa-sun");
             themeIcon.classList.add("fa-moon");
-            themeIcon.style.color = "#a78bfa";
+            themeIcon.style.color = "#a487f8";
         }
     } else {
         localStorage.setItem("theme", "light");
         if (themeIcon) {
             themeIcon.classList.remove("fa-moon");
             themeIcon.classList.add("fa-sun");
-            themeIcon.style.color = "#7c3aed";
+            themeIcon.style.color = "#a487f8";
         }
     }
 };
@@ -86,14 +86,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (themeIcon) {
             themeIcon.classList.remove("fa-sun");
             themeIcon.classList.add("fa-moon");
-            themeIcon.style.color = "#a78bfa";
+            themeIcon.style.color = "#a487f8";
         }
     } else {
         html.classList.remove("dark");
         if (themeIcon) {
             themeIcon.classList.remove("fa-moon");
             themeIcon.classList.add("fa-sun");
-            themeIcon.style.color = "#7c3aed";
+            themeIcon.style.color = "#a487f8";
         }
     }
 

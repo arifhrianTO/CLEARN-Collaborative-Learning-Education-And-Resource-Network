@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- HERO -->
-<section id="beranda" class="relative py-28 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#1A1625]">
+<section id="beranda" class="relative py-28 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#151022]">
     @include('partials.landing.hero')
 </section>
 
@@ -16,7 +16,7 @@
             <h2 class="text-4xl font-bold mb-3 tracking-tight">Kursus Unggulan</h2>
             <p class="text-slate-500 dark:text-gray-400 text-sm">Pilihan kursus terbaik yang paling diminati pengguna baru</p>
         </div>
-       <a href="{{route('course') }}" class="absolute right-10 bottom--2 text-purple-600 dark:text-purple-400 text-sm font-semibold flex items-center group">
+       <a href="{{route('course') }}" class="absolute right-10 bottom--2 text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold flex items-center group">
             Lihat Semua <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
         </a>
     </div>
@@ -35,7 +35,7 @@
         <p class="text-slate-500 dark:text-gray-400">
            Temukan kelas yang sesuai minat dan tujuan karier Anda
         </p>
-        <a href="{{route('category') }}" class="absolute right-0 bottom-2 text-purple-600 dark:text-purple-400 text-sm font-semibold flex items-center group">
+        <a href="{{route('category') }}" class="absolute right-0 bottom-2 text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold flex items-center group">
             Lihat Semua <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
         </a>
     </div>
@@ -76,7 +76,7 @@
             Mentor berpengalaman siap membantu proses belajar Anda
         </p>
         <a href="{{ route('mentor') }}"
-            class="absolute right-0 top-1  text-purple-600 dark:text-purple-400 text-sm font-semibold flex items-center group">
+            class="absolute right-0 top-1  text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold flex items-center group">
             Lihat Semua
             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
         </a>
@@ -86,7 +86,7 @@
         <div class="bg-white dark:bg-[#13111a] p-8 rounded-3xl text-center border border-slate-200 dark:border-gray-800 hover:border-purple-600 transition-all shadow-md">
             <img src="{{ $mentor->profile_picture ? asset('storage/' . $mentor->profile_picture) : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random' }}" class="w-28 h-28 rounded-full mx-auto mb-6 object-cover border-4 border-slate-200 dark:border-gray-800" alt="{{ $mentor->name }}">
             <h6 class="font-bold text-lg mb-1.5">{{ $mentor->name }}</h6>
-            <p class="text-xs text-purple-600 dark:text-purple-400 mb-6 font-semibold tracking-wider">{{ $mentor->occupation ?? 'Mentor' }}</p>
+            <p class="text-xs text-[#A487F8] dark:text-[#A487F8] mb-6 font-semibold tracking-wider">{{ $mentor->occupation ?? 'Mentor' }}</p>
             <div class="text-xs text-slate-500 border-t border-slate-100 dark:border-gray-800/50 pt-5 space-y-1">
                 <p>{{ $mentor->student_count ?? 0 }} Pelajar</p>
                 <p>{{ $mentor->courses_count ?? 0 }} Kursus</p>

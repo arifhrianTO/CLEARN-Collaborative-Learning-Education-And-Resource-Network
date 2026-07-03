@@ -11,7 +11,7 @@ import forms from '@tailwindcss/forms';
     theme: {
         extend: {
             colors: {
-                primary: '#7C3AED',
+                primary: '#A487F8',
                 'dark-bg': '#090613',
                 'dark-sidebar': '#120d22',
                 'dark-card': '#17122b',

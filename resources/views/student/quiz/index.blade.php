@@ -13,7 +13,7 @@
         <div class="max-w-5xl mx-auto">
             
             <div class="mb-4">
-                <a href="#" class="inline-flex items-center gap-2 text-[9px] font-black text-slate-400 hover:text-[#7C3AED] uppercase tracking-widest transition-colors">
+                <a href="#" class="inline-flex items-center gap-2 text-[9px] font-black text-slate-400 hover:text-[#A487F8] uppercase tracking-widest transition-colors">
                     <i class="fas fa-arrow-left"></i> Kembali ke Materi
                 </a>
             </div>
@@ -30,7 +30,7 @@
                 <div class="lg:col-span-8">
                     <div class="bg-white dark:bg-[#1c1826] border border-gray-100 dark:border-gray-800 rounded-2xl p-6 shadow-sm">
                         <div class="mb-6">
-                            <span class="text-[9px] font-black text-[#7C3AED] bg-[#7C3AED]/10 px-2 py-0.5 rounded-md uppercase tracking-widest">Pertanyaan {{ $currentSoal }}</span>
+                            <span class="text-[9px] font-black text-[#A487F8] bg-[#7C3AED]/10 px-2 py-0.5 rounded-md uppercase tracking-widest">Pertanyaan {{ $currentSoal }}</span>
                             <h2 class="text-sm font-bold mt-3 text-slate-800 dark:text-white">"Manakah selector CSS yang digunakan untuk menargetkan ID sebuah elemen?" (Ini adalah soal {{ $currentSoal }})</h2>
                         </div>
 
@@ -41,7 +41,7 @@
                                 <input type="radio" name="jawaban" value="opsi_{{ $index }}" class="peer sr-only" 
                                     onchange="simpanJawaban({{ $currentSoal }}, 'opsi_{{ $index }}')">
                                 <div class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 dark:border-slate-800 transition-all peer-checked:border-[#7C3AED] peer-checked:bg-[#7C3AED]/5 hover:border-[#7C3AED]/30">
-                                    <div class="w-7 h-7 rounded-lg flex items-center justify-center font-black text-[9px] bg-slate-100 dark:bg-slate-800 text-slate-500 peer-checked:bg-[#7C3AED] peer-checked:text-white group-hover:bg-[#7C3AED]/20 group-hover:text-[#7C3AED] transition-colors">
+                                    <div class="w-7 h-7 rounded-lg flex items-center justify-center font-black text-[9px] bg-slate-100 dark:bg-slate-800 text-slate-500 peer-checked:bg-[#7C3AED] peer-checked:text-white group-hover:bg-[#7C3AED]/20 group-hover:text-[#A487F8] transition-colors">
                                         {{ chr(64 + $loop->iteration) }}
                                     </div>
                                     <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ $opsi }}</span>
@@ -52,9 +52,9 @@
 
                         {{-- Navigasi Bawah --}}
                         <div class="mt-8 flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-800">
-                            <a href="?q={{ max(1, $currentSoal - 1) }}" class="text-[9px] font-black uppercase tracking-widest text-slate-400 hover:text-[#7C3AED] transition-colors">Sebelumnya</a>
+                            <a href="?q={{ max(1, $currentSoal - 1) }}" class="text-[9px] font-black uppercase tracking-widest text-slate-400 hover:text-[#A487F8] transition-colors">Sebelumnya</a>
                             @if(!$isLast)
-                                <a href="?q={{ $currentSoal + 1 }}" class="px-5 py-2 bg-[#7C3AED] hover:bg-[#6d31d9] text-white text-[9px] font-black rounded-lg uppercase tracking-widest shadow-lg shadow-[#7C3AED]/20 transition-all">
+                                <a href="?q={{ $currentSoal + 1 }}" class="px-5 py-2 bg-[#A487F8] hover:bg-[#947ADF] text-white text-[9px] font-black rounded-lg uppercase tracking-widest shadow-lg shadow-[#A487F8]/20 transition-all">
                                     Selanjutnya <i class="fas fa-arrow-right ml-1"></i>
                                 </a>
                             @endif
@@ -69,14 +69,14 @@
                             @for($i = 1; $i <= $totalSoal; $i++)
                                 <a id="nav-{{ $i }}" href="?q={{ $i }}" 
                                 class="aspect-square flex items-center justify-center text-[11px] font-black rounded-lg border transition-all
-                                {{ $i == $currentSoal ? 'border-2 border-[#7C3AED] text-[#7C3AED] ring-2 ring-[#7C3AED]/20' : 'bg-slate-50 dark:bg-slate-800 text-slate-400 border-slate-100 dark:border-slate-700' }}">
+                                {{ $i == $currentSoal ? 'border-2 border-[#A487F8] text-[#A487F8] ring-2 ring-[#A487F8]/20' : 'bg-slate-50 dark:bg-slate-800 text-slate-400 border-slate-100 dark:border-slate-700' }}">
                                     {{ $i }}
                                 </a>
                             @endfor
                         </div>
 
                         @if($isLast)
-                            <button class="w-full py-3 bg-[#7C3AED] hover:bg-[#6d31d9] text-white text-[9px] font-black rounded-lg uppercase tracking-widest transition-all shadow-lg shadow-[#7C3AED]/20">
+                            <button class="w-full py-3 bg-[#A487F8] hover:bg-[#947ADF] text-white text-[9px] font-black rounded-lg uppercase tracking-widest transition-all shadow-lg shadow-[#A487F8]/20">
                                 Submit Seluruh Jawaban
                             </button>
                         @endif
@@ -91,8 +91,8 @@
 
         const btn = document.getElementById('nav-' + nomorSoal);
         if (btn) {
-            btn.classList.remove('border-2', 'border-[#7C3AED]', 'text-[#7C3AED]', 'ring-2', 'ring-[#7C3AED]/20');
-            btn.classList.add('bg-[#7C3AED]', 'text-white', 'border-[#7C3AED]');
+            btn.classList.remove('border-2', 'border-[#A487F8]', 'text-[#A487F8]', 'ring-2', 'ring-[#A487F8]/20');
+            btn.classList.add('bg-[#A487F8]', 'text-white', 'border-[#A487F8]');
         }
     }
 
@@ -108,7 +108,7 @@
                 const btn = document.getElementById('nav-' + i);
                 if (btn && i != {{ $currentSoal }}) {
                     btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'text-slate-400', 'border-slate-100');
-                    btn.classList.add('bg-[#7C3AED]', 'text-white', 'border-[#7C3AED]');
+                    btn.classList.add('bg-[#A487F8]', 'text-white', 'border-[#A487F8]');
                 }
             }
         }

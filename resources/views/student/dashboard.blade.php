@@ -31,7 +31,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <!-- Statistik 1 -->
             <div class="p-5 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
-                <div class="w-8 h-8 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-3 text-sm">
+                <div class="w-8 h-8 rounded-xl bg-purple-500/10 flex items-center justify-center text-[#A487F8] mb-3 text-sm">
                     <i class="fa-solid fa-book-open"></i>
                 </div>
                 <h3 class="text-xl font-black dark:text-white text-slate-800">{{ $totalEnrolled }}</h3>
