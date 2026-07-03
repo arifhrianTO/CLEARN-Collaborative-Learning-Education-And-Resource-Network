@@ -21,11 +21,25 @@
                 </p>
             </div>
 
+            @if(auth()->user()->status === 'pending')
+            <button onclick="showPendingAlert()"
+                class="bg-primary text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 text-xs transition hover:scale-105 shadow-lg shadow-primary/20 inline-flex cursor-pointer">
+                <i class="fa-solid fa-plus"></i>
+                <span>Buat Kursus Baru</span>
+            </button>
+            @elseif(auth()->user()->status === 'rejected')
+            <button onclick="showRejectedAlert()"
+                class="bg-primary text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 text-xs transition hover:scale-105 shadow-lg shadow-primary/20 inline-flex cursor-pointer">
+                <i class="fa-solid fa-plus"></i>
+                <span>Buat Kursus Baru</span>
+            </button>
+            @else
             <a href="{{ route('mentor.courses.create') }}"
                 class="bg-primary text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 text-xs transition hover:scale-105 shadow-lg shadow-primary/20 inline-flex">
                 <i class="fa-solid fa-plus"></i>
                 <span>Buat Kursus Baru</span>
             </a>
+            @endif
         </div>
 
         {{-- Statistik --}}

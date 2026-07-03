@@ -26,11 +26,25 @@
                 </p>
             </div>
 
+            @if(auth()->user()->status === 'pending')
+            <button onclick="showPendingAlert()"
+                class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-[10px] font-bold rounded-lg hover:brightness-110 transition-all uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer">
+                <i class="fas fa-plus text-[9px]"></i>
+                Tambah Kursus
+            </button>
+            @elseif(auth()->user()->status === 'rejected')
+            <button onclick="showRejectedAlert()"
+                class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-[10px] font-bold rounded-lg hover:brightness-110 transition-all uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer">
+                <i class="fas fa-plus text-[9px]"></i>
+                Tambah Kursus
+            </button>
+            @else
             <a href="{{ route('mentor.courses.create') }}"
                 class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-[10px] font-bold rounded-lg hover:brightness-110 transition-all uppercase tracking-widest shadow-lg shadow-primary/20">
                 <i class="fas fa-plus text-[9px]"></i>
                 Tambah Kursus
             </a>
+            @endif
         </div>
 
         {{-- Alert Success --}}
@@ -305,6 +319,19 @@
                 kamu dapat menambahkan session dan materi dari halaman detail.
             </p>
 
+            @if(auth()->user()->status === 'pending')
+            <button onclick="showPendingAlert()"
+                class="inline-flex items-center gap-2 mt-5 px-4 py-2 bg-primary text-white text-[10px] font-bold rounded-lg hover:brightness-110 transition-all uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer">
+                <i class="fas fa-plus text-[9px]"></i>
+                Tambah Kursus
+            </button>
+            @elseif(auth()->user()->status === 'rejected')
+            <button onclick="showRejectedAlert()"
+                class="inline-flex items-center gap-2 mt-5 px-4 py-2 bg-primary text-white text-[10px] font-bold rounded-lg hover:brightness-110 transition-all uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer">
+                <i class="fas fa-plus text-[9px]"></i>
+                Tambah Kursus
+            </button>
+            @else
             <a href="{{ route('mentor.courses.create') }}"
                 class="inline-flex items-center gap-2 mt-5 px-4 py-2 bg-primary text-white text-[10px] font-bold rounded-lg hover:brightness-110 transition-all uppercase tracking-widest shadow-lg shadow-primary/20">
 
@@ -312,6 +339,7 @@
 
                 Tambah Kursus
             </a>
+            @endif
 
         </div>
 

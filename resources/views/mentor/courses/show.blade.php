@@ -23,7 +23,7 @@
                     </h1>
 
                     <p class="text-[12px] dark:text-slate-400 text-slate-500 mt-1 italic font-medium">
-                        Tambahkan pelajaran, kuis, dan proyek akhir untuk kursus ini.
+                        Tambahkan pelajaran, kuis, dan tugas akhir untuk kursus ini.
                     </p>
                 </div>
 
@@ -227,7 +227,7 @@
                         Pratinjau Pertemuan
                     </h2>
                     <p class="text-[11px] dark:text-slate-500 text-slate-400">
-                        Tampilan materi, kuis, dan proyek akhir yang akan dilihat oleh pelajar.
+                        Tampilan materi, kuis, dan tugas akhir yang akan dilihat oleh pelajar.
                     </p>
                 </div>
 
@@ -264,11 +264,11 @@
 
                             <div class="min-w-0">
                                 <span class="text-[10px] font-black uppercase tracking-widest {{ $isLastSession ? 'text-emerald-500' : 'text-primary' }}">
-                                    {{ $isLastSession ? 'Final Project Session' : 'Pertemuan ' . ($index + 1) }}
+                                    {{ $isLastSession ? 'Tugas Akhir' : 'Pertemuan ' . ($index + 1) }}
                                 </span>
 
                                 <h3 class="text-lg lg:text-xl font-black dark:text-white text-slate-800 truncate">
-                                    {{ $session->sessions_title ?? 'Pertemuan ' . ($index + 1) }}
+                                    {{ $session->sessions_title ?? ($isLastSession ? 'Tugas Akhir' : 'Pertemuan ' . ($index + 1)) }}
                                 </h3>
 
                                 @if($session->sessions_description)
@@ -290,7 +290,7 @@
                             </p>
                             @else
                             <p class="text-[10px] text-slate-400">
-                                {{ $session->finalProjects->count() }} Proyek Akhir
+                                {{ $session->finalProjects->count() }} Tugas Akhir
                             </p>
                             @endif
                         </div>
@@ -585,7 +585,7 @@
 
                             @else
 
-                            {{-- Final Project --}}
+                            {{-- Tugas Akhir --}}
                             @forelse($session->finalProjects as $project)
                             <div class="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
                                 <div class="flex items-start gap-4">
@@ -593,21 +593,73 @@
                                         <i class="fa-solid fa-diagram-project"></i>
                                     </div>
 
-                                    <div>
-                                        <h4 class="text-sm font-black text-emerald-500">
-                                            {{ $project->project_title }}
-                                        </h4>
+                                    <div class="flex-1">
+                                        <div class="flex items-start justify-between gap-4">
+                                            <div>
+                                                <h4 class="text-sm font-black text-emerald-500">
+                                                    {{ $project->project_title }}
+                                                </h4>
+                                                
+                                                <div class="flex items-center gap-3 mt-1.5">
+                                                    @if($project->duration_days)
+                                                    <div class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600/80 dark:text-emerald-400/80">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <span>Waktu Pengerjaan: {{ $project->duration_days }} Hari</span>
+                                                    </div>
+                                                    @endif
+                                                </div>
+                                            </div>
 
-                                        <p class="text-xs dark:text-slate-400 text-slate-600 mt-2 leading-relaxed">
+                                            <button type="button" class="px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition">
+                                                Detail Tugas
+                                            </button>
+                                        </div>
+
+                                        <p class="text-xs dark:text-slate-400 text-slate-600 mt-3 leading-relaxed line-clamp-3">
                                             {{ $project->project_description }}
                                         </p>
+
+                                        {{-- Material Preview --}}
+                                        @if($project->materials && $project->materials->count() > 0)
+                                        <div class="mt-4 pt-4 border-t border-emerald-500/20 space-y-2">
+                                            <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-2">Lampiran</p>
+                                            @foreach($project->materials as $material)
+                                            @php
+                                            $type = strtolower($material->type ?? '');
+                                            $file = $material->file_path ?? null;
+                                            $url = $material->url ?? null;
+                                            $fileSource = $file ? asset('storage/' . $file) : null;
+                                            $source = $url ?: $fileSource;
+                                            @endphp
+
+                                            @if($type === 'pdf' || $type === 'link')
+                                            @if($source)
+                                            <a href="{{ $source }}" target="_blank"
+                                                class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0b0a1a] bg-white border border-emerald-500/20 hover:border-emerald-500 transition group inline-flex w-full max-w-sm">
+                                                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition">
+                                                    <i class="{{ $type === 'pdf' ? 'fa-regular fa-file-pdf' : 'fa-solid fa-link' }}"></i>
+                                                </div>
+                                                <div class="min-w-0">
+                                                    <p class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 truncate">
+                                                        {{ $type === 'pdf' ? 'File Panduan (PDF)' : 'Link Referensi' }}
+                                                    </p>
+                                                    <p class="text-[9px] text-emerald-500/70 truncate">
+                                                        Klik untuk membuka
+                                                    </p>
+                                                </div>
+                                            </a>
+                                            @endif
+                                            @endif
+                                            @endforeach
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                             @empty
                             <div class="p-6 rounded-2xl bg-slate-100 dark:bg-white/5 text-center">
                                 <p class="text-xs text-slate-400 font-bold">
-                                    Final project belum dibuat.
+                                    Tugas Akhir belum dibuat.
                                 </p>
                             </div>
                             @endforelse

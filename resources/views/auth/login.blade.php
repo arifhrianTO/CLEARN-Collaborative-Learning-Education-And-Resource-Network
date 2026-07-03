@@ -12,12 +12,12 @@
             <img
                 src="{{ asset('images/logo-light.png') }}"
                 alt="logo"
-                class="w-40 h-40 mb-8 object-contain dark:hidden">
+                class="w-40 h- m27b-2 object-contain dark:hidden">
 
             <img
                 src="{{ asset('images/logo-dark.png') }}"
                 alt="logo"
-                class="w-40 h-40 mb-8 object-contain hidden dark:block">
+                class="w-40 h-27 mb-2 object-contain hidden dark:block">
 
             <h1 class="text-3xl font-bold mb-8">Selamat Datang Kembali</h1>
 

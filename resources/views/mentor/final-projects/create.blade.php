@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Tambah Final Project | Dashboard Mentor | Clearn')
+@section('title', 'Tambah Tugas Akhir | Dashboard Mentor | Clearn')
 
 @push('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -27,10 +27,10 @@
 
             <div class="mt-5">
                 <p class="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500">
-                    Session Terakhir
+                    Pertemuan Terakhir
                 </p>
                 <h1 class="text-2xl font-extrabold dark:text-white text-slate-800 tracking-tight mt-2">
-                    Tambah Final Project
+                    Tambah Tugas Akhir
                 </h1>
                 <p class="text-[11px] dark:text-slate-400 text-slate-500 mt-2">
                     Buat tugas akhir yang akan dikerjakan oleh student setelah menyelesaikan seluruh materi kursus.
@@ -69,7 +69,7 @@
                         </div>
                         <div>
                             <p class="text-[9px] font-black uppercase tracking-widest text-slate-400">
-                                Final Project Session
+                                Tugas Akhir
                             </p>
                             <h2 class="text-sm font-black dark:text-white text-slate-800 mt-1">
                                 {{ $session->sessions_title }}
@@ -87,7 +87,7 @@
                     <div>
                         <label for="project_title"
                             class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
-                            Judul Final Project <span class="text-red-500">*</span>
+                            Judul Tugas Akhir <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
                             id="project_title"
@@ -227,8 +227,8 @@
                                 name="material_type"
                                 class="w-full px-4 py-3.5 rounded-xl dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs font-bold outline-none focus:border-primary transition">
                                 <option value="">Tanpa material tambahan</option>
-                                <option value="pdf" {{ old('material_type') === 'pdf' ? 'selected' : '' }}>Upload File</option>
-                                <option value="link" {{ old('material_type') === 'link' ? 'selected' : '' }}>Link Eksternal</option>
+                                <option value="pdf" {{ old('material_type') === 'pdf' ? 'selected' : '' }}>Unggah File </option>
+                                <option value="link" {{ old('material_type') === 'link' ? 'selected' : '' }}>Tautan Eksternal</option>
                             </select>
                         </div>
 
@@ -283,7 +283,7 @@
                     <button type="submit"
                         class="px-8 py-3 rounded-xl bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 hover:brightness-110 transition">
                         <i class="fa-solid fa-floppy-disk mr-2"></i>
-                        Simpan Final Project
+                        Simpan Tugas Akhir
                     </button>
                 </div>
 

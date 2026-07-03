@@ -33,7 +33,7 @@ class SessionController extends Controller
         $request->validate([
             'sessions'                        => 'required|array',
             'sessions.*.id'                   => 'required|exists:sessions,id',
-            'sessions.*.sessions_title'       => 'required|string|max:255',
+            'sessions.*.sessions_title'       => 'nullable|string|max:255',
             'sessions.*.sessions_description' => 'nullable|string',
         ]);
 
@@ -42,7 +42,7 @@ class SessionController extends Controller
                 ->where('course_id', $course->id)
                 ->first();
 
-            if ($session) {
+            if ($session && !empty($sessionData['sessions_title'])) {
                 $session->update([
                     'sessions_title'       => $sessionData['sessions_title'],
                     'sessions_description' => $sessionData['sessions_description'] ?? null,
