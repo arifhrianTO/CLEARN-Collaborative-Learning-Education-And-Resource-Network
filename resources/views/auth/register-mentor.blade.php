@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daftar Pengajar – clearn</title>
 
+    <button
+        onclick="window.location='{{ route('tutorial') }}'"
+        class="absolute left-6 top-6 z-50 text-white hover:opacity-80 transition">
+        <i class="fa-solid fa-arrow-left-long text-2xl -translate-x-1"></i>
+    </button>
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -65,12 +70,12 @@
             <img
                 src="{{ asset('images/logo-light.png') }}"
                 alt="logo"
-                class="w-24 h-24 object-contain dark:hidden">
+                class="w-30 h-30 object-contain dark:hidden">
 
             <img
                 src="{{ asset('images/logo-dark.png') }}"
                 alt="logo"
-                class="w-24 h-24 object-contain hidden dark:block">
+                class="w-30 h-30 object-contain hidden dark:block">
         </div>
 
         <div class="mb-10">

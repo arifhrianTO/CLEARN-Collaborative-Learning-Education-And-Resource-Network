@@ -38,22 +38,10 @@
 
         <div class="flex items-center gap-3">
             <div class="flex items-center bg-white dark:bg-[#111116] p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
-                <button id="gridBtn" onclick="setView('grid')" class="bg-purple-600 text-white p-2 rounded-lg transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
-                </button>
-                <button id="listBtn" onclick="setView('list')" class="text-gray-400 p-2 hover:text-purple-600 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-                    </svg>
-                </button>
+               
+                
             </div>
 
-            <button class="flex items-center gap-2 bg-white dark:bg-[#111116] text-slate-700 dark:text-gray-200 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 hover:border-purple-500 transition-all">
-                <i class="fa-solid fa-sliders text-gray-400"></i>
-                <span class="text-sm font-medium">Filter</span>
-            </button>
         </div>
     </div>
 </div>
@@ -73,4 +61,21 @@
 </section>
 
 </main>
+<section class="px-6 pb-24">
+    <div class="max-w-[1100px] mx-auto text-center p-12 rounded-[30px] bg-[#A184F5] text-white">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">
+            Tidak Menemukan Kursus Anda?
+        </h2>
+        <p class="text-sm opacity-90 mb-8 max-w-xl mx-auto">
+            Kami terus menambahkan kursus dan kategori baru. Jelajahi semua kursus
+            atau hubungi kami dengan saran.
+        </p>
+        <div class="flex justify-center gap-4 flex-wrap">
+            <button class="px-6 py-3 rounded-xl bg-white/20 backdrop-blur
+                               text-white font-semibold hover:bg-white/30 transition">
+                Hubungi Kami
+            </button>
+        </div>
+    </div>
+</section>
 @endsection

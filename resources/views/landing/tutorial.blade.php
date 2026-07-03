@@ -23,6 +23,11 @@
             }
         }
     </script>
+    <button
+        onclick="window.location='{{ route('home') }}'"
+        class="absolute left-6 top-6 z-50 text-white hover:opacity-80 transition">
+        <i class="fa-solid fa-arrow-left-long text-2xl -translate-x-1"></i>
+    </button>
     <style type="text/tailwindcss">
     @layer base {
         body {
@@ -118,14 +123,16 @@
               </p>
 
               <div class="flex gap-4">
-                  <button class="bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold">
-                      Mulai Mengajar
-                  </button>
+                <button 
+                onclick="window.location='{{ route('register.mentor') }}'"
+                class="bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold">
+                 Mulai Mengajar
+                </button>
               </div>
           </div>
 
           <div>
-              <iframe class="rounded-2xl flex items-center justify-center" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe class="rounded-2xl flex items-center justify-center" width="560" height="315" src="https://www.youtube.com/embed/OXr9HwyYqaI?si=iwxr1xZvnxuuBo7r" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
 
       </div>
@@ -134,22 +141,22 @@
       <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mt-20">
 
           <div class="bg-[#151427] p-6 rounded-2xl text-center">
-              <h3 class="text-3xl font-bold text-[#A78BFA]"><?php echo "500+"?></h3>
+              <h3 class="text-3xl font-bold text-[#A78BFA]"><?php echo "50"?></h3>
               <p class="text-xs text-gray-400">Active Instructors</p>
           </div>
 
           <div class="bg-[#151427] p-6 rounded-2xl text-center">
-              <h3 class="text-3xl font-bold text-[#A78BFA]"><?php echo "$2M+"?></h3>
+              <h3 class="text-3xl font-bold text-[#A78BFA]"><?php echo "20"?></h3>
               <p class="text-xs text-gray-400">Paid to Instructors</p>
           </div>
 
           <div class="bg-[#151427] p-6 rounded-2xl text-center">
-              <h3 class="text-3xl font-inter font-bold text-[#A78BFA]"><?php echo "2M+"?></h3>
+              <h3 class="text-3xl font-inter font-bold text-[#A78BFA]"><?php echo "2"?></h3>
               <p class="text-xs text-gray-400">Students Taught</p>
           </div>
 
           <div class="bg-[#151427] p-6 rounded-2xl text-center">
-              <h3 class="text-3xl font-bold text-[#A78BFA]"><?php echo "50+" ?></h3>
+              <h3 class="text-3xl font-bold text-[#A78BFA]"><?php echo "50" ?></h3>
               <p class="text-xs text-gray-400">Countries Reached</p>
           </div>
 
@@ -239,9 +246,6 @@
 
   <section class="px-6 pb-24">
       <div class="max-w-6xl mx-auto bg-[#A78BFA] rounded-3xl text-center py-20 px-10">
-        <div class="flex justify-center items-center">
-          <img src="Icon.png" class="w-30 h-30 mb-10" alt="Icon">
-        </div>
 
         <h2 class="text-2xl md:text-3xl font-bold mb-4">
             Siap Memulai Perjalanan Mengajar Anda?
@@ -250,12 +254,6 @@
         <p class="text-white/80 mb-8">
             Bergabunglah dengan ribuan instruktur dan mulai menghasilkan.
         </p>
-
-        <button 
-        onclick="window.location='{{ route('register.mentor') }}'"
-        class="bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold">
-            Ajukan untuk jadi Pengajar
-        </button>
 
       </div>
   </section>
