@@ -35,7 +35,7 @@ class MentorVerificationController extends Controller
         $admin = Auth::user();
 
         if (!$admin || $admin->role !== 'admin') {
-            abort(403, 'Hanya admin yang dapat menyetujui mentor.');
+            abort(403, 'Hanya admin yang dapat menyetujui pengajar.');
         }
 
         DB::transaction(function () use ($mentorId, $admin) {
@@ -56,7 +56,7 @@ class MentorVerificationController extends Controller
             );
         });
 
-        return back()->with('success', 'Mentor berhasil disetujui.');
+        return back()->with('success', 'Pengajar berhasil disetujui.');
     }
 
     /**
@@ -67,7 +67,7 @@ class MentorVerificationController extends Controller
         $admin = Auth::user();
 
         if (!$admin || $admin->role !== 'admin') {
-            abort(403, 'Hanya admin yang dapat menolak mentor.');
+            abort(403, 'Hanya admin yang dapat menolak pengajar.');
         }
 
         // VALIDASI LANGSUNG DI CONTROLLER
@@ -97,6 +97,6 @@ class MentorVerificationController extends Controller
             );
         });
 
-        return back()->with('success', 'Mentor berhasil ditolak.');
+        return back()->with('success', 'Pengajar berhasil ditolak.');
     }
 }

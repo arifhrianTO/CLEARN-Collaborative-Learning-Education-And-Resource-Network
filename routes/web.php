@@ -22,7 +22,6 @@ use App\Http\Controllers\Mentor\CourseController as MentorCourseController;
 use App\Http\Controllers\Mentor\ExerciseController;
 use App\Http\Controllers\Mentor\LessonController;
 use App\Http\Controllers\Mentor\FinalProjectController;
-use App\Http\Controllers\Mentor\MentorController;
 use App\Http\Controllers\Mentor\FinanceController as MentorFinanceController;
 use App\Http\Controllers\Mentor\SessionController;
 use App\Http\Controllers\Mentor\StudentController;
@@ -139,7 +138,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/student', [StudentController::class, 'index'])->name('student.index');
 
             Route::get('/finance', [MentorFinanceController::class, 'index'])->name('finance.index');
-            Route::post('/payout-request', [MentorController::class, 'requestPayout'])->name('payout.request');
 
             Route::get('/settings', fn() => view('settings.settings'))->name('settings');
         });
@@ -163,6 +161,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/settings', fn() => view('settings.settings'))->name('settings');
         });
 });
-            // Removed duplicated checkout view without course_id
-Route::post('/api/midtrans/webhook', [App\Http\Controllers\Student\PaymentController::class, 'webhook'])->name('midtrans.webhook');
+// Removed duplicated checkout view without course_id
+Route::post('/api/midtrans/webhook', [StudentPaymentController::class, 'webhook'])->name('midtrans.webhook');
 require __DIR__ . '/auth.php';

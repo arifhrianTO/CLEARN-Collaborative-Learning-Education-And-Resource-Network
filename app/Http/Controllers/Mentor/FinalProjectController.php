@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class FinalProjectController extends Controller
 {
@@ -28,9 +29,9 @@ class FinalProjectController extends Controller
         */
         if (
             !$session->course ||
-            (int) $session->course->mentor_id !== (int) auth()->id()
+            (int) $session->course->mentor_id !== (int) Auth::id()
         ) {
-            abort(403, 'Anda tidak memiliki akses ke course ini.');
+            abort(403, 'Anda tidak memiliki akses ke kursus ini.');
         }
 
         /*
@@ -101,9 +102,9 @@ class FinalProjectController extends Controller
         */
         if (
             !$session->course ||
-            (int) $session->course->mentor_id !== (int) auth()->id()
+            (int) $session->course->mentor_id !== (int) Auth::id()
         ) {
-            abort(403, 'Anda tidak memiliki akses ke course ini.');
+            abort(403, 'Anda tidak memiliki akses ke kursus ini.');
         }
 
         /*
@@ -344,7 +345,7 @@ class FinalProjectController extends Controller
             !$finalProject->session ||
             !$finalProject->session->course ||
             (int) $finalProject->session->course->mentor_id !==
-            (int) auth()->id()
+            (int) Auth::id()
         ) {
             abort(403, 'Anda tidak memiliki akses ke Tugas Akhir ini.');
         }

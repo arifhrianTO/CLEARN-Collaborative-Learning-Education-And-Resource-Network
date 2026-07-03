@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
     public function editByCourse(Course $course)
     {
-        if ($course->mentor_id !== auth()->id()) {
+        if ($course->mentor_id !== Auth::id()) {
             abort(403);
         }
 
@@ -26,7 +27,7 @@ class SessionController extends Controller
 
     public function updateByCourse(Request $request, Course $course)
     {
-        if ($course->mentor_id !== auth()->id()) {
+        if ($course->mentor_id !== Auth::id()) {
             abort(403);
         }
 
@@ -52,6 +53,6 @@ class SessionController extends Controller
 
         return redirect()
             ->route('mentor.courses.show', $course->id)
-            ->with('success', 'Semua session berhasil diperbarui.');
+            ->with('success', 'Semua pertemuan berhasil diperbarui.');
     }
 }

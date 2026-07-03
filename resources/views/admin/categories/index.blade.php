@@ -81,20 +81,6 @@
                                     class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
                                     <i class="fas fa-pen text-[10px] text-slate-400 hover:text-[#7C3AED]"></i>
                                 </a>
-
-                                {{-- Tombol hapus --}}
-                                <form action="{{ route('admin.categories.destroy', $category->id) }}"
-                                    method="POST"
-                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="submit"
-                                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-red-500 transition-all">
-                                        <i class="fas fa-trash text-[10px] text-slate-400 hover:text-red-500"></i>
-                                    </button>
-                                </form>
-
                             </div>
                         </td>
                     </tr>

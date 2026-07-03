@@ -323,7 +323,7 @@ class CourseController extends Controller
                 ) {
                     Session::create([
                         'course_id' => $course->id,
-                        'sessions_title' => 'Session ' . $i,
+                        'sessions_title' => 'Pertemuan ' . $i,
                         'sessions_description' => null,
                     ]);
                 }
@@ -343,7 +343,7 @@ class CourseController extends Controller
                 ->route('mentor.courses.show', $course->id)
                 ->with(
                     'success',
-                    'Course berhasil diperbarui dan kembali menjadi draft.'
+                    'Kursus berhasil diperbarui dan kembali menjadi draft.'
                 );
         } catch (\Throwable $error) {
             DB::rollBack();
@@ -359,7 +359,7 @@ class CourseController extends Controller
 
             return back()
                 ->withInput()
-                ->with('error', 'Course gagal diperbarui.');
+                ->with('error', 'Kursus gagal diperbarui.');
         }
     }
 
@@ -378,7 +378,7 @@ class CourseController extends Controller
         ) {
             return back()->with(
                 'error',
-                'Course yang sudah diverifikasi dan dipublikasikan tidak dapat dihapus.'
+                'Kursus yang sudah diverifikasi dan dipublikasikan tidak dapat dihapus.'
             );
         }
 
@@ -423,7 +423,7 @@ class CourseController extends Controller
         if ($course->status_review === 'pending') {
             return back()->with(
                 'error',
-                'Course sedang menunggu verifikasi admin.'
+                'Kursus sedang menunggu verifikasi admin.'
             );
         }
 
@@ -433,7 +433,7 @@ class CourseController extends Controller
         ) {
             return back()->with(
                 'error',
-                'Course sudah disetujui dan dipublikasikan.'
+                'Kursus sudah disetujui dan dipublikasikan.'
             );
         }
 
@@ -446,7 +446,7 @@ class CourseController extends Controller
         if ($course->sessions->isEmpty()) {
             return back()->with(
                 'error',
-                'Course belum memiliki pertemuan.'
+                'Kursus belum memiliki pertemuan.'
             );
         }
 
@@ -531,7 +531,7 @@ class CourseController extends Controller
             ->route('mentor.courses.show', $course->id)
             ->with(
                 'success',
-                'Course berhasil diajukan dan sedang menunggu verifikasi admin.'
+                'Kursus berhasil diajukan dan sedang menunggu verifikasi admin.'
             );
     }
 }

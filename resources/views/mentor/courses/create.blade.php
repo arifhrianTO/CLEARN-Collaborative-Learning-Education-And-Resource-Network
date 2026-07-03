@@ -10,11 +10,11 @@
 
         {{-- Header --}}
         <div class="mb-8">
-     <a href="{{ route('mentor.courses.index') }}"
-    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition">
-    <i class="fa-solid fa-arrow-left"></i>
-    Kembali ke Dashboard
-</a>
+            <a href="{{ route('mentor.courses.index') }}"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                Kembali ke Dashboard
+            </a>
 
             <h1 class="text-2xl font-bold dark:text-white text-slate-800 tracking-tight mt-4">
                 Tambah Kursus Baru
@@ -97,7 +97,7 @@
                             @foreach($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                {{ $category->category_name }}  
+                                {{ $category->category_name }}
                             </option>
                             @endforeach
                         </select>

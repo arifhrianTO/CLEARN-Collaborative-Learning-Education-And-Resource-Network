@@ -9,6 +9,7 @@ use App\Models\Question;
 use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ExerciseController extends Controller
 {
@@ -20,7 +21,7 @@ class ExerciseController extends Controller
             'exercise',
         ]);
 
-        if ($session->course->mentor_id !== auth()->id()) {
+        if ($session->course->mentor_id !== Auth::id()) {
             abort(403);
         }
 
@@ -65,7 +66,7 @@ class ExerciseController extends Controller
             'questions.options',
         ]);
 
-        if ($exercise->session->course->mentor_id !== auth()->id()) {
+        if ($exercise->session->course->mentor_id !== Auth::id()) {
             abort(403);
         }
 
@@ -79,7 +80,7 @@ class ExerciseController extends Controller
             'questions.options',
         ]);
 
-        if ($exercise->session->course->mentor_id !== auth()->id()) {
+        if ($exercise->session->course->mentor_id !== Auth::id()) {
             abort(403);
         }
 
@@ -165,7 +166,7 @@ class ExerciseController extends Controller
     {
         $exercise->load('session.course');
 
-        if ($exercise->session->course->mentor_id !== auth()->id()) {
+        if ($exercise->session->course->mentor_id !== Auth::id()) {
             abort(403);
         }
 

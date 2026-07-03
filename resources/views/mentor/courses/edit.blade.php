@@ -10,11 +10,11 @@
         {{-- Header --}}
         <div class="mb-8">
             <button type="button"
-    onclick="window.location='{{ route('mentor.courses.show', $course->id) }}'"
-    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold shadow-md hover:bg-primary/90 transition">
-    <i class="fa-solid fa-arrow-left"></i>
-    Kembali ke Detail Kursus
-</button>
+                onclick="window.location='{{ route('mentor.courses.show', $course->id) }}'"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold shadow-md hover:bg-primary/90 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                Kembali ke Detail Kursus
+            </button>
 
             <h1 class="text-2xl font-extrabold dark:text-white text-slate-800 tracking-tight mt-4">
                 Perbarui Kursus
@@ -187,7 +187,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         // Cari textarea berdasarkan namanya
         let descTextarea = document.querySelector('textarea[name="course_description"]');
-        
+
         // Jika ditemukan dan ada isinya, sesuaikan tinggi kotak dengan tinggi teks (scrollHeight)
         if (descTextarea) {
             descTextarea.style.height = 'auto';
