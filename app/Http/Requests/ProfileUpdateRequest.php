@@ -34,6 +34,7 @@ class ProfileUpdateRequest extends FormRequest
                 'regex:/^[a-z0-9._]+$/',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
         ];
     }
 }

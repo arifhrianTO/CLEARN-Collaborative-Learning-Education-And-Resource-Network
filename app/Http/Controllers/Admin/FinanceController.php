@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Models\WalletTransaction;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class FinanceController extends Controller
 {
     public function index()
     {
         // LOGIC DARI MENTOR (DIPINDAH KE ADMIN)
-        $mentorId = auth()->id(); // Untuk admin ini mungkin gak relevan filter per user, tapi kita keep logic aslinya
+        $mentorId = Auth::id(); // Untuk admin ini mungkin gak relevan filter per user, tapi kita keep logic aslinya
 
         $successStatuses = ['success', 'settlement', 'paid', 'sukses'];
 

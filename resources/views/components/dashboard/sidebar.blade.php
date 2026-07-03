@@ -62,19 +62,25 @@
                 href="{{ route('admin.courses.index') }}"
                 icon="fa-book-open"
                 label="Verifikasi Kursus"
-                :active="request()->routeIs('admin.verify.courses')" />
+                :active="request()->routeIs('admin.courses.index')" />
+
+             <x-dashboard.sidebar-item
+                href="{{ route('admin.categories.index')}}"
+                icon="fa-layer-group"
+                label="Kategori"
+                :active="request()->routeIs('admin.categories.index')" />
+
+             <x-dashboard.sidebar-item
+                href="{{ route('admin.users.index')}}"
+                icon="fa-users"
+                label="Pengguna"
+                :active="request()->routeIs('admin.users.*')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('admin.finance.index')}}"
                 icon="fa-wallet"
                 label="Keuangan"
                 :active="request()->routeIs('admin.finance.index')" />
-
-            <x-dashboard.sidebar-item
-                href="{{ route('admin.categories.index')}}"
-                icon="fa-layer-group"
-                label="Kategori"
-                :active="request()->routeIs('admin.revenue')" />
 
             <x-dashboard.sidebar-item
                 href="/settings"
@@ -205,7 +211,8 @@
                 <x-dashboard.sidebar-item href="{{ route('admin.verify.mentors') }}" icon="fa-user-check" label="Verifikasi Pengajar" :active="request()->routeIs('admin.verify.mentors')" />
                 <x-dashboard.sidebar-item href="{{ route('admin.courses.index') }}" icon="fa-book-open" label="Verifikasi Kursus" :active="request()->routeIs('admin.verify.courses')" />
                 <x-dashboard.sidebar-item href="{{ route('admin.finance.index')}}" icon="fa-wallet" label="Keuangan" :active="request()->routeIs('admin.revenue')" />
-                <x-dashboard.sidebar-item href="{{ route('admin.categories.index')}}" icon="fa-layer-group" label="Kategori" :active="request()->routeIs('admin.revenue')" />
+                <x-dashboard.sidebar-item href="{{ route('admin.categories.index')}}" icon="fa-layer-group" label="Kategori" :active="request()->routeIs('admin.categories.*')" />
+                <x-dashboard.sidebar-item href="{{ route('admin.users.index')}}" icon="fa-users" label="Pengguna" :active="request()->routeIs('admin.users.*')" />
                 <x-dashboard.sidebar-item href="/settings" icon="fa-gear" label="Pengaturan" :active="request()->is('settings*')" />
                 @elseif($role == 'mentor' || $role == 'Pengajar')
                 <x-dashboard.sidebar-item href="{{ route('mentor.dashboard')}}" icon="fa-chart-pie" label="Beranda" :active="request()->is('dashboard-pengajar')" />

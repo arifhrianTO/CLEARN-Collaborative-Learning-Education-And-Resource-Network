@@ -3,15 +3,27 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\StudentRegisterRequest;
-use App\Services\Auth\RegisterStudentService;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class StudentRegisterController extends Controller
 {
-    public function __construct(private readonly RegisterStudentService $registerStudentService)
+    /**
+     * Aturan validasi untuk registrasi student.
+     */
+    protected function rules(): array
     {
+        return [
+            'name'       => ['required', 'string', 'max:255'],
+            'email'      => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password'   => ['required', 'string', 'min:8', 'confirmed'],
+            'occupation' => ['nullable', 'string', 'max:255'],
+        ];
     }
 
     public function showForm(): View
@@ -19,9 +31,22 @@ class StudentRegisterController extends Controller
         return view('auth.register-student');
     }
 
-    public function register(StudentRegisterRequest $request): RedirectResponse
+    public function register(Request $request): RedirectResponse
     {
-        $this->registerStudentService->handle($request->validated());
+        $data = $request->validate($this->rules());
+
+        DB::transaction(function () use ($data) {
+            $user = User::create([
+                'name'       => $data['name'],
+                'email'      => $data['email'],
+                'password'   => Hash::make($data['password']),
+                'role'       => 'student',
+                'status'     => 'active',
+                'occupation' => $data['occupation'] ?? null,
+            ]);
+
+            event(new Registered($user));
+        });
 
         return redirect()->route('login')
             ->with('success', 'Registrasi berhasil! Silakan login.');
