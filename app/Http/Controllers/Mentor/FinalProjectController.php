@@ -51,7 +51,7 @@ class FinalProjectController extends Controller
                 )
                 ->with(
                     'error',
-                    'Final Project hanya dapat ditambahkan pada session terakhir.'
+                    'Tugas Akhir hanya dapat ditambahkan pada pertemuan terakhir.'
                 );
         }
 
@@ -75,7 +75,7 @@ class FinalProjectController extends Controller
                 )
                 ->with(
                     'error',
-                    'Course ini sudah memiliki Final Project.'
+                    'Kursus ini sudah memiliki Tugas Akhir.'
                 );
         }
 
@@ -124,7 +124,7 @@ class FinalProjectController extends Controller
                 )
                 ->with(
                     'error',
-                    'Final Project hanya dapat ditambahkan pada session terakhir.'
+                    'Tugas Akhir hanya dapat ditambahkan pada pertemuan terakhir.'
                 );
         }
 
@@ -148,7 +148,7 @@ class FinalProjectController extends Controller
                 )
                 ->with(
                     'error',
-                    'Course ini sudah memiliki Final Project.'
+                    'Kursus ini sudah memiliki Tugas Akhir.'
                 );
         }
 
@@ -227,10 +227,10 @@ class FinalProjectController extends Controller
             $rules,
             [
                 'project_title.required' =>
-                'Judul Final Project wajib diisi.',
+                'Judul Tugas Akhir wajib diisi.',
 
                 'project_description.required' =>
-                'Panduan atau deskripsi Final Project wajib diisi.',
+                'Panduan atau deskripsi Tugas Akhir wajib diisi.',
 
                 'duration_days.required' =>
                 'Durasi pengerjaan wajib diisi.',
@@ -314,15 +314,15 @@ class FinalProjectController extends Controller
             }
         });
 
-        return redirect()
-            ->route(
-                'mentor.courses.sessions.edit',
-                $session->course_id
-            )
-            ->with(
-                'success',
-                'Final Project berhasil ditambahkan.'
-            );
+            return redirect()
+                ->route(
+                    'mentor.courses.sessions.edit',
+                    $session->course_id
+                )
+                ->with(
+                    'error',
+                    'Kursus ini sudah memiliki Tugas Akhir.'
+                );
     }
 
     /**
@@ -346,7 +346,7 @@ class FinalProjectController extends Controller
             (int) $finalProject->session->course->mentor_id !==
             (int) auth()->id()
         ) {
-            abort(403, 'Anda tidak memiliki akses ke Final Project ini.');
+            abort(403, 'Anda tidak memiliki akses ke Tugas Akhir ini.');
         }
 
         $courseId = $finalProject->session->course_id;
@@ -386,7 +386,7 @@ class FinalProjectController extends Controller
             )
             ->with(
                 'success',
-                'Final Project berhasil dihapus.'
+                'Tugas Akhir berhasil dihapus.'
             );
     }
 }

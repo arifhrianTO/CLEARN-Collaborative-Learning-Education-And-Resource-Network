@@ -66,6 +66,12 @@ class CourseController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->status === 'pending') {
+            return redirect()->route('mentor.courses.index')->with('error', 'Status akun Anda masih pending. Anda belum bisa menambahkan kursus.');
+        } elseif (Auth::user()->status === 'rejected') {
+            return redirect()->route('mentor.courses.index')->with('error', 'Akun Anda ditolak. Silakan perbaiki data di menu Pengaturan.');
+        }
+        
         $categories = Category::latest()->get();
 
         return view('mentor.courses.create', compact('categories'));
@@ -76,6 +82,12 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::user()->status === 'pending') {
+            return redirect()->route('mentor.courses.index')->with('error', 'Status akun Anda masih pending. Anda belum bisa menambahkan kursus.');
+        } elseif (Auth::user()->status === 'rejected') {
+            return redirect()->route('mentor.courses.index')->with('error', 'Akun Anda ditolak. Silakan perbaiki data di menu Pengaturan.');
+        }
+        
         $validated = $request->validate([
             'course_title' => [
                 'required',
@@ -112,14 +124,14 @@ class CourseController extends Controller
             'course_description.required' => 'Deskripsi course wajib diisi.',
             'category_id.required' => 'Kategori wajib dipilih.',
             'category_id.exists' => 'Kategori tidak ditemukan.',
-            'course_price.required' => 'Harga course wajib diisi.',
+            'course_price.required' => 'Harga kursus wajib diisi.',
             'course_price.numeric' => 'Harga course harus berupa angka.',
             'course_thumbnail.required' => 'Thumbnail course wajib dipilih.',
             'course_thumbnail.image' => 'Thumbnail harus berupa gambar.',
             'course_thumbnail.max' => 'Ukuran thumbnail maksimal 2 MB.',
-            'session_count.required' => 'Jumlah session wajib diisi.',
-            'session_count.min' => 'Jumlah session minimal 1.',
-            'session_count.max' => 'Jumlah session maksimal 50.',
+            'session_count.required' => 'Jumlah pertemuan wajib diisi.',
+            'session_count.min' => 'Jumlah pertemuan minimal 1.',
+            'session_count.max' => 'Jumlah pertemuan maksimal 50.',
         ]);
 
         $thumbnailPath = null;
@@ -160,7 +172,7 @@ class CourseController extends Controller
                 ->route('mentor.courses.show', $course->id)
                 ->with(
                     'success',
-                    'Kursus berhasil dibuat. Session otomatis sudah dibuat.'
+                    'Kursus berhasil dibuat. Pertemuan otomatis sudah dibuat.'
                 );
         } catch (\Throwable $error) {
             DB::rollBack();
@@ -272,9 +284,9 @@ class CourseController extends Controller
             ],
         ], [
             'session_count.min' =>
-            'Jumlah session tidak boleh lebih kecil dari session yang sudah ada.',
+            'Jumlah pertemuan tidak boleh lebih kecil dari pertemuan yang sudah ada.',
             'session_count.max' =>
-            'Jumlah session maksimal 50.',
+            'Jumlah pertemuan maksimal 50.',
         ]);
 
         $oldThumbnail = $course->course_thumbnail;
@@ -434,34 +446,8 @@ class CourseController extends Controller
         if ($course->sessions->isEmpty()) {
             return back()->with(
                 'error',
-                'Course belum memiliki session.'
+                'Course belum memiliki pertemuan.'
             );
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Validasi lesson dan materi
-        |--------------------------------------------------------------------------
-        */
-
-        foreach ($course->sessions as $index => $session) {
-            $sessionNumber = $index + 1;
-
-            if ($session->lessons->isEmpty()) {
-                return back()->with(
-                    'error',
-                    "Pertemuan {$sessionNumber} belum memiliki Materi."
-                );
-            }
-
-            foreach ($session->lessons as $lesson) {
-                if ($lesson->materials->isEmpty()) {
-                    return back()->with(
-                        'error',
-                        "Pelajaran \"{$lesson->lessons_title}\" pada Pertemuan {$sessionNumber} belum memiliki materi."
-                    );
-                }
-            }
         }
 
         /*
@@ -475,14 +461,14 @@ class CourseController extends Controller
         if (!$lastSession) {
             return back()->with(
                 'error',
-                'Session terakhir tidak ditemukan.'
+                'Pertemuan terakhir tidak ditemukan.'
             );
         }
 
         if ($lastSession->finalProjects->isEmpty()) {
             return back()->with(
                 'error',
-                'Session terakhir wajib memiliki final project.'
+                'Pertemuan terakhir wajib memiliki Tugas Akhir.'
             );
         }
 
@@ -493,8 +479,39 @@ class CourseController extends Controller
             ) {
                 return back()->with(
                     'error',
-                    'Final project hanya boleh berada pada session terakhir.'
+                    'Tugas Akhir hanya boleh berada pada pertemuan terakhir.'
                 );
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validasi lesson dan materi (Hanya untuk sesi BUKAN tugas akhir)
+        |--------------------------------------------------------------------------
+        */
+
+        foreach ($course->sessions as $index => $session) {
+            $sessionNumber = $index + 1;
+
+            // Lewati validasi lesson untuk session terakhir (Tugas Akhir)
+            if ($session->id === $lastSession->id) {
+                continue;
+            }
+
+            if ($session->lessons->isEmpty()) {
+                return back()->with(
+                    'error',
+                    "Pertemuan {$sessionNumber} belum memiliki Pelajaran."
+                );
+            }
+
+            foreach ($session->lessons as $lesson) {
+                if ($lesson->materials->isEmpty()) {
+                    return back()->with(
+                        'error',
+                        "Pelajaran \"{$lesson->lessons_title}\" pada Pertemuan {$sessionNumber} belum memiliki materi."
+                    );
+                }
             }
         }
 

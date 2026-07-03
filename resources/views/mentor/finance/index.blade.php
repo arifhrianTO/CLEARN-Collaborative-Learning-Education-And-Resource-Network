@@ -15,9 +15,9 @@
 
         {{-- Header --}}
         <header class="mb-6">
-            <h1 class="text-xl font-bold">Laporan Keuangan</h1>
+            <h1 class="text-xl font-bold">Laporan Keuangan Platform</h1>
             <p class="text-[11px] text-slate-500">
-                Monitor pendapatan kursus dan riwayat transaksi wallet mentor.
+                Monitor pendapatan kursus dan riwayat transaksi platform.
             </p>
         </header>
 

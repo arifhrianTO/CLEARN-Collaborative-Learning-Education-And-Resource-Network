@@ -61,7 +61,7 @@
                 href="{{ route('admin.finance.index')}}"
                 icon="fa-wallet"
                 label="Keuangan"
-                :active="request()->routeIs('admin.revenue')" />
+                :active="request()->routeIs('admin.finance.index')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('admin.categories.index')}}"
@@ -99,7 +99,7 @@
                 href="{{ route('mentor.finance.index') }}"
                 icon="fa-wallet"
                 label="Pendapatan"
-                :active="request()->is('pengajar/pendapatan*')" />
+                :active="request()->routeIs('mentor.finance.index')" />
 
             <x-dashboard.sidebar-item
                 href="/settings"

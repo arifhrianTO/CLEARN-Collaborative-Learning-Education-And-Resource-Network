@@ -30,12 +30,12 @@
             <img
                 src="{{ asset('images/logo-light.png') }}"
                 alt="logo"
-                class="w-50 h-50 object-contain dark:hidden">
+                class="w-50 h-30 object-contain dark:hidden">
 
             <img
                 src="{{ asset('images/logo-dark.png') }}"
                 alt="logo"
-                class="w-50 h-50 object-contain hidden dark:block">
+                class="w-50 h-30 object-contain hidden dark:block">
         </div>
     </div>
 

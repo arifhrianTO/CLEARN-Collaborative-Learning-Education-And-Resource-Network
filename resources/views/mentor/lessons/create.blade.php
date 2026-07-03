@@ -10,18 +10,18 @@
         <a href="{{ route('mentor.courses.sessions.edit', $session->course_id) }}"
             class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary transition">
             <i class="fa-solid fa-arrow-left"></i>
-            Kembali ke Isi Sessions
+            Kembali ke isi Pertemuan
         </a>
 
         <div class="mt-6 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-3xl p-6 lg:p-8 shadow-sm">
 
             <div class="mb-6">
                 <h1 class="text-xl font-black dark:text-white text-slate-800">
-                    Tambah Lesson
+                    Tambah Pelajaran
                 </h1>
 
                 <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-1">
-                    Lesson ini akan ditambahkan ke:
+                    Pelajaran ini akan ditambahkan ke:
                     <span class="font-bold text-primary">
                         {{ $session->sessions_title }}
                     </span>
@@ -43,7 +43,7 @@
 
                 <div class="mb-5">
                     <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
-                        Judul Lesson
+                        Judul Pelajaran
                     </label>
 
                     <input type="text"
@@ -56,18 +56,18 @@
 
                 <div class="mb-6">
                     <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
-                        Deskripsi Lesson
+                        Deskripsi Pelajaran
                     </label>
 
                     <textarea name="lessons_description"
                         rows="5"
-                        placeholder="Jelaskan isi lesson ini..."
+                        placeholder="Jelaskan isi pelajaran ini..."
                         class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">{{ old('lessons_description') }}</textarea>
                 </div>
 
                 <div class="mb-5">
                     <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
-                        Upload File Materi
+                        Unggah File Materi
                     </label>
 
                     <input type="file"
@@ -82,7 +82,7 @@
 
                 <div class="mb-6">
                     <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
-                        Link Materi
+                        Tautan Materi
                     </label>
 
                     <input type="url"
@@ -92,7 +92,7 @@
                         class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
 
                     <p class="text-[10px] text-slate-400 mt-2">
-                        Gunakan kalau sumber materi berupa link YouTube, Google Drive, atau website.
+                        Masukkan tautan apabila materi berupa tautan YouTube, Google Drive, atau website.
                     </p>
                 </div>
 
@@ -104,7 +104,7 @@
 
                     <button type="submit"
                         class="px-8 py-3 rounded-xl bg-primary text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20 hover:brightness-110 transition">
-                        Simpan Lesson
+                        Simpan Pelajaran
                     </button>
                 </div>
             </form>

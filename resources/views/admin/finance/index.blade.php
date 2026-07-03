@@ -23,9 +23,9 @@
         {{-- Header --}}
         <header class="mb-8 animate-fade-down">
             <div>
-                <h1 class="text-2xl font-abold tracking-tight">Pendapatan Platform</h1>
+                <h1 class="text-2xl font-abold tracking-tight">Pendapatan Mentor</h1>
                 <p class="text-slate-500 dark:text-gray-400 text-xs mt-0.5 font-medium">
-                    Pantau total penjualan kursus, potongan komisi, dan status keuangan platform.
+                    Pantau total penjualan kursus Anda dan status keuangan.
                 </p>
             </div>
         </header>
@@ -65,7 +65,7 @@
                 </h3>
 
                 <p class="text-slate-400 dark:text-gray-500 text-[10px] font-medium">
-                    Pendapatan bersih milik platform
+                    Pendapatan bersih milik Anda
                 </p>
             </div>
 
