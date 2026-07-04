@@ -1,7 +1,7 @@
 <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[90vw] max-w-[800px] h-[250px] md:h-[400px] bg-[#A487F8]/15 blur-[120px] rounded-full -z-10 opacity-0 dark:opacity-100 transition-opacity"></div>
 
-<div class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/80 dark:border-white/20 text-gray-800 dark:text-white text-xs mb-6 md:mb-8 shadow-sm">
-    <i class="fas fa-award mr-2.5"></i> Online Course Application
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/80 dark:border-white/20 text-gray-800 dark:text-white text-[10px] shadow-sm mb-6 md:mb-8 self-center">
+    <i class="fas fa-award mr-1.5"></i> Online Course Application
 </div>
 
 <h1 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1.2] md:leading-[1.15] mb-6 md:mb-8 tracking-tight md:tracking-tighter">
@@ -16,7 +16,7 @@
     Belajar dari pengajar profesional, tingkatkan keterampilan, dan capai tujuan Anda melalui pengalaman belajar yang fleksibel, interaktif, dan berkualitas.
 </p>
 
-<div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-5 px-4 sm:px-0">
+<div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-5 w-full sm:w-auto px-4 sm:px-0">
     <button
         onclick="window.location='{{ route('tutorial') }}'"
         class="w-full sm:w-56 bg-gradient-to-r from-[#A487F8] to-[#8B6FE8] px-10 py-4 rounded-xl font-bold flex items-center justify-center group text-sm md:text-base shadow-lg text-white">
@@ -27,7 +27,7 @@
     </button>
 </div>
 
-<div class="grid grid-cols-3 gap-6 mt-16 max-w-5xl mx-auto px-6">
+<div class="grid grid-cols-3 gap-6 mt-16 max-w-5xl mx-auto px-4 md:px-6">
     <div class="text-center">
         <h3 class="text-3xl md:text-4xl font-extrabold text-[#A487F8] dark:text-[#A487F8]">{{ $studentCount }}</h3>
         <p class="text-slate-500 dark:text-gray-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pelajar Terdaftar</p>

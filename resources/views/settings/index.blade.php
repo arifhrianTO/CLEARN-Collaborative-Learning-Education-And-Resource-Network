@@ -606,7 +606,7 @@ $hideUsername = $isAdmin || $isStudent;
             @csrf
             <button type="submit"
                 class="w-full bg-primary text-white px-6 py-2.5 rounded-xl text-[13px] font-bold hover:brightness-110 transition">
-                <i class="fa-solid fa-right-from-bracket mr-2"></i>Login Ulang Sekarang
+                <i class="fa-solid fa-door-open mr-2"></i>Login Ulang Sekarang
             </button>
         </form>
     </div>

@@ -166,7 +166,7 @@
                 <button type="button"
                     onclick="document.getElementById('logoutModal').classList.remove('hidden')"
                     class="w-full bg-red-500/10 text-red-500 px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2 group">
-                    <i class="fa-solid fa-right-from-bracket transition-transform group-hover:translate-x-1"></i>
+                    <i class="fa-solid fa-door-open transition-transform group-hover:translate-x-1"></i>
                     <span>Keluar</span>
                 </button>
             </form>
@@ -237,7 +237,7 @@
                     <button type="button"
                         onclick="document.getElementById('logoutModal').classList.remove('hidden')"
                         class="w-full bg-red-500/10 text-red-500 px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2 group">
-                        <i class="fa-solid fa-right-from-bracket transition-transform group-hover:translate-x-1"></i>
+                        <i class="fa-solid fa-door-open transition-transform group-hover:translate-x-1"></i>
                         <span>Keluar</span>
                     </button>
                 </form>
@@ -250,7 +250,7 @@
 <div id="logoutModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden p-4 bg-black/20 backdrop-blur-sm transition-all">
     <div class="bg-white dark:bg-[#1A1625] p-8 rounded-2xl shadow-2xl border dark:border-white/5 w-full max-w-sm text-center">
         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center">
-            <i class="fas fa-right-from-bracket text-2xl text-red-500"></i>
+            <i class="fas fa-door-open text-2xl text-red-500"></i>
         </div>
         <h3 class="text-lg font-black text-slate-800 dark:text-white mb-2">Yakin Ingin Keluar?</h3>
         <p class="text-xs text-slate-400 mb-8 font-medium">Keluar dari sesi ini? Anda harus login kembali untuk masuk ke dasbor.</p>
