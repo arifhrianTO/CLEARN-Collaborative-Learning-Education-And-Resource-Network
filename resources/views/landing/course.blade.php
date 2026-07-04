@@ -26,20 +26,24 @@
     <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
 
         <div class="relative w-full md:max-w-x6">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </span>
-            <input
-                id="courseSearch"
-                type="text"
-                placeholder="Cari Kursus..."
-                class="w-full bg-white dark:bg-[#1A1625] text-slate-900 dark:text-gray-200 text-sm rounded-full py-3 pl-12 pr-4 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#A487F8]/50 transition-all placeholder:text-gray-500" />
+            <form action="{{ route('course') }}" method="GET" class="w-full">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input
+                    id="courseSearch"
+                    name="search"
+                    type="text"
+                    value="{{ request('search') }}"
+                    placeholder="Cari Kursus atau Mentor..."
+                    class="w-full bg-white dark:bg-[#0f0b1a] text-slate-900 dark:text-gray-200 text-sm rounded-full py-3 pl-12 pr-4 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#A487F8]/50 transition-all placeholder:text-gray-500" />
+            </form>
         </div>
 
         <div class="flex items-center gap-3">
-            <div class="flex items-center bg-white dark:bg-[#1A1625] p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
-               
-                
+            <div class="flex items-center bg-white dark:bg-[#111116] p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
+
+
             </div>
 
         </div>
@@ -49,24 +53,40 @@
 <section id="" class="py-20 px-10 max-w-[1400px] mx-auto">
     <div class="flex justify-between items-end mb-12 transition-colors">
         <div>
-            <p class="text-slate-500 dark:text-gray-400 text-sm">Menampilkan <?php echo "6" ?> kursus</p>
+            @if(request('search'))
+                <p class="text-slate-500 dark:text-gray-400 text-sm">Menemukan {{ $courses->count() }} kursus untuk pencarian "<span class="font-bold text-primary">{{ request('search') }}</span>"</p>
+            @else
+                <p class="text-slate-500 dark:text-gray-400 text-sm">Menampilkan {{ $courses->count() }} kursus</p>
+            @endif
         </div>
     </div>
 
+    @if($courses->count() > 0)
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach($courses as $course)
         <x-landing.course :course="$course" />
         @endforeach
     </div>
+    @else
+    <div class="w-full bg-white dark:bg-[#111116] border border-slate-200 dark:border-white/5 rounded-3xl p-12 text-center">
+        <div class="w-20 h-20 bg-slate-100 dark:bg-[#1a1625] rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fa-solid fa-search text-2xl text-slate-400"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Kursus Tidak Ditemukan</h3>
+        <p class="text-slate-500 dark:text-gray-400 text-sm mb-6 max-w-md mx-auto">Maaf, kami tidak dapat menemukan kursus yang cocok dengan pencarian Anda. Coba gunakan kata kunci lain.</p>
+        <a href="{{ route('course') }}" class="inline-block px-6 py-2.5 bg-primary text-white rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Lihat Semua Kursus</a>
+    </div>
+    @endif
 </section>
 
 </main>
 <section class="px-6 pb-24">
-    <div class="max-w-[1100px] mx-auto text-center p-12 rounded-[30px] bg-[#A487F8] text-white">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">
+    <div class="max-w-[1100px] mx-auto mt-12 px-8 py-10 rounded-[30px] bg-[#A487F8] text-white
+                flex flex-col items-center text-center">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">
             Tidak Menemukan Kursus Anda?
         </h2>
-        <p class="text-sm opacity-90 mb-8 max-w-xl mx-auto">
+        <p class="text-sm opacity-90 mb-6 max-w-xl">
             Kami terus menambahkan kursus dan kategori baru. Jelajahi semua kursus
             atau hubungi kami dengan saran.
         </p>

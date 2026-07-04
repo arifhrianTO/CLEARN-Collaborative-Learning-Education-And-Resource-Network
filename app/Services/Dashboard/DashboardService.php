@@ -18,7 +18,7 @@ class DashboardService
                 $query->whereHas('course', function($q) {
                     $q->where('course_price', 0);
                 })->orWhereHas('payment', function($q) {
-                    $q->where('connection_status', 'success');
+                    $q->whereIn('connection_status', ['success', 'settlement', 'capture', 'paid', 'sukses']);
                 });
             })
             ->with(['course.category', 'course.mentor'])
@@ -26,7 +26,7 @@ class DashboardService
             
         $completedCoursesCount = $activeEnrollments->where('progress', 100)->count();
         $totalCertificates = \App\Models\Certificate::whereHas('enrollment', function ($q) use ($user) {
-            $q->where('student_id', $user->id);
+            $q->where('enrollments.student_id', $user->id);
         })->count();
 
         return [

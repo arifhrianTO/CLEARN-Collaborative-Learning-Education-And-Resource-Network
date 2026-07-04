@@ -68,7 +68,11 @@
                 </div>
                 <div>
                     @php
-                        $totalCertificates = \App\Models\Certificate::where('user_id', auth()->id())->count();
+                        // certificates table tidak punya user_id langsung,
+                        // relasinya lewat enrollment_id -> enrollments.student_id
+                        $totalCertificates = \App\Models\Certificate::whereHas('enrollment', function ($q) {
+                            $q->where('student_id', auth()->id());
+                        })->count();
                     @endphp
                     <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">{{ $totalCertificates }}</h2>
                     <span class="text-[9px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-widest">Sertifikat</span>
@@ -76,7 +80,7 @@
             </div>
         </div>
 
-        {{-- Filter Tab Konten: Meniru Gaya & Kelengkungan Tab di Halaman Setting --}}
+        {{-- Filter Tab Konten --}}
         <div class="flex flex-wrap gap-2 mb-6">
             <button class="px-6 py-2 rounded-xl text-[11px] font-bold transition-all bg-primary text-white shadow-sm border border-primary active:scale-95">
                 Semua Kursus
@@ -96,14 +100,19 @@
                 @php
                     $isCompleted = $enrollment->progress == 100;
                     $colorClass = $isCompleted ? 'emerald' : 'primary';
-                    $coverImage = $enrollment->course->course_cover 
-                        ? (Str::startsWith($enrollment->course->course_cover, 'http') 
-                            ? $enrollment->course->course_cover 
-                            : Storage::url($enrollment->course->course_cover)) 
+                    $coverImage = $enrollment->course->course_thumbnail
+                        ? (Str::startsWith($enrollment->course->course_thumbnail, 'http')
+                            ? $enrollment->course->course_thumbnail
+                            : Storage::url($enrollment->course->course_thumbnail))
                         : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop';
                 @endphp
+<<<<<<< HEAD
+                <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 block" onclick="window.location='{{ route('public.course.show', $enrollment->course->course_slug) }}'">
+=======
                 <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors">
                     <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 block" onclick="window.location='{{ route('student.course.show', $enrollment->course->course_slug) }}'">
+>>>>>>> main
                         <img src="{{ $coverImage }}" alt="{{ $enrollment->course->course_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer">
                         <span class="absolute top-3 right-3 bg-{{ $isCompleted ? 'emerald' : 'primary' }} text-white text-[8px] font-black uppercase tracking-wider px-2 py-1 rounded-md">
                             {{ $isCompleted ? 'LULUS' : 'DIBELI' }}
@@ -158,7 +167,7 @@
                 </div>
                 <p class="text-xs font-bold dark:text-slate-400 text-slate-600 mb-1">Ingin Belajar Hal Baru?</p>
                 <p class="text-[10px] dark:text-slate-500 text-slate-400 max-w-[180px] mb-4">Temukan ratusan materi berkualitas lainnya.</p>
-                <a href="{{ route('home') }}" class="px-5 py-2 inline-block border dark:border-white/5 border-slate-300 dark:text-white text-slate-700 text-[10px] font-bold rounded-xl uppercase tracking-widest hover:bg-white dark:hover:bg-[#161525] transition-all">
+                <a href="{{ route('course') }}" class="px-5 py-2 inline-block border dark:border-white/5 border-slate-300 dark:text-white text-slate-700 text-[10px] font-bold rounded-xl uppercase tracking-widest hover:bg-white dark:hover:bg-[#161525] transition-all">
                     Jelajahi Kursus
                 </a>
             </div>
