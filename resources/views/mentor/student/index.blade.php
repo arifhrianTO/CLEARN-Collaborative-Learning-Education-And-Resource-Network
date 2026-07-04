@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Daftar Pelajar | Dashboard Mentor | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Pelajar')
 
 @section('content')
 
@@ -32,7 +32,7 @@
                 </span>
 
                 <input type="text" id="searchStudent" placeholder="Cari pelajar..."
-                    class="w-full pl-9 pr-4 py-2 bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 rounded-xl text-[10px] text-slate-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#7C3AED] transition-all placeholder:text-slate-400">
+                    class="w-full pl-9 pr-4 py-2 bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 rounded-xl text-[10px] text-slate-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#A487F8] transition-all placeholder:text-slate-400">
             </div>
         </header>
 
@@ -135,7 +135,7 @@
                         <tr class="student-row hover:bg-slate-50/50 dark:hover:bg-white/5 transition-colors">
                             <td class="p-4 pl-8">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-lg bg-[#7C3AED]/10 text-[#7C3AED] flex items-center justify-center font-bold text-sm uppercase">
+                                    <div class="w-9 h-9 rounded-lg bg-[#A487F8]/10 text-[#A487F8] flex items-center justify-center font-bold text-sm uppercase">
                                         {{ $initials }}
                                     </div>
 

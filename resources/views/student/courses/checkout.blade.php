@@ -1,6 +1,6 @@
 @extends('layouts.sections')
 
-@section('title', 'Checkout - ' . $course->course_title)
+@section('title', 'CLEARN │ Checkout - ' . $course->course_title)
 
 @section('content')
 <div class="p-6 lg:p-10 flex justify-center items-center min-h-[70vh]">

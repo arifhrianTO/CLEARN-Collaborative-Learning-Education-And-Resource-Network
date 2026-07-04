@@ -1,12 +1,12 @@
 @props(['course'])
 
 <a href="{{ route('course.show', $course->course_slug) }}"
-    class="block bg-white dark:bg-[#13111a] rounded-2xl overflow-hidden border border-slate-200 dark:border-gray-800/60 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer shadow-sm hover:shadow-xl">
+    class="block bg-white dark:bg-[#13111a] rounded-2xl overflow-hidden border border-slate-200 dark:border-gray-800/60 hover:border-[#A487F8]/50 transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer shadow-sm hover:shadow-xl">
     <div class="relative h-56 overflow-hidden">
         <img src="{{ $course->course_thumbnail ? asset('storage/' . $course->course_thumbnail) : asset('images/default-course.png') }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             alt="{{ $course->course_title }}">
-        <span class="absolute top-4 right-4 bg-purple-600 text-white text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider">Populer</span>
+        <span class="absolute top-4 right-4 bg-[#A487F8] text-white text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider">Populer</span>
     </div>
     <div class="p-7">
         <h4 class="font-bold text-lg leading-snug mb-2.5 h-12 overflow-hidden">{{ $course->course_title }}</h4>
@@ -22,10 +22,10 @@
             </div>
         </div>
         <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-gray-800">
-            <div class="text-2xl font-extrabold text-purple-600 dark:text-purple-400">
+            <div class="text-2xl font-extrabold text-[#A487F8] dark:text-[#A487F8]">
                 Rp{{ number_format($course->course_price, 0, ',', '.') }}
             </div>
-            <span class="text-xs font-semibold text-purple-600 dark:text-purple-300">
+            <span class="text-xs font-semibold text-[#A487F8] dark:text-[#A487F8]">
                 Detail <i class="fas fa-chevron-right ml-1"></i>
             </span>
         </div>

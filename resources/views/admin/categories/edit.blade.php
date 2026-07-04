@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Perbarui Kategori Kursus | Dashboard Admin | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Perbarui Kategori')
 
 @section('content')
 
@@ -59,7 +59,7 @@
                                 id="category_name"
                                 name="category_name"
                                 value="{{ old('category_name', $category->category_name) }}"
-                                class="w-full bg-slate-50 dark:bg-[#0f0a19] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#7C3AED] transition-all @error('category_name') border-red-500 @enderror"
+                                class="w-full bg-slate-50 dark:bg-[#0f0a19] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#A487F8] transition-all @error('category_name') border-red-500 @enderror"
                                 placeholder="Masukkan nama kategori">
 
                             @error('category_name')
@@ -81,15 +81,15 @@
                                     id="iconInput"
                                     name="category_icon"
                                     value="{{ old('category_icon', $category->category_icon ?? 'fa-book') }}"
-                                    class="w-full bg-slate-50 dark:bg-[#0f0a19] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#7C3AED] transition-all @error('category_icon') border-red-500 @enderror"
+                                    class="w-full bg-slate-50 dark:bg-[#0f0a19] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#A487F8] transition-all @error('category_icon') border-red-500 @enderror"
                                     placeholder="Contoh: fa-code"
                                     oninput="updatePreview()">
 
                                 <p class="text-[9px] text-slate-500 mt-2">
                                     Masukkan class ikon, contoh:
-                                    <code class="text-[#7C3AED] font-bold">fa-code</code>,
-                                    <code class="text-[#7C3AED] font-bold">fa-book</code>,
-                                    <code class="text-[#7C3AED] font-bold">fa-laptop-code</code>.
+                                    <code class="text-[#A487F8] font-bold">fa-code</code>,
+                                    <code class="text-[#A487F8] font-bold">fa-book</code>,
+                                    <code class="text-[#A487F8] font-bold">fa-laptop-code</code>.
                                 </p>
 
                                 @error('category_icon')
@@ -108,7 +108,7 @@
                                 <input type="color"
                                     id="colorInput"
                                     name="category_color"
-                                    value="{{ old('category_color', $category->category_color ?? '#7C3AED') }}"
+                                    value="{{ old('category_color', $category->category_color ?? '#A487F8') }}"
                                     class="w-10 h-10 rounded-full cursor-pointer border-0 bg-transparent"
                                     oninput="updatePreview()">
 
@@ -131,7 +131,7 @@
                                 id="category_description"
                                 name="category_description"
                                 rows="3"
-                                class="w-full bg-slate-50 dark:bg-[#0f0a19] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#7C3AED] transition-all resize-none @error('category_description') border-red-500 @enderror"
+                                class="w-full bg-slate-50 dark:bg-[#0f0a19] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#A487F8] transition-all resize-none @error('category_description') border-red-500 @enderror"
                                 placeholder="Berikan deskripsi singkat kategori...">{{ old('category_description', $category->category_description) }}</textarea>
 
                             @error('category_description')
@@ -154,7 +154,7 @@
                             <div class="w-20 h-20 bg-white dark:bg-[#161525] rounded-xl flex items-center justify-center border dark:border-white/5 shadow-sm">
                                 <i id="iconPreview"
                                     class="fas {{ old('category_icon', $category->category_icon ?? 'fa-book') }} text-3xl"
-                                    style="color: {{ old('category_color', $category->category_color ?? '#7C3AED') }};">
+                                    style="color: {{ old('category_color', $category->category_color ?? '#A487F8') }};">
                                 </i>
                             </div>
 
@@ -174,7 +174,7 @@
                                     Buka
                                     <a href="https://fontawesome.com/icons"
                                         target="_blank"
-                                        class="text-[#7C3AED] underline">
+                                        class="text-[#A487F8] underline">
                                         fontawesome.com
                                     </a>
                                 </li>
@@ -194,7 +194,7 @@
                     </a>
 
                     <button type="submit"
-                        class="flex-1 py-3 bg-[#7C3AED] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:opacity-90 transition-all shadow-lg shadow-[#7C3AED]/20">
+                        class="flex-1 py-3 bg-[#A487F8] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:opacity-90 transition-all shadow-lg shadow-[#A487F8]/20">
                         Simpan Perubahan
                     </button>
                 </div>

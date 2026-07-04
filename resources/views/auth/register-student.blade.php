@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Daftar Pelajar – Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Daftar Pelajar')
 
 @section('bodyClass', 'bg-white dark:bg-[#0f0a19] text-slate-900 dark:text-white min-h-screen overflow-x-hidden')
 
@@ -68,14 +68,14 @@
                 <div>
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Nama Lengkap</label>
                     <input type="text" name="name" value="{{ old('name') }}" placeholder="Masukkan Nama "
-                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#7C3AED]/50 text-sm transition-all">
+                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                 </div>
 
                 {{-- Email --}}
                 <div>
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Alamat Email</label>
                     <input type="email" name="email" value="{{ old('email') }}" placeholder="Budi123@gmail.com"
-                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#7C3AED]/50 text-sm transition-all">
+                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                 </div>
 
                 {{-- Password --}}
@@ -83,7 +83,7 @@
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Kata Sandi</label>
                     <div class="relative">
                         <input id="password" type="password" name="password" placeholder="Masukkan Password "
-                            class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#7C3AED]/50 text-sm transition-all">
+                            class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                         <i
                             class="fas fa-eye password-toggle absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 text-xs cursor-pointer"
                             data-target="password"></i>
@@ -95,7 +95,7 @@
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Konfirmasi Kata Sandi</label>
                     <div class="relative">
                         <input id="password_confirmation" type="password" name="password_confirmation" placeholder="Ulangi Password"
-                            class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#7C3AED]/50 text-sm transition-all">
+                            class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                         <i
                             class="fas fa-eye password-toggle absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 text-xs cursor-pointer"
                             data-target="password_confirmation"></i>
@@ -105,17 +105,17 @@
                 {{-- Terms & Conditions --}}
                 <div class="flex items-start gap-2 py-1">
                     <input type="checkbox" required
-                        class="w-3.5 h-3.5 mt-0.5 rounded border-gray-300 text-[#7C3AED] focus:ring-[#7C3AED]">
+                        class="w-3.5 h-3.5 mt-0.5 rounded border-gray-300 text-[#A487F8] focus:ring-[#A487F8]">
 
                     <label class="text-xs text-slate-600 dark:text-gray-400 leading-tight">
                         Saya menyetujui
                         <button type="button" onclick="document.getElementById('termsModal').classList.remove('hidden')"
-                            class="text-[#7C3AED] font-bold hover:underline">
+                            class="text-[#A487F8] font-bold hover:underline">
                             Syarat
                         </button>
                         &
                         <button type="button" onclick="document.getElementById('conModal').classList.remove('hidden')"
-                            class="text-[#7C3AED] font-bold hover:underline">
+                            class="text-[#A487F8] font-bold hover:underline">
                             Kebijakan
                         </button>
                     </label>
@@ -144,7 +144,7 @@
     <div class="overflow-y-auto scrollbar-hide bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-bold dark:text-white">Syarat Layanan</h2>
-            <button onclick="document.getElementById('termsModal').classList.add('hidden')" class="text-gray-400 hover:text-[#7C3AED]">
+            <button onclick="document.getElementById('termsModal').classList.add('hidden')" class="text-gray-400 hover:text-[#A487F8]">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -216,7 +216,7 @@
         </div>
 
         <button type="button" onclick="document.getElementById('termsModal').classList.add('hidden')"
-            class="mt-6 w-full py-2.5 bg-[#7C3AED] text-white rounded-xl font-bold text-xs hover:bg-[#6d34d1] transition-all">
+            class="mt-6 w-full py-2.5 bg-[#A487F8] text-white rounded-xl font-bold text-xs hover:bg-[#8B6FE8] transition-all">
             Saya Mengerti
         </button>
     </div>
@@ -227,7 +227,7 @@
     <div class="bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-bold dark:text-white">Kebijakan Privasi</h2>
-            <button onclick="document.getElementById('conModal').classList.add('hidden')" class="text-gray-400 hover:text-[#7C3AED]">
+            <button onclick="document.getElementById('conModal').classList.add('hidden')" class="text-gray-400 hover:text-[#A487F8]">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -287,7 +287,7 @@
 
         </div>
         <button type="button" onclick="document.getElementById('conModal').classList.add('hidden')"
-            class="mt-6 w-full py-2.5 bg-[#7C3AED] text-white rounded-xl font-bold text-xs hover:bg-[#6d34d1] transition-all">
+            class="mt-6 w-full py-2.5 bg-[#A487F8] text-white rounded-xl font-bold text-xs hover:bg-[#8B6FE8] transition-all">
             Saya Mengerti
         </button>
     </div>

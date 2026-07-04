@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Daftar Kursus | Dashboard Mentor | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Kursus Saya')
 
 @section('content')
 
@@ -86,7 +86,7 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row w-full gap-3">
-                        <a href="{{ route('settings.edit') }}" class="flex-1 py-3 px-4 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-xl font-bold transition-all text-xs shadow-lg shadow-[#7C3AED]/30">
+                        <a href="{{ route('settings.edit') }}" class="flex-1 py-3 px-4 bg-[#A487F8] hover:bg-[#8B6FE8] text-white rounded-xl font-bold transition-all text-xs shadow-lg shadow-[#A487F8]/30">
                             Isi Data Bank <i class="fas fa-arrow-right ml-1"></i>
                         </a>
                     </div>

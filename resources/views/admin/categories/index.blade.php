@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Kategori Kursus | Dashboard Admin | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Kategori')
 
 @section('content')
 
@@ -23,7 +23,7 @@
             </div>
 
             <a href="{{ route('admin.categories.create') }}"
-                class="px-5 py-2.5 bg-[#7C3AED] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:opacity-90 transition-all shadow-lg shadow-[#7C3AED]/20">
+                class="px-5 py-2.5 bg-[#A487F8] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:opacity-90 transition-all shadow-lg shadow-[#A487F8]/20">
                 + Tambah Kategori
             </a>
         </div>
@@ -60,7 +60,7 @@
                         <td class="p-5">
                             <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5">
                                 <i class="fas {{ $category->category_icon ?? 'fa-book' }} text-xl"
-                                    style="color: {{ $category->category_color ?? '#7C3AED' }};">
+                                    style="color: {{ $category->category_color ?? '#A487F8' }};">
                                 </i>
                             </div>
                         </td>
@@ -78,8 +78,8 @@
 
                                 {{-- Tombol edit --}}
                                 <a href="{{ route('admin.categories.edit', $category->id) }}"
-                                    class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
-                                    <i class="fas fa-pen text-[10px] text-slate-400 hover:text-[#7C3AED]"></i>
+                                    class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
+                                    <i class="fas fa-pen text-[10px] text-slate-400 hover:text-[#A487F8]"></i>
                                 </a>
                             </div>
                         </td>
@@ -119,7 +119,7 @@
                     </span>
                     @else
                     <a href="{{ $categories->previousPageUrl() }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
                         <i class="fas fa-chevron-left text-[10px] text-slate-400"></i>
                     </a>
                     @endif
@@ -127,12 +127,12 @@
                     {{-- Nomor halaman --}}
                     @foreach ($categories->getUrlRange(1, $categories->lastPage()) as $page => $url)
                     @if ($page == $categories->currentPage())
-                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-[#7C3AED] text-white text-[10px] font-bold">
+                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-[#A487F8] text-white text-[10px] font-bold">
                         {{ $page }}
                     </span>
                     @else
                     <a href="{{ $url }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#7C3AED] text-slate-400 text-[10px] font-bold transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] text-slate-400 text-[10px] font-bold transition-all">
                         {{ $page }}
                     </a>
                     @endif
@@ -141,7 +141,7 @@
                     {{-- Next --}}
                     @if ($categories->hasMorePages())
                     <a href="{{ $categories->nextPageUrl() }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
                         <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
                     @else

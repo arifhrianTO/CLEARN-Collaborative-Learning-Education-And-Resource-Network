@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sertifikat - Clearn</title>
+    <title>CLEARN │ Sertifikat</title>
     <style>
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;
@@ -20,7 +20,7 @@
             position: relative;
         }
         .header {
-            color: #7C3AED;
+            color: #A487F8;
             font-size: 24px;
             font-weight: bold;
             text-transform: uppercase;
@@ -42,7 +42,7 @@
         .student-name {
             font-size: 50px;
             font-weight: bold;
-            color: #7C3AED;
+            color: #A487F8;
             margin-bottom: 30px;
         }
         .course-title {
@@ -90,7 +90,7 @@
     <div class="container">
         <div class="header">CLEARN PLATFORM</div>
         
-        <div class="title">Certificate of Achievement</div>
+        <div class="title">Sertifikat Prestasi</div>
         <div class="subtitle">Dengan ini menyatakan bahwa</div>
         
         <div class="student-name">{{ $certificate->enrollment->student->name }}</div>

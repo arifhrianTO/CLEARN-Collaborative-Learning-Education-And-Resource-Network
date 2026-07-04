@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Masuk ke situs – Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Masuk')
 
 @section('content')
 <div class="min-h-screen grid grid-cols-1 lg:grid-cols-2">

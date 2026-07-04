@@ -7,19 +7,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="{{ asset('images/logo-clearn.png') }}">
 
-    <title>@yield('title', config('app.name', 'Clearn'))</title>
+    <title>@yield('title', 'CLEARN')</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-[#0f0a19] min-h-screen selection:bg-[#7C3AED] selection:text-white">
+<body class="font-sans antialiased text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-[#0f0a19] min-h-screen selection:bg-[#A487F8] selection:text-white">
     <div class="min-h-screen flex flex-col items-center justify-center p-4">
         {{-- Logo --}}
         <div class="mb-8 animate-fade-down">
@@ -43,7 +40,7 @@
     </div>
 
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Inter', sans-serif; }
         @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

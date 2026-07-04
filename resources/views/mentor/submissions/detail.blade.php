@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Detail Penilaian | Dashboard Mentor')
+@section('title', 'CLEARN │ Detail Penilaian')
 
 @section('content')
 
@@ -89,7 +89,7 @@
                         <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Aksi Mentor</h2>
                         
                         <button @click="openModal = true" 
-                                class="w-full py-3 bg-primary text-white text-[10px] font-black uppercase rounded-lg hover:bg-violet-600 transition-all active:scale-[0.98]"
+                                class="w-full py-3 bg-primary text-white text-[10px] font-black uppercase rounded-lg hover:bg-[#8B6FE8] transition-all active:scale-[0.98]"
                                 x-text="skor !== null ? 'Ubah Penilaian' : 'Berikan Penilaian'">
                         </button>
                     </div>

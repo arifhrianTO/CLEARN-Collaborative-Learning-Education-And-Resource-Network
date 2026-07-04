@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Rancang Kurikulum | Dashboard Mentor | Clearn')
+@section('title', 'CLEARN │ Rancang Kurikulum')
 
 @section('content')
 
@@ -361,7 +361,7 @@
                             $exercise = $session->exercises->first();
                             @endphp
 
-                            <div class="mb-5 dark:bg-purple-500/10 bg-purple-50 border dark:border-purple-500/20 border-purple-200 rounded-2xl p-4">
+                            <div class="mb-5 dark:bg-[#A487F8]/10 bg-[#A487F8]/20 border dark:border-[#A487F8]/20 border-[#A487F8]/20 rounded-2xl p-4">
                                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                                     <div>
                                         <p class="text-[9px] font-black uppercase tracking-widest text-primary">
@@ -423,7 +423,7 @@
                                 @elseif($canCreateExercise)
                                 <button type="submit"
                                     form="create-exercise-{{ $session->id }}"
-                                    class="px-4 py-2 rounded-xl bg-purple-500/10 text-purple-500 text-[9px] font-black uppercase tracking-widest hover:bg-purple-500 hover:text-white transition">
+                                    class="px-4 py-2 rounded-xl bg-[#A487F8]/10 text-[#A487F8] text-[9px] font-black uppercase tracking-widest hover:bg-[#A487F8] hover:text-white transition">
                                     + Kuis
                                 </button>
                                 @elseif($hasExercise)

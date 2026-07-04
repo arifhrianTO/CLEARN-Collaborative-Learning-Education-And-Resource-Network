@@ -16,7 +16,7 @@
     <div class="flex flex-col h-full gap-6">
 
         <div class="flex items-center gap-3 pb-6">
-            <div class="w-10 h-10 rounded-full overflow-hidden bg-purple-400 flex items-center justify-center text-white text-base font-bold shadow-lg shadow-purple-400/20 shrink-0">
+            <div class="w-10 h-10 rounded-full overflow-hidden bg-[#A487F8] flex items-center justify-center text-white text-base font-bold shadow-lg shadow-[#A487F8]/20 shrink-0">
                 @if(!empty($photo))
                 <img
                     id="sidebar-avatar-img"
@@ -94,25 +94,25 @@
                 href="{{ route('mentor.dashboard')}}"
                 icon="fa-chart-pie"
                 label="Beranda"
-                :active="request()->is('dashboard-pengajar')" />
+                :active="request()->routeIs('mentor.dashboard')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('mentor.courses.index') }}"
                 icon="fa-book"
                 label="Kursus Saya"
-                :active="request()->is('pengajar/kursus*')" />
+                :active="request()->routeIs('mentor.courses.*')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('mentor.student.index')}}"
                 icon="fa-users"
                 label="Pelajar"
-                :active="request()->is('pengajar/pelajar*')" />
+                :active="request()->routeIs('mentor.student.*')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('mentor.finance.index') }}"
                 icon="fa-wallet"
                 label="Pendapatan"
-                :active="request()->routeIs('mentor.finance.index')" />
+                :active="request()->routeIs('mentor.finance.*')" />
 
             <x-dashboard.sidebar-item
                 href="/settings"
@@ -126,31 +126,31 @@
                 href="{{ route('student.dashboard') }}"
                 icon="fa-chart-pie"
                 label="Beranda"
-                :active="request()->is('dashboard-student')" />
+                :active="request()->routeIs('student.dashboard')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('student.course.index') }}"
                 icon="fa-book-open"
                 label="Kursus Saya"
-                :active="request()->is('courses*')" />
+                :active="request()->routeIs('student.course.*')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('student.progress') }}"
                 icon="fa-chart-line"
                 label="Progres"
-                :active="request()->is('progres*')" />
+                :active="request()->routeIs('student.progress')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('student.certif') }}"
                 icon="fa-trophy"
                 label="Sertifikat"
-                :active="request()->is('certif*')" />
+                :active="request()->routeIs('student.certif')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('student.history') }}"
                 icon="fa-clock-rotate-left"
                 label="Riwayat"
-                :active="request()->is('history*')" />
+                :active="request()->routeIs('student.history')" />
 
             <x-dashboard.sidebar-item
                 href="/settings"
@@ -165,7 +165,7 @@
                 @csrf
                 <button type="button"
                     onclick="document.getElementById('logoutModal').classList.remove('hidden')"
-                    class="w-full bg-primary/10 text-primary px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2 group">
+                    class="w-full bg-red-500/10 text-red-500 px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2 group">
                     <i class="fa-solid fa-right-from-bracket transition-transform group-hover:translate-x-1"></i>
                     <span>Keluar</span>
                 </button>
@@ -182,7 +182,7 @@
             {{-- Header with avatar & close --}}
             <div class="flex items-center justify-between pb-6 border-b dark:border-white/10 border-slate-200">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full overflow-hidden bg-purple-400 flex items-center justify-center text-white text-base font-bold shrink-0">
+                    <div class="w-10 h-10 rounded-full overflow-hidden bg-[#A487F8] flex items-center justify-center text-white text-base font-bold shrink-0">
                         @if(!empty($photo))
                         <img src="{{ asset('storage/' . $photo) }}" alt="{{ $name }}" class="w-full h-full object-cover rounded-full">
                         @else
@@ -209,23 +209,23 @@
                 @if(strtolower($role) == 'admin')
                 <x-dashboard.sidebar-item href="{{ route('admin.dashboard') }}" icon="fa-chart-pie" label="Beranda" :active="request()->routeIs('admin.dashboard')" />
                 <x-dashboard.sidebar-item href="{{ route('admin.verify.mentors') }}" icon="fa-user-check" label="Verifikasi Pengajar" :active="request()->routeIs('admin.verify.mentors')" />
-                <x-dashboard.sidebar-item href="{{ route('admin.courses.index') }}" icon="fa-book-open" label="Verifikasi Kursus" :active="request()->routeIs('admin.verify.courses')" />
-                <x-dashboard.sidebar-item href="{{ route('admin.finance.index')}}" icon="fa-wallet" label="Keuangan" :active="request()->routeIs('admin.revenue')" />
+                <x-dashboard.sidebar-item href="{{ route('admin.courses.index') }}" icon="fa-book-open" label="Verifikasi Kursus" :active="request()->routeIs('admin.courses.index')" />
+                <x-dashboard.sidebar-item href="{{ route('admin.finance.index')}}" icon="fa-wallet" label="Keuangan" :active="request()->routeIs('admin.finance.*')" />
                 <x-dashboard.sidebar-item href="{{ route('admin.categories.index')}}" icon="fa-layer-group" label="Kategori" :active="request()->routeIs('admin.categories.*')" />
                 <x-dashboard.sidebar-item href="{{ route('admin.users.index')}}" icon="fa-users" label="Pengguna" :active="request()->routeIs('admin.users.*')" />
                 <x-dashboard.sidebar-item href="/settings" icon="fa-gear" label="Pengaturan" :active="request()->is('settings*')" />
                 @elseif($role == 'mentor' || $role == 'Pengajar')
-                <x-dashboard.sidebar-item href="{{ route('mentor.dashboard')}}" icon="fa-chart-pie" label="Beranda" :active="request()->is('dashboard-pengajar')" />
-                <x-dashboard.sidebar-item href="{{ route('mentor.courses.index') }}" icon="fa-book" label="Kursus Saya" :active="request()->is('pengajar/kursus*')" />
-                <x-dashboard.sidebar-item href="{{ route('mentor.student.index')}}" icon="fa-users" label="Pelajar" :active="request()->is('pengajar/pelajar*')" />
-                <x-dashboard.sidebar-item href="{{ route('mentor.finance.index') }}" icon="fa-wallet" label="Pendapatan" :active="request()->is('pengajar/pendapatan*')" />
+                <x-dashboard.sidebar-item href="{{ route('mentor.dashboard')}}" icon="fa-chart-pie" label="Beranda" :active="request()->routeIs('mentor.dashboard')" />
+                <x-dashboard.sidebar-item href="{{ route('mentor.courses.index') }}" icon="fa-book" label="Kursus Saya" :active="request()->routeIs('mentor.courses.*')" />
+                <x-dashboard.sidebar-item href="{{ route('mentor.student.index')}}" icon="fa-users" label="Pelajar" :active="request()->routeIs('mentor.student.*')" />
+                <x-dashboard.sidebar-item href="{{ route('mentor.finance.index') }}" icon="fa-wallet" label="Pendapatan" :active="request()->routeIs('mentor.finance.*')" />
                 <x-dashboard.sidebar-item href="/settings" icon="fa-gear" label="Pengaturan" :active="request()->is('settings*')" />
                 @else
-                <x-dashboard.sidebar-item href="{{ route('student.dashboard') }}" icon="fa-chart-pie" label="Beranda" :active="request()->is('dashboard-student')" />
-                <x-dashboard.sidebar-item href="{{ route('student.course.index') }}" icon="fa-book-open" label="Kursus Saya" :active="request()->is('courses*')" />
-                <x-dashboard.sidebar-item href="{{ route('student.progress') }}" icon="fa-chart-line" label="Progres" :active="request()->is('progres*')" />
-                <x-dashboard.sidebar-item href="{{ route('student.certif') }}" icon="fa-trophy" label="Sertifikat" :active="request()->is('certif*')" />
-                <x-dashboard.sidebar-item href="{{ route('student.history') }}" icon="fa-clock-rotate-left" label="Riwayat" :active="request()->is('history*')" />
+                <x-dashboard.sidebar-item href="{{ route('student.dashboard') }}" icon="fa-chart-pie" label="Beranda" :active="request()->routeIs('student.dashboard')" />
+                <x-dashboard.sidebar-item href="{{ route('student.course.index') }}" icon="fa-book-open" label="Kursus Saya" :active="request()->routeIs('student.course.*')" />
+                <x-dashboard.sidebar-item href="{{ route('student.progress') }}" icon="fa-chart-line" label="Progres" :active="request()->routeIs('student.progress')" />
+                <x-dashboard.sidebar-item href="{{ route('student.certif') }}" icon="fa-trophy" label="Sertifikat" :active="request()->routeIs('student.certif')" />
+                <x-dashboard.sidebar-item href="{{ route('student.history') }}" icon="fa-clock-rotate-left" label="Riwayat" :active="request()->routeIs('student.history')" />
                 <x-dashboard.sidebar-item href="/settings" icon="fa-gear" label="Pengaturan" :active="request()->is('settings*')" />
                 @endif
             </div>
@@ -236,7 +236,7 @@
                     @csrf
                     <button type="button"
                         onclick="document.getElementById('logoutModal').classList.remove('hidden')"
-                        class="w-full bg-primary/10 text-primary px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2 group">
+                        class="w-full bg-red-500/10 text-red-500 px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2 group">
                         <i class="fa-solid fa-right-from-bracket transition-transform group-hover:translate-x-1"></i>
                         <span>Keluar</span>
                     </button>
