@@ -104,7 +104,7 @@ $hideUsername = $isAdmin || $isStudent;
 
         {{-- ================= TAB PROFIL ================= --}}
         <div id="tab-profile" class="tab-content">
-            <div class="dark:bg-[#1a1828] bg-white border dark:border-white/10 border-slate-200 rounded-[20px] p-8 shadow-sm">
+            <div class="dark:bg-[#1A1625] bg-white border dark:border-white/10 border-slate-200 rounded-[20px] p-8 shadow-sm">
                 <h2 class="text-base font-bold dark:text-white text-slate-800 mb-1">
                     Informasi Personal
                 </h2>
@@ -388,7 +388,7 @@ $hideUsername = $isAdmin || $isStudent;
         @if($isMentor)
         @php $bank = $user->banks ?? null; @endphp
         <div id="tab-bank" class="tab-content hidden">
-            <div class="dark:bg-[#1a1828] bg-white border dark:border-white/10 border-slate-200 rounded-[20px] p-8 shadow-sm">
+            <div class="dark:bg-[#1A1625] bg-white border dark:border-white/10 border-slate-200 rounded-[20px] p-8 shadow-sm">
 
                 <div class="flex items-center justify-between mb-7 gap-4 flex-wrap">
                     <div class="flex items-center gap-3">
@@ -480,7 +480,7 @@ $hideUsername = $isAdmin || $isStudent;
 
         {{-- ================= TAB PASSWORD ================= --}}
         <div id="tab-password" class="tab-content hidden">
-            <div class="w-full dark:bg-[#1a1828] bg-white border dark:border-white/10 border-slate-200 rounded-[20px] p-8 shadow-sm">
+            <div class="w-full dark:bg-[#1A1625] bg-white border dark:border-white/10 border-slate-200 rounded-[20px] p-8 shadow-sm">
 
                 <div class="flex items-center gap-3 mb-8">
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center text-primary text-sm bg-primary/10">
@@ -594,7 +594,7 @@ $hideUsername = $isAdmin || $isStudent;
 
 {{-- ===== MODAL LOGIN ULANG ===== --}}
 <div id="modal-relogin" class="hidden fixed inset-0 z-[9998] flex items-center justify-center bg-black/60 backdrop-blur-sm">
-    <div class="dark:bg-[#1a1828] bg-white border dark:border-white/10 border-slate-200 rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl text-center">
+    <div class="dark:bg-[#1A1625] bg-white border dark:border-white/10 border-slate-200 rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl text-center">
         <div class="w-14 h-14 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
             <i class="fa-solid fa-key text-green-400 text-2xl"></i>
         </div>

@@ -3,7 +3,7 @@
 @section('title', 'CLEARN │ Lupa Password')
 
 @section('content')
-<div class="bg-white dark:bg-[#161525] border border-slate-100 dark:border-white/5 p-8 rounded-3xl shadow-2xl w-full">
+<div class="bg-white dark:bg-[#1A1625] border border-slate-100 dark:border-white/5 p-8 rounded-3xl shadow-2xl w-full">
     <div class="mb-8 text-center sm:text-left">
         <h2 class="text-slate-800 dark:text-white text-xl font-black tracking-tight mb-2">Lupa Password?</h2>
         <p class="text-xs font-medium leading-relaxed text-slate-500 dark:text-slate-400">
@@ -28,7 +28,7 @@
                     <i class="fa-solid fa-envelope text-xs"></i>
                 </span>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="nama@email.com"
-                    class="block w-full pl-11 pr-4 py-3.5 text-sm bg-slate-50 dark:bg-[#0f0a19] text-slate-800 dark:text-white border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A487F8]/50 focus:border-[#A487F8] transition-all font-medium placeholder:text-slate-400">
+                    class="block w-full pl-11 pr-4 py-3.5 text-sm bg-slate-50 dark:bg-[#1A1625] text-slate-800 dark:text-white border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A487F8]/50 focus:border-[#A487F8] transition-all font-medium placeholder:text-slate-400">
             </div>
             @error('email')
             <p class="text-xs text-rose-500 font-bold mt-2 ml-1 flex items-center gap-1.5">

@@ -10,13 +10,13 @@
     initials="{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}"
     photo="{{ auth()->user()->profile_picture }}" />
 
-<main class="flex-1 p-6 pt-10">
+<main class="flex-1 p-5 lg:p-8">
     <div class="max-w-5xl mx-auto">
 
         {{-- Header --}}
         <header class="mb-6">
-            <h1 class="text-xl font-bold">Laporan Keuangan Platform</h1>
-            <p class="text-[11px] text-slate-500">
+            <h1 class="text-lg font-bold">Laporan Keuangan Platform</h1>
+            <p class="text-[10px] text-slate-500">
                 Monitor pendapatan kursus dan riwayat transaksi platform.
             </p>
         </header>

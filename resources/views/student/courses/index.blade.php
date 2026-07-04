@@ -11,7 +11,7 @@
     active="dashboard" />
 
 <!-- Content -->
-<main class="flex-1 p-6 lg:p-10 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50">
+<main class="flex-1 p-6 lg:p-10 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50">
     <div class="max-w-5xl mx-auto">
 
         {{-- Header Halaman --}}
@@ -23,7 +23,7 @@
         {{-- Ringkasan Statistik (4 Kolom) dengan bg-[#161525] --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <!-- Statistik 1: Kursus -->
-            <div class="p-5 flex items-center gap-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-10 h-10 rounded-xl bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8] text-sm">
                     <i class="fas fa-play"></i>
                 </div>
@@ -34,7 +34,7 @@
             </div>
 
             <!-- Statistik 2: Belajar -->
-            <div class="p-5 flex items-center gap-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 text-sm">
                     <i class="fas fa-chart-line"></i>
                 </div>
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Statistik 3: Selesai -->
-            <div class="p-5 flex items-center gap-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 text-sm">
                     <i class="fas fa-check-circle"></i>
                 </div>
@@ -62,7 +62,7 @@
             </div>
 
             <!-- Statistik 4: Sertifikat -->
-            <div class="p-5 flex items-center gap-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-10 h-10 rounded-xl bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8] text-sm">
                     <i class="fas fa-award"></i>
                 </div>
@@ -81,10 +81,10 @@
             <button class="px-6 py-2 rounded-xl text-[11px] font-bold transition-all bg-primary text-white shadow-sm border border-primary active:scale-95">
                 Semua Kursus
             </button>
-            <button class="px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95">
+            <button class="px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95">
                 Sedang Berjalan
             </button>
-            <button class="px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95">
+            <button class="px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95">
                 Selesai
             </button>
         </div>
@@ -102,7 +102,7 @@
                             : Storage::url($enrollment->course->course_cover)) 
                         : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop';
                 @endphp
-                <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors">
+                <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors">
                     <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 block" onclick="window.location='{{ route('student.course.show', $enrollment->course->course_slug) }}'">
                         <img src="{{ $coverImage }}" alt="{{ $enrollment->course->course_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer">
                         <span class="absolute top-3 right-3 bg-{{ $isCompleted ? 'emerald' : 'primary' }} text-white text-[8px] font-black uppercase tracking-wider px-2 py-1 rounded-md">
@@ -127,7 +127,7 @@
                                     <span>{{ $isCompleted ? 'Selesai' : 'Progress Belajar' }}</span>
                                     <span class="text-{{ $isCompleted ? 'emerald' : 'primary' }}">{{ $enrollment->progress }}%</span>
                                 </div>
-                                <div class="w-full h-1.5 dark:bg-[#0b0a1a] bg-slate-100 rounded-full overflow-hidden">
+                                <div class="w-full h-1.5 dark:bg-[#0F0B1A] bg-slate-100 rounded-full overflow-hidden">
                                     <div class="h-full bg-{{ $isCompleted ? 'emerald' : 'primary' }} rounded-full" style="width: {{ $enrollment->progress }}%"></div>
                                 </div>
                             </div>
@@ -152,8 +152,8 @@
             @endforeach
 
             {{-- Slot Kosong / Tambah Kursus Baru --}}
-            <div class="dark:bg-[#161525]/40 bg-slate-100/50 border-2 border-dashed dark:border-white/5 border-slate-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center group min-h-[330px]">
-                <div class="w-12 h-12 rounded-xl dark:bg-[#161525] bg-slate-200/50 flex items-center justify-center text-slate-400 mb-3 group-hover:scale-110 transition-transform">
+            <div class="dark:bg-[#1A1625]/40 bg-slate-100/50 border-2 border-dashed dark:border-white/5 border-slate-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center group min-h-[330px]">
+                <div class="w-12 h-12 rounded-xl dark:bg-[#1A1625] bg-slate-200/50 flex items-center justify-center text-slate-400 mb-3 group-hover:scale-110 transition-transform">
                     <i class="fas fa-plus text-sm"></i>
                 </div>
                 <p class="text-xs font-bold dark:text-slate-400 text-slate-600 mb-1">Ingin Belajar Hal Baru?</p>
@@ -194,8 +194,8 @@
             </div>
 
             {{-- Slot Kosong / Tambah Kursus Baru --}}
-            <div class="dark:bg-[#161525]/40 bg-slate-100/50 border-2 border-dashed dark:border-white/5 border-slate-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center group min-h-[330px]">
-                <div class="w-12 h-12 rounded-xl dark:bg-[#161525] bg-slate-200/50 flex items-center justify-center text-slate-400 mb-3 group-hover:scale-110 transition-transform">
+            <div class="dark:bg-[#1A1625]/40 bg-slate-100/50 border-2 border-dashed dark:border-white/5 border-slate-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center group min-h-[330px]">
+                <div class="w-12 h-12 rounded-xl dark:bg-[#1A1625] bg-slate-200/50 flex items-center justify-center text-slate-400 mb-3 group-hover:scale-110 transition-transform">
                     <i class="fas fa-plus text-sm"></i>
                 </div>
                 <p class="text-xs font-bold dark:text-slate-400 text-slate-600 mb-1">Ingin Belajar Hal Baru?</p>
@@ -231,7 +231,7 @@
                         <i class="fas fa-star cursor-pointer" onclick="setRating(5)"></i>
                     </div>
                 </div>
-                <textarea id="review-comment" class="w-full p-3 bg-slate-50 dark:bg-[#0b0a1a] border dark:border-white/10 rounded-xl text-xs" placeholder="Ceritakan pengalaman Anda..."></textarea>
+                <textarea id="review-comment" class="w-full p-3 bg-slate-50 dark:bg-[#0F0B1A] border dark:border-white/10 rounded-xl text-xs" placeholder="Ceritakan pengalaman Anda..."></textarea>
             </div>
         `,
             confirmButtonText: 'Kirim Ulasan',

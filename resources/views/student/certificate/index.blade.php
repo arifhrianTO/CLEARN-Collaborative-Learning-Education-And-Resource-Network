@@ -98,7 +98,7 @@
                 @forelse($certificates as $cert)
                 {{-- Sertifikat --}}
                 <div class="card-bg overflow-hidden flex flex-col group">
-                    <div class="p-8 bg-slate-100/50 dark:bg-[#161226] flex-1 relative overflow-hidden">
+                    <div class="p-8 bg-slate-100/50 dark:bg-[#1A1625] flex-1 relative overflow-hidden">
                         <i class="fas fa-award absolute -right-4 -bottom-4 text-8xl text-black/5 dark:text-white/5"></i>
 
                         <div class="flex justify-between items-start mb-6">
@@ -129,7 +129,7 @@
                     </div>
 
                     {{-- Tombol Aksi (Kecil & Selaras) --}}
-                    <div class="p-4 flex gap-3 bg-white dark:bg-[#110D1F] border-t border-gray-100 dark:border-[#2d2644]">
+                    <div class="p-4 flex gap-3 bg-white dark:bg-[#1A1625] border-t border-gray-100 dark:border-[#2d2644]">
                         <button class="flex-1 bg-primary text-white text-[10px] font-extrabold py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
                             <i class="fas fa-download mr-2"></i>Unduh
                         </button>
@@ -143,7 +143,7 @@
                 </div>
                 @empty
                 <div class="col-span-full card-bg p-10 text-center">
-                    <div class="w-16 h-16 bg-gray-100 dark:bg-[#1a1429] rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+                    <div class="w-16 h-16 bg-gray-100 dark:bg-[#1A1625] rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
                         <i class="fas fa-certificate text-2xl"></i>
                     </div>
                     <h3 class="text-lg font-bold mb-2">Belum ada sertifikat</h3>

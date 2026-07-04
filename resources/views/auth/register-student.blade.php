@@ -2,14 +2,14 @@
 
 @section('title', 'CLEARN │ Daftar Pelajar')
 
-@section('bodyClass', 'bg-white dark:bg-[#0f0a19] text-slate-900 dark:text-white min-h-screen overflow-x-hidden')
+@section('bodyClass', 'bg-white dark:bg-[#0F0B1A] text-slate-900 dark:text-white min-h-screen overflow-x-hidden')
 
 @section('content')
 <div class="h-screen grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
 
     {{-- SISI KIRI --}}
     <div class="hidden lg:flex items-center justify-center p-12
-            bg-slate-100 dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800">
+            bg-slate-100 dark:bg-[#1A1625] border-l border-slate-200 dark:border-slate-800">
         <div class="max-w-lg text-center">
             <div class="w-24 h-24 mx-auto mb-8 rounded-3xl
                     bg-primary flex items-center justify-center text-4xl text-white">
@@ -27,7 +27,7 @@
     </div>
 
     {{-- SISI KANAN --}}
-    <div class="flex items-center justify-center px-6 py-4 lg:px-10 bg-white dark:bg-[#0f0a19] overflow-y-auto">
+    <div class="flex items-center justify-center px-6 py-4 lg:px-10 bg-white dark:bg-[#0F0B1A] overflow-y-auto">
 
         <div class="w-full max-w-md animate-fade-up">
 
@@ -68,14 +68,14 @@
                 <div>
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Nama Lengkap</label>
                     <input type="text" name="name" value="{{ old('name') }}" placeholder="Masukkan Nama "
-                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
+                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#1A1625] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                 </div>
 
                 {{-- Email --}}
                 <div>
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Alamat Email</label>
                     <input type="email" name="email" value="{{ old('email') }}" placeholder="Budi123@gmail.com"
-                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
+                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#1A1625] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                 </div>
 
                 {{-- Password --}}
@@ -83,7 +83,7 @@
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Kata Sandi</label>
                     <div class="relative">
                         <input id="password" type="password" name="password" placeholder="Masukkan Password "
-                            class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
+                            class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1A1625] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                         <i
                             class="fas fa-eye password-toggle absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 text-xs cursor-pointer"
                             data-target="password"></i>
@@ -95,7 +95,7 @@
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Konfirmasi Kata Sandi</label>
                     <div class="relative">
                         <input id="password_confirmation" type="password" name="password_confirmation" placeholder="Ulangi Password"
-                            class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1c1826] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
+                            class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1A1625] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                         <i
                             class="fas fa-eye password-toggle absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 text-xs cursor-pointer"
                             data-target="password_confirmation"></i>
@@ -141,7 +141,7 @@
 
 {{-- Modal Syarat --}}
 <div id="termsModal" class="fixed inset-0 z-[200] flex items-center justify-center hidden p-4 bg-black/30 backdrop-blur-sm">
-    <div class="overflow-y-auto scrollbar-hide bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
+    <div class="overflow-y-auto scrollbar-hide bg-white dark:bg-[#1A1625] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-bold dark:text-white">Syarat Layanan</h2>
             <button onclick="document.getElementById('termsModal').classList.add('hidden')" class="text-gray-400 hover:text-[#A487F8]">
@@ -224,7 +224,7 @@
 
 {{-- Modal Kebijakan --}}
 <div id="conModal" class="fixed inset-0 z-[200] flex items-center justify-center hidden p-4 bg-black/30 backdrop-blur-sm">
-    <div class="bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
+    <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-bold dark:text-white">Kebijakan Privasi</h2>
             <button onclick="document.getElementById('conModal').classList.add('hidden')" class="text-gray-400 hover:text-[#A487F8]">

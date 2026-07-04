@@ -70,7 +70,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 
             <div class="lg:col-span-2 card-bg rounded-3xl overflow-hidden">
-                <div class="h-64 bg-slate-200 dark:bg-[#161525] overflow-hidden">
+                <div class="h-64 bg-slate-200 dark:bg-[#1A1625] overflow-hidden">
                     @if($course->course_thumbnail)
                     <img src="{{ asset('storage/' . $course->course_thumbnail) }}"
                         class="w-full h-full object-cover"
@@ -366,7 +366,7 @@
                                     @if($source)
                                     <a href="{{ $source }}"
                                         target="_blank"
-                                        class="flex items-center gap-4 p-4 rounded-2xl border dark:border-white/5 border-slate-200 dark:bg-[#0f0a19] bg-slate-50 hover:border-primary hover:bg-primary/5 transition">
+                                        class="flex items-center gap-4 p-4 rounded-2xl border dark:border-white/5 border-slate-200 dark:bg-[#1A1625] bg-slate-50 hover:border-primary hover:bg-primary/5 transition">
 
                                         <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center shrink-0">
                                             <i class="fa-regular fa-file-pdf text-lg"></i>
@@ -394,7 +394,7 @@
                                     @if($source)
                                     <a href="{{ $source }}"
                                         target="_blank"
-                                        class="flex items-center gap-4 p-4 rounded-2xl border dark:border-white/5 border-slate-200 dark:bg-[#0f0a19] bg-slate-50 hover:border-primary hover:bg-primary/5 transition">
+                                        class="flex items-center gap-4 p-4 rounded-2xl border dark:border-white/5 border-slate-200 dark:bg-[#1A1625] bg-slate-50 hover:border-primary hover:bg-primary/5 transition">
 
                                         <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
                                             <i class="fa-solid fa-link text-lg"></i>
@@ -418,7 +418,7 @@
 
                                     {{-- FORMAT LAIN --}}
                                     @else
-                                    <div class="p-4 rounded-xl dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/5 border-slate-200">
+                                    <div class="p-4 rounded-xl dark:bg-[#1A1625] bg-slate-50 border dark:border-white/5 border-slate-200">
                                         <p class="text-xs font-bold dark:text-white text-slate-800">
                                             {{ $lesson->lessons_title }}
                                         </p>
@@ -521,10 +521,10 @@
 
                                         {{-- Isi Preview Soal --}}
                                         @if($questionCount > 0)
-                                        <div id="{{ $exercisePreviewId }}" class="hidden border-t border-[#A487F8]/20 p-5 dark:bg-[#0f0a19]/60 bg-white/60">
+                                        <div id="{{ $exercisePreviewId }}" class="hidden border-t border-[#A487F8]/20 p-5 dark:bg-[#1A1625]/60 bg-white/60">
                                             <div class="space-y-4">
                                                 @foreach($exercise->questions as $questionIndex => $question)
-                                                <div class="rounded-2xl dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 p-4">
+                                                <div class="rounded-2xl dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 p-4">
                                                     <div class="flex items-start gap-3 mb-4">
                                                         <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 text-[10px] font-black">
                                                             {{ $questionIndex + 1 }}
@@ -546,7 +546,7 @@
                                                         <div class="flex items-center justify-between gap-3 rounded-xl px-4 py-3
                                                                                         {{ $option->is_correct
                                                                                             ? 'bg-emerald-500/10 border border-emerald-500/20'
-                                                                                            : 'dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/5 border-slate-200'
+                                                                                            : 'dark:bg-[#1A1625] bg-slate-50 border dark:border-white/5 border-slate-200'
                                                                                         }}">
 
                                                             <div class="flex items-center gap-3 min-w-0">
@@ -635,7 +635,7 @@
                                             @if($type === 'pdf' || $type === 'link')
                                             @if($source)
                                             <a href="{{ $source }}" target="_blank"
-                                                class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0b0a1a] bg-white border border-emerald-500/20 hover:border-emerald-500 transition group inline-flex w-full max-w-sm">
+                                                class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0F0B1A] bg-white border border-emerald-500/20 hover:border-emerald-500 transition group inline-flex w-full max-w-sm">
                                                 <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition">
                                                     <i class="{{ $type === 'pdf' ? 'fa-regular fa-file-pdf' : 'fa-solid fa-link' }}"></i>
                                                 </div>

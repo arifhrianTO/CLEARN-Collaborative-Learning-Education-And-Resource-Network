@@ -4,7 +4,7 @@
 
 @section('content')
 
-<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
+<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50 min-h-screen">
     <div class="max-w-5xl mx-auto">
 
         {{-- Header --}}
@@ -38,7 +38,7 @@
         </div>
         @endif
 
-        <div class="bg-white dark:bg-[#161525] border dark:border-white/5 border-slate-200 p-6 rounded-2xl shadow-sm">
+        <div class="bg-white dark:bg-[#1A1625] border dark:border-white/5 border-slate-200 p-6 rounded-2xl shadow-sm">
             <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -59,7 +59,7 @@
                                 id="category_name"
                                 name="category_name"
                                 value="{{ old('category_name', $category->category_name) }}"
-                                class="w-full bg-slate-50 dark:bg-[#0f0a19] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#A487F8] transition-all @error('category_name') border-red-500 @enderror"
+                                class="w-full bg-slate-50 dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#A487F8] transition-all @error('category_name') border-red-500 @enderror"
                                 placeholder="Masukkan nama kategori">
 
                             @error('category_name')
@@ -81,7 +81,7 @@
                                     id="iconInput"
                                     name="category_icon"
                                     value="{{ old('category_icon', $category->category_icon ?? 'fa-book') }}"
-                                    class="w-full bg-slate-50 dark:bg-[#0f0a19] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#A487F8] transition-all @error('category_icon') border-red-500 @enderror"
+                                    class="w-full bg-slate-50 dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#A487F8] transition-all @error('category_icon') border-red-500 @enderror"
                                     placeholder="Contoh: fa-code"
                                     oninput="updatePreview()">
 
@@ -131,7 +131,7 @@
                                 id="category_description"
                                 name="category_description"
                                 rows="3"
-                                class="w-full bg-slate-50 dark:bg-[#0f0a19] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#A487F8] transition-all resize-none @error('category_description') border-red-500 @enderror"
+                                class="w-full bg-slate-50 dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#A487F8] transition-all resize-none @error('category_description') border-red-500 @enderror"
                                 placeholder="Berikan deskripsi singkat kategori...">{{ old('category_description', $category->category_description) }}</textarea>
 
                             @error('category_description')
@@ -146,12 +146,12 @@
                     <div class="md:col-span-1 flex flex-col gap-6 h-full">
 
                         {{-- Preview --}}
-                        <div class="flex flex-col items-center justify-center p-4 bg-slate-50 dark:bg-[#0f0a19] border-2 border-dashed border-slate-200 dark:border-white/10 rounded-2xl flex-grow">
+                        <div class="flex flex-col items-center justify-center p-4 bg-slate-50 dark:bg-[#1A1625] border-2 border-dashed border-slate-200 dark:border-white/10 rounded-2xl flex-grow">
                             <label class="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4">
                                 Pratinjau
                             </label>
 
-                            <div class="w-20 h-20 bg-white dark:bg-[#161525] rounded-xl flex items-center justify-center border dark:border-white/5 shadow-sm">
+                            <div class="w-20 h-20 bg-white dark:bg-[#1A1625] rounded-xl flex items-center justify-center border dark:border-white/5 shadow-sm">
                                 <i id="iconPreview"
                                     class="fas {{ old('category_icon', $category->category_icon ?? 'fa-book') }} text-3xl"
                                     style="color: {{ old('category_color', $category->category_color ?? '#A487F8') }};">
@@ -164,7 +164,7 @@
                         </div>
 
                         {{-- Petunjuk --}}
-                        <div class="p-4 bg-slate-50 dark:bg-[#0f0a19] rounded-xl border dark:border-white/5">
+                        <div class="p-4 bg-slate-50 dark:bg-[#1A1625] rounded-xl border dark:border-white/5">
                             <h4 class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">
                                 Petunjuk:
                             </h4>

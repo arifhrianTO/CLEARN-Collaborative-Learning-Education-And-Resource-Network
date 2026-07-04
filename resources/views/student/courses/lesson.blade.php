@@ -41,9 +41,6 @@
                 </div>
             </div>
 
-            <button onclick="toggleTheme()" class="p-2 rounded-xl hover:bg-gray-500/10 transition">
-                <i id="theme-icon" class="fa-solid fa-moon text-lg text-primary"></i>
-            </button>
         </div>
     </header>
 
@@ -160,24 +157,5 @@
         </main>
     </div>
 
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeIcon = document.getElementById('theme-icon');
-            
-            html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
-            localStorage.theme = isDark ? 'dark' : 'light';
-            
-            themeIcon.classList.replace(isDark ? 'fa-moon' : 'fa-sun', isDark ? 'fa-sun' : 'fa-moon');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const themeIcon = document.getElementById('theme-icon');
-            if (document.documentElement.classList.contains('dark')) {
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-            }
-        });
-    </script>
 </body>
 </html>

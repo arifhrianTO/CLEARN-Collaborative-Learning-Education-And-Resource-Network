@@ -97,7 +97,7 @@
                 {{-- Card Transaksi --}}
                 <div class="card-bg overflow-hidden group">
                     {{-- Header Transaksi --}}
-                    <div class="px-5 py-3 border-b border-gray-100 dark:border-[#2d2644] flex flex-wrap justify-between items-center gap-4 bg-slate-50/50 dark:bg-[#161226]">
+                    <div class="px-5 py-3 border-b border-gray-100 dark:border-[#2d2644] flex flex-wrap justify-between items-center gap-4 bg-slate-50/50 dark:bg-[#1A1625]">
                         <div class="flex gap-8">
                             <div>
                                 <p class="text-[9px] font-bold text-muted-custom uppercase tracking-wider mb-0.5">ID Pesanan</p>
@@ -149,7 +149,7 @@
                 </div>
                 @empty
                 <div class="card-bg p-10 text-center">
-                    <div class="w-16 h-16 bg-gray-100 dark:bg-[#1a1429] rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+                    <div class="w-16 h-16 bg-gray-100 dark:bg-[#1A1625] rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
                         <i class="fas fa-receipt text-2xl"></i>
                     </div>
                     <h3 class="text-lg font-bold mb-2">Belum ada transaksi</h3>

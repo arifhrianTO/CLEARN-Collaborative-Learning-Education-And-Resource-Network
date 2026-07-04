@@ -1,7 +1,7 @@
 @props(['course'])
 
 <a href="{{ route('course.show', $course->course_slug) }}"
-    class="block bg-white dark:bg-[#13111a] rounded-2xl overflow-hidden border border-slate-200 dark:border-gray-800/60 hover:border-[#A487F8]/50 transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer shadow-sm hover:shadow-xl">
+    class="block bg-white dark:bg-[#0F0B1A] rounded-2xl overflow-hidden border border-slate-200 dark:border-gray-800/60 hover:border-[#A487F8]/50 transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer shadow-sm hover:shadow-xl">
     <div class="relative h-56 overflow-hidden">
         <img src="{{ $course->course_thumbnail ? asset('storage/' . $course->course_thumbnail) : asset('images/default-course.png') }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

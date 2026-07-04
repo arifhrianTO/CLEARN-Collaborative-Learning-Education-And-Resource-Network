@@ -4,7 +4,7 @@
 
 @section('content')
 
-<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
+<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50 min-h-screen">
     <div class="max-w-3xl mx-auto">
 
         <a href="{{ route('mentor.courses.sessions.edit', $lesson->session->course_id) }}"
@@ -13,7 +13,7 @@
             Kembali ke Isi Sessions
         </a>
 
-        <div class="mt-6 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-3xl p-6 lg:p-8 shadow-sm">
+        <div class="mt-6 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-3xl p-6 lg:p-8 shadow-sm">
 
             <div class="mb-6">
                 <h1 class="text-xl font-black dark:text-white text-slate-800">
@@ -51,7 +51,7 @@
                         name="lessons_title"
                         value="{{ old('lessons_title', $lesson->lessons_title) }}"
                         required
-                        class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
+                        class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
                 </div>
 
                 <div class="mb-6">
@@ -61,7 +61,7 @@
 
                     <textarea name="lessons_description"
                         rows="5"
-                        class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">{{ old('lessons_description', $lesson->lessons_description) }}</textarea>
+                        class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">{{ old('lessons_description', $lesson->lessons_description) }}</textarea>
                 </div>
 
                 <div class="mb-6">
@@ -75,7 +75,7 @@
                         $source = $material->url ?: ($material->file_path ? asset('storage/' . $material->file_path) : null);
                         @endphp
 
-                        <div class="flex items-center justify-between gap-3 p-4 rounded-2xl dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/5 border-slate-200">
+                        <div class="flex items-center justify-between gap-3 p-4 rounded-2xl dark:bg-[#1A1625] bg-slate-50 border dark:border-white/5 border-slate-200">
                             <div>
                                 <p class="text-xs font-black dark:text-white text-slate-800 uppercase">
                                     {{ $material->type }}
@@ -108,7 +108,7 @@
                     <input type="file"
                         name="material_file"
                         accept=".pdf,.mp4,.mov,.avi,.mkv,.webm"
-                        class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-500 text-sm outline-none focus:border-primary transition">
+                        class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-500 text-sm outline-none focus:border-primary transition">
 
                     <p class="text-[10px] text-slate-400 mt-2">
                         Opsional. Jika diisi, material baru akan ditambahkan.
@@ -124,7 +124,7 @@
                         name="material_url"
                         value="{{ old('material_url') }}"
                         placeholder="https://youtube.com/watch?v=..."
-                        class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
+                        class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
 
                     <p class="text-[10px] text-slate-400 mt-2">
                         Opsional. Jika diisi, link baru akan ditambahkan.

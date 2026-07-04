@@ -14,7 +14,7 @@
     <div class="max-w-6xl mx-auto">
 
         {{-- Header --}}
-        <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-6">
             <div>
                 <h1 class="text-lg font-bold dark:text-white text-slate-800">Daftar Pengguna</h1>
                 <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium mt-0.5">
@@ -29,12 +29,12 @@
                         <i class="fas fa-search text-slate-400 text-[10px]"></i>
                     </span>
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, email, username..." 
-                        class="w-full sm:w-64 pl-8 pr-4 py-2 bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 rounded-xl text-xs text-slate-600 dark:text-slate-300 focus:ring-[#A487F8] focus:border-[#A487F8] transition-all">
+                        class="w-full sm:w-64 pl-8 pr-4 py-2 bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 rounded-xl text-xs text-slate-600 dark:text-slate-300 focus:ring-[#A487F8] focus:border-[#A487F8] transition-all">
                 </div>
 
                 <div class="flex items-center gap-2 w-full sm:w-auto">
                     <select name="role" onchange="this.form.submit()" 
-                        class="w-full sm:w-auto px-4 py-2 bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 focus:ring-[#A487F8] focus:border-[#A487F8] appearance-none cursor-pointer">
+                        class="w-full sm:w-auto px-4 py-2 bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 focus:ring-[#A487F8] focus:border-[#A487F8] appearance-none cursor-pointer">
                         <option value="">Semua Peran</option>
                         <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                         <option value="mentor" {{ request('role') == 'mentor' ? 'selected' : '' }}>Mentor</option>
@@ -51,7 +51,7 @@
         </div>
 
         {{-- Tabel Daftar Pengguna --}}
-        <div class="bg-white dark:bg-[#161525] border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-white dark:bg-[#1A1625] border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm overflow-hidden">
             <table class="w-full text-left">
                 <thead>
                     <tr class="border-b dark:border-white/5 border-slate-100">
@@ -68,7 +68,7 @@
                     <tr>
                         <td class="p-5">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 flex-shrink-0 rounded-full bg-slate-100 dark:bg-[#0f0a19] overflow-hidden border border-slate-200 dark:border-gray-800">
+                                <div class="w-10 h-10 flex-shrink-0 rounded-full bg-slate-100 dark:bg-[#1A1625] overflow-hidden border border-slate-200 dark:border-gray-800">
                                     @if($user->profile_picture)
                                         <img src="{{ Storage::url($user->profile_picture) }}" class="w-full h-full object-cover">
                                     @else
@@ -131,7 +131,7 @@
                     <tr>
                         <td colspan="5" class="p-8 text-center">
                             <div class="flex flex-col items-center justify-center gap-2">
-                                <div class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-[#0f0a19] flex items-center justify-center border dark:border-white/5">
+                                <div class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-[#1A1625] flex items-center justify-center border dark:border-white/5">
                                     <i class="fas fa-users text-slate-400"></i>
                                 </div>
                                 <p class="text-xs font-bold text-slate-400">
@@ -157,12 +157,12 @@
                 <div class="flex items-center gap-2">
                     {{-- Prev --}}
                     @if ($users->onFirstPage())
-                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-100 dark:bg-[#0f0a19] border dark:border-white/5 text-slate-300 cursor-not-allowed">
+                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-100 dark:bg-[#1A1625] border dark:border-white/5 text-slate-300 cursor-not-allowed">
                         <i class="fas fa-chevron-left text-[10px]"></i>
                     </span>
                     @else
                     <a href="{{ $users->previousPageUrl() }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#1A1625] border dark:border-white/5 hover:border-[#A487F8] transition-all">
                         <i class="fas fa-chevron-left text-[10px] text-slate-400"></i>
                     </a>
                     @endif
@@ -175,7 +175,7 @@
                     </span>
                     @else
                     <a href="{{ $url }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] text-slate-400 text-[10px] font-bold transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#1A1625] border dark:border-white/5 hover:border-[#A487F8] text-slate-400 text-[10px] font-bold transition-all">
                         {{ $page }}
                     </a>
                     @endif
@@ -184,11 +184,11 @@
                     {{-- Next --}}
                     @if ($users->hasMorePages())
                     <a href="{{ $users->nextPageUrl() }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#1A1625] border dark:border-white/5 hover:border-[#A487F8] transition-all">
                         <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
                     @else
-                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-100 dark:bg-[#0f0a19] border dark:border-white/5 text-slate-300 cursor-not-allowed">
+                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-100 dark:bg-[#1A1625] border dark:border-white/5 text-slate-300 cursor-not-allowed">
                         <i class="fas fa-chevron-right text-[10px]"></i>
                     </span>
                     @endif

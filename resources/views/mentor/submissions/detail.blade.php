@@ -36,7 +36,7 @@
            {{-- Info Proyek --}}
             <div class="md:col-span-2 space-y-6">
                 {{-- Card Informasi Tugas --}}
-                <div class="dark:bg-[#161525] p-6 rounded-2xl border border-white/5">
+                <div class="dark:bg-[#1A1625] p-6 rounded-2xl border border-white/5">
                     <h2 class="text-xs font-black text-white uppercase mb-6 tracking-widest border-b border-white/5 pb-4">Informasi Tugas Akhir</h2>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -82,7 +82,7 @@
         
             {{-- Card Aksi & Hasil Terintegrasi --}}
             <div class="md:col-span-1">
-                <div class="dark:bg-[#161525] p-6 rounded-2xl border border-white/5 shadow-xl transition-all duration-500">
+                <div class="dark:bg-[#1A1625] p-6 rounded-2xl border border-white/5 shadow-xl transition-all duration-500">
                     
                     {{-- Header & Tombol --}}
                     <div class="text-center">

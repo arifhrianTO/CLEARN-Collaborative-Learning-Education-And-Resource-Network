@@ -1,25 +1,25 @@
 <x-dashboard.app-layout>
     <x-slot:title>CLEARN │ Kuis</x-slot:title>
 
-    <main class="flex-1 p-6 lg:p-10 bg-slate-50 dark:bg-[#0b0a1a] min-h-screen">
+    <main class="flex-1 p-5 lg:p-8 bg-slate-50 dark:bg-[#0F0B1A] min-h-screen">
         <div class="max-w-4xl mx-auto">
             
             {{-- Tombol Kembali yang aman --}}
-            <div class="mb-8">
+            <div class="mb-6">
                 <a href="{{ url()->previous() }}" class="inline-flex items-center gap-2 text-[10px] font-black text-slate-400 hover:text-primary transition-all uppercase tracking-widest">
                     <i class="fas fa-arrow-left"></i> Kembali
                 </a>
             </div>
 
-            <header class="mb-8">
-                <h1 class="text-xl font-bold dark:text-white">Review Konten Kuis</h1>
-                <p class="text-xs text-slate-400 mt-1">Halaman audit untuk memeriksa soal dan kunci jawaban.</p>
+            <header class="mb-6">
+                <h1 class="text-lg font-bold dark:text-white">Review Konten Kuis</h1>
+                <p class="text-[10px] text-slate-400 mt-0.5">Halaman audit untuk memeriksa soal dan kunci jawaban.</p>
             </header>
 
             <div class="space-y-6">
                 {{-- Loop Soal (Dummy) --}}
                 @foreach (range(1, 3) as $i)
-                <div class="bg-white dark:bg-[#1c1826] border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm">
+                <div class="bg-white dark:bg-[#1A1625] border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm">
                     <div class="flex justify-between items-start mb-4">
                         <span class="text-[9px] font-black uppercase text-[#A487F8] tracking-widest bg-[#A487F8]/10 px-2 py-1 rounded">Soal #{{ $i }}</span>
                     </div>
