@@ -1,5 +1,5 @@
 <x-dashboard.app-layout>
-    <x-slot:title>Review Konten Kuis</x-slot:title>
+    <x-slot:title>CLEARN │ Kuis</x-slot:title>
 
     <main class="flex-1 p-6 lg:p-10 bg-slate-50 dark:bg-[#0b0a1a] min-h-screen">
         <div class="max-w-4xl mx-auto">
@@ -21,7 +21,7 @@
                 @foreach (range(1, 3) as $i)
                 <div class="bg-white dark:bg-[#1c1826] border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-[9px] font-black uppercase text-[#7C3AED] tracking-widest bg-[#7C3AED]/10 px-2 py-1 rounded">Soal #{{ $i }}</span>
+                        <span class="text-[9px] font-black uppercase text-[#A487F8] tracking-widest bg-[#A487F8]/10 px-2 py-1 rounded">Soal #{{ $i }}</span>
                     </div>
                     
                     <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-4">
@@ -43,7 +43,7 @@
             {{-- Tombol Aksi di Bawah --}}
             <div class="mt-10 pt-8 border-t border-gray-200 dark:border-gray-800 flex justify-center">
                 <button type="button" 
-                        class="px-10 py-4 bg-[#7C3AED] hover:bg-[#6d31d9] text-white text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-[#7C3AED]/20 transition-all">
+                        class="px-10 py-4 bg-[#A487F8] hover:bg-[#8B6FE8] text-white text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-[#A487F8]/20 transition-all">
                     Selesai Tinjau
                 </button>
             </div>

@@ -1,6 +1,6 @@
 @extends('layouts.sections')
 
-@section('title', 'Kategori Kursus | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Kategori')
 
 @section('content')
 
@@ -12,7 +12,7 @@
     </button>
 
     <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px]
-                    bg-purple-900/15 blur-[120px] rounded-full -z-10
+                    bg-[#A487F8]/15 blur-[120px] rounded-full -z-10
                     opacity-0 dark:opacity-100 transition-opacity"></div>
 
     <h1 class="text-4xl md:text-6xl font-inter font-normal leading-[1.15] mb-8 tracking-tighter">
@@ -20,7 +20,7 @@
     </h1>
     <p class="text-slate-600 dark:text-gray-400 max-w-xl mx-auto mb-12 text-base leading-relaxed">
         Jelajahi kursus di lebih dari 12 kategori dan temukan jalur pembelajaran
-        yang sempurna untuk tujuan Anda.
+        yang sempurna untuk tujuan Anda.    
     </p>
 </section>
 
@@ -42,7 +42,7 @@
 </section>
 
 <section class="px-6 pb-24">
-    <div class="max-w-[1100px] mx-auto text-center p-12 rounded-[30px] bg-[#A184F5] text-white">
+    <div class="max-w-[1100px] mx-auto text-center p-12 rounded-[30px] bg-[#A487F8] text-white">
         <h2 class="text-2xl md:text-3xl font-bold mb-4">
             Tidak Menemukan Kategori Anda?
         </h2>

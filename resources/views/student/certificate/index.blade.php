@@ -5,16 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('images/logo-clearn.png') }}">
-    <title>Sertifikat Saya - Clearn</title>
+    <title>CLEARN │ Sertifikat</title>
 
     {{-- Vite Assets --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- Fonts & Icons --}}
+    {{-- Icons --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     {{-- Anti-Flash Script --}}
     <script>
@@ -86,7 +83,7 @@
                 </div>
 
                 <div class="card-bg p-5 flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 text-sm">
+                    <div class="w-10 h-10 rounded-xl bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8] text-sm">
                         <i class="fas fa-share-nodes"></i>
                     </div>
                     <div>
@@ -109,24 +106,24 @@
                                 <i class="fas fa-graduation-cap text-primary text-xl"></i>
                                 <span class="font-black text-lg tracking-tighter italic">clearn</span>
                             </div>
-                            <p class="text-[8px] font-black text-muted-custom uppercase tracking-[0.2em]">Certificate of Completion</p>
+                            <p class="text-[8px] font-black text-muted-custom uppercase tracking-[0.2em]">Sertifikat Penyelesaian</p>
                         </div>
 
                         <h3 class="text-lg font-black mb-4 leading-tight tracking-tight group-hover:text-primary transition-colors">{{ $cert->enrollment->course->course_title }}</h3>
 
                         <div class="mb-6">
-                            <p class="text-[9px] text-muted-custom font-bold uppercase mb-0.5">Awarded to:</p>
+                            <p class="text-[9px] text-muted-custom font-bold uppercase mb-0.5">Diberikan kepada:</p>
                             <p class="text-lg font-extrabold border-b-2 border-primary/20 inline-block pb-0.5">{{ Auth::user()->name }}</p>
                         </div>
 
                         <div class="flex justify-between items-end text-[10px] font-bold">
                             <div>
-                                <p class="text-muted-custom uppercase mb-0.5">Instructor</p>
+                                <p class="text-muted-custom uppercase mb-0.5">Pengajar</p>
                                 <p>{{ $cert->enrollment->course->mentor->name ?? 'Mentor Clearn' }}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-muted-custom uppercase mb-0.5">Issue Date</p>
-                                <p>{{ $cert->issue_date->format('F d, Y') }}</p>
+                                <p class="text-muted-custom uppercase mb-0.5">Tanggal Diterbitkan</p>
+                                <p>{{ $cert->issue_date->translatedFormat('d F Y') }}</p>
                             </div>
                         </div>
                     </div>

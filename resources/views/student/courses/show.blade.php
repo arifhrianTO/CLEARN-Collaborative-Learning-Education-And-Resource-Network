@@ -1,6 +1,6 @@
 @extends('layouts.sections')
 
-@section('title', $course->course_title . ' - Clearn')
+@section('title', 'CLEARN │ ' . $course->course_title)
 
 @section('content')
 <div class="p-6 lg:p-10">

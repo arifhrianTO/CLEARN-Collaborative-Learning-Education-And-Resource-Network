@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Tambah Tugas Akhir | Dashboard Mentor | Clearn')
+@section('title', 'CLEARN │ Tugas Akhir')
 
 @push('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">

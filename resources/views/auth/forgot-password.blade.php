@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', 'Lupa Password - Clearn Platform Pembelajaran')
+@section('title', 'CLEARN │ Lupa Password')
 
 @section('content')
 <div class="bg-white dark:bg-[#161525] border border-slate-100 dark:border-white/5 p-8 rounded-3xl shadow-2xl w-full">
@@ -28,7 +28,7 @@
                     <i class="fa-solid fa-envelope text-xs"></i>
                 </span>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="nama@email.com"
-                    class="block w-full pl-11 pr-4 py-3.5 text-sm bg-slate-50 dark:bg-[#0f0a19] text-slate-800 dark:text-white border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/50 focus:border-[#7C3AED] transition-all font-medium placeholder:text-slate-400">
+                    class="block w-full pl-11 pr-4 py-3.5 text-sm bg-slate-50 dark:bg-[#0f0a19] text-slate-800 dark:text-white border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A487F8]/50 focus:border-[#A487F8] transition-all font-medium placeholder:text-slate-400">
             </div>
             @error('email')
             <p class="text-xs text-rose-500 font-bold mt-2 ml-1 flex items-center gap-1.5">
@@ -39,11 +39,11 @@
 
         <div class="flex flex-col gap-4 pt-2">
             <button type="submit"
-                class="w-full flex items-center justify-center px-4 py-3.5 bg-[#7C3AED] text-white text-xs font-bold uppercase tracking-widest rounded-xl shadow-lg shadow-[#7C3AED]/20 hover:bg-[#6d34d1] hover:-translate-y-0.5 active:translate-y-0 transition-all gap-2">
+                class="w-full flex items-center justify-center px-4 py-3.5 bg-[#A487F8] text-white text-xs font-bold uppercase tracking-widest rounded-xl shadow-lg shadow-[#A487F8]/20 hover:bg-[#8B6FE8] hover:-translate-y-0.5 active:translate-y-0 transition-all gap-2">
                 Kirim Tautan Reset <i class="fa-solid fa-arrow-right"></i>
             </button>
 
-            <a href="{{ route('login') }}" class="text-center text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-[#7C3AED] dark:hover:text-[#7C3AED] transition-colors py-2 flex items-center justify-center gap-2">
+            <a href="{{ route('login') }}" class="text-center text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-[#A487F8] dark:hover:text-[#A487F8] transition-colors py-2 flex items-center justify-center gap-2">
                 <i class="fa-solid fa-arrow-left"></i> Kembali ke Halaman Login
             </a>
         </div>

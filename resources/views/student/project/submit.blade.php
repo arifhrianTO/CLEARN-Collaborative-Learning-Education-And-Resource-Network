@@ -81,7 +81,7 @@
         {{-- 1. INSTRUKSI TUGAS (Dibuat lebih panjang) --}}
         <div class="w-full bg-[#1c1826] p-8 rounded-2xl border border-gray-800 mb-6">
             <div class="flex items-center gap-3 mb-6">
-                <i class="fas fa-book text-[#7C3AED] text-sm"></i>
+                <i class="fas fa-book text-[#A487F8] text-sm"></i>
                 <h1 class="text-sm font-bold text-white uppercase tracking-widest">Panduan Tugas</h1>
             </div>
             <div class="text-[11px] text-slate-400 leading-relaxed grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -109,7 +109,7 @@
             {{-- Area Upload (7/12) --}}
             <div class="lg:col-span-7 bg-[#1c1826] rounded-2xl border border-gray-800 p-8 flex flex-col">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-8 h-8 rounded-lg bg-[#7C3AED]/20 text-[#7C3AED] flex items-center justify-center text-sm">
+                    <div class="w-8 h-8 rounded-lg bg-[#A487F8]/20 text-[#A487F8] flex items-center justify-center text-sm">
                         <i class="fas fa-cloud-upload-alt"></i>
                     </div>
                     <div>
@@ -118,12 +118,12 @@
                     </div>
                 </div>
 
-                <div class="border-2 border-dashed border-gray-700 rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#7C3AED] transition-all fle">
+                <div class="border-2 border-dashed border-gray-700 rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#A487F8] transition-all fle">
                     <i class="fas fa-file-archive text-slate-600 text-2xl mb-3"></i>
                     <p class="text-[10px] font-bold text-slate-400">Seret file zip tugas Anda ke sini</p>
                 </div>
                 
-                <button class="mt-6 w-full py-3 bg-[#7C3AED] hover:bg-[#6d31d9] text-white text-[10px] font-bold rounded-lg uppercase tracking-widest transition-all">
+                <button class="mt-6 w-full py-3 bg-[#A487F8] hover:bg-[#8B6FE8] text-white text-[10px] font-bold rounded-lg uppercase tracking-widest transition-all">
                     Kirim
                 </button>
             </div>

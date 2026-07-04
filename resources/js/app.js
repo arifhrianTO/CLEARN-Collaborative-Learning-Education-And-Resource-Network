@@ -131,4 +131,29 @@ document.addEventListener("DOMContentLoaded", () => {
             cursorChar: "|",
         });
     }
+
+    // — Active nav link on scroll —
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll("section[id]");
+
+    if (navLinks.length && sections.length) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute("id");
+                        navLinks.forEach((link) => {
+                            link.classList.toggle(
+                                "active",
+                                link.getAttribute("href") === "#" + id
+                            );
+                        });
+                    }
+                });
+            },
+            { rootMargin: "-80px 0px -50% 0px", threshold: 0 }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+    }
 });

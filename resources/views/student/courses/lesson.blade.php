@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('images/logo-clearn.png') }}">
-    <title>Belajar: {{ $id ?? 'Materi' }} - Clearn</title>
+    <title>CLEARN │ {{ $id ?? 'Materi' }}</title>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
@@ -130,7 +130,7 @@
                                 </div>
                                 <div>
                                     <p class="text-[14px] font-bold dark:text-zinc-200">Source-Code-Latihan.zip</p>
-                                    <p class="text-[11px] text-slate-500">2.4 MB • Updated 2 days ago</p>
+                                    <p class="text-[11px] text-slate-500">2.4 MB • Diperbarui 2 hari lalu</p>
                                 </div>
                             </div>
                             <button class="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-primary hover:text-white transition-all">

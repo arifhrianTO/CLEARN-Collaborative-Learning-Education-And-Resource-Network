@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Manajemen Pengguna | Dashboard Admin | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Pengguna')
 
 @section('content')
 
@@ -29,12 +29,12 @@
                         <i class="fas fa-search text-slate-400 text-[10px]"></i>
                     </span>
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, email, username..." 
-                        class="w-full sm:w-64 pl-8 pr-4 py-2 bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 rounded-xl text-xs text-slate-600 dark:text-slate-300 focus:ring-[#7C3AED] focus:border-[#7C3AED] transition-all">
+                        class="w-full sm:w-64 pl-8 pr-4 py-2 bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 rounded-xl text-xs text-slate-600 dark:text-slate-300 focus:ring-[#A487F8] focus:border-[#A487F8] transition-all">
                 </div>
 
                 <div class="flex items-center gap-2 w-full sm:w-auto">
                     <select name="role" onchange="this.form.submit()" 
-                        class="w-full sm:w-auto px-4 py-2 bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 focus:ring-[#7C3AED] focus:border-[#7C3AED] appearance-none cursor-pointer">
+                        class="w-full sm:w-auto px-4 py-2 bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 focus:ring-[#A487F8] focus:border-[#A487F8] appearance-none cursor-pointer">
                         <option value="">Semua Peran</option>
                         <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                         <option value="mentor" {{ request('role') == 'mentor' ? 'selected' : '' }}>Mentor</option>
@@ -42,7 +42,7 @@
                     </select>
 
                     @if(request('role') || request('search'))
-                    <a href="{{ route('admin.users.index') }}" class="w-9 h-9 flex items-center justify-center bg-red-50 text-red-500 hover:bg-red-500 hover:text-white dark:bg-red-500/10 dark:text-red-500 dark:hover:bg-red-500 dark:hover:text-white rounded-xl transition-all" title="Reset Filter">
+                    <a href="{{ route('admin.users.index') }}" class="w-9 h-9 flex items-center justify-center bg-red-50 text-red-500 hover:bg-red-500 hover:text-white dark:bg-red-500/10 dark:text-red-500 dark:hover:bg-red-500 dark:hover:text-white rounded-xl transition-all" title="Atur Ulang Filter">
                         <i class="fas fa-times text-[10px]"></i>
                     </a>
                     @endif
@@ -91,7 +91,7 @@
 
                         <td class="p-5">
                             @if($user->role === 'admin')
-                                <span class="px-2.5 py-1 bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400 text-[10px] font-bold uppercase rounded-lg shadow-sm">Admin</span>
+                                <span class="px-2.5 py-1 bg-[#A487F8]/20 text-[#A487F8] dark:bg-[#A487F8]/30 dark:text-[#A487F8] text-[10px] font-bold uppercase rounded-lg shadow-sm">Admin</span>
                             @elseif($user->role === 'mentor')
                                 <span class="px-2.5 py-1 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-[10px] font-bold uppercase rounded-lg shadow-sm">Mentor</span>
                             @else
@@ -162,7 +162,7 @@
                     </span>
                     @else
                     <a href="{{ $users->previousPageUrl() }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
                         <i class="fas fa-chevron-left text-[10px] text-slate-400"></i>
                     </a>
                     @endif
@@ -170,12 +170,12 @@
                     {{-- Nomor halaman --}}
                     @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
                     @if ($page == $users->currentPage())
-                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-[#7C3AED] text-white text-[10px] font-bold">
+                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-[#A487F8] text-white text-[10px] font-bold">
                         {{ $page }}
                     </span>
                     @else
                     <a href="{{ $url }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#7C3AED] text-slate-400 text-[10px] font-bold transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] text-slate-400 text-[10px] font-bold transition-all">
                         {{ $page }}
                     </a>
                     @endif
@@ -184,7 +184,7 @@
                     {{-- Next --}}
                     @if ($users->hasMorePages())
                     <a href="{{ $users->nextPageUrl() }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#7C3AED] transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
                         <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
                     @else

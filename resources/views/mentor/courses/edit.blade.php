@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Perbarui Kursus | Dashboard Mentor | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Perbarui Kursus')
 
 @section('content')
 

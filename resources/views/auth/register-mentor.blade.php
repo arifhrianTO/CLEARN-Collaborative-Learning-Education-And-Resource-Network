@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="{{ asset('images/logo-clearn.png') }}">
-    <title>Daftar Pengajar – clearn</title>
+    <title>CLEARN │ Daftar Pengajar</title>
 
     <button
         onclick="window.location='{{ route('tutorial') }}'"
@@ -244,12 +244,12 @@
                         Saya mengonfirmasi bahwa data yang diisi adalah benar, dan saya menyetujui
                         <button type="button"
                             onclick="document.getElementById('termsModal').classList.remove('hidden')"
-                            class="text-[#7C3AED] font-bold hover:underline">
+                            class="text-[#A487F8] font-bold hover:underline">
                             Syarat Layanan
                         </button> serta
                         <button type="button"
                             onclick="document.getElementById('conModal').classList.remove('hidden')"
-                            class="text-[#7C3AED] font-bold hover:underline">
+                            class="text-[#A487F8] font-bold hover:underline">
                             Kebijakan Privasi
                         </button> clearn.
                     </label>
@@ -257,7 +257,7 @@
             </div>
 
             <div class="flex flex-col items-center gap-5 pt-4">
-                <button type="submit" class="w-full md:w-72 py-4 bg-[#8B5CF6] text-white rounded-xl font-bold text-base hover:bg-[#7C3AED] transition-all shadow-lg active:scale-95">
+                <button type="submit" class="w-full md:w-72 py-4 bg-[#A487F8] text-white rounded-xl font-bold text-base hover:bg-[#A487F8] transition-all shadow-lg active:scale-95">
                     Buat Akun
                 </button>
                 <p class="text-sm text-gray-500 font-medium">
@@ -286,7 +286,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-bold dark:text-white">Syarat Layanan</h2>
                 <button onclick="document.getElementById('termsModal').classList.add('hidden')"
-                    class="text-gray-400 hover:text-[#7C3AED]">
+                    class="text-gray-400 hover:text-[#A487F8]">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -328,7 +328,7 @@
 
             <button type="button"
                 onclick="document.getElementById('termsModal').classList.add('hidden')"
-                class="mt-6 w-full py-2.5 bg-[#7C3AED] text-white rounded-xl font-bold text-xs hover:bg-[#6d34d1] transition-all">
+                class="mt-6 w-full py-2.5 bg-[#A487F8] text-white rounded-xl font-bold text-xs hover:bg-[#8B6FE8] transition-all">
                 Saya Mengerti
             </button>
         </div>
@@ -344,7 +344,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-bold dark:text-white">Kebijakan Privasi</h2>
                 <button onclick="document.getElementById('conModal').classList.add('hidden')"
-                    class="text-gray-400 hover:text-[#7C3AED]">
+                    class="text-gray-400 hover:text-[#A487F8]">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -383,7 +383,7 @@
 
             <button type="button"
                 onclick="document.getElementById('conModal').classList.add('hidden')"
-                class="mt-6 w-full py-2.5 bg-[#7C3AED] text-white rounded-xl font-bold text-xs hover:bg-[#6d34d1] transition-all">
+                class="mt-6 w-full py-2.5 bg-[#A487F8] text-white rounded-xl font-bold text-xs hover:bg-[#8B6FE8] transition-all">
                 Saya Mengerti
             </button>
         </div>

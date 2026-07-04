@@ -7,8 +7,8 @@
 
 /* ── Tailwind v4: custom theme (ganti tailwind.config.js) ── */
 @theme {
-    --color-primary: #7c3aed;
-    --color-secondary: #a855f7;
+    --color-primary: #A487F8;
+    --color-secondary: #A487F8;
     --color-dark-bg: #090613;
     --color-dark-sidebar: #120d22;
     --color-dark-card: #17122b;
@@ -18,7 +18,7 @@
     --color-icon-bg-dark: #1a142f;
 
     --font-sans:
-        "Inter", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+        "Inter", system-ui, -apple-system, sans-serif;
 
     @keyframes fadeUp {
         from {
@@ -56,7 +56,6 @@
         @apply bg-slate-50 text-slate-900 transition-colors duration-300;
         font-family:
             "Inter",
-            "Plus Jakarta Sans",
             system-ui,
             -apple-system,
             sans-serif;
@@ -70,7 +69,7 @@
     h2,
     h3,
     h4 {
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         @apply font-bold tracking-tight;
         letter-spacing: -0.025em;
         line-height: 1.2;
@@ -138,12 +137,12 @@
 
     .btn-gradient-glow {
         @apply bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 4px 15px rgba(164, 135, 248, 0.4);
         transition: all 0.3s ease;
     }
     .btn-gradient-glow:hover {
         @apply -translate-y-0.5;
-        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+        box-shadow: 0 8px 25px rgba(164, 135, 248, 0.5);
     }
 
     .text-muted-custom {
@@ -151,6 +150,30 @@
     }
     .dark .text-muted-custom {
         @apply text-slate-400;
+    }
+
+    .nav-link {
+        position: relative;
+        padding-bottom: 2px;
+        transition: color 0.3s ease;
+    }
+    .nav-link.active {
+        color: #A487F8;
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: #A487F8;
+        border-radius: 9999px;
+        transition: width 0.3s ease;
+    }
+    .nav-link.active::after {
+        width: 100%;
     }
 
     footer {
@@ -163,10 +186,10 @@
 
     .glow-center {
         @apply absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full -z-10 blur-[120px] transition-all duration-700;
-        background: rgba(139, 92, 246, 0.15);
+        background: rgba(164, 135, 248, 0.15);
     }
     .dark .glow-center {
-        background: rgba(139, 92, 246, 0.1);
+        background: rgba(164, 135, 248, 0.1);
     }
 
     .role-card {
@@ -205,8 +228,8 @@
 
     .grid-pattern {
         background-image:
-            linear-gradient(to right, #7c3aed10 1px, transparent 1px),
-            linear-gradient(to bottom, #7c3aed10 1px, transparent 1px);
+            linear-gradient(to right, #A487F810 1px, transparent 1px),
+            linear-gradient(to bottom, #A487F810 1px, transparent 1px);
         background-size: 4rem 4rem;
     }
     * {

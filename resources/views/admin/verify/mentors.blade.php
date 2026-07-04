@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Daftar Mentor | Dashboard Admin | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Verifikasi Mentor')
 
 @section('content')
 
@@ -171,7 +171,7 @@
             text: 'User akan diberikan akses sebagai pengajar aktif.',
             icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#8B5CF6',
+            confirmButtonColor: '#A487F8',
             cancelButtonColor: '#64748b',
             confirmButtonText: 'Ya, Setujui!',
             cancelButtonText: 'Batal',

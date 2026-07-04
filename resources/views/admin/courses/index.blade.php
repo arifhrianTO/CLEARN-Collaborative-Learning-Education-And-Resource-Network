@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Verifikasi Kursus | Dashboard Admin | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Verifikasi Kursus')
 
 @section('content')
 
@@ -27,7 +27,7 @@
                 <p class="text-[9px] uppercase tracking-widest font-black text-slate-400">
                     Total Pending
                 </p>
-                <p class="text-sm font-black text-[#7C3AED]">
+                <p class="text-sm font-black text-[#A487F8]">
                     {{ method_exists($pendingCourses, 'total') ? $pendingCourses->total() : $pendingCourses->count() }} Kursus
                 </p>
             </div>
@@ -79,12 +79,12 @@
                         </div>
 
                         <span class="text-[9px] font-bold text-slate-400 uppercase mb-1">
-                            <i class="fa-solid fa-user-circle mr-1 text-[#7C3AED]"></i>
+                            <i class="fa-solid fa-user-circle mr-1 text-[#A487F8]"></i>
                             {{ $course->mentor?->name ?? 'Mentor tidak ditemukan' }}
                         </span>
 
                         <a href="{{ route('admin.courses.show', $course->id) }}">
-                            <h2 class="text-sm font-black dark:text-white text-slate-800 mb-2 leading-tight hover:text-[#7C3AED] transition-colors">
+                            <h2 class="text-sm font-black dark:text-white text-slate-800 mb-2 leading-tight hover:text-[#A487F8] transition-colors">
                                 {{ $course->course_title ?? 'Judul kursus tidak tersedia' }}
                             </h2>
                         </a>
@@ -94,7 +94,7 @@
                         </p>
 
                         <div class="flex flex-wrap items-center gap-3 mb-2">
-                            <span class="text-[#7C3AED] text-[9px] font-black uppercase tracking-wider">
+                            <span class="text-[#A487F8] text-[9px] font-black uppercase tracking-wider">
                                 {{ $course->category?->category_name ?? 'Tanpa Kategori' }}
                             </span>
 
@@ -118,7 +118,7 @@
                     <div class="flex md:flex-col justify-center gap-2 w-full md:w-36 border-t md:border-t-0 md:border-l border-slate-200 dark:border-white/5 pt-4 md:pt-0 md:pl-4">
 
                         <a href="{{ route('admin.courses.show', $course->id) }}"
-                            class="flex-1 md:w-full py-2 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 font-black text-center rounded-xl hover:bg-[#7C3AED] hover:text-white transition-all text-[9px] uppercase tracking-widest">
+                            class="flex-1 md:w-full py-2 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 font-black text-center rounded-xl hover:bg-[#A487F8] hover:text-white transition-all text-[9px] uppercase tracking-widest">
                             Detail
                         </a>
 
@@ -132,7 +132,7 @@
 
                             <button
                                 type="submit"
-                                class="w-full py-2 bg-[#7C3AED] text-white font-black text-center text-[9px] uppercase tracking-widest rounded-xl hover:opacity-90 active:scale-95 transition-all">
+                                class="w-full py-2 bg-[#A487F8] text-white font-black text-center text-[9px] uppercase tracking-widest rounded-xl hover:opacity-90 active:scale-95 transition-all">
                                 Approve
                             </button>
                         </form>

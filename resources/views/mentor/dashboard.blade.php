@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Dashboard Mentor | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Dashboard Mentor')
 
 @section('content')
 
@@ -77,7 +77,7 @@
 
             {{-- Kursus Aktif --}}
             <div class="card-bg p-5">
-                <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 mb-3 text-sm">
+                <div class="w-8 h-8 rounded-lg bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8] mb-3 text-sm">
                     <i class="fa-solid fa-book-open"></i>
                 </div>
 
@@ -173,10 +173,10 @@
                     labels: chartLabels,
                     datasets: [{
                         data: revenueChartData,
-                        borderColor: '#7C3AED',
+                        borderColor: '#A487F8',
                         tension: 0.4,
                         fill: true,
-                        backgroundColor: 'rgba(124, 58, 237, 0.1)'
+                        backgroundColor: 'rgba(164, 135, 248, 0.1)'
                     }]
                 },
                 options: commonOptions

@@ -24,7 +24,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <!-- Statistik 1: Kursus -->
             <div class="p-5 flex items-center gap-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
-                <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 text-sm">
+                <div class="w-10 h-10 rounded-xl bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8] text-sm">
                     <i class="fas fa-play"></i>
                 </div>
                 <div>
@@ -63,7 +63,7 @@
 
             <!-- Statistik 4: Sertifikat -->
             <div class="p-5 flex items-center gap-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
-                <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 text-sm">
+                <div class="w-10 h-10 rounded-xl bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8] text-sm">
                     <i class="fas fa-award"></i>
                 </div>
                 <div>
@@ -235,7 +235,7 @@
             </div>
         `,
             confirmButtonText: 'Kirim Ulasan',
-            confirmButtonColor: '#7C3AED',
+            confirmButtonColor: '#A487F8',
             background: document.documentElement.classList.contains('dark') ? '#161525' : '#ffffff',
             color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#000000',
             preConfirm: () => {

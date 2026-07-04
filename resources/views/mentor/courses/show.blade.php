@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Detail Kursus ' . $course->course_title . ' | Dashboard Mentor | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ ' . $course->course_title)
 
 @section('content')
 
@@ -467,17 +467,17 @@
                                     $questionCount = $exercise->questions->count();
                                     @endphp
 
-                                    <div class="rounded-2xl overflow-hidden border border-purple-500/20 dark:bg-purple-500/10 bg-purple-50">
+                                    <div class="rounded-2xl overflow-hidden border border-[#A487F8]/20 dark:bg-[#A487F8]/10 bg-[#A487F8]/20">
 
                                         {{-- Header Kuis --}}
                                         <div class="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                             <div class="flex items-start gap-4">
-                                                <div class="w-11 h-11 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center shrink-0">
+                                                <div class="w-11 h-11 rounded-xl bg-[#A487F8]/10 text-[#A487F8] flex items-center justify-center shrink-0">
                                                     <i class="fa-solid fa-circle-question"></i>
                                                 </div>
 
                                                 <div>
-                                                    <p class="text-[9px] font-black uppercase tracking-widest text-purple-500">
+                                                    <p class="text-[9px] font-black uppercase tracking-widest text-[#A487F8]">
                                                         Kuis
                                                     </p>
 
@@ -512,7 +512,7 @@
                                                 @if($questionCount > 0)
                                                 <button type="button"
                                                     onclick="toggleExercisePreview('{{ $exercisePreviewId }}')"
-                                                    class="px-4 py-2 rounded-xl bg-white/70 dark:bg-white/5 dark:text-white text-slate-700 text-[9px] font-black uppercase tracking-widest hover:bg-purple-500 hover:text-white transition">
+                                                    class="px-4 py-2 rounded-xl bg-white/70 dark:bg-white/5 dark:text-white text-slate-700 text-[9px] font-black uppercase tracking-widest hover:bg-[#A487F8] hover:text-white transition">
                                                     Preview Soal
                                                 </button>
                                                 @endif
@@ -521,7 +521,7 @@
 
                                         {{-- Isi Preview Soal --}}
                                         @if($questionCount > 0)
-                                        <div id="{{ $exercisePreviewId }}" class="hidden border-t border-purple-500/20 p-5 dark:bg-[#0f0a19]/60 bg-white/60">
+                                        <div id="{{ $exercisePreviewId }}" class="hidden border-t border-[#A487F8]/20 p-5 dark:bg-[#0f0a19]/60 bg-white/60">
                                             <div class="space-y-4">
                                                 @foreach($exercise->questions as $questionIndex => $question)
                                                 <div class="rounded-2xl dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 p-4">

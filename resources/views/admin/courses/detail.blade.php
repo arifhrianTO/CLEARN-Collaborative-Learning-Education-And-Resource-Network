@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Detail Verifikasi Kursus | Dashboard Admin | Clearn - Platform Pembelajaran Online')
+@section('title', 'CLEARN │ Detail Verifikasi')
 
 @section('content')
 
@@ -12,14 +12,14 @@
 @endphp
 
 <main class="flex-1 bg-white dark:bg-[#0f0a19] text-slate-900 dark:text-white min-h-screen transition-colors duration-300 relative overflow-x-hidden">
-    <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#7C3AED] opacity-10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#A487F8] opacity-10 rounded-full blur-[120px] pointer-events-none"></div>
 
     <div class="max-w-6xl mx-auto p-5 lg:p-8 relative z-10">
 
         <header class="mb-8 flex flex-col md:flex-row md:items-center gap-4">
             <a href="{{ route('admin.courses.index') }}"
                class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-[#1c1826]/60 border border-gray-100 dark:border-gray-800 hover:scale-105 transition-all shadow-sm group">
-                <i class="fas fa-arrow-left text-[#7C3AED] group-hover:-translate-x-0.5 transition-transform text-sm"></i>
+                <i class="fas fa-arrow-left text-[#A487F8] group-hover:-translate-x-0.5 transition-transform text-sm"></i>
             </a>
 
             <div>
@@ -65,7 +65,7 @@
 
                 <div class="bg-white dark:bg-[#1c1826]/50 backdrop-blur-xl border border-gray-100 dark:border-gray-800/80 rounded-3xl p-6 shadow-sm">
                     <h2 class="text-md font-bold mb-6 flex items-center gap-3">
-                        <span class="w-1.5 h-5 bg-[#7C3AED] rounded-full"></span>
+                        <span class="w-1.5 h-5 bg-[#A487F8] rounded-full"></span>
                         Informasi Dasar Kursus
                     </h2>
 
@@ -106,7 +106,7 @@
                                     Harga Kursus
                                 </label>
 
-                                <span class="text-xs font-black text-[#7C3AED] bg-[#7C3AED]/10 px-3 py-1.5 rounded-xl inline-block">
+                                <span class="text-xs font-black text-[#A487F8] bg-[#A487F8]/10 px-3 py-1.5 rounded-xl inline-block">
                                     Rp {{ number_format($course->course_price ?? 0, 0, ',', '.') }}
                                 </span>
                             </div>
@@ -147,7 +147,7 @@
 
                 <div class="bg-white dark:bg-[#1c1826]/50 backdrop-blur-xl border border-gray-100 dark:border-gray-800/80 rounded-3xl p-6 shadow-sm">
                     <h2 class="text-md font-extrabold mb-6 flex items-center gap-3">
-                        <span class="w-1.5 h-5 bg-[#7C3AED] rounded-full"></span>
+                        <span class="w-1.5 h-5 bg-[#A487F8] rounded-full"></span>
                         Kurikulum & Konten yang Diajukan
                     </h2>
 
@@ -156,7 +156,7 @@
                             <div class="bg-slate-50 dark:bg-[#0f0a19]/50 border border-gray-100 dark:border-gray-800 rounded-3xl p-5">
 
                                 <div class="mb-4">
-                                    <label class="text-[9px] font-black uppercase text-[#7C3AED] tracking-widest block mb-0.5">
+                                    <label class="text-[9px] font-black uppercase text-[#A487F8] tracking-widest block mb-0.5">
                                         Session {{ $index + 1 }}
                                     </label>
 
@@ -225,7 +225,7 @@
                                                         @if ($target)
                                                             <a href="{{ $target }}"
                                                                target="_blank"
-                                                               class="px-3 py-1.5 bg-white dark:bg-white/5 text-[10px] font-black uppercase tracking-wider rounded-lg text-slate-500 dark:text-slate-300 hover:text-[#7C3AED] transition-colors border border-gray-100 dark:border-transparent">
+                                                               class="px-3 py-1.5 bg-white dark:bg-white/5 text-[10px] font-black uppercase tracking-wider rounded-lg text-slate-500 dark:text-slate-300 hover:text-[#A487F8] transition-colors border border-gray-100 dark:border-transparent">
                                                                 Buka
                                                             </a>
                                                         @endif
@@ -319,7 +319,7 @@
                                         <div class="space-y-3">
                                             @foreach ($session->finalProjects as $project)
                                                 <div class="p-4 bg-white dark:bg-[#1c1826] border border-gray-100 dark:border-gray-800 rounded-2xl">
-                                                    <span class="text-[9px] bg-purple-600 text-white px-2 py-0.5 rounded font-black uppercase tracking-wider">
+                                                    <span class="text-[9px] bg-[#A487F8] text-white px-2 py-0.5 rounded font-black uppercase tracking-wider">
                                                         Final Project
                                                     </span>
 
@@ -348,7 +348,7 @@
                                                                 @if ($target)
                                                                     <a href="{{ $target }}"
                                                                        target="_blank"
-                                                                       class="px-3 py-1.5 bg-white dark:bg-white/5 text-[10px] font-black uppercase tracking-wider rounded-lg text-slate-500 dark:text-slate-300 hover:text-[#7C3AED] transition-colors border border-gray-100 dark:border-transparent">
+                                                                       class="px-3 py-1.5 bg-white dark:bg-white/5 text-[10px] font-black uppercase tracking-wider rounded-lg text-slate-500 dark:text-slate-300 hover:text-[#A487F8] transition-colors border border-gray-100 dark:border-transparent">
                                                                         Buka
                                                                     </a>
                                                                 @endif
@@ -389,7 +389,7 @@
                     </h2>
 
                     <div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-[#0f0a19] border border-gray-100 dark:border-gray-800/60 rounded-2xl mb-6">
-                        <div class="w-9 h-9 rounded-xl bg-[#7C3AED] flex items-center justify-center text-white text-xs font-black uppercase">
+                        <div class="w-9 h-9 rounded-xl bg-[#A487F8] flex items-center justify-center text-white text-xs font-black uppercase">
                             {{ strtoupper(substr($course->mentor?->name ?? 'M', 0, 2)) }}
                         </div>
 
@@ -468,7 +468,7 @@
                                 rows="4"
                                 required
                                 placeholder="Isi alasan jika ingin menolak kursus..."
-                                class="w-full rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0f0a19] text-slate-700 dark:text-white text-xs px-3 py-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] resize-none">{{ old('course_rejection_reason') }}</textarea>
+                                class="w-full rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0f0a19] text-slate-700 dark:text-white text-xs px-3 py-2 focus:ring-[#A487F8] focus:border-[#A487F8] resize-none">{{ old('course_rejection_reason') }}</textarea>
                         </div>
 
                         <button
