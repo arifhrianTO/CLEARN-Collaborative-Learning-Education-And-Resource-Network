@@ -4,7 +4,7 @@
 
 @section('content')
 
-<section id="kursus" class="relative py-10 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#120d22]">
+<section id="kursus" class="relative py-10 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#0F0B1A]">
     <button
         onclick="window.location='{{ route('home') }}'"
         class="absolute left-6 top-6 z-50 text-white hover:opacity-80 transition">
@@ -22,7 +22,7 @@
     </p>
 </section>
 
-<div class="w-full bg-slate-100 dark:bg-[#1A1625] py-6 border-y border-slate-200 dark:border-white/5 transition-colors">
+<div class="w-full bg-slate-100 dark:bg-[#0F0B1A] py-6 border-y border-slate-200 dark:border-white/5 transition-colors">
     <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
 
         <div class="relative w-full md:max-w-x6">
@@ -33,11 +33,11 @@
                 id="courseSearch"
                 type="text"
                 placeholder="Cari Kursus..."
-                class="w-full bg-white dark:bg-[#0f0b1a] text-slate-900 dark:text-gray-200 text-sm rounded-full py-3 pl-12 pr-4 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#A487F8]/50 transition-all placeholder:text-gray-500" />
+                class="w-full bg-white dark:bg-[#1A1625] text-slate-900 dark:text-gray-200 text-sm rounded-full py-3 pl-12 pr-4 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#A487F8]/50 transition-all placeholder:text-gray-500" />
         </div>
 
         <div class="flex items-center gap-3">
-            <div class="flex items-center bg-white dark:bg-[#111116] p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
+            <div class="flex items-center bg-white dark:bg-[#1A1625] p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
                
                 
             </div>

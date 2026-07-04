@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- Beranda Mentor -->
-<section id="beranda" class="relative py-28 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#120d22]">
+<section id="beranda" class="relative py-28 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#0F0B1A]">
     <button
         onclick="window.location='{{ route('home') }}'"
         class="absolute left-6 top-6 z-50 text-white hover:opacity-80 transition">
@@ -24,7 +24,7 @@
 </section>
 
 <!-- Mentor -->
-<section id="pengajar" class="py-24 px-6 bg-slate-100 dark:bg-[#0d0c13] transition-colors duration-300">
+<section id="pengajar" class="py-24 px-6 bg-slate-100 dark:bg-[#0F0B1A] transition-colors duration-300">
     <div class="grid grid-cols-3 gap-6 max-w-5xl mx-auto text-center mb-16">
         <div>
             <h3 class="text-3xl md:text-4xl font-extrabold text-[#A487F8] dark:text-[#A487F8]">{{ $totalMentors }}</h3>

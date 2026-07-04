@@ -1,6 +1,6 @@
 <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[90vw] max-w-[800px] h-[250px] md:h-[400px] bg-[#A487F8]/15 blur-[120px] rounded-full -z-10 opacity-0 dark:opacity-100 transition-opacity"></div>
 
-<div class="inline-flex items-center px-4 py-1.5 rounded-full bg-[#A487F8]/20 dark:bg-[#A487F8]/30 border border-[#A487F8]/30 dark:border-[#A487F8]/30 text-[#A487F8] dark:text-[#A487F8] text-xs mb-6 md:mb-8">
+<div class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/80 dark:border-white/20 text-gray-800 dark:text-white text-xs mb-6 md:mb-8 shadow-sm">
     <i class="fas fa-award mr-2.5"></i> Online Course Application
 </div>
 
@@ -27,7 +27,7 @@
     </button>
 </div>
 
-<div class="grid grid-cols-3 gap-6 mt-32 max-w-5xl mx-auto px-6">
+<div class="grid grid-cols-3 gap-6 mt-16 max-w-5xl mx-auto px-6">
     <div class="text-center">
         <h3 class="text-3xl md:text-4xl font-extrabold text-[#A487F8] dark:text-[#A487F8]">{{ $studentCount }}</h3>
         <p class="text-slate-500 dark:text-gray-500 text-xs mt-2 uppercase tracking-widest font-semibold">Pelajar Terdaftar</p>

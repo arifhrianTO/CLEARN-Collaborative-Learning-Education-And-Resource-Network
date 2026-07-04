@@ -5,7 +5,7 @@
 @section('content')
 <div class="p-6 lg:p-10">
 
-    <a href="javascript:history.back()" class="fixed top-8 left-8 z-50 w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-[#110D1F] border border-gray-200 dark:border-[#2d2644] hover:scale-110 transition-all shadow-sm group">
+    <a href="javascript:history.back()" class="fixed top-8 left-8 z-50 w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-[#1A1625] border border-gray-200 dark:border-[#2d2644] hover:scale-110 transition-all shadow-sm group">
         <i class="fas fa-arrow-left text-primary group-hover:-translate-x-1 transition-transform"></i>
     </a>
 
@@ -96,7 +96,7 @@
                                 </h4>
                                 <div class="space-y-2">
                                     @forelse($session->lessons as $lIndex => $lesson)
-                                        <div class="inner-item flex items-center justify-between p-4 bg-gray-50/50 dark:bg-[#161525] border border-gray-100 dark:border-[#2d2644] rounded-xl hover:border-primary/30 transition-all">
+                                        <div class="inner-item flex items-center justify-between p-4 bg-gray-50/50 dark:bg-[#1A1625] border border-gray-100 dark:border-[#2d2644] rounded-xl hover:border-primary/30 transition-all">
                                             <div class="flex items-center gap-4">
                                                 <i class="fas fa-play-circle text-primary text-sm"></i>
                                                 <span class="text-[12px] font-extrabold uppercase tracking-tight">
@@ -110,7 +110,7 @@
                                     @endforelse
 
                                     @if($session->exercise)
-                                        <div class="inner-item flex items-center justify-between p-4 bg-gray-50/50 dark:bg-[#161525] border border-gray-100 dark:border-[#2d2644] rounded-xl">
+                                        <div class="inner-item flex items-center justify-between p-4 bg-gray-50/50 dark:bg-[#1A1625] border border-gray-100 dark:border-[#2d2644] rounded-xl">
                                             <div class="flex items-center gap-4">
                                                 <i class="fas fa-file-alt text-primary text-sm"></i>
                                                 <span class="text-[12px] font-extrabold uppercase tracking-tight">
@@ -185,7 +185,7 @@
 
 <!-- Modal Konfirmasi Pendaftaran -->
 <div id="enrollConfirmModal" class="fixed inset-0 z-[200] flex items-center justify-center hidden p-4 bg-black/40 backdrop-blur-sm">
-    <div class="bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-sm flex flex-col">
+    <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-sm flex flex-col">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-sm font-black dark:text-white uppercase tracking-wider">Konfirmasi Pendaftaran</h2>
             <button type="button" onclick="document.getElementById('enrollConfirmModal').classList.add('hidden')" class="text-gray-400 hover:text-primary">

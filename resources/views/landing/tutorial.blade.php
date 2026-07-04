@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('images/logo-clearn.png') }}">
     <title>CLEARN │ Tutorial Pengajar</title>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -15,9 +20,9 @@
                 extend: {
                     colors: {
                         primary: '#A487F8',
-                        'dark-bg': '#090613',
-                        'dark-sidebar': '#120d22',
-                        'dark-card': '#17122b',
+                        'dark-bg': '#0F0B1A',
+                        'dark-sidebar': '#1A1625',
+                        'dark-card': '#1A1625',
                         'border-custom': '#2d2644',
                     }
                 }
@@ -29,6 +34,7 @@
         class="absolute left-6 top-6 z-50 text-white hover:opacity-80 transition">
         <i class="fa-solid fa-arrow-left-long text-2xl -translate-x-1"></i>
     </button>
+
     <style type="text/tailwindcss">
     @layer base {
         body {
@@ -110,7 +116,7 @@
 </head>
 <body class="antialiased text-sm">
 
-<main class="bg-[#0b0a14] text-white">
+<main class="bg-slate-50 dark:bg-[#0F0B1A] text-slate-900 dark:text-white">
   <section class="relative overflow-hidden px-6 py-28 bg-[#A487F8]">
 
       <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
@@ -141,24 +147,24 @@
   <section class="px-6 mt-20">
       <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mt-20">
 
-          <div class="bg-[#151427] p-6 rounded-2xl text-center">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
               <h3 class="text-3xl font-bold text-[#A487F8]"><?php echo "50"?></h3>
-              <p class="text-xs text-gray-400">Pengajar Aktif</p>
+              <p class="text-xs text-slate-500 dark:text-gray-400">Pengajar Aktif</p>
           </div>
 
-          <div class="bg-[#151427] p-6 rounded-2xl text-center">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
               <h3 class="text-3xl font-bold text-[#A487F8]"><?php echo "20"?></h3>
-              <p class="text-xs text-gray-400">Pendapatan Pengajar</p>
+              <p class="text-xs text-slate-500 dark:text-gray-400">Pendapatan Pengajar</p>
           </div>
 
-          <div class="bg-[#151427] p-6 rounded-2xl text-center">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
               <h3 class="text-3xl font-inter font-bold text-[#A487F8]"><?php echo "2"?></h3>
-              <p class="text-xs text-gray-400">Pelajar Diajar</p>
+              <p class="text-xs text-slate-500 dark:text-gray-400">Pelajar Diajar</p>
           </div>
 
-          <div class="bg-[#151427] p-6 rounded-2xl text-center">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
               <h3 class="text-3xl font-bold text-[#A487F8]"><?php echo "50" ?></h3>
-              <p class="text-xs text-gray-400">Negara Terjangkau</p>
+              <p class="text-xs text-slate-500 dark:text-gray-400">Negara Terjangkau</p>
           </div>
 
       </div>
@@ -170,40 +176,40 @@
           Mengapa Mengajar Bersama Kami?
       </h2>
 
-      <p class="text-gray-400 mb-16">
+      <p class="text-slate-500 dark:text-gray-400 mb-16">
           Semua yang Anda butuhkan untuk membuat, memasarkan, dan menjual kursus Anda secara online.
       </p>
 
       <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
 
-          <div class="bg-[#151427] p-6 rounded-2xl text-left">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-left shadow-sm dark:shadow-none">
               <i class="fas fa-video mb-4 text-white bg-[#A487F8] p-6 rounded-xl text-left px-3 py-3"></i>
               <h3 class="font-semibold mb-2">Buat Konten Berkualitas</h3>
-              <p class="text-sm text-gray-400">
+              <p class="text-sm text-slate-500 dark:text-gray-400">
                 Unggah kursus Anda dan jangkau jutaan pelajar yang antusias di seluruh dunia.
               </p>
           </div>
 
-          <div class="bg-[#151427] p-6 rounded-2xl text-left">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-left shadow-sm dark:shadow-none">
               <i class="fas fa-dollar-sign mb-4 text-white bg-[#A487F8] p-6 rounded-xl px-4 py-3"></i>
               <h3 class="font-semibold mb-2">Menghasilkan Uang</h3>
-              <p class="text-sm text-gray-400">
+              <p class="text-sm text-slate-500 dark:text-gray-400">
                 Tetapkan harga Anda sendiri dan dapatkan penghasilan dari setiap penjualan kursus.
               </p>
           </div>
 
-          <div class="bg-[#151427] p-6 rounded-2xl text-left">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-left shadow-sm dark:shadow-none">
               <i class="fas fa-users mb-4 text-white bg-[#A487F8] p-6 rounded-xl text-left px-3 py-3"></i>
               <h3 class="font-semibold mb-2">Bangun Audiens Anda</h3>
-              <p class="text-sm text-gray-400">
+              <p class="text-sm text-slate-500 dark:text-gray-400">
                 Kembangkan jumlah pengikut Anda dan bangun reputasi Anda sebagai ahli di bidang Anda.
               </p>
           </div>
 
-          <div class="bg-[#151427] p-6 rounded-2xl text-left">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-left shadow-sm dark:shadow-none">
               <i class="fas fa-chart-line mb-4 text-white bg-[#A487F8] p-6 rounded-xl text-left px-3 py-3"></i>
               <h3 class="font-semibold mb-2">Lacak Kesuksesan</h3>
-              <p class="text-sm text-gray-400">
+              <p class="text-sm text-slate-500 dark:text-gray-400">
                   Akses analitik terperinci untuk memahami siswa Anda dan melakukan peningkatan.
               </p>
           </div>
@@ -213,34 +219,34 @@
 
   <section class="px-6 pb-24 text-center">
       <h2 class="text-5xl font-bold mb-4">Cara Kerjanya</h2>
-      <p class="text-gray-400 mb-16">
+      <p class="text-slate-500 dark:text-gray-400 mb-16">
           Empat langkah sederhana untuk memulai perjalanan mengajar Anda
       </p>
 
       <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto text-left">
 
-          <div class="bg-[#151427] p-6 rounded-2xl">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl shadow-sm dark:shadow-none">
               <h3 class="text-[#A487F8] text-4xl mb-2">01</h3>
-              <h3>Ajukan Permohonan untuk Mengajar</h3>
-              <p class="mt-2">Isi formulir aplikasi sederhana kami dan ceritakan tentang keahlian Anda.</p>
+              <h3 class="font-semibold">Ajukan Permohonan untuk Mengajar</h3>
+              <p class="mt-2 text-slate-500 dark:text-gray-400">Isi formulir aplikasi sederhana kami dan ceritakan tentang keahlian Anda.</p>
           </div>
 
-          <div class="bg-[#151427] p-6 rounded-2xl">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl shadow-sm dark:shadow-none">
               <h3 class="text-[#A487F8] text-4xl mb-2">02</h3>
-              <h3>Rencanakan Kursus Anda</h3>
-              <p class="mt-7">Kami akan menyediakan sumber daya dan praktik terbaik untuk menyusun konten Anda.</p>
+              <h3 class="font-semibold">Rencanakan Kursus Anda</h3>
+              <p class="mt-7 text-slate-500 dark:text-gray-400">Kami akan menyediakan sumber daya dan praktik terbaik untuk menyusun konten Anda.</p>
           </div>
 
-          <div class="bg-[#151427] p-6 rounded-2xl">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl shadow-sm dark:shadow-none">
               <h3 class="text-[#A487F8] text-4xl mb-2">03</h3>
-              <h3>Buat Konten</h3>
-              <p class="mt-7">Isi formulir aplikasi sederhana kami dan ceritakan tentang keahlian Anda.</p>
+              <h3 class="font-semibold">Buat Konten</h3>
+              <p class="mt-7 text-slate-500 dark:text-gray-400">Isi formulir aplikasi sederhana kami dan ceritakan tentang keahlian Anda.</p>
           </div>
 
-          <div class="bg-[#151427] p-6 rounded-2xl">
+          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl shadow-sm dark:shadow-none">
               <h3 class="text-[#A487F8] text-4xl mb-2">04</h3>
-              <h3>Publikasikan & Dapatkan Penghasilan</h3>
-              <p class="mt-2">Luncurkan kursus Anda dan mulai menghasilkan pendapatan sejak hari pertama.</p>
+              <h3 class="font-semibold">Publikasikan & Dapatkan Penghasilan</h3>
+              <p class="mt-2 text-slate-500 dark:text-gray-400">Luncurkan kursus Anda dan mulai menghasilkan pendapatan sejak hari pertama.</p>
           </div>
       </div>
   </section>
@@ -259,49 +265,7 @@
       </div>
   </section>
 </main>
-    <script>
-    function toggleTheme() {
-        const html = document.documentElement; 
-        const themeIcon = document.getElementById('theme-icon');
 
-        html.classList.toggle('dark');
-
-        if (html.classList.contains('dark')) {
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-            themeIcon.style.color = '#A487F8'; 
-            
-            // Simpan pilihan user ke storage
-            localStorage.setItem('theme', 'dark');
-        } else {
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-            themeIcon.style.color = '#A487F8'; 
-            
-            localStorage.setItem('theme', 'light');
-        }
-    }
-
-    (function() {
-        const savedTheme = localStorage.getItem('theme');
-        const html = document.documentElement;
-        const themeIcon = document.getElementById('theme-icon');
-
-        if (savedTheme === 'dark') {
-            html.classList.add('dark');
-            if(themeIcon) {
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-                themeIcon.style.color = '#A487F8';
-            }
-        } else {
-            html.classList.remove('dark');
-            if(themeIcon) {
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-                themeIcon.style.color = '#A487F8';
-            }
-        }
-    })();
-</script>
 
 </body>
 </html>

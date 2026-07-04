@@ -4,7 +4,7 @@
 
 @section('content')
 
-<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
+<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50 min-h-screen">
     <div class="max-w-5xl mx-auto">
 
         <div class="mb-8">
@@ -51,7 +51,7 @@
             @csrf
             @method('PUT')
 
-            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-3xl p-6 lg:p-8 shadow-sm">
+            <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-3xl p-6 lg:p-8 shadow-sm">
 
                 <div class="mb-6">
                     <h2 class="text-sm font-black dark:text-white text-slate-800 uppercase tracking-widest flex items-center gap-2">
@@ -98,7 +98,7 @@
                         $canCreateFinalProject = $isLastSession && !$courseHasFinalProject && $allPreviousSessionsFilled;
                         @endphp
 
-                        <div class="dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/5 border-slate-200 rounded-2xl p-5">
+                        <div class="dark:bg-[#1A1625] bg-slate-50 border dark:border-white/5 border-slate-200 rounded-2xl p-5">
 
                             <div class="flex items-center justify-between gap-4 mb-4">
                                 <span class="text-[10px] font-black {{ $isLastSession ? 'text-emerald-500' : 'text-primary' }} uppercase tracking-widest">
@@ -174,7 +174,7 @@
                                 </p>
 
                                 @foreach($session->lessons as $lesson)
-                                <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                                <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
 
                                     <div class="p-4 flex items-start justify-between gap-4">
                                         <div class="min-w-0">
@@ -232,9 +232,9 @@
                                         @elseif($type === 'pdf' || $type === 'link')
                                         @if($source)
                                         <a href="{{ $source }}" target="_blank"
-                                            class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0b0a1a] bg-slate-50 border dark:border-white/5 border-slate-200 hover:border-primary/50 transition">
+                                            class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0F0B1A] bg-slate-50 border dark:border-white/5 border-slate-200 hover:border-primary/50 transition">
 
-                                            <div class="w-10 h-10 rounded-lg dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 text-{{ $type === 'pdf' ? 'cyan' : 'primary' }}-500 flex items-center justify-center shrink-0">
+                                            <div class="w-10 h-10 rounded-lg dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 text-{{ $type === 'pdf' ? 'cyan' : 'primary' }}-500 flex items-center justify-center shrink-0">
                                                 <i class="{{ $type === 'pdf' ? 'fa-regular fa-file-pdf' : 'fa-solid fa-link' }} text-lg"></i>
                                             </div>
 
@@ -266,7 +266,7 @@
                                 </p>
 
                                 @foreach($session->finalProjects as $project)
-                                <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                                <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
 
                                     {{-- Top Section: Details & Buttons --}}
                                     <div class="p-4 flex items-start justify-between gap-4">
@@ -282,14 +282,14 @@
                                         {{-- Duration and Format Info --}}
                                         <div class="flex flex-wrap gap-2 mt-3">
                                             @if(!empty($project->duration_days))
-                                            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg dark:bg-[#0b0a1a] bg-slate-100 text-slate-500 text-[10px] font-bold border dark:border-white/5 border-slate-200">
+                                            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg dark:bg-[#0F0B1A] bg-slate-100 text-slate-500 text-[10px] font-bold border dark:border-white/5 border-slate-200">
                                                 <i class="fa-regular fa-clock text-emerald-500"></i>
                                                 {{ $project->duration_days }} Hari
                                             </div>
                                             @endif
 
                                             @if(!empty($project->allowed_extensions))
-                                            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg dark:bg-[#0b0a1a] bg-slate-100 text-slate-500 text-[10px] font-bold uppercase border dark:border-white/5 border-slate-200">
+                                            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg dark:bg-[#0F0B1A] bg-slate-100 text-slate-500 text-[10px] font-bold uppercase border dark:border-white/5 border-slate-200">
                                                 <i class="fa-solid fa-file-circle-check text-sky-500"></i>
                                                 {{ $project->allowed_extensions }}
                                             </div>
@@ -329,9 +329,9 @@
                                         @if($type === 'pdf' || $type === 'link')
                                         @if($source)
                                         <a href="{{ $source }}" target="_blank"
-                                            class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0b0a1a] bg-slate-50 border dark:border-white/5 border-slate-200 hover:border-primary/50 transition">
+                                            class="flex items-center gap-3 p-3 rounded-xl dark:bg-[#0F0B1A] bg-slate-50 border dark:border-white/5 border-slate-200 hover:border-primary/50 transition">
                                             
-                                            <div class="w-10 h-10 rounded-lg dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 text-{{ $type === 'pdf' ? 'cyan' : 'primary' }}-500 flex items-center justify-center shrink-0">
+                                            <div class="w-10 h-10 rounded-lg dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 text-{{ $type === 'pdf' ? 'cyan' : 'primary' }}-500 flex items-center justify-center shrink-0">
                                                 <i class="{{ $type === 'pdf' ? 'fa-regular fa-file-pdf' : 'fa-solid fa-link' }} text-lg"></i>
                                             </div>
 

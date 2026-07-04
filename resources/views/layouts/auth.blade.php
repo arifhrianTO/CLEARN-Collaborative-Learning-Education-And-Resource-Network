@@ -25,54 +25,9 @@
     @stack('styles')
 </head>
 
-<body class="@yield('bodyClass', 'min-h-screen bg-white text-slate-900 dark:bg-[#0f0a19] dark:text-white transition-colors duration-300 font-sans')">
-
-    {{-- Tombol Toggle Theme --}}
-    @hasSection('hideThemeToggle')
-    @else
-    <button type="button" onclick="toggleTheme()"
-        class="fixed top-5 right-5 z-50 w-11 h-11 flex items-center justify-center rounded-xl
-            bg-white dark:bg-[#1c1826]
-            text-primary shadow-lg border border-slate-200 dark:border-slate-800
-            hover:scale-110 transition-all">
-        <i id="theme-icon" class="fas fa-moon"></i>
-    </button>
-    @endif
+<body class="@yield('bodyClass', 'min-h-screen bg-white text-slate-900 dark:bg-[#0F0B1A] dark:text-white transition-colors duration-300 font-sans')">
 
     @yield('content')
-
-    <script>
-        const themeIcon = document.getElementById('theme-icon');
-
-        function updateIcon() {
-            if (!themeIcon) return;
-
-            themeIcon.classList.toggle(
-                'fa-sun',
-                document.documentElement.classList.contains('dark')
-            );
-
-            themeIcon.classList.toggle(
-                'fa-moon',
-                !document.documentElement.classList.contains('dark')
-            );
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement;
-
-            html.classList.toggle('dark');
-
-            localStorage.setItem(
-                'theme',
-                html.classList.contains('dark') ? 'dark' : 'light'
-            );
-
-            updateIcon();
-        }
-
-        window.toggleTheme = toggleTheme;
-    </script>
 
     @stack('scripts')
 </body>

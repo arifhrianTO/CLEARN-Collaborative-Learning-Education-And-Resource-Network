@@ -9,7 +9,7 @@
         $isLast = ($currentSoal == $totalSoal);
     @endphp
 
-    <main class="flex-1 p-6 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
+    <main class="flex-1 p-6 lg:p-8 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50 min-h-screen">
         <div class="max-w-5xl mx-auto">
             
             <div class="mb-4">
@@ -28,7 +28,7 @@
                 
                 {{-- AREA SOAL --}}
                 <div class="lg:col-span-8">
-                    <div class="bg-white dark:bg-[#1c1826] border border-gray-100 dark:border-gray-800 rounded-2xl p-6 shadow-sm">
+                    <div class="bg-white dark:bg-[#1A1625] border border-gray-100 dark:border-gray-800 rounded-2xl p-6 shadow-sm">
                         <div class="mb-6">
                             <span class="text-[9px] font-black text-[#A487F8] bg-[#A487F8]/10 px-2 py-0.5 rounded-md uppercase tracking-widest">Pertanyaan {{ $currentSoal }}</span>
                             <h2 class="text-sm font-bold mt-3 text-slate-800 dark:text-white">"Manakah selector CSS yang digunakan untuk menargetkan ID sebuah elemen?" (Ini adalah soal {{ $currentSoal }})</h2>
@@ -64,7 +64,7 @@
 
                 {{-- AREA NAVIGASI KANAN --}}
                 <div class="lg:col-span-4">
-                    <div class="bg-white dark:bg-[#1c1826] p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                    <div class="bg-white dark:bg-[#1A1625] p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
                         <div class="grid grid-cols-5 gap-2 mb-5">
                             @for($i = 1; $i <= $totalSoal; $i++)
                                 <a id="nav-{{ $i }}" href="?q={{ $i }}" 

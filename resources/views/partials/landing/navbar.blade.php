@@ -1,4 +1,4 @@
-<nav class="nav-landing">
+<nav class="nav-landing bg-white dark:bg-[#1A1625] border-b border-gray-200 dark:border-[#2d2644] flex items-center justify-between px-6 lg:px-12 py-4">
     <div class="flex items-center">
         <img
             src="{{ asset('images/logo-light.png') }}"
@@ -12,10 +12,10 @@
     </div>
 
     <div class="hidden md:flex gap-8 text-sm font-semibold">
-        <a href="#beranda" class="nav-link text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Beranda</a>
-        <a href="#kursus" class="nav-link text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Kursus</a>
-        <a href="#kategori" class="nav-link text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Kategori</a>
-        <a href="#pengajar" class="nav-link text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Pengajar</a>
+        <a href="#beranda" class="nav-link text-slate-600 dark:text-slate-300 hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Beranda</a>
+        <a href="#kursus" class="nav-link text-slate-600 dark:text-slate-300 hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Kursus</a>
+        <a href="#kategori" class="nav-link text-slate-600 dark:text-slate-300 hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Kategori</a>
+        <a href="#pengajar" class="nav-link text-slate-600 dark:text-slate-300 hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">Pengajar</a>
     </div>
 
     <div class="flex items-center gap-3">
@@ -30,12 +30,12 @@
 
         @auth
         <div class="relative group hidden md:block">
-            <button class="flex items-center gap-2 text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition font-semibold">
+            <button class="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-[#A487F8] dark:hover:text-[#A487F8] transition font-semibold">
                 <img src="{{ auth()->user()->profile_picture ? asset('storage/' . auth()->user()->profile_picture) : 'https://ui-avatars.com/api/?name='.urlencode(auth()->user()->name).'&color=7F9CF5&background=EBF4FF' }}" alt="Profile" class="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700">
                 <span class="hidden md:block">{{ auth()->user()->name }}</span>
                 <i class="fas fa-chevron-down text-[10px]"></i>
             </button>
-            <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-[#110D1F] border border-gray-200 dark:border-[#2d2644] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+            <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-[#1A1625] border border-gray-200 dark:border-[#2d2644] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
                 <a href="{{ route('dashboard') }}" class="block px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1429] transition-colors">
                     <i class="fas fa-tachometer-alt w-5 text-center text-primary"></i> Dashboard
                 </a>
@@ -49,7 +49,7 @@
             </div>
         </div>
         @else
-        <a href="{{route('login')}}" class="hidden md:inline text-muted-custom hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">
+        <a href="{{route('login')}}" class="hidden md:inline text-slate-600 dark:text-slate-300 hover:text-[#A487F8] dark:hover:text-[#A487F8] transition">
             Masuk
         </a>
         <button
@@ -64,7 +64,7 @@
 {{-- Mobile Menu Overlay --}}
 <div id="mobile-nav-overlay" class="fixed inset-0 z-50 hidden md:hidden">
     <div id="mobile-nav-backdrop" class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="toggleMobileNav()"></div>
-    <div id="mobile-nav-panel" class="absolute top-0 right-0 h-full w-72 max-w-[85vw] bg-white dark:bg-[#110D1F] border-l border-gray-200 dark:border-[#2d2644] shadow-2xl translate-x-full transition-transform duration-300">
+    <div id="mobile-nav-panel" class="absolute top-0 right-0 h-full w-72 max-w-[85vw] bg-white dark:bg-[#1A1625] border-l border-gray-200 dark:border-[#2d2644] shadow-2xl translate-x-full transition-transform duration-300">
         <div class="flex items-center justify-between p-5 border-b border-gray-100 dark:border-[#2d2644]">
             <span class="font-bold text-sm dark:text-white text-slate-800">Menu</span>
             <button onclick="toggleMobileNav()" class="p-2 rounded-xl hover:bg-slate-500/10 transition">

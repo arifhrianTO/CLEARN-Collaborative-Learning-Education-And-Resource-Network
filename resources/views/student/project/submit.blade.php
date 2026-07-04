@@ -13,10 +13,10 @@
         ];
     @endphp
 
-    <div class="flex w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#0b0a1a]">
+    <div class="flex w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#0F0B1A]">
         
         {{-- SIDEBAR --}}
-        <aside class="w-80 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1826] flex flex-col">
+        <aside class="w-80 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1A1625] flex flex-col">
             {{-- Header Sidebar --}}
             <div class="p-6 border-b border-gray-100 dark:border-gray-800 shrink-0">
                 <h2 class="font-black text-sm dark:text-white mb-1">Program Pelatihan Web</h2>
@@ -75,7 +75,7 @@
         </aside>
 
      {{-- MAIN CONTENT --}}
-<main class="flex-1 w-full h-full overflow-y-auto bg-slate-50 dark:bg-[#0b0a1a] custom-scrollbar">
+<main class="flex-1 w-full h-full overflow-y-auto bg-slate-50 dark:bg-[#0F0B1A] custom-scrollbar">
     <div class="w-full h-full p-8">
 
         {{-- 1. INSTRUKSI TUGAS (Dibuat lebih panjang) --}}

@@ -24,7 +24,7 @@
                 </p>
             </div>
 
-            <div class="px-4 py-2 rounded-xl bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 shadow-sm">
+            <div class="px-4 py-2 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 shadow-sm">
                 <p class="text-[9px] uppercase tracking-widest font-black text-slate-400">
                     Total Pending
                 </p>
@@ -53,11 +53,11 @@
 
             @forelse($pendingCourses as $course)
 
-            <div class="bg-white dark:bg-[#161525] border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden flex flex-col">
+            <div class="bg-white dark:bg-[#1A1625] border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden flex flex-col">
 
                 {{-- Thumbnail --}}
                 <a href="{{ route('admin.courses.show', $course->id) }}"
-                    class="relative w-full h-40 bg-slate-100 dark:bg-[#0b0a1a] overflow-hidden group flex-shrink-0">
+                    class="relative w-full h-40 bg-slate-100 dark:bg-[#0F0B1A] overflow-hidden group flex-shrink-0">
 
                     <img
                         src="{{ $course->course_thumbnail ? asset('storage/' . $course->course_thumbnail) : asset('images/default-course.png') }}"
@@ -155,7 +155,7 @@
 
 {{-- Modal Reject --}}
 <div id="rejectModal" class="fixed inset-0 z-[150] hidden items-center justify-center bg-black/50 backdrop-blur-md p-4">
-    <div class="bg-white dark:bg-[#161525] w-full max-w-sm p-6 rounded-2xl border dark:border-white/5 shadow-2xl">
+    <div class="bg-white dark:bg-[#1A1625] w-full max-w-sm p-6 rounded-2xl border dark:border-white/5 shadow-2xl">
 
         <h3 class="text-lg font-black mb-2 dark:text-white text-slate-800">
             Tolak Kursus
@@ -171,7 +171,7 @@
             <textarea
                 name="course_rejection_reason"
                 required
-                class="w-full px-4 py-3 bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 border-slate-200 rounded-xl h-24 text-xs mb-6 outline-none dark:text-white resize-none"
+                class="w-full px-4 py-3 bg-slate-50 dark:bg-[#1A1625] border dark:border-white/5 border-slate-200 rounded-xl h-24 text-xs mb-6 outline-none dark:text-white resize-none"
                 placeholder="Contoh: Materi belum lengkap, thumbnail tidak sesuai, atau deskripsi kurang jelas...">{{ old('course_rejection_reason') }}</textarea>
 
             <div class="flex flex-col gap-2">

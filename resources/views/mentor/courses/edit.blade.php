@@ -4,7 +4,7 @@
 
 @section('content')
 
-<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
+<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50 min-h-screen">
     <div class="max-w-4xl mx-auto">
 
         {{-- Header --}}
@@ -67,7 +67,7 @@
                             value="{{ old('course_title', $course->course_title) }}"
                             required
                             placeholder="Contoh: Laravel Dasar untuk Pemula"
-                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
+                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
                     </div>
 
                     {{-- Deskripsi --}}
@@ -80,7 +80,7 @@
                             rows="5"
                             required
                             placeholder="Jelaskan isi dan tujuan course ini..."
-                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition overflow-hidden resize-none"
+                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition overflow-hidden resize-none"
                             oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">{{ old('course_description', $course->course_description) }}</textarea>
                     </div>
 
@@ -92,7 +92,7 @@
 
                         <select name="category_id"
                             required
-                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
+                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
                             <option value="">Pilih Kategori</option>
 
                             @foreach($categories as $category)
@@ -117,7 +117,7 @@
                             max="50"
                             required
                             placeholder="Contoh: 3"
-                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
+                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
 
                         <p class="text-[10px] text-slate-400 mt-2">
                             Pertemuan saat ini: {{ $course->sessions->count() }}. Hanya bisa menambah Pertemuan.
@@ -136,7 +136,7 @@
                             min="0"
                             required
                             placeholder="Contoh: 50000"
-                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
+                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
                     </div>
 
                     {{-- Thumbnail --}}
@@ -154,7 +154,7 @@
                         <input type="file"
                             name="course_thumbnail"
                             accept="image/*"
-                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#0f0a19] border border-slate-200 dark:border-white/10 dark:text-white text-slate-500 text-sm outline-none focus:border-primary transition">
+                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-500 text-sm outline-none focus:border-primary transition">
 
                         <p class="text-[10px] text-slate-400 mt-2">
                             Kosongkan jika tidak ingin mengganti thumbnail. Format: JPG, JPEG, PNG, WEBP. Maksimal 2MB.

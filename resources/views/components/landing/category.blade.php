@@ -22,7 +22,7 @@ $useInlineColor = !empty($color);
 @if ($variant === 'preview')
 
 <a href="{{ $href }}"
-    class="group block bg-white dark:bg-[#13111a] border border-slate-200
+    class="group block bg-white dark:bg-[#1A1625] border border-slate-200
           dark:border-gray-800 p-5 rounded-2xl text-center
           transition-all duration-300 cursor-pointer
           shadow-sm hover:-translate-y-1 no-underline
@@ -55,7 +55,7 @@ $useInlineColor = !empty($color);
 @else
 
 <a href="{{ $href }}"
-    class="group block p-6 rounded-2xl bg-white dark:bg-[#17122b]
+    class="group block p-6 rounded-2xl bg-white dark:bg-[#1A1625]
           border border-slate-200 dark:border-white/5
           transition-all duration-300 hover:-translate-y-1 no-underline
           text-slate-900 dark:text-white"

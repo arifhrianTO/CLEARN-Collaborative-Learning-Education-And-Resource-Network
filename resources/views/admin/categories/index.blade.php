@@ -14,7 +14,7 @@
     <div class="max-w-5xl mx-auto">
 
         {{-- Header --}}
-        <div class="flex justify-between items-end mb-8">
+        <div class="flex justify-between items-end mb-6">
             <div>
                 <h1 class="text-lg font-bold dark:text-white text-slate-800">Daftar Kategori</h1>
                 <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium mt-0.5">
@@ -43,7 +43,7 @@
         @endif
 
         {{-- Tabel Daftar Kategori --}}
-        <div class="bg-white dark:bg-[#161525] border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-white dark:bg-[#1A1625] border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm overflow-hidden">
             <table class="w-full text-left">
                 <thead>
                     <tr class="border-b dark:border-white/5 border-slate-100">
@@ -58,7 +58,7 @@
                     @forelse ($categories as $category)
                     <tr>
                         <td class="p-5">
-                            <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5">
+                            <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-[#1A1625] border dark:border-white/5">
                                 <i class="fas {{ $category->category_icon ?? 'fa-book' }} text-xl"
                                     style="color: {{ $category->category_color ?? '#A487F8' }};">
                                 </i>
@@ -78,7 +78,7 @@
 
                                 {{-- Tombol edit --}}
                                 <a href="{{ route('admin.categories.edit', $category->id) }}"
-                                    class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
+                                    class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#1A1625] border dark:border-white/5 hover:border-[#A487F8] transition-all">
                                     <i class="fas fa-pen text-[10px] text-slate-400 hover:text-[#A487F8]"></i>
                                 </a>
                             </div>
@@ -88,7 +88,7 @@
                     <tr>
                         <td colspan="4" class="p-8 text-center">
                             <div class="flex flex-col items-center justify-center gap-2">
-                                <div class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-[#0f0a19] flex items-center justify-center border dark:border-white/5">
+                                <div class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-[#1A1625] flex items-center justify-center border dark:border-white/5">
                                     <i class="fas fa-tags text-slate-400"></i>
                                 </div>
                                 <p class="text-xs font-bold text-slate-400">
@@ -114,12 +114,12 @@
                 <div class="flex items-center gap-2">
                     {{-- Prev --}}
                     @if ($categories->onFirstPage())
-                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-100 dark:bg-[#0f0a19] border dark:border-white/5 text-slate-300 cursor-not-allowed">
+                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-100 dark:bg-[#1A1625] border dark:border-white/5 text-slate-300 cursor-not-allowed">
                         <i class="fas fa-chevron-left text-[10px]"></i>
                     </span>
                     @else
                     <a href="{{ $categories->previousPageUrl() }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#1A1625] border dark:border-white/5 hover:border-[#A487F8] transition-all">
                         <i class="fas fa-chevron-left text-[10px] text-slate-400"></i>
                     </a>
                     @endif
@@ -132,7 +132,7 @@
                     </span>
                     @else
                     <a href="{{ $url }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] text-slate-400 text-[10px] font-bold transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#1A1625] border dark:border-white/5 hover:border-[#A487F8] text-slate-400 text-[10px] font-bold transition-all">
                         {{ $page }}
                     </a>
                     @endif
@@ -141,11 +141,11 @@
                     {{-- Next --}}
                     @if ($categories->hasMorePages())
                     <a href="{{ $categories->nextPageUrl() }}"
-                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#0f0a19] border dark:border-white/5 hover:border-[#A487F8] transition-all">
+                        class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-50 dark:bg-[#1A1625] border dark:border-white/5 hover:border-[#A487F8] transition-all">
                         <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
                     @else
-                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-100 dark:bg-[#0f0a19] border dark:border-white/5 text-slate-300 cursor-not-allowed">
+                    <span class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-slate-100 dark:bg-[#1A1625] border dark:border-white/5 text-slate-300 cursor-not-allowed">
                         <i class="fas fa-chevron-right text-[10px]"></i>
                     </span>
                     @endif

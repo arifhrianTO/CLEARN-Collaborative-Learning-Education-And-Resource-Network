@@ -10,12 +10,12 @@
     initials="{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}"
     photo="{{ auth()->user()->profile_picture }}" />
 
-<main class="flex-1 p-6 pt-10">
+<main class="flex-1 p-5 lg:p-8">
     <div class="max-w-5xl mx-auto">
 
         <div class="mb-6">
-            <h1 class="text-xl font-bold">Dasboard Admin</h1>
-            <p class="text-[11px] text-slate-500">Selamat datang kembali, berikut adalah ringkasan data platform hari ini.</p>
+            <h1 class="text-lg font-bold">Dasboard Admin</h1>
+            <p class="text-[10px] text-slate-500">Selamat datang kembali, berikut adalah ringkasan data platform hari ini.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">

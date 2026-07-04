@@ -12,7 +12,7 @@
 
 @section('content')
 
-<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
+<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50 min-h-screen">
 
     <div class="max-w-4xl mx-auto">
 
@@ -59,7 +59,7 @@
 
             @csrf
 
-            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-3xl shadow-sm overflow-hidden">
+            <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-3xl shadow-sm overflow-hidden">
 
                 {{-- Info Session --}}
                 <div class="p-6 lg:p-8 border-b dark:border-white/5 border-slate-200">
@@ -95,7 +95,7 @@
                             value="{{ old('project_title') }}"
                             required
                             placeholder="Contoh: Membangun Website Portfolio Responsif"
-                            class="w-full px-4 py-3.5 rounded-xl dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-sm font-bold outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition">
+                            class="w-full px-4 py-3.5 rounded-xl dark:bg-[#1A1625] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-sm font-bold outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition">
                     </div>
 
                     {{-- Deskripsi --}}
@@ -109,7 +109,7 @@
                             rows="10"
                             required
                             placeholder="Tuliskan panduan tugas, ketentuan, struktur folder, teknologi yang digunakan, dan hasil yang harus dikumpulkan..."
-                            class="w-full px-4 py-3.5 rounded-xl dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs leading-relaxed outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition">{{ old('project_description') }}</textarea>
+                            class="w-full px-4 py-3.5 rounded-xl dark:bg-[#1A1625] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs leading-relaxed outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition">{{ old('project_description') }}</textarea>
                         <p class="text-[10px] dark:text-slate-500 text-slate-400 mt-2">
                             Tuliskan instruksi selengkap mungkin agar student memahami hasil akhir yang harus dibuat.
                         </p>
@@ -150,7 +150,7 @@
                                             min="1"
                                             max="365"
                                             required
-                                            class="w-full text-center px-4 py-3.5 rounded-xl dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-sm font-black outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition">
+                                            class="w-full text-center px-4 py-3.5 rounded-xl dark:bg-[#1A1625] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-sm font-black outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition">
                                         <span class="absolute inset-y-0 right-4 flex items-center text-[10px] font-black uppercase tracking-widest dark:text-slate-500 text-slate-400 pointer-events-none">
                                             Hari
                                         </span>
@@ -187,7 +187,7 @@
                                 <select id="allowed_extensions"
                                     name="allowed_extensions"
                                     required
-                                    class="w-full px-4 py-3.5 rounded-xl dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs font-bold outline-none focus:border-primary transition cursor-pointer">
+                                    class="w-full px-4 py-3.5 rounded-xl dark:bg-[#1A1625] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs font-bold outline-none focus:border-primary transition cursor-pointer">
                                     <option value=".zip,.rar" {{ old('allowed_extensions') === '.zip,.rar' ? 'selected' : '' }}>
                                         File Kompresi (ZIP, RAR)
                                     </option>
@@ -225,7 +225,7 @@
                             </label>
                             <select id="material_type"
                                 name="material_type"
-                                class="w-full px-4 py-3.5 rounded-xl dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs font-bold outline-none focus:border-primary transition">
+                                class="w-full px-4 py-3.5 rounded-xl dark:bg-[#1A1625] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs font-bold outline-none focus:border-primary transition">
                                 <option value="">Tanpa material tambahan</option>
                                 <option value="pdf" {{ old('material_type') === 'pdf' ? 'selected' : '' }}>Unggah File </option>
                                 <option value="link" {{ old('material_type') === 'link' ? 'selected' : '' }}>Tautan Eksternal</option>
@@ -239,7 +239,7 @@
                                 File Panduan
                             </label>
                             <label for="material_file"
-                                class="flex flex-col items-center justify-center min-h-40 rounded-2xl border-2 border-dashed dark:border-white/10 border-slate-300 dark:bg-[#0f0a19] bg-slate-50 cursor-pointer hover:border-primary hover:bg-primary/5 transition">
+                                class="flex flex-col items-center justify-center min-h-40 rounded-2xl border-2 border-dashed dark:border-white/10 border-slate-300 dark:bg-[#1A1625] bg-slate-50 cursor-pointer hover:border-primary hover:bg-primary/5 transition">
                                 <div class="w-11 h-11 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-3">
                                     <i class="fa-solid fa-cloud-arrow-up"></i>
                                 </div>
@@ -267,7 +267,7 @@
                                 name="material_url"
                                 value="{{ old('material_url') }}"
                                 placeholder="https://drive.google.com/..."
-                                class="w-full px-4 py-3.5 rounded-xl dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition">
+                                class="w-full px-4 py-3.5 rounded-xl dark:bg-[#1A1625] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition">
                         </div>
 
                     </div>
@@ -275,7 +275,7 @@
                 </div>
 
                 {{-- Action --}}
-                <div class="px-6 lg:px-8 py-5 dark:bg-[#0f0a19]/50 bg-slate-50 border-t dark:border-white/5 border-slate-200 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+                <div class="px-6 lg:px-8 py-5 dark:bg-[#1A1625]/50 bg-slate-50 border-t dark:border-white/5 border-slate-200 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
                     <a href="{{ route('mentor.courses.sessions.edit', $session->course_id) }}"
                         class="px-7 py-3 rounded-xl bg-slate-200 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-[10px] font-black uppercase tracking-widest text-center hover:bg-slate-300 dark:hover:bg-white/10 transition">
                         Batal

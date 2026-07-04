@@ -34,7 +34,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
             {{-- Card 1: Total Gross Revenue --}}
-            <div class="bg-white dark:bg-[#1c1826]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-6 shadow-sm hover:shadow-md transition-all duration-300">
+            <div class="bg-white dark:bg-[#1A1625]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-6 shadow-sm hover:shadow-md transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Penjualan</span>
                     <div class="w-8 h-8 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500">
@@ -52,7 +52,7 @@
             </div>
 
             {{-- Card 2: Net Platform Share --}}
-            <div class="bg-white dark:bg-[#1c1826]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-6 shadow-sm hover:shadow-md transition-all duration-300">
+            <div class="bg-white dark:bg-[#1A1625]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-6 shadow-sm hover:shadow-md transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
                     <span class="text-xs font-bold text-[#A487F8] uppercase tracking-wider">Pendapatan Bersih (80%)</span>
                     <div class="w-8 h-8 rounded-xl bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8]">
@@ -70,7 +70,7 @@
             </div>
 
             {{-- Card 3: Pending Payouts --}}
-            <div class="bg-white dark:bg-[#1c1826]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-6 shadow-sm hover:shadow-md transition-all duration-300">
+            <div class="bg-white dark:bg-[#1A1625]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-6 shadow-sm hover:shadow-md transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
                     <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">Menunggu Penarikan</span>
                     <div class="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
@@ -90,10 +90,10 @@
         </div>
 
         {{-- Tabel Riwayat Transaksi --}}
-        <div class="bg-white dark:bg-[#1c1826]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-1.5 shadow-sm">
+        <div class="bg-white dark:bg-[#1A1625]/50 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-gray-800/80 p-1.5 shadow-sm">
             <div class="p-5 flex items-center justify-between border-b border-gray-100 dark:border-gray-800/60">
                 <h2 class="text-md font-bold tracking-tight">Aktivitas Transaksi Terbaru</h2>
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50 dark:bg-[#0f0a19] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800/50">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50 dark:bg-[#1A1625] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800/50">
                     Real-time
                 </span>
             </div>

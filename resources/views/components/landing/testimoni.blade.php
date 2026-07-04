@@ -1,5 +1,5 @@
 <!-- TESTIMONI 1 -->
-<div class="bg-white dark:bg-[#13111a] p-8 rounded-3xl border border-slate-200 dark:border-gray-800 relative shadow-sm">
+<div class="bg-white dark:bg-[#1A1625] p-8 rounded-3xl border border-slate-200 dark:border-gray-800 relative shadow-sm">
     <div class="flex text-yellow-500 text-xs mb-6">
         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
     </div>

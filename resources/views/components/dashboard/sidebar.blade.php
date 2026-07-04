@@ -7,7 +7,7 @@
 
 {{-- Mobile hamburger toggle --}}
 <button id="sidebar-hamburger" onclick="toggleDashboardSidebar()"
-    class="lg:hidden fixed top-4 left-4 z-40 w-10 h-10 rounded-xl bg-white dark:bg-[#1a1828] border dark:border-white/10 border-slate-200 shadow-md flex items-center justify-center hover:bg-slate-50 dark:hover:bg-white/5 transition">
+    class="lg:hidden fixed top-4 left-4 z-40 w-10 h-10 rounded-xl bg-white dark:bg-[#1A1625] border dark:border-white/10 border-slate-200 shadow-md flex items-center justify-center hover:bg-slate-50 dark:hover:bg-white/5 transition">
     <i class="fa-solid fa-bars text-base text-primary"></i>
 </button>
 
@@ -248,7 +248,7 @@
 
 {{-- Modal Logout Konfirmasi --}}
 <div id="logoutModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden p-4 bg-black/20 backdrop-blur-sm transition-all">
-    <div class="bg-white dark:bg-[#161525] p-8 rounded-2xl shadow-2xl border dark:border-white/5 w-full max-w-sm text-center">
+    <div class="bg-white dark:bg-[#1A1625] p-8 rounded-2xl shadow-2xl border dark:border-white/5 w-full max-w-sm text-center">
         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center">
             <i class="fas fa-right-from-bracket text-2xl text-red-500"></i>
         </div>
