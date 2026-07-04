@@ -1,4 +1,4 @@
-<footer class="bg-white dark:bg-[#0F0B1A] pt-20 pb-10 px-12 border-t border-slate-200 dark:border-gray-900/70 transition-colors duration-300">
+<footer class="bg-white dark:bg-[#0F0B1A] pt-20 pb-10 px-6 md:px-12 border-t border-slate-200 dark:border-gray-900/70 transition-colors duration-300">
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
         <div class="space-y-6">

@@ -43,7 +43,7 @@
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="w-full text-left px-4 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors font-semibold">
-                        <i class="fas fa-sign-out-alt w-5 text-center"></i> Keluar
+                        <i class="fas fa-door-open w-5 text-center"></i> Keluar
                     </button>
                 </form>
             </div>
@@ -89,7 +89,7 @@
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="block w-full text-left px-4 py-3 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 transition">
-                    <i class="fas fa-sign-out-alt w-5 text-center"></i> Keluar
+                    <i class="fas fa-door-open w-5 text-center"></i> Keluar
                 </button>
             </form>
             @else
