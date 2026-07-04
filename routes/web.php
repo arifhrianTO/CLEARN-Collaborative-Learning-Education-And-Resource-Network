@@ -35,7 +35,7 @@ Route::get('/', fn() => redirect()->route('home'));
 
 Route::get('/landing', [LandingController::class, 'index'])->name('home');
 Route::get('/course', [LandingController::class, 'course'])->name('course');
-Route::get('/course/{slug}', [StudentCourseController::class, 'show'])->name('course.show');
+Route::get('/course/{slug}', [StudentCourseController::class, 'show'])->name('public.course.show');
 Route::post('/course/{slug}/enroll', [StudentCourseController::class, 'enroll'])->name('public.course.enroll')->middleware(['auth', 'role:student']);
 Route::get('/category', [LandingController::class, 'category'])->name('category');
 Route::get('/mentor', [LandingController::class, 'mentor'])->name('mentor');
@@ -83,7 +83,6 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
 
-            Route::get('/courses', [StudentCourseController::class, 'index'])->name('courses');
             Route::get('/courses', [StudentCourseController::class, 'index'])->name('course.index');
             Route::get('/courses/{slug}', [StudentCourseController::class, 'show'])->name('course.show');
             Route::post('/courses/{slug}/enroll', [StudentCourseController::class, 'enroll'])->name('course.enroll');
@@ -94,7 +93,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/courses/progress', [StudentCourseController::class, 'progress'])->name('progress');
 
             Route::get('/exercise/{exerciseId}', [StudentExerciseController::class, 'show'])->name('exercise.show');
+            Route::get('/exercise/{exerciseId}/start', [StudentExerciseController::class, 'start'])->name('exercise.start');
             Route::post('/exercise/{exerciseId}', [StudentExerciseController::class, 'submit'])->name('exercise.submit');
+
+            Route::get('/project/{projectId}', [\App\Http\Controllers\Student\FinalProjectController::class, 'show'])->name('project.show');
+            Route::post('/project/{projectId}', [\App\Http\Controllers\Student\FinalProjectController::class, 'submit'])->name('project.submit');
 
             Route::get('/history', [StudentPaymentController::class, 'history'])->name('history');
             Route::get('/checkout/{course_id}', [StudentPaymentController::class, 'checkout'])->name('checkout');

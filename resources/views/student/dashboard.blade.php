@@ -73,10 +73,10 @@
                     $isCompleted = $enrollment->progress == 100;
                     $colorClass = $isCompleted ? 'emerald' : 'primary';
                     $colorHex = $isCompleted ? 'rgba(16,185,129,0.4)' : 'rgba(164,135,248,0.4)';
-                    $coverImage = $enrollment->course->course_cover 
-                        ? (Str::startsWith($enrollment->course->course_cover, 'http') 
-                            ? $enrollment->course->course_cover 
-                            : Storage::url($enrollment->course->course_cover)) 
+                    $coverImage = $enrollment->course->course_thumbnail 
+                        ? (Str::startsWith($enrollment->course->course_thumbnail, 'http') 
+                            ? $enrollment->course->course_thumbnail 
+                            : Storage::url($enrollment->course->course_thumbnail)) 
                         : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop';
                 @endphp
                 <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col md:flex-row hover:border-{{ $colorClass }}-500/50 transition-colors shadow-sm group">

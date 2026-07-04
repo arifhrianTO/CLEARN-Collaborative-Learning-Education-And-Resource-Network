@@ -39,14 +39,24 @@ class LandingController extends Controller
         return view('landing.index', compact('courses', 'heroCategories', 'studentCount', 'courseCount', 'mentorCount', 'mentors'));
     }
 
-    public function course()
+    public function course(\Illuminate\Http\Request $request)
     {
-        $courses = Course::where('status_publish', 'published')
-            ->with('enrollments')
-            ->latest()
-            ->get();
+        $search = $request->query('search');
 
-        return view('landing.course', compact('courses'));
+        $coursesQuery = Course::where('status_publish', 'published')
+            ->with('enrollments')
+            ->latest();
+
+        if ($search) {
+            $coursesQuery->where('course_title', 'like', "%{$search}%")
+                ->orWhereHas('mentor', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                });
+        }
+
+        $courses = $coursesQuery->get();
+
+        return view('landing.course', compact('courses', 'search'));
     }
 
     public function category()

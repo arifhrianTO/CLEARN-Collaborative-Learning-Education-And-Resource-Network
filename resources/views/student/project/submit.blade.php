@@ -1,150 +1,157 @@
-<x-dashboard.app-layout>
-    @php
-        $kurikulum = [
-            'Sesi 1: Dasar' => [
-                ['id' => 1, 'type' => 'video', 'title' => 'Pengenalan Web', 'active' => false, 'completed' => true],
-                ['id' => 2, 'type' => 'pdf', 'title' => 'Modul Panduan', 'active' => false, 'completed' => false],
-                ['id' => 3, 'type' => 'quiz', 'title' => 'Kuis Sesi 1', 'active' => false, 'completed' => false],
-            ],
-            'Sesi 2: Layouting' => [
-                ['id' => 4, 'type' => 'video', 'title' => 'Dasar Tailwind', 'active' => false, 'completed' => false],
-                ['id' => 99, 'type' => 'project', 'title' => 'Tugas Akhir (Praktikum)', 'active' => true, 'completed' => false],
-            ]
-        ];
-    @endphp
+@extends('layouts.learning')
 
-    <div class="flex w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#0b0a1a]">
+@section('title', 'Tugas Akhir')
+
+@section('content')
+    <div class="flex w-full h-[calc(100vh)] overflow-hidden bg-slate-50 dark:bg-[#0b0a1a]">
         
-        {{-- SIDEBAR --}}
-        <aside class="w-80 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1826] flex flex-col">
+        {{-- SIDEBAR MATERI --}}
+        <aside class="w-80 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1826] flex flex-col hidden lg:flex">
             {{-- Header Sidebar --}}
             <div class="p-6 border-b border-gray-100 dark:border-gray-800 shrink-0">
-                <h2 class="font-black text-sm dark:text-white mb-1">Program Pelatihan Web</h2>
-                <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">Mentor: Budi Santoso</p>
-                <div class="mt-6">
-                    <div class="flex justify-between text-[10px] font-bold text-slate-400 mb-2">
-                        <span>Progress Kursus</span> <span>54%</span>
-                    </div>
-                    <div class="h-2 bg-slate-100 dark:bg-gray-800 rounded-full">
-                        <div class="h-full bg-primary rounded-full" style="width: 54%"></div>
-                    </div>
-                </div>
+                <a href="{{ route('student.course.lesson', $project->session->course->course_slug) }}" class="flex items-center gap-2 text-slate-500 hover:text-primary mb-4 transition">
+                    <i class="fas fa-arrow-left"></i> <span class="text-xs font-bold">Kembali ke Materi</span>
+                </a>
+                <h2 class="font-black text-sm dark:text-white mb-1">{{ $project->session->course->course_title }}</h2>
+                <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">{{ $project->session->sessions_title }}</p>
             </div>
 
            {{-- DAFTAR SESI --}}
             <div class="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
-                @foreach($kurikulum as $namaSesi => $items)
-                    <div>
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">{{ $namaSesi }}</h4>
-                        <div class="space-y-1">
-                            @foreach($items as $item)
-                                @php
-                                    $targetUrl = match($item['type']) {
-                                        'quiz'    => route('student.quiz'),
-                                        'project' => route('student.project'),
-                                        default   => route('student.lesson'),
-                                    };
-                                @endphp
-
-                                <a href="{{ $targetUrl }}" 
-                                class="flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer 
-                                {{ ($item['active'] ?? false) ? 'active-item bg-primary/10 text-primary' : 'text-slate-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-gray-800' }}">
-                                    
-                                    <div class="flex items-center gap-3">
-                                        @if($item['type'] == 'video') <i class="fas fa-play-circle"></i>
-                                        @elseif($item['type'] == 'pdf') <i class="fas fa-file-pdf"></i>
-                                        @elseif($item['type'] == 'quiz') <i class="fas fa-question-circle"></i>
-                                        @elseif($item['type'] == 'project') <i class="fas fa-file-upload"></i> 
-                                        @endif
-                                        <span>{{ $item['title'] }}</span>
-                                    </div>
-                                    @if($item['type'] == 'project')
-                                        <i class="fas fa-lock text-slate-400 text-xs"></i>
-                                    @endif
-
-                                    @if($item['completed'] ?? false)
-                                        <i class="fas fa-check-circle text-emerald-500 text-xs"></i>
-                                    @endif
-                                </a>
-                            @endforeach
+                <div>
+                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Tugas Akhir</h4>
+                    <div class="space-y-1">
+                        <div class="flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer active-item bg-primary/10 text-primary">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-file-upload"></i>
+                                <span>{{ $project->project_title }}</span>
+                            </div>
                         </div>
-                        
                     </div>
-                @endforeach
+                </div>
             </div>
         </aside>
 
      {{-- MAIN CONTENT --}}
 <main class="flex-1 w-full h-full overflow-y-auto bg-slate-50 dark:bg-[#0b0a1a] custom-scrollbar">
-    <div class="w-full h-full p-8">
+    <div class="w-full h-full p-6 lg:p-8">
+        
+        <div class="lg:hidden mb-4">
+            <a href="{{ route('student.course.lesson', $project->session->course->course_slug) }}" class="flex items-center gap-2 text-slate-500 hover:text-primary transition">
+                <i class="fas fa-arrow-left"></i> <span class="text-xs font-bold">Kembali ke Materi</span>
+            </a>
+        </div>
 
-        {{-- 1. INSTRUKSI TUGAS (Dibuat lebih panjang) --}}
-        <div class="w-full bg-[#1c1826] p-8 rounded-2xl border border-gray-800 mb-6">
-            <div class="flex items-center gap-3 mb-6">
-                <i class="fas fa-book text-[#A487F8] text-sm"></i>
-                <h1 class="text-sm font-bold text-white uppercase tracking-widest">Panduan Tugas</h1>
+        @if(session('success'))
+            <div class="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-bold flex items-center gap-2">
+                <i class="fas fa-check-circle"></i> {{ session('success') }}
             </div>
-            <div class="text-[11px] text-slate-400 leading-relaxed grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="text-[11px] text-slate-400 leading-relaxed">
+        @endif
 
-                <p class="mb-2">Silakan buat aplikasi sederhana menggunakan Tailwind CSS. Pastikan folder mencakup:</p>
-
-                <ul class="list-disc pl-4 space-y-1 font-bold">
-
-                    <li>Struktur folder yang rapi.</li>
-
-                    <li>File index.html utama.</li>
-
-                    <li>Responsive design untuk mobile.</li>
-
+        @if(session('error'))
+            <div class="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold flex items-center gap-2">
+                <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
+            </div>
+        @endif
+        
+        @if($errors->any())
+            <div class="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold">
+                <ul class="list-disc pl-4">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
                 </ul>
-
             </div>
+        @endif
+
+        {{-- 1. INSTRUKSI TUGAS --}}
+        <div class="w-full bg-white dark:bg-[#1c1826] p-8 rounded-2xl border border-gray-200 dark:border-gray-800 mb-6 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fas fa-book text-primary text-sm"></i>
+                <h1 class="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-widest">Panduan Tugas: {{ $project->project_title }}</h1>
+            </div>
+            <div class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed grid grid-cols-1 md:grid-cols-2 gap-8 prose dark:prose-invert">
+                <div>
+                    {!! nl2br(e($project->project_description)) !!}
+                </div>
             </div>
         </div>
 
-        {{-- 2. GRID UPLOAD & STATUS (Proporsi 7:5) --}}
-        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {{-- 2. GRID UPLOAD & STATUS --}}
+        <div class="w-full grid grid-cols-1 xl:grid-cols-12 gap-6">
             
             {{-- Area Upload (7/12) --}}
-            <div class="lg:col-span-7 bg-[#1c1826] rounded-2xl border border-gray-800 p-8 flex flex-col">
+            <div class="xl:col-span-7 bg-white dark:bg-[#1c1826] rounded-2xl border border-gray-200 dark:border-gray-800 p-8 flex flex-col shadow-sm">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-8 h-8 rounded-lg bg-[#A487F8]/20 text-[#A487F8] flex items-center justify-center text-sm">
+                    <div class="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center text-sm">
                         <i class="fas fa-cloud-upload-alt"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-bold text-white">Unggah Tugas</h2>
-                        <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Max 50MB (.zip, .rar)</p>
+                        <h2 class="text-sm font-bold text-slate-800 dark:text-white">Unggah Tugas</h2>
+                        <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Max 50MB ({{ $project->allowed_extensions ?? '.zip, .pdf' }})</p>
                     </div>
                 </div>
 
-                <div class="border-2 border-dashed border-gray-700 rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#A487F8] transition-all fle">
-                    <i class="fas fa-file-archive text-slate-600 text-2xl mb-3"></i>
-                    <p class="text-[10px] font-bold text-slate-400">Seret file zip tugas Anda ke sini</p>
-                </div>
-                
-                <button class="mt-6 w-full py-3 bg-[#A487F8] hover:bg-[#8B6FE8] text-white text-[10px] font-bold rounded-lg uppercase tracking-widest transition-all">
-                    Kirim
-                </button>
+                @if($result)
+                    <div class="border border-emerald-500/30 bg-emerald-500/5 rounded-xl p-10 flex flex-col items-center justify-center text-center h-full min-h-[250px]">
+                        <i class="fas fa-check-circle text-emerald-500 text-3xl mb-3"></i>
+                        @if($result->final_project_score !== null)
+                            <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1">Tugas Selesai Dinilai</p>
+                            <p class="text-xs text-slate-500">Anda mendapatkan skor: <span class="font-black text-emerald-500">{{ $result->final_project_score }}</span></p>
+                        @else
+                            <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1">Tugas Berhasil Dikirim</p>
+                            <p class="text-xs text-slate-500">Menunggu penilaian dari mentor. Anda tidak dapat mengunggah file baru saat ini.</p>
+                        @endif
+                    </div>
+                @else
+                    <form action="{{ route('student.project.submit', $project->id) }}" method="POST" enctype="multipart/form-data" class="flex flex-col h-full">
+                        @csrf
+                        <label for="submission_file" class="flex-1 min-h-[200px] border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary transition-all relative overflow-hidden group">
+                            <i class="fas fa-file-archive text-slate-400 group-hover:text-primary transition-colors text-3xl mb-3"></i>
+                            <p class="text-[12px] font-bold text-slate-500 group-hover:text-primary transition-colors" id="file-name">Pilih file atau seret ke sini</p>
+                            <input type="file" name="submission_file" id="submission_file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" required>
+                        </label>
+                        
+                        <button type="submit" class="mt-6 w-full py-3 bg-primary hover:bg-primary/90 text-white text-[12px] font-bold rounded-lg uppercase tracking-widest transition-all">
+                            {{ $result ? 'Kirim Ulang Tugas' : 'Kirim Tugas' }}
+                        </button>
+                    </form>
+                @endif
             </div>
 
-            {{-- Status Tugas (5/12 - Dibuat lebih lebar & informatif) --}}
-            <div class="lg:col-span-5 bg-[#1c1826] p-8 rounded-2xl border border-gray-800">
+            {{-- Status Tugas (5/12) --}}
+            <div class="xl:col-span-5 bg-white dark:bg-[#1c1826] p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
                 <h4 class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-6">Informasi Status</h4>
                 
                 <div class="space-y-6">
-                    <div class="flex justify-between items-center border-b border-gray-800 pb-4">
-                        <span class="text-[11px] text-slate-400">Status Saat Ini:</span>
-                        <div class="px-3 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded-full">Menunggu Penilaian</div>
+                    <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4">
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Status Saat Ini:</span>
+                        @if(!$result)
+                            <div class="px-3 py-1 bg-red-500/10 text-red-500 text-[10px] font-bold rounded-full">Belum Mengumpulkan</div>
+                        @elseif($result->final_project_score === null)
+                            <div class="px-3 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded-full">Menunggu Penilaian</div>
+                        @else
+                            <div class="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold rounded-full">Sudah Dinilai</div>
+                        @endif
                     </div>
-                    <div class="flex justify-between items-center border-b border-gray-800 pb-4">
-                        <span class="text-[11px] text-slate-400">Tanggal Kirim:</span>
-                        <span class="text-[11px] font-bold text-white">25 Mei 2026, 14:30</span>
+                    
+                    @if($result)
+                    <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4">
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Terakhir Kirim:</span>
+                        <span class="text-[11px] font-bold text-slate-800 dark:text-white">{{ $result->updated_at->format('d M Y, H:i') }}</span>
                     </div>
+                    
+                    <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4">
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400">File Terkirim:</span>
+                        <a href="{{ Storage::url($result->submission_file) }}" target="_blank" class="text-[11px] font-bold text-primary hover:underline flex items-center gap-1">
+                            <i class="fas fa-external-link-alt"></i> Lihat File
+                        </a>
+                    </div>
+                    @endif
                 </div>
                 
-                <div class="mt-8 p-4 bg-slate-900/50 rounded-xl border border-gray-800 text-[10px] text-slate-500 italic">
-                    Catatan: Penilaian akan segera diproses setelah tugas diterima. Pastikan Anda tidak mengubah file setelah status berubah menjadi "Dinilai".
+                <div class="mt-8 p-4 bg-slate-100 dark:bg-slate-900/50 rounded-xl border border-gray-200 dark:border-gray-800 text-[10px] text-slate-500 italic">
+                    Catatan: Penilaian akan diproses oleh mentor setelah tugas diterima. Anda dapat memperbarui kiriman jika belum dinilai.
                 </div>
             </div>
             
@@ -152,12 +159,12 @@
     </div>
 </main>
     </div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const activeItem = document.querySelector('.active-item');
-            if (activeItem) {
-                activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+        document.getElementById('submission_file').addEventListener('change', function(e) {
+            var fileName = e.target.files[0].name;
+            document.getElementById('file-name').textContent = fileName;
+            document.getElementById('file-name').classList.add('text-primary');
         });
     </script>
-</x-dashboard.app-layout>
+@endsection

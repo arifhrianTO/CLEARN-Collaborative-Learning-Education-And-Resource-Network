@@ -24,7 +24,7 @@ class CourseController extends Controller
                 $query->whereHas('course', function ($q) {
                     $q->where('course_price', 0);
                 })->orWhereHas('payment', function ($q) {
-                    $q->where('connection_status', 'success');
+                    $q->whereIn('connection_status', ['success', 'settlement', 'capture', 'paid', 'sukses']);
                 });
             })
             ->with(['course.category', 'course.mentor'])
@@ -52,7 +52,7 @@ class CourseController extends Controller
             if ($enrollment) {
                 $sudahEnroll = true;
                 // Course is free OR payment is success
-                if ($course->course_price == 0 || ($enrollment->payment && $enrollment->payment->connection_status === 'success')) {
+                if ($course->course_price == 0 || ($enrollment->payment && in_array($enrollment->payment->connection_status, ['success', 'settlement', 'capture', 'paid', 'sukses']))) {
                     $isPaid = true;
                 }
             }
@@ -90,10 +90,10 @@ class CourseController extends Controller
             ->with('success', 'Berhasil mendaftar kursus!');
     }
 
-    public function showLesson($slug): View|RedirectResponse
+    public function showLesson(\Illuminate\Http\Request $request, $slug): View|RedirectResponse
     {
         $course = Course::where('course_slug', $slug)
-            ->with(['sessions.lessons.materials', 'sessions.exercise'])
+            ->with(['sessions.lessons.materials', 'sessions.exercise', 'sessions.finalProjects'])
             ->firstOrFail();
 
         // Pengecekan akses: Pastikan student sudah enroll dan sudah bayar lunas (atau kursus gratis)
@@ -105,7 +105,7 @@ class CourseController extends Controller
         $hasAccess = false;
 
         if ($enrollment) {
-            if ($course->course_price == 0 || ($enrollment->payment && $enrollment->payment->connection_status === 'success')) {
+            if ($course->course_price == 0 || ($enrollment->payment && in_array($enrollment->payment->connection_status, ['success', 'settlement', 'capture', 'paid', 'sukses']))) {
                 $hasAccess = true;
             }
         }
@@ -116,7 +116,26 @@ class CourseController extends Controller
                 ->with('error', 'Anda harus menyelesaikan pembayaran terlebih dahulu untuk mengakses materi ini.');
         }
 
-        return view('student.courses.lesson', compact('course'));
+        $lessonId = $request->query('lesson_id');
+        $activeLesson = null;
+        
+        if ($lessonId) {
+            // Find specific lesson from loaded sessions
+            foreach ($course->sessions as $session) {
+                $lesson = $session->lessons->firstWhere('id', $lessonId);
+                if ($lesson) {
+                    $activeLesson = $lesson;
+                    break;
+                }
+            }
+        }
+        
+        // Default to first lesson if not found or not specified
+        if (!$activeLesson && $course->sessions->isNotEmpty() && $course->sessions->first()->lessons->isNotEmpty()) {
+            $activeLesson = $course->sessions->first()->lessons->first();
+        }
+
+        return view('student.courses.lesson', compact('course', 'activeLesson'));
     }
 
     public function certificates(): View
@@ -124,14 +143,14 @@ class CourseController extends Controller
         $user = Auth::user();
 
         $certificates = Certificate::whereHas('enrollment', function ($query) use ($user) {
-            $query->where('student_id', $user->id);
+            $query->where('enrollments.student_id', $user->id);
         })
             ->with(['enrollment.course.mentor'])
             ->latest()
             ->paginate(12);
 
         $totalCertificates = Certificate::whereHas('enrollment', function ($query) use ($user) {
-            $query->where('student_id', $user->id);
+            $query->where('enrollments.student_id', $user->id);
         })->count();
 
         $completedCourses = Enrollment::where('student_id', $user->id)
@@ -178,7 +197,7 @@ class CourseController extends Controller
                 $query->whereHas('course', function ($q) {
                     $q->where('course_price', 0);
                 })->orWhereHas('payment', function ($q) {
-                    $q->where('connection_status', 'success');
+                    $q->whereIn('connection_status', ['success', 'settlement', 'capture', 'paid', 'sukses']);
                 });
             })
             ->with(['course.category'])
