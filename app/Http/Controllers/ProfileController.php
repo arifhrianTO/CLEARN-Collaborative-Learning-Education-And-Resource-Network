@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
@@ -27,11 +28,33 @@ class ProfileController extends Controller
     /**
      * Update informasi profil (nama, email, foto).
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
         $user = $request->user();
 
-        $user->fill($request->validated());
+        // Validasi langsung di sini, menggantikan ProfileUpdateRequest
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                Rule::unique(User::class)->ignore($user->id),
+            ],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'username' => [
+                'nullable',
+                'string',
+                'max:50',
+                'regex:/^[a-z0-9._]+$/',
+                Rule::unique(User::class)->ignore($user->id),
+            ],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+        ]);
+
+        $user->fill($validated);
 
         // Hapus foto jika user klik tombol ×
         if ($request->input('remove_photo') == '1') {
