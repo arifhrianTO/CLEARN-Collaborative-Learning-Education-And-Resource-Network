@@ -42,7 +42,7 @@
 @if(auth()->check() && auth()->user()->role === 'mentor' && auth()->user()->status === 'pending')
 {{-- Modal Status Pending --}}
 <div id="pendingModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden p-4 bg-black/20 backdrop-blur-sm transition-all">
-    <div class="bg-white dark:bg-[#161525] p-8 rounded-2xl shadow-2xl border dark:border-white/5 w-full max-w-sm text-center">
+    <div class="bg-white dark:bg-[#1A1625] p-8 rounded-2xl shadow-2xl border dark:border-white/5 w-full max-w-sm text-center">
         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-50 dark:bg-amber-500/10 flex items-center justify-center">
             <i class="fas fa-exclamation-triangle text-2xl text-amber-500"></i>
         </div>
@@ -75,7 +75,7 @@
 @if(auth()->check() && auth()->user()->role === 'mentor' && auth()->user()->status === 'active')
 {{-- Modal Status Active --}}
 <div id="activeModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden p-4 bg-black/20 backdrop-blur-sm transition-all">
-    <div class="bg-white dark:bg-[#161525] p-8 rounded-2xl shadow-2xl border dark:border-white/5 w-full max-w-sm text-center">
+    <div class="bg-white dark:bg-[#1A1625] p-8 rounded-2xl shadow-2xl border dark:border-white/5 w-full max-w-sm text-center">
         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center">
             <i class="fas fa-check text-2xl text-emerald-500"></i>
         </div>
@@ -114,7 +114,7 @@
 @endphp
 {{-- Modal Status Rejected --}}
 <div id="rejectedModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden p-4 bg-black/20 backdrop-blur-sm transition-all">
-    <div class="bg-white dark:bg-[#161525] p-8 rounded-2xl shadow-2xl border dark:border-white/5 w-full max-w-sm text-center">
+    <div class="bg-white dark:bg-[#1A1625] p-8 rounded-2xl shadow-2xl border dark:border-white/5 w-full max-w-sm text-center">
         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center">
             <i class="fas fa-times text-2xl text-red-500"></i>
         </div>

@@ -51,7 +51,7 @@
         </div>
 
         {{-- Table Card --}}
-        <div class="w-full dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+        <div class="w-full dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead>

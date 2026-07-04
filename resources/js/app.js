@@ -61,15 +61,15 @@ window.toggleTheme = function () {
     if (html.classList.contains("dark")) {
         localStorage.setItem("theme", "dark");
         if (themeIcon) {
-            themeIcon.classList.remove("fa-sun");
-            themeIcon.classList.add("fa-moon");
+            themeIcon.classList.remove("fa-sun", "fa-regular");
+            themeIcon.classList.add("fa-solid", "fa-moon");
             themeIcon.style.color = "#a78bfa";
         }
     } else {
         localStorage.setItem("theme", "light");
         if (themeIcon) {
-            themeIcon.classList.remove("fa-moon");
-            themeIcon.classList.add("fa-sun");
+            themeIcon.classList.remove("fa-solid", "fa-moon");
+            themeIcon.classList.add("fa-regular", "fa-sun");
             themeIcon.style.color = "#7c3aed";
         }
     }
@@ -84,15 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (savedTheme === "dark") {
         html.classList.add("dark");
         if (themeIcon) {
-            themeIcon.classList.remove("fa-sun");
-            themeIcon.classList.add("fa-moon");
+            themeIcon.classList.remove("fa-sun", "fa-regular");
+            themeIcon.classList.add("fa-solid", "fa-moon");
             themeIcon.style.color = "#a78bfa";
         }
     } else {
         html.classList.remove("dark");
         if (themeIcon) {
-            themeIcon.classList.remove("fa-moon");
-            themeIcon.classList.add("fa-sun");
+            themeIcon.classList.remove("fa-solid", "fa-moon");
+            themeIcon.classList.add("fa-regular", "fa-sun");
             themeIcon.style.color = "#7c3aed";
         }
     }

@@ -2,7 +2,7 @@
 
 @section('title', 'CLEARN │ Pilih Peran')
 
-@section('bodyClass', 'min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0f0a19] dark:text-white transition-colors duration-300 font-sans flex items-center justify-center p-4')
+@section('bodyClass', 'min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0F0B1A] dark:text-white transition-colors duration-300 font-sans flex items-center justify-center p-4')
 
 @push('styles')
 <style>
@@ -47,7 +47,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
 
         {{-- Card: Pengajar --}}
-        <div class="role-card bg-white dark:bg-[#1c1826] p-8 rounded-[2rem] flex flex-col border border-slate-200 dark:border-white/5 shadow-sm">
+        <div class="role-card bg-white dark:bg-[#1A1625] p-8 rounded-[2rem] flex flex-col border border-slate-200 dark:border-white/5 shadow-sm">
             <div class="flex flex-col items-start text-left flex-grow">
                 <div class="w-11 h-11 bg-primary/10 text-primary rounded-xl flex items-center justify-center text-lg mb-4">
                     <i class="fas fa-chalkboard-teacher"></i>
@@ -63,7 +63,7 @@
         </div>
 
         {{-- Card: Pelajar --}}
-        <div class="role-card bg-white dark:bg-[#1c1826] p-8 rounded-[2rem] flex flex-col border border-slate-200 dark:border-white/5 shadow-sm">
+        <div class="role-card bg-white dark:bg-[#1A1625] p-8 rounded-[2rem] flex flex-col border border-slate-200 dark:border-white/5 shadow-sm">
             <div class="flex flex-col items-start text-left flex-grow">
                 <div class="w-11 h-11 bg-primary/10 text-primary rounded-xl flex items-center justify-center text-lg mb-4">
                     <i class="fas fa-user-graduate"></i>

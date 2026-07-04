@@ -13,7 +13,7 @@
     active="my-courses" />
 
 <!-- Content -->
-<main class="flex-1 p-6 lg:p-10 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50">
+<main class="flex-1 p-6 lg:p-10 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50">
     <div class="max-w-6xl mx-auto">
 
         {{-- Header Halaman --}}
@@ -30,7 +30,7 @@
         {{-- Ringkasan Statistik --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <!-- Statistik 1 -->
-            <div class="p-5 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-8 h-8 rounded-xl bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8] mb-3 text-sm">
                     <i class="fa-solid fa-book-open"></i>
                 </div>
@@ -38,7 +38,7 @@
                 <p class="text-[9px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-wider mt-1">Kursus Diikuti</p>
             </div>
             <!-- Statistik 2 -->
-            <div class="p-5 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-8 h-8 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-3 text-sm">
                     <i class="fa-solid fa-chart-simple"></i>
                 </div>
@@ -49,7 +49,7 @@
                 <p class="text-[9px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-wider mt-1">Rata-rata Progres</p>
             </div>
             <!-- Statistik 3 -->
-            <div class="p-5 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-8 h-8 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 mb-3 text-sm">
                     <i class="fa-regular fa-clock"></i>
                 </div>
@@ -57,7 +57,7 @@
                 <p class="text-[9px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-wider mt-1">Kursus Selesai</p>
             </div>
             <!-- Statistik 4 -->
-            <div class="p-5 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-8 h-8 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-500 mb-3 text-sm">
                     <i class="fa-solid fa-trophy"></i>
                 </div>
@@ -79,7 +79,7 @@
                             : Storage::url($enrollment->course->course_thumbnail)) 
                         : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop';
                 @endphp
-                <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col md:flex-row hover:border-{{ $colorClass }}-500/50 transition-colors shadow-sm group">
+                <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col md:flex-row hover:border-{{ $colorClass }}-500/50 transition-colors shadow-sm group">
                     <div class="w-full md:w-52 aspect-[16/10] md:aspect-auto overflow-hidden bg-slate-200 relative">
                         <img src="{{ $coverImage }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @if($enrollment->course->category)
@@ -101,7 +101,7 @@
                                 </span>
                             </div>
 
-                            <div class="w-full dark:bg-[#0b0a1a] bg-slate-100 h-1.5 rounded-full mb-1">
+                            <div class="w-full dark:bg-[#0F0B1A] bg-slate-100 h-1.5 rounded-full mb-1">
                                 <div class="bg-{{ $isCompleted ? 'emerald' : 'primary' }}-500 h-1.5 rounded-full shadow-[0_0_8px_{{ $colorHex }}]" style="width: {{ $enrollment->progress }}%"></div>
                             </div>
                             
@@ -135,8 +135,8 @@
                     </div>
                 </div>
             @empty
-                <div class="text-center p-8 bg-white dark:bg-[#161525] rounded-2xl border border-slate-200 dark:border-white/5">
-                    <div class="w-16 h-16 mx-auto bg-slate-100 dark:bg-[#0b0a1a] rounded-full flex items-center justify-center mb-4">
+                <div class="text-center p-8 bg-white dark:bg-[#1A1625] rounded-2xl border border-slate-200 dark:border-white/5">
+                    <div class="w-16 h-16 mx-auto bg-slate-100 dark:bg-[#0F0B1A] rounded-full flex items-center justify-center mb-4">
                         <i class="fa-solid fa-book-open text-slate-400 text-2xl"></i>
                     </div>
                     <h3 class="text-slate-800 dark:text-white font-bold mb-2">Belum ada kursus</h3>

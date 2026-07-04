@@ -62,10 +62,6 @@
 
 <body class="font-sans antialiased bg-gray-50 text-black dark:bg-deep-dark dark:text-white p-6 lg:p-12">
 
-    <button type="button" id="theme-toggle" class="fixed top-5 right-5 z-50 w-11 h-11 flex items-center justify-center rounded-xl bg-white dark:bg-card-dark text-primary shadow-xl border border-gray-200 dark:border-gray-800 hover:scale-110 active:scale-95">
-        <i id="theme-icon" class="fas fa-cog text-lg"></i>
-    </button>
-
     <div class="max-w-5xl mx-auto">
         <div class="mb-4">
             <img
@@ -267,21 +263,12 @@
         </form>
     </div>
 
-    <script>
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-        });
-    </script>
     {{-- Modal Syarat Layanan --}}
     <div id="termsModal"
         class="fixed inset-0 z-[200] flex items-center justify-center hidden p-4 bg-black/30 backdrop-blur-sm">
 
         <div
-            class="overflow-y-auto scrollbar-hide bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
+            class="overflow-y-auto scrollbar-hide bg-white dark:bg-[#1A1625] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
 
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-bold dark:text-white">Syarat Layanan</h2>
@@ -339,7 +326,7 @@
         class="fixed inset-0 z-[200] flex items-center justify-center hidden p-4 bg-black/30 backdrop-blur-sm">
 
         <div
-            class="overflow-y-auto scrollbar-hide bg-white dark:bg-[#161525] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
+            class="overflow-y-auto scrollbar-hide bg-white dark:bg-[#1A1625] p-6 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 w-full max-w-lg max-h-[80vh] flex flex-col">
 
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-bold dark:text-white">Kebijakan Privasi</h2>

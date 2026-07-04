@@ -5,16 +5,17 @@
 @section('content')
 
 <!-- HERO -->
-<section id="beranda" class="relative py-28 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#1A1625]">
+<section id="beranda" class="relative min-h-screen flex flex-col justify-center px-5 md:px-10 text-center overflow-hidden transition-colors duration-300 dark:bg-[#0F0B1A]">
     @include('partials.landing.hero')
 </section>
 
 <!-- KURSUS -->
-<section id="kursus" class="py-20 px-10 max-w-[1400px] mx-auto">
+<section id="kursus" class="py-24 px-5 md:px-10 transition-colors duration-300 dark:bg-[#1A1625]">
+    <div class="max-w-[1400px] mx-auto">
     <div class="relative text-center mb-12 transition-colors">
         <h2 class="text-4xl font-bold mb-3 tracking-tight">Kursus Unggulan</h2>
         <p class="text-slate-500 dark:text-gray-400 text-sm">Pilihan kursus terbaik yang paling diminati pengguna baru</p>
-        <a href="{{route('course') }}" class="absolute right-0 bottom-2 text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold flex items-center group">
+        <a href="{{route('course') }}" class="md:absolute md:right-0 md:bottom-2 mt-4 md:mt-0 text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold inline-flex items-center group">
             Lihat Semua <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
         </a>
     </div>
@@ -24,21 +25,23 @@
         <x-landing.course :course="$course" />
         @endforeach
     </div>
+    </div>
 </section>
 
-<!-- ── KATEGORI + ULASAN ── -->
-<section id="kategori" class="py-24 px-10 transition-colors duration-300 dark:bg-[#120d22]">
-    <div class="relative text-center mb-16">
+<!-- ── KATEGORI ── -->
+<section id="kategori" class="py-24 px-5 md:px-10 transition-colors duration-300 dark:bg-[#0F0B1A]">
+    <div class="max-w-[1400px] mx-auto">
+    <div class="relative text-center mb-12">
          <h2 class="text-4xl font-bold mb-3">Jelajahi Kategori Populer</h2>
-        <p class="text-slate-500 dark:text-gray-400">
+        <p class="text-slate-500 dark:text-gray-400 text-sm">
            Temukan kelas yang sesuai minat dan tujuan karier Anda
         </p>
-        <a href="{{route('category') }}" class="absolute right-0 bottom-2 text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold flex items-center group">
+        <a href="{{route('category') }}" class="md:absolute md:right-0 md:bottom-2 mt-4 md:mt-0 text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold inline-flex items-center group">
             Lihat Semua <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
         </a>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-32">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         @php
         $categories = \App\Models\Category::withCount('courses')->limit(6)->get();
         @endphp
@@ -54,34 +57,25 @@
             href="{{ route('category') }}" />
         @endforeach
     </div>
-
-    </div>
-
-    <!-- ULASAN -->
-    <div id="ulasan" class="text-center max-w-7xl mx-auto">
-      
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-
-        </div>
     </div>
 </section>
 
 <!-- ── PENGAJAR ── -->
-<section id="pengajar" class="py-24 px-10 bg-slate-100 dark:bg-[#0d0c13] transition-colors duration-300">
-    <div class="text-center mb-16 relative">
+<section id="pengajar" class="py-24 px-5 md:px-10 bg-slate-100 dark:bg-[#1A1625] transition-colors duration-300">
+    <div class="max-w-[1400px] mx-auto">
+    <div class="text-center mb-12 relative">
         <h2 class="text-4xl font-bold mb-3">Belajar Dari Yang Terbaik</h2>
-        <p class="text-slate-500 dark:text-gray-400">
+        <p class="text-slate-500 dark:text-gray-400 text-sm">
             Mentor berpengalaman siap membantu proses belajar Anda
         </p>
         <a href="{{ route('mentor') }}"
-            class="absolute right-0 bottom-2 text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold flex items-center group">
-            Lihat Semua
-            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+            class="md:absolute md:right-0 md:bottom-2 mt-4 md:mt-0 text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold inline-flex items-center group">
+            Lihat Semua <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
         </a>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-[1300px] mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         @foreach($mentors as $mentor)
-        <div class="bg-white dark:bg-[#13111a] p-8 rounded-3xl text-center border border-slate-200 dark:border-gray-800 hover:border-[#A487F8] transition-all shadow-md">
+        <div class="bg-white dark:bg-[#0F0B1A] p-8 rounded-3xl text-center border border-slate-200 dark:border-gray-800 hover:border-[#A487F8] transition-all shadow-md">
             <img src="{{ $mentor->profile_picture ? asset('storage/' . $mentor->profile_picture) : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random' }}" class="w-28 h-28 rounded-full mx-auto mb-6 object-cover border-4 border-slate-200 dark:border-gray-800" alt="{{ $mentor->name }}">
             <h6 class="font-bold text-lg mb-1.5">{{ $mentor->name }}</h6>
             <p class="text-xs text-[#A487F8] dark:text-[#A487F8] mb-6 font-semibold tracking-wider">{{ $mentor->occupation ?? 'Mentor' }}</p>
@@ -91,6 +85,7 @@
             </div>
         </div>
         @endforeach
+    </div>
     </div>
 </section>
 

@@ -16,7 +16,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-[#0f0a19] min-h-screen selection:bg-[#A487F8] selection:text-white">
+<body class="font-sans antialiased text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-[#0F0B1A] min-h-screen selection:bg-[#A487F8] selection:text-white">
     <div class="min-h-screen flex flex-col items-center justify-center p-4">
         {{-- Logo --}}
         <div class="mb-8 animate-fade-down">

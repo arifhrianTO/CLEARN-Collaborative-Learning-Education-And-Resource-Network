@@ -4,7 +4,7 @@
 
 @section('content')
 
-<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 min-h-screen">
+<main class="flex-1 p-5 lg:p-8 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50 min-h-screen">
     <div class="max-w-5xl mx-auto">
 
         <div class="mb-8">
@@ -49,7 +49,7 @@
             @csrf
             @method('PUT')
 
-            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-3xl p-6 lg:p-8 shadow-sm">
+            <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-3xl p-6 lg:p-8 shadow-sm">
 
                 <div class="mb-6 flex items-center justify-between gap-4">
                     <h2 class="text-sm font-black text-primary uppercase tracking-widest">
@@ -63,9 +63,9 @@
                     </button>
                 </div>
 
-                <div class="dark:bg-[#0f0a19] bg-slate-50 border dark:border-white/5 border-slate-200 rounded-2xl p-5">
+                <div class="dark:bg-[#1A1625] bg-slate-50 border dark:border-white/5 border-slate-200 rounded-2xl p-5">
 
-                    <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-5 mb-6">
+                    <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-5 mb-6">
                         <label class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
                             Judul Kuis
                         </label>
@@ -141,11 +141,11 @@
                                 rows="4"
                                 required
                                 placeholder="Masukkan pertanyaan..."
-                                class="w-full mb-4 rounded-xl dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 p-4 text-xs dark:text-white text-slate-800 outline-none focus:border-primary transition">{{ $question['question_text'] ?? '' }}</textarea>
+                                class="w-full mb-4 rounded-xl dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 p-4 text-xs dark:text-white text-slate-800 outline-none focus:border-primary transition">{{ $question['question_text'] ?? '' }}</textarea>
 
                             <div class="space-y-3">
                                 @foreach(['A', 'B', 'C', 'D'] as $optionIndex => $label)
-                                <label class="flex items-center gap-3 rounded-xl dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 px-4 py-3">
+                                <label class="flex items-center gap-3 rounded-xl dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 px-4 py-3">
                                     <input type="hidden"
                                         name="questions[{{ $questionIndex }}][options][{{ $optionIndex }}][id]"
                                         value="{{ $question['options'][$optionIndex]['id'] ?? '' }}">
@@ -226,12 +226,12 @@
                     rows="4"
                     required
                     placeholder="Masukkan pertanyaan..."
-                    class="w-full mb-4 rounded-xl dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 p-4 text-xs dark:text-white text-slate-800 outline-none focus:border-primary transition"></textarea>
+                    class="w-full mb-4 rounded-xl dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 p-4 text-xs dark:text-white text-slate-800 outline-none focus:border-primary transition"></textarea>
 
                 <div class="space-y-3">
                     ${['A', 'B', 'C', 'D'].map((label, optionIndex) => {
                         return `
-                            <label class="flex items-center gap-3 rounded-xl dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 px-4 py-3">
+                            <label class="flex items-center gap-3 rounded-xl dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 px-4 py-3">
                                 <input type="hidden"
                                     name="questions[${questionIndex}][options][${optionIndex}][id]"
                                     value="">

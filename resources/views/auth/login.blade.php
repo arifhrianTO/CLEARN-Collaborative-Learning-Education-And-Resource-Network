@@ -39,7 +39,7 @@
 
                     <input type="email" name="email" value="{{ old('email') }}" required
                         class="w-full px-4 py-3 rounded-xl outline-none
-                            bg-slate-50 dark:bg-slate-800
+                            bg-slate-50 dark:bg-[#1A1625]
                             border border-slate-200 dark:border-slate-700
                             focus:ring-2 focus:ring-primary/40 transition">
 
@@ -56,7 +56,7 @@
                     <div class="relative">
                         <input type="password" name="password"
                             class="w-full px-4 py-3 pr-12 rounded-xl outline-none
-                                bg-slate-50 dark:bg-slate-800
+                                bg-slate-50 dark:bg-[#1A1625]
                                 border border-slate-200 dark:border-slate-700
                                 focus:ring-2 focus:ring-primary/40 transition">
 
@@ -101,7 +101,7 @@
 
     {{-- RIGHT --}}
     <div class="hidden lg:flex items-center justify-center p-12
-            bg-slate-100 dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800">
+            bg-slate-100 dark:bg-[#1A1625] border-l border-slate-200 dark:border-slate-800">
         <div class="max-w-lg text-center">
             <div class="w-24 h-24 mx-auto mb-8 rounded-3xl
                     bg-primary flex items-center justify-center text-4xl text-white">

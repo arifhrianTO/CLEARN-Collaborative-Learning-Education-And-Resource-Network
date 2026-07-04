@@ -4,7 +4,7 @@
 
 @section('content')
 
-<section id="kursus" class="relative py-10 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#120d22]">
+<section id="kursus" class="relative py-10 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#0F0B1A]">
     <button
         onclick="window.location='{{ route('home') }}'"
         class="absolute left-6 top-6 z-50 text-white hover:opacity-80 transition">
@@ -22,7 +22,7 @@
     </p>
 </section>
 
-<div class="w-full bg-slate-100 dark:bg-[#1A1625] py-6 border-y border-slate-200 dark:border-white/5 transition-colors">
+<div class="w-full bg-slate-100 dark:bg-[#0F0B1A] py-6 border-y border-slate-200 dark:border-white/5 transition-colors">
     <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
 
         <div class="relative w-full md:max-w-x6">

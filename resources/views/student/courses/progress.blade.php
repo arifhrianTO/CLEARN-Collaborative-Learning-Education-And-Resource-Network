@@ -11,7 +11,7 @@
     active="progress" />
 
 <!-- Content -->
-<main class="flex-1 p-6 lg:p-10 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50">
+<main class="flex-1 p-6 lg:p-10 transition-colors duration-300 dark:bg-[#0F0B1A] bg-slate-50">
     <div class="max-w-5xl mx-auto">
 
         {{-- Header Halaman --}}
@@ -23,7 +23,7 @@
         {{-- Ringkasan Statistik Progres --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <!-- Stat 1: Kelas Aktif -->
-            <div class="p-5 flex items-center gap-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary text-sm">
                     <i class="fas fa-book-open"></i>
                 </div>
@@ -34,7 +34,7 @@
             </div>
 
             <!-- Stat 2: Sesi yang Sudah Diikuti -->
-            <div class="p-5 flex items-center gap-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary text-sm">
                     <i class="fas fa-check-circle"></i>
                 </div>
@@ -45,7 +45,7 @@
             </div>
 
             <!-- Stat 3: Rata-rata Nilai Kuis -->
-            <div class="p-5 flex items-center gap-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary text-sm">
                     <i class="fas fa-star"></i>
                 </div>
@@ -60,9 +60,9 @@
         <div class="space-y-4">
             @forelse($enrollments as $enrollment)
             <!-- Kursus -->
-            <div class="p-5 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm flex flex-col md:flex-row gap-5 items-start md:items-center justify-between">
+            <div class="p-5 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm flex flex-col md:flex-row gap-5 items-start md:items-center justify-between">
                 <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full">
-                    <div class="w-full sm:w-28 h-20 bg-slate-100 dark:bg-[#0b0a1a] rounded-xl overflow-hidden flex-shrink-0 border dark:border-white/5 border-slate-200">
+                    <div class="w-full sm:w-28 h-20 bg-slate-100 dark:bg-[#0F0B1A] rounded-xl overflow-hidden flex-shrink-0 border dark:border-white/5 border-slate-200">
                         @if($enrollment->course->course_image)
                             <img src="{{ Storage::url($enrollment->course->course_image) }}" alt="Thumbnail" class="w-full h-full object-cover">
                         @else
@@ -90,7 +90,7 @@
                             @endif
                         </p>
 
-                        <div class="w-full bg-slate-100 dark:bg-[#0b0a1a] h-1.5 rounded-full mt-3 overflow-hidden">
+                        <div class="w-full bg-slate-100 dark:bg-[#0F0B1A] h-1.5 rounded-full mt-3 overflow-hidden">
                             <div class="{{ $enrollment->progress == 100 ? 'bg-green-500' : 'bg-primary' }} h-full transition-all duration-500" style="width: {{ $enrollment->progress }}%"></div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                         <p class="text-[9px] dark:text-slate-500 text-slate-400 font-bold uppercase tracking-wider">Selesai</p>
                     </div>
                     @if($enrollment->progress == 100)
-                        <button class="bg-slate-200 dark:bg-[#0b0a1a] text-slate-500 dark:text-slate-400 text-[10px] font-bold px-5 py-2.5 rounded-xl uppercase tracking-widest cursor-not-allowed w-full sm:w-auto text-center">
+                        <button class="bg-slate-200 dark:bg-[#0F0B1A] text-slate-500 dark:text-slate-400 text-[10px] font-bold px-5 py-2.5 rounded-xl uppercase tracking-widest cursor-not-allowed w-full sm:w-auto text-center">
                             Selesai
                         </button>
                     @else
@@ -114,7 +114,7 @@
             </div>
             @empty
                 <div class="card-bg p-10 text-center">
-                    <div class="w-16 h-16 bg-gray-100 dark:bg-[#1a1429] rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+                    <div class="w-16 h-16 bg-gray-100 dark:bg-[#1A1625] rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
                         <i class="fas fa-book text-2xl"></i>
                     </div>
                     <h3 class="text-lg font-bold mb-2">Belum ada kelas</h3>

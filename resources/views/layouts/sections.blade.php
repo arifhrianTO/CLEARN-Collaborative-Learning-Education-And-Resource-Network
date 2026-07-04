@@ -24,7 +24,7 @@
 </head>
 
 <body class="antialiased text-sm">
-    <main class="transition-colors duration-300 bg-slate-50 dark:bg-[#08070d] min-h-screen text-slate-900 dark:text-white">
+    <main class="transition-colors duration-300 bg-slate-50 dark:bg-[#0F0B1A] min-h-screen text-slate-900 dark:text-white">
         @yield('content')
     </main>
     

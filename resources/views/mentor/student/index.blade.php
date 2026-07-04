@@ -32,7 +32,7 @@
                 </span>
 
                 <input type="text" id="searchStudent" placeholder="Cari pelajar..."
-                    class="w-full pl-9 pr-4 py-2 bg-white dark:bg-[#161525] border border-slate-200 dark:border-white/5 rounded-xl text-[10px] text-slate-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#A487F8] transition-all placeholder:text-slate-400">
+                    class="w-full pl-9 pr-4 py-2 bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 rounded-xl text-[10px] text-slate-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#A487F8] transition-all placeholder:text-slate-400">
             </div>
         </header>
 
@@ -40,7 +40,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
             {{-- Total Pelajar --}}
-            <div class="p-6 flex items-center justify-between dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-6 flex items-center justify-between dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div>
                     <h2 class="text-2xl font-black leading-none dark:text-white text-slate-800 mb-1">
                         {{ $totalStudents ?? 0 }}
@@ -57,7 +57,7 @@
             </div>
 
             {{-- Pelajar Aktif --}}
-            <div class="p-6 flex items-center justify-between dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-6 flex items-center justify-between dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div>
                     <h2 class="text-2xl font-black leading-none dark:text-white text-slate-800 mb-1">
                         {{ $activeStudents ?? 0 }}
@@ -74,7 +74,7 @@
             </div>
 
             {{-- Rata-rata Kursus --}}
-            <div class="p-6 flex items-center justify-between dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-6 flex items-center justify-between dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div>
                     <h2 class="text-2xl font-black leading-none dark:text-white text-slate-800 mb-1">
                         {{ $avgCourses ?? 0 }}
@@ -93,7 +93,7 @@
         </div>
 
         {{-- Tabel Data Pelajar --}}
-        <div class="bg-white dark:bg-[#161525] border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+        <div class="bg-white dark:bg-[#1A1625] border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead>

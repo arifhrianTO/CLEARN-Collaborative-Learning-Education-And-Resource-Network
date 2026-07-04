@@ -1,12 +1,9 @@
 @extends('layouts.learning')
 
-@section('title', 'Tugas Akhir')
-
-@section('content')
-    <div class="flex w-full h-[calc(100vh)] overflow-hidden bg-slate-50 dark:bg-[#0b0a1a]">
+    <div class="flex w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#0F0B1A]">
         
-        {{-- SIDEBAR MATERI --}}
-        <aside class="w-80 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1826] flex flex-col hidden lg:flex">
+        {{-- SIDEBAR --}}
+        <aside class="w-80 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1A1625] flex flex-col">
             {{-- Header Sidebar --}}
             <div class="p-6 border-b border-gray-100 dark:border-gray-800 shrink-0">
                 <a href="{{ route('student.course.lesson', $project->session->course->course_slug) }}" class="flex items-center gap-2 text-slate-500 hover:text-primary mb-4 transition">
@@ -33,6 +30,7 @@
         </aside>
 
      {{-- MAIN CONTENT --}}
+<<<<<<< HEAD
 <main class="flex-1 w-full h-full overflow-y-auto bg-slate-50 dark:bg-[#0b0a1a] custom-scrollbar">
     <div class="w-full h-full p-6 lg:p-8">
         
@@ -41,6 +39,10 @@
                 <i class="fas fa-arrow-left"></i> <span class="text-xs font-bold">Kembali ke Materi</span>
             </a>
         </div>
+=======
+<main class="flex-1 w-full h-full overflow-y-auto bg-slate-50 dark:bg-[#0F0B1A] custom-scrollbar">
+    <div class="w-full h-full p-8">
+>>>>>>> main
 
         @if(session('success'))
             <div class="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-bold flex items-center gap-2">

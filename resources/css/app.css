@@ -9,13 +9,13 @@
 @theme {
     --color-primary: #A487F8;
     --color-secondary: #A487F8;
-    --color-dark-bg: #090613;
-    --color-dark-sidebar: #120d22;
-    --color-dark-card: #17122b;
+    --color-dark-bg: #0F0B1A;
+    --color-dark-sidebar: #1A1625;
+    --color-dark-card: #1A1625;
     --color-border-custom: #2d2644;
-    --color-deep-dark: #0f0a19;
-    --color-card-dark: #1c1826;
-    --color-icon-bg-dark: #1a142f;
+    --color-deep-dark: #0F0B1A;
+    --color-card-dark: #1A1625;
+    --color-icon-bg-dark: #1A1625;
 
     --font-sans:
         "Inter", system-ui, -apple-system, sans-serif;
@@ -76,7 +76,7 @@
     }
 
     .dark body {
-        @apply bg-[#121128] text-white;
+        @apply bg-[#0F0B1A] text-white;
     }
 }
 
@@ -124,7 +124,7 @@
         @apply bg-white/80 backdrop-blur-md border-b border-slate-200;
     }
     .dark nav {
-        @apply bg-[#121128]/95 border-white/5;
+        @apply bg-[#0F0B1A]/95 border-white/5;
     }
 
     .card-landing {
@@ -132,7 +132,7 @@
         @apply bg-white border-slate-200 shadow-sm hover:shadow-md;
     }
     .dark .card-landing {
-        @apply bg-[#1a1932] border-white/5 shadow-none hover:border-purple-500/30;
+        @apply bg-[#1A1625] border-white/5 shadow-none hover:border-purple-500/30;
     }
 
     .btn-gradient-glow {
@@ -181,7 +181,7 @@
         @apply bg-white border-slate-200;
     }
     .dark footer {
-        @apply bg-[#121128] border-white/5;
+        @apply bg-[#0F0B1A] border-white/5;
     }
 
     .glow-center {

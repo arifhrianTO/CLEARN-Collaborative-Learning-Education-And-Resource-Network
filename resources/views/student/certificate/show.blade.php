@@ -23,17 +23,14 @@
         }
     </script>
 </head>
-<body class="min-h-screen font-sans antialiased bg-white dark:bg-[#0f0a19] text-slate-900 dark:text-white transition-colors duration-300">
+<body class="min-h-screen font-sans antialiased bg-white dark:bg-[#0F0B1A] text-slate-900 dark:text-white transition-colors duration-300">
 
     {{-- Tombol Kembali dan Toggle Tema --}}
     <div class="fixed top-5 left-5 right-5 z-50 flex justify-between items-center px-4">
-        <a href="{{ route('student.certif') }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-[#1c1826] border border-gray-100 dark:border-gray-800 hover:scale-110 transition-all shadow-sm group">
+        <a href="{{ route('student.certif') }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-[#1A1625] border border-gray-100 dark:border-gray-800 hover:scale-110 transition-all shadow-sm group">
             <i class="fas fa-arrow-left text-[#A487F8] group-hover:-translate-x-1 transition-transform"></i>
         </a>
-        <button onclick="window.toggleTheme()"
-            class="w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-[#1c1826] text-[#A487F8] shadow-sm border border-gray-100 dark:border-gray-800 hover:scale-110 transition-all duration-300">
-            <i id="theme-icon" class="fas fa-moon text-lg"></i>
-        </button>
+
     </div>
 
     {{-- Container Utama: Flex untuk memusatkan secara vertikal --}}

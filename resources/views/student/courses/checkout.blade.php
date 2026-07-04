@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-6 lg:p-10 flex justify-center items-center min-h-[70vh]">
-    <div class="max-w-md w-full bg-white dark:bg-[#110D1F] border border-gray-200 dark:border-[#2d2644] rounded-2xl p-8 shadow-lg text-center">
+    <div class="max-w-md w-full bg-white dark:bg-[#1A1625] border border-gray-200 dark:border-[#2d2644] rounded-2xl p-8 shadow-lg text-center">
         
         <div class="mb-6">
             <i class="fas fa-wallet text-5xl text-primary mb-4"></i>
@@ -12,7 +12,7 @@
             <p class="text-muted-custom text-sm">Anda akan membeli kelas <strong>{{ $course->course_title }}</strong>.</p>
         </div>
 
-        <div class="bg-gray-50 dark:bg-[#1a1429] rounded-xl p-4 mb-8 text-left border border-gray-100 dark:border-[#2d2644]">
+        <div class="bg-gray-50 dark:bg-[#1A1625] rounded-xl p-4 mb-8 text-left border border-gray-100 dark:border-[#2d2644]">
             <div class="flex justify-between mb-2">
                 <span class="text-muted-custom text-sm">Total Tagihan</span>
                 <span class="font-bold">Rp{{ number_format($payment->gross_amount, 0, ',', '.') }}</span>

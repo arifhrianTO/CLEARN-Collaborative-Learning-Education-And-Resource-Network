@@ -43,9 +43,6 @@
                 </div>
             </div>
 
-            <button onclick="toggleTheme()" class="p-2 rounded-xl hover:bg-gray-500/10 transition">
-                <i id="theme-icon" class="fa-solid fa-moon text-lg text-primary"></i>
-            </button>
         </div>
     </header>
 

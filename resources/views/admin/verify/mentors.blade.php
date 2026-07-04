@@ -13,16 +13,16 @@
     active="mentor-verification" />
 
 <!-- Content -->
-<main class="flex-1 p-6 pt-10">
+<main class="flex-1 p-5 lg:p-8">
     <div class="max-w-5xl mx-auto">
 
         {{-- Header --}}
         <header class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-                <h1 class="text-xl font-bold">
+                <h1 class="text-lg font-bold">
                     Verifikasi Pengajar
                 </h1>
-                <p class="text-[11px] text-slate-500">
+                <p class="text-[10px] text-slate-500">
                     Tinjau dokumen calon pengajar sebelum memberikan akses dashboard.
                 </p>
             </div>

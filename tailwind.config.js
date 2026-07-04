@@ -12,9 +12,9 @@ import forms from '@tailwindcss/forms';
         extend: {
             colors: {
                 primary: '#7C3AED',
-                'dark-bg': '#090613',
-                'dark-sidebar': '#120d22',
-                'dark-card': '#17122b',
+                'dark-bg': '#0F0B1A',
+                'dark-sidebar': '#1A1625',
+                'dark-card': '#1A1625',
                 'border-custom': '#2d2644',
                 'deep-dark': '#020617',
                 'card-dark': '#0f172a',

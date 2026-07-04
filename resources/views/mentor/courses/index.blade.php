@@ -64,7 +64,7 @@
         {{-- Popup Alert untuk Bank Kosong --}}
         @if(session('showBankPopup'))
         <div id="bankPopup" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-fade-in">
-            <div class="bg-white dark:bg-[#1c1826] border border-gray-100 dark:border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl relative animate-scale-up">
+            <div class="bg-white dark:bg-[#1A1625] border border-gray-100 dark:border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl relative animate-scale-up">
                 
                 {{-- Tombol Close --}}
                 <button onclick="document.getElementById('bankPopup').remove()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
@@ -109,7 +109,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 
             {{-- Total Kursus --}}
-            <div class="p-4 flex items-center justify-between dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-4 flex items-center justify-between dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div>
                     <h2 class="text-xl font-black leading-none dark:text-white text-slate-800 mb-1">
                         {{ $totalCourse ?? 0 }}
@@ -126,7 +126,7 @@
             </div>
 
             {{-- Total Approved --}}
-            <div class="p-4 flex items-center justify-between dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-4 flex items-center justify-between dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div>
                     <h2 class="text-xl font-black leading-none dark:text-white text-slate-800 mb-1">
                         {{ $totalApproved ?? 0 }}
@@ -143,7 +143,7 @@
             </div>
 
             {{-- Total Pending --}}
-            <div class="p-4 flex items-center justify-between dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+            <div class="p-4 flex items-center justify-between dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div>
                     <h2 class="text-xl font-black leading-none dark:text-white text-slate-800 mb-1">
                         {{ $totalPending ?? 0 }}
@@ -167,10 +167,10 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
             @foreach($courses as $course)
-            <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm transition-all duration-300 hover:border-primary/50 hover:-translate-y-1">
+            <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm transition-all duration-300 hover:border-primary/50 hover:-translate-y-1">
 
                 {{-- Thumbnail --}}
-                <div class="relative h-48 overflow-hidden bg-slate-200 dark:bg-[#0f0a19]">
+                <div class="relative h-48 overflow-hidden bg-slate-200 dark:bg-[#1A1625]">
 
                     @if($course->course_thumbnail)
                     <img src="{{ asset('storage/' . $course->course_thumbnail) }}"
@@ -270,7 +270,7 @@
 
         {{-- Pagination --}}
         @if($courses->hasPages())
-        <div class="mt-8 p-4 dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
+        <div class="mt-8 p-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
 
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
 
@@ -348,7 +348,7 @@
         @else
 
         {{-- Empty State --}}
-        <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl p-10 text-center shadow-sm">
+        <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl p-10 text-center shadow-sm">
 
             <div class="w-14 h-14 mx-auto rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-4">
                 <i class="fas fa-book-open text-xl"></i>
