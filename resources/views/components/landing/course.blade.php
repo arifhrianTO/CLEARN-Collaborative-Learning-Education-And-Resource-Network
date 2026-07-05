@@ -1,6 +1,6 @@
 @props(['course'])
 
-<a href="{{ route('course.show', $course->course_slug) }}"
+<a href="{{ route('public.course.show', $course->course_slug) }}"
     class="block bg-white dark:bg-[#0F0B1A] rounded-2xl overflow-hidden border border-slate-200 dark:border-gray-800/60 hover:border-[#A487F8]/50 transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer shadow-sm hover:shadow-xl">
     <div class="relative h-44 md:h-56 overflow-hidden">
         <img src="{{ $course->course_thumbnail ? asset('storage/' . $course->course_thumbnail) : asset('images/default-course.png') }}"
@@ -11,7 +11,7 @@
     <div class="p-7">
         <h4 class="font-bold text-lg leading-snug mb-2.5 h-12 overflow-hidden">{{ $course->course_title }}</h4>
         <p class="text-xs text-slate-500 dark:text-gray-400 mb-4 flex items-center">
-            <i class="fas fa-user-circle mr-1.5"></i> {{ $course->mentor->name ?? 'Tim Mentor' }}
+            <i class="fas fa-user-circle mr-1.5"></i> {{ $course->mentor->name ?? 'Tim Pengajar' }}
         </p>
         <div class="flex items-center justify-between text-xs mb-5">
             <div class="flex items-center text-yellow-500">

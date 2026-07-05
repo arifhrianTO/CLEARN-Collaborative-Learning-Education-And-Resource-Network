@@ -70,6 +70,6 @@
     </div>
 
     <div class="max-w-[1400px] mx-auto text-center mt-20 pt-8 border-t border-gray-900 text-gray-500 text-xs tracking-wide">
-        © 2026 <span class="text-[#A487F8] font-semibold">clearn Indonesia</span>. All rights reserved.
+        © 2026 <span class="text-[#A487F8] font-semibold">clearn Indonesia</span>. Hak cipta dilindungi.
     </div>
 </footer>

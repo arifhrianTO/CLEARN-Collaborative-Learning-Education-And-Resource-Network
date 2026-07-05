@@ -136,7 +136,7 @@
                                 <h3 class="font-extrabold text-[15px] leading-tight tracking-tight group-hover:text-primary transition-colors">{{ $payment->enrollment->course->course_title }}</h3>
                                 <p class="text-[15px] font-black tracking-tight text-primary">Rp{{ number_format($payment->gross_amount, 0, ',', '.') }}</p>
                             </div>
-                            <p class="text-[10px] text-muted-custom mb-5 font-bold tracking-widest uppercase">{{ $payment->enrollment->course->mentor->name ?? 'Mentor Clearn' }}</p>
+                            <p class="text-[10px] text-muted-custom mb-5 font-bold tracking-widest uppercase">{{ $payment->enrollment->course->mentor->name ?? 'Pengajar Clearn' }}</p>
                             
                             <div class="flex gap-2">
                                 @if($payment->connection_status === 'success' || $payment->connection_status === 'settlement')
@@ -154,7 +154,7 @@
                     </div>
                     <h3 class="text-lg font-bold mb-2">Belum ada transaksi</h3>
                     <p class="text-muted-custom text-sm mb-6">Anda belum pernah melakukan pembelian kursus apapun.</p>
-                    <a href="{{ route('courses') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Cari Kursus</a>
+                    <a href="{{ route('course') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Cari Kursus</a>
                 </div>
                 @endforelse
 

@@ -77,7 +77,7 @@
 
                         @if($isLast)
                             <button class="w-full py-3 bg-[#A487F8] hover:bg-[#8B6FE8] text-white text-[9px] font-black rounded-lg uppercase tracking-widest transition-all shadow-lg shadow-[#A487F8]/20">
-                                Submit Seluruh Jawaban
+                                Kumpulkan Semua Jawaban
                             </button>
                         @endif
                     </div>

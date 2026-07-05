@@ -1,13 +1,13 @@
 @extends('layouts.guest')
 
-@section('title', 'CLEARN │ Lupa Password')
+@section('title', 'CLEARN │ Lupa Kata Sandi')
 
 @section('content')
 <div class="bg-white dark:bg-[#1A1625] border border-slate-100 dark:border-white/5 p-8 rounded-3xl shadow-2xl w-full">
     <div class="mb-8 text-center sm:text-left">
-        <h2 class="text-slate-800 dark:text-white text-xl font-black tracking-tight mb-2">Lupa Password?</h2>
+        <h2 class="text-slate-800 dark:text-white text-xl font-black tracking-tight mb-2">Lupa Kata Sandi?</h2>
         <p class="text-xs font-medium leading-relaxed text-slate-500 dark:text-slate-400">
-            {{ __('Jangan khawatir. Masukkan alamat email Anda di bawah ini, dan kami akan mengirimkan tautan untuk mereset password Anda.') }}
+            {{ __('Jangan khawatir. Masukkan alamat email Anda di bawah ini, dan kami akan mengirimkan tautan untuk mereset kata sandi Anda.') }}
         </p>
     </div>
 
@@ -40,7 +40,7 @@
         <div class="flex flex-col gap-4 pt-2">
             <button type="submit"
                 class="w-full flex items-center justify-center px-4 py-3.5 bg-[#A487F8] text-white text-xs font-bold uppercase tracking-widest rounded-xl shadow-lg shadow-[#A487F8]/20 hover:bg-[#8B6FE8] hover:-translate-y-0.5 active:translate-y-0 transition-all gap-2">
-                Kirim Tautan Reset <i class="fa-solid fa-arrow-right"></i>
+                Kirim Tautan Atur Ulang <i class="fa-solid fa-arrow-right"></i>
             </button>
 
             <a href="{{ route('login') }}" class="text-center text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-[#A487F8] dark:hover:text-[#A487F8] transition-colors py-2 flex items-center justify-center gap-2">

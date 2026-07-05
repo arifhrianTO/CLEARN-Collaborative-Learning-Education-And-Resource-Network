@@ -79,7 +79,7 @@
 
                     <a href="{{ route('password.request') }}"
                         class="text-primary font-semibold hover:underline">
-                        Lupa sandi?
+                        Lupa kata sandi?
                     </a>
                 </div>
 

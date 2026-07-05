@@ -226,7 +226,7 @@
                             <select id="material_type"
                                 name="material_type"
                                 class="w-full px-4 py-3.5 rounded-xl dark:bg-[#1A1625] bg-slate-50 border dark:border-white/10 border-slate-200 dark:text-white text-slate-800 text-xs font-bold outline-none focus:border-primary transition">
-                                <option value="">Tanpa material tambahan</option>
+                                <option value="">Tanpa materi tambahan</option>
                                 <option value="pdf" {{ old('material_type') === 'pdf' ? 'selected' : '' }}>Unggah File </option>
                                 <option value="link" {{ old('material_type') === 'link' ? 'selected' : '' }}>Tautan Eksternal</option>
                             </select>

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'CLEARN │ Edit Materi')
+@section('title', 'CLEARN │ Ubah Materi')
 
 @section('content')
 
@@ -10,18 +10,18 @@
         <a href="{{ route('mentor.courses.sessions.edit', $lesson->session->course_id) }}"
             class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary transition">
             <i class="fa-solid fa-arrow-left"></i>
-            Kembali ke Isi Sessions
+            Kembali ke Daftar Pertemuan
         </a>
 
         <div class="mt-6 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-3xl p-6 lg:p-8 shadow-sm">
 
             <div class="mb-6">
                 <h1 class="text-xl font-black dark:text-white text-slate-800">
-                    Edit Lesson
+                    Ubah Pelajaran
                 </h1>
 
                 <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-1">
-                    Lesson dari:
+                    Pelajaran dari:
                     <span class="font-bold text-primary">
                         {{ $lesson->session->sessions_title }}
                     </span>
@@ -44,7 +44,7 @@
 
                 <div class="mb-5">
                     <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
-                        Judul Lesson
+                        Judul Pelajaran
                     </label>
 
                     <input type="text"
@@ -56,7 +56,7 @@
 
                 <div class="mb-6">
                     <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">
-                        Deskripsi Lesson
+                        Deskripsi Pelajaran
                     </label>
 
                     <textarea name="lessons_description"
@@ -66,7 +66,7 @@
 
                 <div class="mb-6">
                     <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
-                        Material Saat Ini
+                        Materi Saat Ini
                     </p>
 
                     <div class="space-y-3">
@@ -94,7 +94,7 @@
                         </div>
                         @empty
                         <div class="p-4 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-400 text-xs font-bold">
-                            Belum ada material.
+                            Belum ada materi.
                         </div>
                         @endforelse
                     </div>
@@ -111,7 +111,7 @@
                         class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-500 text-sm outline-none focus:border-primary transition">
 
                     <p class="text-[10px] text-slate-400 mt-2">
-                        Opsional. Jika diisi, material baru akan ditambahkan.
+                        Opsional. Jika diisi, materi baru akan ditambahkan.
                     </p>
                 </div>
 

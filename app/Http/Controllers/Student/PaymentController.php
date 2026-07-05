@@ -171,7 +171,7 @@ class PaymentController extends Controller
     {
         $orderId = $request->query('order_id');
         if (!$orderId) {
-            return redirect()->route('student.courses')->with('error', 'Order ID tidak ditemukan.');
+            return redirect()->route('student.course.index')->with('error', 'Order ID tidak ditemukan.');
         }
 
         $payment = Payment::where('midtrans_order_id', $orderId)
@@ -181,7 +181,7 @@ class PaymentController extends Controller
             ->first();
 
         if (!$payment) {
-            return redirect()->route('student.courses')->with('error', 'Transaksi tidak ditemukan atau tidak valid.');
+            return redirect()->route('student.course.index')->with('error', 'Transaksi tidak ditemukan atau tidak valid.');
         }
 
         if ($payment->connection_status === 'success') {

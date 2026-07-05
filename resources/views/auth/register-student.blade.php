@@ -82,7 +82,7 @@
                 <div>
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Kata Sandi</label>
                     <div class="relative">
-                        <input id="password" type="password" name="password" placeholder="Masukkan Password "
+                            <input id="password" type="password" name="password" placeholder="Masukkan Kata Sandi"
                             class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1A1625] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                         <i
                             class="fas fa-eye password-toggle absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 text-xs cursor-pointer"
@@ -94,7 +94,7 @@
                 <div>
                     <label class="text-xs font-semibold mb-1.5 block text-gray-700 dark:text-gray-300">Konfirmasi Kata Sandi</label>
                     <div class="relative">
-                        <input id="password_confirmation" type="password" name="password_confirmation" placeholder="Ulangi Password"
+                            <input id="password_confirmation" type="password" name="password_confirmation" placeholder="Ulangi Kata Sandi"
                             class="w-full px-4 py-2.5 pr-10 bg-gray-50 dark:bg-[#1A1625] border border-gray-200 dark:border-gray-800 dark:text-white rounded-xl outline-none focus:ring-2 focus:ring-[#A487F8]/50 text-sm transition-all">
                         <i
                             class="fas fa-eye password-toggle absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 text-xs cursor-pointer"
@@ -182,8 +182,8 @@
             </section>
 
             <section>
-                <h4 class="font-bold text-slate-800 dark:text-white mb-2">4. Fitur Penghasilan Mentor</h4>
-                <p class="text-xs">Mentor memperoleh penghasilan berdasarkan penjualan kursus, jumlah peserta, atau penyelesaian program. Kami berhak menunda pembayaran jika ditemukan aktivitas mencurigakan.</p>
+                <h4 class="font-bold text-slate-800 dark:text-white mb-2">4. Fitur Penghasilan Pengajar</h4>
+                <p class="text-xs">Pengajar memperoleh penghasilan berdasarkan penjualan kursus, jumlah peserta, atau penyelesaian program. Kami berhak menunda pembayaran jika ditemukan aktivitas mencurigakan.</p>
             </section>
 
             <section>

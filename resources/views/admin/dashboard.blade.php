@@ -32,7 +32,7 @@
                     <i class="fa-solid fa-user-graduate"></i>
                 </div>
                 <h3 class="text-xl font-extrabold">{{ $totalMentor ?? 0 }}</h3>
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Jumlah Mentor</p>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Jumlah Pengajar</p>
             </div>
 
             <div class="card-bg p-4">

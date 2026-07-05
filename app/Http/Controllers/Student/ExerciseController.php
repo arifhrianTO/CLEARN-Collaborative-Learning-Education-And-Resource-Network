@@ -30,7 +30,7 @@ class ExerciseController extends Controller
             ->first();
             
         if (!$enrollment) {
-             return redirect()->route('student.courses')->with('error', 'Anda belum terdaftar di kursus ini.');
+             return redirect()->route('student.course.index')->with('error', 'Anda belum terdaftar di kursus ini.');
         }
         
         $hasAttempted = ExerciseAttempt::where('enrollment_id', $enrollment->id)
@@ -58,7 +58,7 @@ class ExerciseController extends Controller
             ->first();
             
         if (!$enrollment) {
-             return redirect()->route('student.courses')->with('error', 'Anda belum terdaftar di kursus ini.');
+             return redirect()->route('student.course.index')->with('error', 'Anda belum terdaftar di kursus ini.');
         }
         
         $hasAttempted = ExerciseAttempt::where('enrollment_id', $enrollment->id)

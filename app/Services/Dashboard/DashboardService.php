@@ -11,7 +11,7 @@ class DashboardService
 {
     public function studentData(): ?array
     {
-        $user = User::with('profileAccount')->find(session('user_id', auth()->id()));
+        $user = User::with('profileAccount')->find(auth()->id());
         
         $activeEnrollments = \App\Models\Enrollment::where('student_id', $user->id)
             ->where(function($query) {
@@ -42,7 +42,7 @@ class DashboardService
     {
         return User::with('profileAccount')
             ->where('role', 'mentor')
-            ->find(session('user_id', auth()->id()));
+            ->find(auth()->id());
     }
 
     public function adminStats(): array

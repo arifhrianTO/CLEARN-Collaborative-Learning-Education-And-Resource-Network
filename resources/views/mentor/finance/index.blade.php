@@ -23,7 +23,7 @@
         {{-- Header --}}
         <header class="mb-8 animate-fade-down">
             <div>
-                <h1 class="text-2xl font-abold tracking-tight">Pendapatan Mentor</h1>
+                <h1 class="text-2xl font-abold tracking-tight">Pendapatan Pengajar</h1>
                 <p class="text-slate-500 dark:text-gray-400 text-xs mt-0.5 font-medium">
                     Pantau total penjualan kursus Anda dan status keuangan.
                 </p>

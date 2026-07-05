@@ -59,22 +59,41 @@ class LandingController extends Controller
         return view('landing.course', compact('courses', 'search'));
     }
 
-    public function category()
+    public function category(\Illuminate\Http\Request $request)
     {
-        $categories = Category::all();
-        return view('landing.category', compact('categories'));
+        $search = $request->query('search');
+
+        $categoriesQuery = Category::withCount('courses');
+
+        if ($search) {
+            $categoriesQuery->where('category_name', 'like', "%{$search}%");
+        }
+
+        $categories = $categoriesQuery->get();
+
+        return view('landing.category', compact('categories', 'search'));
     }
 
-    public function mentor()
+    public function mentor(\Illuminate\Http\Request $request)
     {
-        $mentors = User::where('role', 'mentor')
-            ->whereIn('status', ['active', 'verified', 'pending']) // Mengizinkan status lain untuk sementara
+        $search = $request->query('search');
+
+        $mentorsQuery = User::where('role', 'mentor')
+            ->whereIn('status', ['active', 'verified', 'pending'])
             ->with(['profileAccount'])
             ->withCount(['courses' => function ($query) {
                 $query->where('status_publish', 'published');
             }])
-            ->with(['courses.enrollments'])
-            ->get()
+            ->with(['courses.enrollments']);
+
+        if ($search) {
+            $mentorsQuery->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('occupation', 'like', "%{$search}%");
+            });
+        }
+
+        $mentors = $mentorsQuery->get()
             ->map(function ($mentor) {
                 $mentor->student_count = $mentor->courses->sum(function ($course) {
                     return $course->enrollments->count();
@@ -84,10 +103,8 @@ class LandingController extends Controller
 
         $totalMentors = $mentors->count();
         $totalStudents = $mentors->sum('student_count');
-        
-        // Asumsi rata-rata rating (bisa disesuaikan nanti dengan tabel review jika ada)
-        $averageRating = 4.8; 
+        $averageRating = 4.8;
 
-        return view('landing.mentor', compact('mentors', 'totalMentors', 'totalStudents', 'averageRating'));
+        return view('landing.mentor', compact('mentors', 'totalMentors', 'totalStudents', 'averageRating', 'search'));
     }
 }

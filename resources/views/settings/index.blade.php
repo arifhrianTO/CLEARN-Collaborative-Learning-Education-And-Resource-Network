@@ -98,7 +98,7 @@ $hideUsername = $isAdmin || $isStudent;
                 id="tab-btn-password"
                 class="tab-btn flex items-center gap-2 px-5 py-3 text-[13px] font-semibold dark:text-slate-500 text-slate-400 dark:hover:text-slate-300 hover:text-slate-700 border-b-2 border-transparent whitespace-nowrap transition">
                 <i class="fa-solid fa-key"></i>
-                Ganti Password
+                Ganti Kata Sandi
             </button>
         </div>
 
@@ -106,10 +106,10 @@ $hideUsername = $isAdmin || $isStudent;
         <div id="tab-profile" class="tab-content">
             <div class="dark:bg-[#1A1625] bg-white border dark:border-white/10 border-slate-200 rounded-[20px] p-8 shadow-sm">
                 <h2 class="text-base font-bold dark:text-white text-slate-800 mb-1">
-                    Informasi Personal
+                    Informasi Pribadi
                 </h2>
                 <p class="dark:text-slate-500 text-slate-400 text-sm mb-7">
-                    Informasi ini digunakan untuk personalisasi akun kamu.
+                    Informasi ini digunakan untuk personalisasi akun Anda.
                 </p>
 
                 <form method="POST" action="{{ route('settings.profile.update') }}" enctype="multipart/form-data">
@@ -166,14 +166,14 @@ $hideUsername = $isAdmin || $isStudent;
                         @unless($hideUsername)
                         <div>
                             <label class="block text-[11px] font-bold uppercase tracking-wide dark:text-slate-400 text-slate-500 mb-1.5">
-                                Username
+                                 Nama Pengguna
                             </label>
                             <input
                                 type="text"
                                 name="username"
                                 value="{{ old('username', $user->username ?? '') }}"
                                 class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
-                                placeholder="username_kamu">
+                                placeholder="nama_pengguna">
                             <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-1">
                                 Gunakan huruf kecil, angka, titik, atau underscore.
                             </p>
@@ -184,16 +184,16 @@ $hideUsername = $isAdmin || $isStudent;
                         @endunless
                     </div>
 
-                    {{-- ============ MENTOR ONLY ============ --}}
+                    {{-- ============ PENGAJAR ONLY ============ --}}
                     @if($isMentor)
                     @php $mentor = $user->profileAccount ?? null; @endphp
 
                     <div class="dark:border-white/10 border-slate-200 border-t pt-6 mt-2 mb-6">
                         <h3 class="text-sm font-bold dark:text-white text-slate-800 mb-1">
-                            Informasi Mentor
+                            Informasi Pengajar
                         </h3>
                         <p class="dark:text-slate-500 text-slate-400 text-xs mb-5">
-                            Lengkapi profil keahlian dan dokumen pendukung kamu sebagai mentor.
+                            Lengkapi profil keahlian dan dokumen pendukung kamu sebagai pengajar.
                         </p>
 
                         <div class="mb-5">
@@ -384,7 +384,7 @@ $hideUsername = $isAdmin || $isStudent;
             </div>
         </div>
 
-        {{-- ================= TAB BANK (MENTOR ONLY) ================= --}}
+        {{-- ================= TAB BANK (PENGAJAR ONLY) ================= --}}
         @if($isMentor)
         @php $bank = $user->banks ?? null; @endphp
         <div id="tab-bank" class="tab-content hidden">
@@ -488,7 +488,7 @@ $hideUsername = $isAdmin || $isStudent;
                     </div>
                     <div>
                         <h2 class="text-base font-bold dark:text-white text-slate-800">
-                            Ganti Password
+                Ganti Kata Sandi
                         </h2>
                         <p class="dark:text-slate-500 text-slate-400 text-sm mt-1">
                             Pastikan password baru kamu kuat dan unik.
@@ -505,7 +505,7 @@ $hideUsername = $isAdmin || $isStudent;
                         {{-- Password Saat Ini --}}
                         <div>
                             <label for="current_password" class="block text-[11px] font-bold uppercase tracking-wide dark:text-slate-400 text-slate-500 mb-1.5">
-                                Password Saat Ini
+                                Kata Sandi Saat Ini
                             </label>
                             <div class="relative">
                                 <input
@@ -513,7 +513,7 @@ $hideUsername = $isAdmin || $isStudent;
                                     id="current_password"
                                     name="current_password"
                                     class="w-full px-4 py-2.5 pr-11 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
-                                    placeholder="Masukkan password saat ini">
+                                    placeholder="Masukkan kata sandi saat ini">
                                 <button
                                     type="button"
                                     onclick="togglePassword('current_password', 'icon-current-password')"
@@ -529,7 +529,7 @@ $hideUsername = $isAdmin || $isStudent;
                         {{-- Password Baru --}}
                         <div>
                             <label for="password" class="block text-[11px] font-bold uppercase tracking-wide dark:text-slate-400 text-slate-500 mb-1.5">
-                                Password Baru
+                                Kata Sandi Baru
                             </label>
                             <div class="relative">
                                 <input
@@ -537,7 +537,7 @@ $hideUsername = $isAdmin || $isStudent;
                                     id="password"
                                     name="password"
                                     class="w-full px-4 py-2.5 pr-11 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
-                                    placeholder="Masukkan password baru">
+                                    placeholder="Masukkan kata sandi baru">
                                 <button
                                     type="button"
                                     onclick="togglePassword('password', 'icon-password')"
@@ -556,7 +556,7 @@ $hideUsername = $isAdmin || $isStudent;
                         {{-- Konfirmasi Password Baru --}}
                         <div>
                             <label for="password_confirmation" class="block text-[11px] font-bold uppercase tracking-wide dark:text-slate-400 text-slate-500 mb-1.5">
-                                Konfirmasi Password Baru
+                                Konfirmasi Kata Sandi Baru
                             </label>
                             <div class="relative">
                                 <input
@@ -564,7 +564,7 @@ $hideUsername = $isAdmin || $isStudent;
                                     id="password_confirmation"
                                     name="password_confirmation"
                                     class="w-full px-4 py-2.5 pr-11 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
-                                    placeholder="Ulangi password baru">
+                                    placeholder="Ulangi kata sandi baru">
                                 <button
                                     type="button"
                                     onclick="togglePassword('password_confirmation', 'icon-password-confirmation')"
@@ -583,7 +583,7 @@ $hideUsername = $isAdmin || $isStudent;
                         type="submit"
                         class="inline-flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-xl text-[13px] font-bold hover:brightness-110 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 transition">
                         <i class="fa-solid fa-floppy-disk"></i>
-                        Perbarui Password
+                        Perbarui Kata Sandi
                     </button>
                 </form>
             </div>
@@ -598,9 +598,9 @@ $hideUsername = $isAdmin || $isStudent;
         <div class="w-14 h-14 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
             <i class="fa-solid fa-key text-green-400 text-2xl"></i>
         </div>
-        <h3 class="dark:text-white text-slate-800 font-bold text-lg mb-2">Password Berhasil Diperbarui</h3>
+        <h3 class="dark:text-white text-slate-800 font-bold text-lg mb-2">Kata Sandi Berhasil Diperbarui</h3>
         <p class="dark:text-slate-400 text-slate-500 text-sm mb-6">
-            Demi keamanan akun kamu, silakan login ulang menggunakan password baru.
+            Demi keamanan akun Anda, silakan login ulang menggunakan kata sandi baru.
         </p>
         <form method="POST" action="{{ route('logout') }}">
             @csrf

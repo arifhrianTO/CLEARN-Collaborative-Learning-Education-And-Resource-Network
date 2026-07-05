@@ -119,7 +119,7 @@
                         <div class="flex justify-between items-end text-[10px] font-bold">
                             <div>
                                 <p class="text-muted-custom uppercase mb-0.5">Pengajar</p>
-                                <p>{{ $cert->enrollment->course->mentor->name ?? 'Mentor Clearn' }}</p>
+                                <p>{{ $cert->enrollment->course->mentor->name ?? 'Pengajar Clearn' }}</p>
                             </div>
                             <div class="text-right">
                                 <p class="text-muted-custom uppercase mb-0.5">Tanggal Diterbitkan</p>

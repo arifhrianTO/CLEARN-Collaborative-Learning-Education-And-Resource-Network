@@ -1,10 +1,10 @@
 @extends('layouts.sections')
 
-@section('title', 'CLEARN │ Mentor')
+@section('title', 'CLEARN │ Pengajar')
 
 @section('content')
 
-<!-- Beranda Mentor -->
+<!-- Beranda Pengajar -->
 <section id="beranda" class="relative py-28 px-4 text-center overflow-hidden transition-colors duration-300 dark:bg-[#0F0B1A]">
     <button
         onclick="window.location='{{ route('home') }}'"
@@ -23,7 +23,26 @@
 
 </section>
 
-<!-- Mentor -->
+<div class="w-full bg-slate-100 dark:bg-[#0F0B1A] py-6 border-y border-slate-200 dark:border-white/5 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="relative w-full md:max-w-x6">
+            <form action="{{ route('mentor') }}" method="GET" class="w-full">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input
+                    id="mentorSearch"
+                    name="search"
+                    type="text"
+                    value="{{ request('search') }}"
+                    placeholder="Cari Pengajar..."
+                    class="w-full bg-white dark:bg-[#0f0b1a] text-slate-900 dark:text-gray-200 text-sm rounded-full py-3 pl-12 pr-4 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#A487F8]/50 transition-all placeholder:text-gray-500" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Pengajar -->
 <section id="pengajar" class="py-24 px-6 bg-slate-100 dark:bg-[#0F0B1A] transition-colors duration-300">
     <div class="grid grid-cols-3 gap-6 max-w-5xl mx-auto text-center mb-16">
         <div>
@@ -40,19 +59,40 @@
         </div>
     </div>
 
+    <div class="flex justify-between items-end mb-12 max-w-[1200px] mx-auto transition-colors">
+        <div>
+            @if(request('search'))
+                <p class="text-slate-500 dark:text-gray-400 text-sm">Menemukan {{ $mentors->count() }} pengajar untuk pencarian "<span class="font-bold text-primary">{{ request('search') }}</span>"</p>
+            @else
+                <p class="text-slate-500 dark:text-gray-400 text-sm">Menampilkan {{ $mentors->count() }} pengajar</p>
+            @endif
+        </div>
+    </div>
+
+    @if($mentors->count() > 0)
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1200px] mx-auto">
         @foreach($mentors as $mentor)
             <x-landing.mentor-card
                 photo="{{ $mentor->profile_picture ? asset('storage/' . $mentor->profile_picture) : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random' }}"
                 name="{{ $mentor->name }}"
                 title="{{ $mentor->occupation ?? 'Instruktur' }}"
-                description="{{ $mentor->profileAccount->bio ?? 'Mentor berpengalaman di Clearn.' }}"
+                description="{{ $mentor->profileAccount->bio ?? 'Pengajar berpengalaman di Clearn.' }}"
                 :tags="[]"
                 rating="4.9"
                 students="{{ $mentor->student_count ?? 0 }}"
                 courses="{{ $mentor->courses_count ?? 0 }}" />
         @endforeach
     </div>
+    @else
+    <div class="w-full max-w-[1200px] mx-auto bg-white dark:bg-[#111116] border border-slate-200 dark:border-white/5 rounded-3xl p-12 text-center">
+        <div class="w-20 h-20 bg-slate-100 dark:bg-[#1a1625] rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fa-solid fa-search text-2xl text-slate-400"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Pengajar Tidak Ditemukan</h3>
+        <p class="text-slate-500 dark:text-gray-400 text-sm mb-6 max-w-md mx-auto">Maaf, kami tidak dapat menemukan pengajar yang cocok dengan pencarian Anda. Coba gunakan kata kunci lain.</p>
+        <a href="{{ route('mentor') }}" class="inline-block px-6 py-2.5 bg-primary text-white rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Lihat Semua Pengajar</a>
+    </div>
+    @endif
 </section>
 
 <section class="px-6 pb-24">

@@ -60,7 +60,7 @@
                     </h2>
 
                     <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-2">
-                        Isi judul dan deskripsi setiap session. Session terakhir khusus untuk tugas akhir.
+                        Isi judul dan deskripsi setiap pertemuan. Pertemuan terakhir khusus untuk tugas akhir.
                     </p>
                 </div>
 
@@ -113,27 +113,27 @@
                                     @if($isLastSession)
                                     {{ $session->finalProjects->count() }} Tugas Akhir
                                     @else
-                                    {{ $session->lessons->count() }} Lesson •
-                                    {{ $session->exercises->count() }} Exercise
+                                    {{ $session->lessons->count() }} Pelajaran •
+                                    {{ $session->exercises->count() }} Latihan
                                     @endif
                                 </span>
                             </div>
 
                             @if(!$isLastSession && !$previousSessionFilled && $index > 0)
                             <div class="mb-5 bg-amber-500/10 border border-amber-500/20 text-amber-500 px-4 py-3 rounded-xl text-[10px] font-bold">
-                                Silakan isi pertemuan {{ $index }} terlebih dahulu untuk membuka akses ke pertemuan ini. (Harus memiliki minimal 1 Lesson)
+                                Silakan isi pertemuan {{ $index }} terlebih dahulu untuk membuka akses ke pertemuan ini. (Harus memiliki minimal 1 Pelajaran)
                             </div>
                             @endif
 
                             @if($isLastSession && !$allPreviousSessionsFilled)
                             <div class="mb-5 bg-amber-500/10 border border-amber-500/20 text-amber-500 px-4 py-3 rounded-xl text-[10px] font-bold">
-                                Silakan isi semua pertemuan sebelumnya (minimal 1 Lesson per pertemuan) untuk membuka akses ke Tugas Akhir.
+                                Silakan isi semua pertemuan sebelumnya (minimal 1 Pelajaran per pertemuan) untuk membuka akses ke Tugas Akhir.
                             </div>
                             @endif
 
                             @if($isLastSession)
                             <div class="mb-5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 px-4 py-3 rounded-xl text-[10px] font-bold">
-                                Session ini dikhususkan untuk Tugas Akhir.
+                                Pertemuan ini dikhususkan untuk Tugas Akhir.
                             </div>
                             @endif
 
@@ -195,7 +195,7 @@
 
                                             <button type="submit"
                                                 form="delete-lesson-{{ $lesson->id }}"
-                                                onclick="return confirm('Yakin ingin menghapus Pelajaran ini? Semua material di dalamnya juga akan dihapus.')"
+                                                onclick="return confirm('Yakin ingin menghapus Pelajaran ini? Semua materi di dalamnya juga akan dihapus.')"
                                                 class="w-9 h-9 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition">
                                                 <i class="fa-solid fa-trash text-xs"></i>
                                             </button>
@@ -380,7 +380,7 @@
                                     <div class="flex items-center gap-2">
                                         <a href="{{ route('mentor.sessions.exercises.edit', $exercise->id) }}"
                                             class="px-4 py-2 rounded-xl bg-primary text-white text-[9px] font-black uppercase tracking-widest hover:brightness-110 transition">
-                                            Edit Kuis
+                                            Ubah Kuis
                                         </a>
 
                                         <button type="submit"
