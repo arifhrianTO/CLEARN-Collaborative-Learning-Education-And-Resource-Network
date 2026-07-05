@@ -18,7 +18,6 @@ class FinalProjectController extends Controller
         $project = FinalProject::with(['session.course'])->findOrFail($projectId);
         $userId = auth()->id();
 
-        // Check if student is enrolled in the course
         $enrollment = Enrollment::where('student_id', $userId)
             ->whereHas('course.sessions.finalProjects', function ($query) use ($projectId) {
                 $query->where('final_projects.id', $projectId);
@@ -29,23 +28,31 @@ class FinalProjectController extends Controller
             return redirect()->route('student.course.index')->with('error', 'Anda belum terdaftar di kursus ini.');
         }
 
-        // Get submission if exists
         $result = FinalProjectResult::where('final_project_id', $projectId)
             ->where('enrollment_id', $enrollment->id)
             ->first();
 
-        return view('student.project.submit', compact('project', 'result'));
+        $existingRate = \App\Models\Rate::where('enrollment_id', $enrollment->id)->first();
+
+        return view('student.project.submit', compact('project', 'result', 'enrollment', 'existingRate'));
     }
 
     public function submit(Request $request, int $projectId): RedirectResponse
     {
         $project = FinalProject::findOrFail($projectId);
-        
+
         $request->validate([
-            'submission_file' => ['required', 'file', 'max:51200'], // max 50MB
+            'submission_file' => ['required', 'file', 'max:51200'],
+            'course_rate'     => ['required', 'numeric', 'min:1', 'max:5'],
+            'course_comment'  => ['nullable', 'string', 'max:1000'],
         ], [
             'submission_file.required' => 'File tugas wajib diunggah.',
             'submission_file.max' => 'Ukuran file tidak boleh melebihi 50MB.',
+            'course_rate.required' => 'Rating wajib diisi.',
+            'course_rate.numeric' => 'Rating harus berupa angka.',
+            'course_rate.min' => 'Rating minimal 1.',
+            'course_rate.max' => 'Rating maksimal 5.',
+            'course_comment.max' => 'Komentar maksimal 1000 karakter.',
         ]);
 
         $userId = auth()->id();
@@ -68,15 +75,25 @@ class FinalProjectController extends Controller
         // Upload File
         $filePath = $request->file('submission_file')->store('final_projects', 'public');
 
-        FinalProjectResult::create(
-            [
-                'final_project_id'    => $projectId,
-                'enrollment_id'       => $enrollment->id,
-                'submission_file'     => $filePath,
-                'started_at'          => now(),
-            ]
-        );
+        // Save Final Project Result
+        FinalProjectResult::create([
+            'final_project_id' => $projectId,
+            'enrollment_id'    => $enrollment->id,
+            'submission_file'  => $filePath,
+            'started_at'       => now(),
+        ]);
 
-        return back()->with('success', 'Tugas akhir berhasil dikirim dan menunggu penilaian.');
+        // Save Rating
+        \App\Models\Rate::create([
+            'course_id'       => $enrollment->course_id,
+            'enrollment_id'   => $enrollment->id,
+            'course_rate'     => $request->course_rate,
+            'course_comment'  => $request->course_comment,
+        ]);
+
+        // Mark enrollment as completed
+        $enrollment->update(['progress' => 100]);
+
+        return back()->with('success', 'Tugas akhir berhasil dikirim. Silakan tunggu penilaian dari pengajar.');
     }
 }

@@ -22,6 +22,7 @@ use App\Http\Controllers\Mentor\CourseController as MentorCourseController;
 use App\Http\Controllers\Mentor\ExerciseController;
 use App\Http\Controllers\Mentor\LessonController;
 use App\Http\Controllers\Mentor\FinalProjectController;
+use App\Http\Controllers\Mentor\PenilaianController;
 use App\Http\Controllers\Mentor\FinanceController as MentorFinanceController;
 use App\Http\Controllers\Mentor\SessionController;
 use App\Http\Controllers\Mentor\StudentController;
@@ -90,6 +91,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/certif', [StudentCourseController::class, 'certificates'])->name('certif');
             Route::get('/certificate/{id}/show', [StudentCourseController::class, 'showCertificates'])->name('certificate.show');
             Route::get('/certificate/{id}/download', [StudentCourseController::class, 'downloadCertificate'])->name('certificate.download');
+            Route::post('/certificate/claim/{enrollment}', [StudentCourseController::class, 'claimCertificate'])->name('certificate.claim');
             Route::get('/courses/progress', [StudentCourseController::class, 'progress'])->name('progress');
 
             Route::get('/exercise/{exerciseId}', [StudentExerciseController::class, 'show'])->name('exercise.show');
@@ -141,6 +143,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/projects/{project}/submissions', [FinalProjectController::class, 'submissions'])->name('projects.submissions');
             Route::get('/projects/submissions/{result}', [FinalProjectController::class, 'submissionDetail'])->name('projects.submission.detail');
             Route::post('/projects/submissions/{result}/grade', [FinalProjectController::class, 'gradeSubmission'])->name('projects.submission.grade');
+
+            Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
+            Route::get('/penilaian/course/{course}', [PenilaianController::class, 'course'])->name('penilaian.course');
+            Route::get('/penilaian/{result}', [PenilaianController::class, 'show'])->name('penilaian.show');
+            Route::post('/penilaian/{result}/grade', [PenilaianController::class, 'grade'])->name('penilaian.grade');
 
             Route::get('/student', [StudentController::class, 'index'])->name('student.index');
 

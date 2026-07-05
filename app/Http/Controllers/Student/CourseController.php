@@ -157,7 +157,17 @@ class CourseController extends Controller
             ->where('progress', 100)
             ->count();
 
-        return view('student.certificate.index', compact('certificates', 'totalCertificates', 'completedCourses'));
+        // Courses that can claim certificate (completed + graded >= 70, no certificate yet)
+        $claimableEnrollments = Enrollment::where('student_id', $user->id)
+            ->where('progress', 100)
+            ->whereDoesntHave('certificate')
+            ->whereHas('finalProjectResults', function ($q) {
+                $q->where('final_project_score', '>=', 70);
+            })
+            ->with(['course.mentor', 'finalProjectResults'])
+            ->get();
+
+        return view('student.certificate.index', compact('certificates', 'totalCertificates', 'completedCourses', 'claimableEnrollments'));
     }
 
     public function showCertificates($id): View
@@ -184,6 +194,38 @@ class CourseController extends Controller
             ->setPaper('a4', 'landscape');
 
         return $pdf->download('certificate-' . $certificate->certificate_number . '.pdf');
+    }
+
+    public function claimCertificate(Enrollment $enrollment): RedirectResponse
+    {
+        if ($enrollment->student_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($enrollment->progress < 100) {
+            return back()->with('error', 'Kursus belum selesai.');
+        }
+
+        if ($enrollment->certificate()->exists()) {
+            return back()->with('error', 'Sertifikat sudah diklaim.');
+        }
+
+        $passedResult = $enrollment->finalProjectResults()
+            ->where('final_project_score', '>=', 70)
+            ->first();
+
+        if (!$passedResult) {
+            return back()->with('error', 'Tugas akhir belum dinilai atau belum lulus.');
+        }
+
+        $certificate = Certificate::create([
+            'enrollment_id'      => $enrollment->id,
+            'certificate_number' => 'CLN-' . strtoupper(uniqid()),
+            'issue_date'         => now(),
+        ]);
+
+        return redirect()->route('student.certificate.show', $certificate->id)
+            ->with('success', 'Selamat! Sertifikat berhasil diklaim.');
     }
 
     public function progress(): View
