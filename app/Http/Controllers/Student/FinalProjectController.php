@@ -19,8 +19,12 @@ class FinalProjectController extends Controller
         $userId = auth()->id();
 
         $enrollment = Enrollment::where('student_id', $userId)
-            ->whereHas('course.sessions.finalProjects', function ($query) use ($projectId) {
-                $query->where('final_projects.id', $projectId);
+            ->whereHas('course', function ($q) use ($projectId) {
+                $q->whereHas('sessions', function ($q) use ($projectId) {
+                    $q->whereHas('finalProjects', function ($q) use ($projectId) {
+                        $q->where('final_projects.id', $projectId);
+                    });
+                });
             })
             ->first();
 
@@ -58,8 +62,12 @@ class FinalProjectController extends Controller
         $userId = auth()->id();
 
         $enrollment = Enrollment::where('student_id', $userId)
-            ->whereHas('course.sessions.finalProjects', function ($query) use ($projectId) {
-                $query->where('final_projects.id', $projectId);
+            ->whereHas('course', function ($q) use ($projectId) {
+                $q->whereHas('sessions', function ($q) use ($projectId) {
+                    $q->whereHas('finalProjects', function ($q) use ($projectId) {
+                        $q->where('final_projects.id', $projectId);
+                    });
+                });
             })
             ->firstOrFail();
 

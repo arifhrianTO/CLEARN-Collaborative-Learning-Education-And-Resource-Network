@@ -16,6 +16,7 @@ class FinalProjectResult extends Model
         'submission_file',
         'deadline',
         'started_at',
+        'mentor_notes',
     ];
 
     protected $casts = [
