@@ -209,9 +209,9 @@ class CourseController extends Controller
 
         // Asumsi nilai kuis diambil dari rata-rata ExerciseResult, 
         // Jika belum ada datanya, bisa kita berikan nilai default atau hitung berdasarkan yang ada.
-        $averageQuizScore = ExerciseResult::whereHas('attempt', function ($q) use ($user) {
+        $averageQuizScore = ExerciseResult::whereHas('exerciseAttempt.enrollment', function ($q) use ($user) {
             $q->where('student_id', $user->id);
-        })->avg('score') ?? 0;
+        })->avg('exercise_result_score') ?? 0;
 
         return view('student.courses.progress', compact('enrollments', 'activeCoursesCount', 'completedCoursesCount', 'averageQuizScore'));
     }

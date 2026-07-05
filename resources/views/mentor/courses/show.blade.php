@@ -191,7 +191,7 @@
                         <button type="submit"
                             class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl text-red-400 text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition">
                             <i class="fa-solid fa-trash mr-2"></i>
-                            Hapus Course
+                            Hapus Kursus
                         </button>
                     </form>
                 </div>
@@ -210,7 +210,7 @@
                 <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/5">
                     <div class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
                         <i class="fa-solid fa-circle-check mr-2"></i>
-                        Course Telah Diverifikasi
+                        Kursus Telah Diverifikasi
                     </div>
                 </div>
 
@@ -431,7 +431,7 @@
 
                                     @empty
                                     <div class="p-4 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-400 text-xs font-bold">
-                                        Belum ada material untuk lesson ini.
+                                        Belum ada materi untuk pelajaran ini.
                                     </div>
                                     @endforelse
 
@@ -506,7 +506,7 @@
                                             <div class="flex items-center gap-2">
                                                 <a href="{{ route('mentor.sessions.exercises.edit', $exercise->id) }}"
                                                     class="px-4 py-2 rounded-xl bg-primary text-white text-[9px] font-black uppercase tracking-widest hover:brightness-110 transition">
-                                                    Edit Kuis
+                                                    Ubah Kuis
                                                 </a>
 
                                                 @if($questionCount > 0)
@@ -677,11 +677,11 @@
                     </div>
 
                     <h3 class="text-lg font-black dark:text-white text-slate-800">
-                        Belum Ada Session
+                        Belum Ada Pertemuan
                     </h3>
 
                     <p class="text-xs dark:text-slate-500 text-slate-400 mt-2 max-w-md mx-auto">
-                        Session akan otomatis dibuat saat kamu menambahkan course.
+                        Pertemuan akan otomatis dibuat saat kamu menambahkan kursus.
                     </p>
                 </div>
                 @endforelse

@@ -37,7 +37,7 @@
                         class="w-full sm:w-auto px-4 py-2 bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 focus:ring-[#A487F8] focus:border-[#A487F8] appearance-none cursor-pointer">
                         <option value="">Semua Peran</option>
                         <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="mentor" {{ request('role') == 'mentor' ? 'selected' : '' }}>Mentor</option>
+                        <option value="mentor" {{ request('role') == 'mentor' ? 'selected' : '' }}>Pengajar</option>
                         <option value="student" {{ request('role') == 'student' ? 'selected' : '' }}>Pelajar</option>
                     </select>
 
@@ -93,7 +93,7 @@
                             @if($user->role === 'admin')
                                 <span class="px-2.5 py-1 bg-[#A487F8]/20 text-[#A487F8] dark:bg-[#A487F8]/30 dark:text-[#A487F8] text-[10px] font-bold uppercase rounded-lg shadow-sm">Admin</span>
                             @elseif($user->role === 'mentor')
-                                <span class="px-2.5 py-1 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-[10px] font-bold uppercase rounded-lg shadow-sm">Mentor</span>
+                                <span class="px-2.5 py-1 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-[10px] font-bold uppercase rounded-lg shadow-sm">Pengajar</span>
                             @else
                                 <span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-[10px] font-bold uppercase rounded-lg shadow-sm">Pelajar</span>
                             @endif

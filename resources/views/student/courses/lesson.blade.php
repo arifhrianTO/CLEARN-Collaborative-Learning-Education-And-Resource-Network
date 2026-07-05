@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('images/logo-clearn.png') }}">
-    <title>CLEARN │ {{ $id ?? 'Materi' }}</title>
+    <title>CLEARN │ {{ $activeLesson->lessons_title ?? $course->course_title ?? 'Materi' }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -24,7 +24,7 @@
 
     <header class="h-16 border-b border-gray-200 dark:border-border-custom bg-white/80 dark:bg-dark-sidebar backdrop-blur-md px-6 flex items-center justify-between shrink-0 z-50">
         <div class="flex items-center gap-4">
-            <a href="{{ route('student.course.index', $course->course_slug) }}" class="p-2 hover:bg-gray-500/10 rounded-lg transition text-slate-500 hover:text-primary">
+            <a href="{{ route('student.course.show', $course->course_slug) }}" class="p-2 hover:bg-gray-500/10 rounded-lg transition text-slate-500 hover:text-primary">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h2 class="font-bold text-sm tracking-tight hidden md:block">
@@ -35,7 +35,7 @@
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-3">
                 <div class="text-right hidden sm:block">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Progress Kursus</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Progres Kursus</p>
                     <p class="text-xs font-black">14% <span class="text-slate-400 font-medium">(2/12 Materi)</span></p>
                 </div>
                 <div class="w-32 h-2 bg-gray-200 dark:bg-border-custom rounded-full overflow-hidden">

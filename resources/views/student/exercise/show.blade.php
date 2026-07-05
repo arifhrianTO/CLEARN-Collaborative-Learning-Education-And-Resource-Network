@@ -11,7 +11,7 @@
             $currentSoal = (int)request('q', 1);
             $currentSoal = max(1, min($totalSoal, $currentSoal));
             $isLast = ($currentSoal == $totalSoal);
-            $question = $exercise->questions->values()->get($currentSoal - 1);
+            $question = $totalSoal > 0 ? $exercise->questions->values()->get($currentSoal - 1) : null;
         @endphp
 
         <main class="flex-1 w-full h-full overflow-y-auto p-6 lg:p-8 transition-colors duration-300 dark:bg-[#0b0a1a] bg-slate-50 custom-scrollbar">
@@ -27,6 +27,12 @@
                     <p class="text-xs text-slate-500 font-medium">{{ $exercise->exercise_description ?? 'Selesaikan latihan ini untuk mengukur pemahaman Anda.' }}</p>
                 </div>
 
+                @if(!$question)
+                    <div class="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-8 text-center">
+                        <p class="text-amber-500 font-bold">Latihan ini belum memiliki soal.</p>
+                        <a href="{{ route('student.course.lesson', $exercise->session->course->course_slug) }}" class="mt-4 inline-block px-6 py-2 bg-primary text-white text-xs font-bold rounded-lg">Kembali ke Materi</a>
+                    </div>
+                @else
                 <form id="exercise-form" action="{{ route('student.exercise.submit', $exercise->id) }}" method="POST">
                     @csrf
                     <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
@@ -93,10 +99,12 @@
                         </div>
                     </div>
                 </form>
+                @endif
             </div>
         </main>
     </div>
 
+    @if($question)
     <script>
     const exerciseId = {{ $exercise->id }};
 
@@ -157,4 +165,5 @@
         });
     });
     </script>
+    @endif
 @endsection

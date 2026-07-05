@@ -157,7 +157,7 @@
 
                                 <div class="mb-4">
                                     <label class="text-[9px] font-black uppercase text-[#A487F8] tracking-widest block mb-0.5">
-                                        Session {{ $index + 1 }}
+                                        Pertemuan {{ $index + 1 }}
                                     </label>
 
                                     <h3 class="font-bold text-sm">
@@ -395,11 +395,11 @@
 
                         <div class="min-w-0">
                             <h4 class="text-xs font-bold truncate">
-                                {{ $course->mentor?->name ?? 'Nama Mentor' }}
+                                {{ $course->mentor?->name ?? 'Nama Pengajar' }}
                             </h4>
 
                             <p class="text-[9px] text-slate-400 uppercase tracking-wider font-extrabold">
-                                ID Mentor: #{{ $course->mentor?->id ?? '-' }}
+                                ID Pengajar: #{{ $course->mentor?->id ?? '-' }}
                             </p>
                         </div>
                     </div>
@@ -427,7 +427,7 @@
                         </div>
 
                         <div class="flex justify-between">
-                            <span>Total Session:</span>
+                            <span>Total Pertemuan:</span>
                             <span class="font-bold text-slate-800 dark:text-white">
                                 {{ $course->sessions->count() }}
                             </span>

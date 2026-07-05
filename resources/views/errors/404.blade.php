@@ -55,7 +55,7 @@
 
         <div class="mt-12 animate-fade-in">
             <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase">
-                &copy; {{ date('Y') }} Clearn. All rights reserved.
+                &copy; {{ date('Y') }} Clearn. Hak cipta dilindungi.
             </p>
         </div>
     </div>

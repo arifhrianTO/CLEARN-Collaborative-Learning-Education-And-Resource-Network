@@ -157,7 +157,7 @@
             <div class="pt-2">
                 <div class="flex items-center gap-2 mb-4">
                     <i class="fas fa-book text-primary"></i>
-                    <h2 class="text-2xl font-bold">Upload Dokumen Pendukung</h2>
+                    <h2 class="text-2xl font-bold">Unggah Dokumen Pendukung</h2>
                 </div>
                 <div class="mb-6 space-y-2 text-sm text-gray-400 italic">
                     <p>• Gabungkan seluruh sertifikat pendukung ke dalam <span class="text-primary font-bold">satu file PDF.</span></p>
@@ -205,7 +205,7 @@
                         <input
                             type="password"
                             name="password"
-                            placeholder="Masukkan Password"
+                            placeholder="Masukkan Kata Sandi"
                             class="input-custom w-full py-3 pl-12 pr-12 bg-white dark:bg-card-dark border border-gray-200 dark:border-none rounded-xl outline-none text-sm dark:text-white font-medium">
 
                         <i
@@ -223,7 +223,7 @@
                         <input
                             type="password"
                             name="password_confirmation"
-                            placeholder="Ulangi Password"
+                            placeholder="Ulangi Kata Sandi"
                             class="input-custom w-full py-3 pl-12 pr-12 bg-white dark:bg-card-dark border border-gray-200 dark:border-none rounded-xl outline-none text-sm dark:text-white font-bold">
 
                         <i

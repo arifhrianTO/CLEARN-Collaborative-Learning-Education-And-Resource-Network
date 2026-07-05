@@ -35,7 +35,7 @@
                     name="search"
                     type="text"
                     value="{{ request('search') }}"
-                    placeholder="Cari Kursus atau Mentor..."
+                    placeholder="Cari Kursus atau Pengajar..."
                     class="w-full bg-white dark:bg-[#0f0b1a] text-slate-900 dark:text-gray-200 text-sm rounded-full py-3 pl-12 pr-4 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#A487F8]/50 transition-all placeholder:text-gray-500" />
             </form>
         </div>

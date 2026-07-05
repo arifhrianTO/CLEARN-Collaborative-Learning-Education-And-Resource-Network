@@ -8,21 +8,18 @@
     <div class="max-w-5xl mx-auto">
 
         {{-- Header --}}
-        <header class="mb-6">
-            <div class="flex items-center justify-between gap-4">
-                <div>
-                    <h1 class="text-lg font-bold dark:text-white text-slate-800">
-                        Perbarui Kategori
-                    </h1>
-                    <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium mt-0.5">
-                        Ubah detail kategori yang sudah ada.
-                    </p>
-                </div>
-
-                <a href="{{ route('admin.categories.index') }}"
-                    class="px-4 py-2.5 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-200 dark:hover:bg-white/10 transition-all">
-                    Kembali
-                </a>
+        <header class="mb-6 flex gap-4">
+            <a href="{{ route('admin.categories.index') }}"
+               class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-[#1A1625]/60 border border-gray-100 dark:border-gray-800 hover:scale-105 transition-all shadow-sm group">
+                <i class="fas fa-arrow-left text-[#A487F8] group-hover:-translate-x-0.5 transition-transform text-sm"></i>
+            </a>
+            <div>
+                <h1 class="text-lg font-bold dark:text-white text-slate-800">
+                    Perbarui Kategori
+                </h1>
+                <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium mt-0.5">
+                    Ubah detail kategori yang sudah ada.
+                </p>
             </div>
         </header>
 

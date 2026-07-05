@@ -1,7 +1,7 @@
 <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[90vw] max-w-[800px] h-[250px] md:h-[400px] bg-[#A487F8]/15 blur-[120px] rounded-full -z-10 opacity-0 dark:opacity-100 transition-opacity"></div>
 
 <div class="inline-flex items-center px-3 py-1 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/80 dark:border-white/20 text-gray-800 dark:text-white text-[10px] shadow-sm mb-6 md:mb-8 self-center">
-    <i class="fas fa-award mr-1.5"></i> Online Course Application
+    <i class="fas fa-award mr-1.5"></i> Aplikasi Kursus Online
 </div>
 
 <h1 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1.2] md:leading-[1.15] mb-6 md:mb-8 tracking-tight md:tracking-tighter">

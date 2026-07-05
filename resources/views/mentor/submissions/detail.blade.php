@@ -86,7 +86,7 @@
                     
                     {{-- Header & Tombol --}}
                     <div class="text-center">
-                        <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Aksi Mentor</h2>
+                        <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Aksi Pengajar</h2>
                         
                         <button @click="openModal = true" 
                                 class="w-full py-3 bg-primary text-white text-[10px] font-black uppercase rounded-lg hover:bg-[#8B6FE8] transition-all active:scale-[0.98]"

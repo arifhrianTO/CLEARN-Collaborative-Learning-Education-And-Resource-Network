@@ -26,7 +26,7 @@
 
             <div class="px-4 py-2 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 shadow-sm">
                 <p class="text-[9px] uppercase tracking-widest font-black text-slate-400">
-                    Total Pending
+                    Total Menunggu
                 </p>
                 <p class="text-sm font-black text-[#A487F8]">
                     {{ method_exists($pendingCourses, 'total') ? $pendingCourses->total() : $pendingCourses->count() }} Kursus
@@ -83,7 +83,7 @@
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-[9px] font-bold text-slate-400 uppercase">
                             <i class="fa-solid fa-user-circle mr-1 text-[#A487F8]"></i>
-                            {{ $course->mentor?->name ?? 'Mentor tidak ditemukan' }}
+                            {{ $course->mentor?->name ?? 'Pengajar tidak ditemukan' }}
                         </span>
                         <span class="text-[8px] font-bold text-slate-400">
                             {{ $course->created_at?->format('d M Y') ?? '-' }}
@@ -105,7 +105,7 @@
                             {{ $course->category?->category_name ?? 'Tanpa Kategori' }}
                         </span>
                         <span class="text-[9px] font-bold text-slate-400">
-                            • {{ $course->sessions?->count() ?? 0 }} Session
+                            • {{ $course->sessions?->count() ?? 0 }} Pertemuan
                         </span>
                         <span class="text-[9px] font-bold text-slate-400">
                             • #{{ $course->id }}

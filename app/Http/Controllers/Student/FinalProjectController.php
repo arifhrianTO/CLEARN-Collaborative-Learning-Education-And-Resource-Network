@@ -26,7 +26,7 @@ class FinalProjectController extends Controller
             ->first();
 
         if (!$enrollment) {
-            return redirect()->route('student.courses')->with('error', 'Anda belum terdaftar di kursus ini.');
+            return redirect()->route('student.course.index')->with('error', 'Anda belum terdaftar di kursus ini.');
         }
 
         // Get submission if exists

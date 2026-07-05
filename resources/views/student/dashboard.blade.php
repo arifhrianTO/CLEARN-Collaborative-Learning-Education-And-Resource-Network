@@ -94,7 +94,7 @@
                             <div class="flex justify-between items-start mb-2 gap-2">
                                 <div>
                                     <h3 class="font-bold text-sm leading-tight dark:text-white text-slate-800 mb-1">{{ $enrollment->course->course_title }}</h3>
-                                    <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">{{ $enrollment->course->mentor->name ?? 'Tim Mentor Clearn' }}</p>
+                                    <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">{{ $enrollment->course->mentor->name ?? 'Tim Pengajar Clearn' }}</p>
                                 </div>
                                 <span class="text-[10px] font-black text-{{ $isCompleted ? 'emerald' : 'primary' }}-500 bg-{{ $isCompleted ? 'emerald' : 'primary' }}-500/10 px-2 py-1 rounded-md">
                                     {{ $isCompleted ? 'LULUS' : $enrollment->progress . '%' }}

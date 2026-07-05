@@ -1,5 +1,6 @@
 @extends('layouts.learning')
 
+@section('content')
     <div class="flex w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#0F0B1A]">
         
         {{-- SIDEBAR --}}
@@ -30,19 +31,8 @@
         </aside>
 
      {{-- MAIN CONTENT --}}
-<<<<<<< HEAD
-<main class="flex-1 w-full h-full overflow-y-auto bg-slate-50 dark:bg-[#0b0a1a] custom-scrollbar">
-    <div class="w-full h-full p-6 lg:p-8">
-        
-        <div class="lg:hidden mb-4">
-            <a href="{{ route('student.course.lesson', $project->session->course->course_slug) }}" class="flex items-center gap-2 text-slate-500 hover:text-primary transition">
-                <i class="fas fa-arrow-left"></i> <span class="text-xs font-bold">Kembali ke Materi</span>
-            </a>
-        </div>
-=======
 <main class="flex-1 w-full h-full overflow-y-auto bg-slate-50 dark:bg-[#0F0B1A] custom-scrollbar">
     <div class="w-full h-full p-8">
->>>>>>> main
 
         @if(session('success'))
             <div class="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-bold flex items-center gap-2">
@@ -115,7 +105,7 @@
                         </label>
                         
                         <button type="submit" class="mt-6 w-full py-3 bg-primary hover:bg-primary/90 text-white text-[12px] font-bold rounded-lg uppercase tracking-widest transition-all">
-                            {{ $result ? 'Kirim Ulang Tugas' : 'Kirim Tugas' }}
+                            Kirim Tugas
                         </button>
                     </form>
                 @endif

@@ -127,13 +127,13 @@
                     <div class="p-5 flex-1 flex flex-col justify-between">
                         <div class="mb-4 cursor-pointer" onclick="window.location='{{ route('student.course.show', $enrollment->course->course_slug) }}'">
                             <h3 class="text-xs font-bold leading-tight tracking-tight dark:text-white text-slate-800 mb-1 line-clamp-2">{{ $enrollment->course->course_title }}</h3>
-                            <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">{{ $enrollment->course->mentor->name ?? 'Tim Mentor Clearn' }}</p>
+                            <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">{{ $enrollment->course->mentor->name ?? 'Tim Pengajar Clearn' }}</p>
                         </div>
 
                         <div class="space-y-3">
                             <div class="space-y-1">
                                 <div class="flex justify-between text-[9px] font-bold uppercase tracking-wider dark:text-slate-500 text-slate-400">
-                                    <span>{{ $isCompleted ? 'Selesai' : 'Progress Belajar' }}</span>
+                                    <span>{{ $isCompleted ? 'Selesai' : 'Progres Belajar' }}</span>
                                     <span class="text-{{ $isCompleted ? 'emerald' : 'primary' }}">{{ $enrollment->progress }}%</span>
                                 </div>
                                 <div class="w-full h-1.5 dark:bg-[#0F0B1A] bg-slate-100 rounded-full overflow-hidden">
@@ -179,7 +179,7 @@
         </div>
                     <div class="mb-4">
                         <h3 class="text-xs font-bold leading-tight tracking-tight dark:text-white text-slate-800 mb-1 line-clamp-2">Dasar UI/UX Design untuk Pemula</h3>
-                        <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">Mentor Desain Clearn</p>
+                        <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">Pengajar Desain Clearn</p>
                     </div>
 
                     <div class="space-y-3">

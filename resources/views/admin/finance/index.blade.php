@@ -129,7 +129,7 @@
                                 </span>
                                 @elseif (($cashFlow['jenis'] ?? '') === 'CREDIT')
                                 <span class="px-2 py-0.5 bg-blue-500/10 text-blue-500 text-[8px] font-black uppercase rounded-md">
-                                    Credit
+                                    Kredit
                                 </span>
                                 @else
                                 <span class="px-2 py-0.5 bg-slate-500/10 text-slate-500 text-[8px] font-black uppercase rounded-md">

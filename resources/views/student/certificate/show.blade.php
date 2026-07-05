@@ -89,7 +89,7 @@
                     {{-- Bagian Tanda Tangan --}}
                     <div class="grid grid-cols-2 gap-8 text-center max-w-3xl mx-auto mb-10">
                         <div>
-                            <p class="font-extrabold text-sm mb-1.5">{{ $certificate->enrollment->course->mentor->name ?? 'Mentor Clearn' }}</p>
+                            <p class="font-extrabold text-sm mb-1.5">{{ $certificate->enrollment->course->mentor->name ?? 'Pengajar Clearn' }}</p>
                             <p class="text-xs text-gray-400 font-medium tracking-wide">Tanda Tangan Pengajar</p>
                         </div>
                         <div>

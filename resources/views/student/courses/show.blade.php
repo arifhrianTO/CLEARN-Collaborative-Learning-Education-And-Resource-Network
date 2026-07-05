@@ -35,7 +35,7 @@
                                 <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-[8px] text-white font-black">
                                     {{ strtoupper(substr($course->mentor->name ?? 'CL', 0, 2)) }}
                                 </div>
-                                <span class="text-muted-custom">{{ $course->mentor->name ?? 'Tim Mentor Clearn' }}</span>
+                                <span class="text-muted-custom">{{ $course->mentor->name ?? 'Tim Pengajar Clearn' }}</span>
                             </div>
                             <span class="text-yellow-500 flex items-center gap-1">
                                 <i class="fas fa-star"></i> 4.8
@@ -53,7 +53,7 @@
                             class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition duration-700">
                         <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/20">
                             <i class="far fa-play-circle text-4xl text-white mb-2 group-hover:scale-110 transition-transform"></i>
-                            <span class="text-[8px] text-white font-black uppercase tracking-[0.2em]">Preview</span>
+                            <span class="text-[8px] text-white font-black uppercase tracking-[0.2em]">Pratinjau</span>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'CLEARN │ Verifikasi Mentor')
+@section('title', 'CLEARN │ Verifikasi Pengajar')
 
 @section('content')
 
@@ -62,7 +62,7 @@
                         </h3>
 
                         <p class="text-[10px] text-primary font-extrabold uppercase tracking-[0.15em] mt-0.5">
-                            {{ $item->profileAccount?->expertise ?? 'Pending Mentor' }}
+                            {{ $item->profileAccount?->expertise ?? 'Pengajar Menunggu' }}
                         </p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                 {{-- Bio --}}
                 <div class="mb-6">
                     <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
-                        {{ $item->profileAccount?->bio ?? 'Bio mentor belum tersedia.' }}
+                        {{ $item->profileAccount?->bio ?? 'Bio pengajar belum tersedia.' }}
                     </p>
                 </div>
 

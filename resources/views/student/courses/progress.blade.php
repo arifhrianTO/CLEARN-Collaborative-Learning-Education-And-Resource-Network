@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        {{-- Daftar Kelas & Progress Bar --}}
+        {{-- Daftar Kelas & Progres Bar --}}
         <div class="space-y-4">
             @forelse($enrollments as $enrollment)
             <!-- Kursus -->
@@ -119,7 +119,7 @@
                     </div>
                     <h3 class="text-lg font-bold mb-2">Belum ada kelas</h3>
                     <p class="text-muted-custom text-sm mb-6">Anda belum mendaftar ke kursus apapun.</p>
-                    <a href="{{ route('courses') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Cari Kursus</a>
+                    <a href="{{ route('course') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Cari Kursus</a>
                 </div>
             @endforelse
         </div>

@@ -66,7 +66,7 @@
     <div class="text-center mb-12 relative">
         <h2 class="text-4xl font-bold mb-3">Belajar Dari Yang Terbaik</h2>
         <p class="text-slate-500 dark:text-gray-400 text-sm">
-            Mentor berpengalaman siap membantu proses belajar Anda
+            Pengajar berpengalaman siap membantu proses belajar Anda
         </p>
         <a href="{{ route('mentor') }}"
             class="md:absolute md:right-0 md:bottom-2 mt-4 md:mt-0 text-[#A487F8] dark:text-[#A487F8] text-sm font-semibold inline-flex items-center group">
@@ -78,7 +78,7 @@
         <div class="bg-white dark:bg-[#0F0B1A] p-8 rounded-3xl text-center border border-slate-200 dark:border-gray-800 hover:border-[#A487F8] transition-all shadow-md">
             <img src="{{ $mentor->profile_picture ? asset('storage/' . $mentor->profile_picture) : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random' }}" class="w-28 h-28 rounded-full mx-auto mb-6 object-cover border-4 border-slate-200 dark:border-gray-800" alt="{{ $mentor->name }}">
             <h6 class="font-bold text-lg mb-1.5">{{ $mentor->name }}</h6>
-            <p class="text-xs text-[#A487F8] dark:text-[#A487F8] mb-6 font-semibold tracking-wider">{{ $mentor->occupation ?? 'Mentor' }}</p>
+            <p class="text-xs text-[#A487F8] dark:text-[#A487F8] mb-6 font-semibold tracking-wider">{{ $mentor->occupation ?? 'Pengajar' }}</p>
             <div class="text-xs text-slate-500 border-t border-slate-100 dark:border-gray-800/50 pt-5 space-y-1">
                 <p>{{ $mentor->student_count ?? 0 }} Pelajar</p>
                 <p>{{ $mentor->courses_count ?? 0 }} Kursus</p>

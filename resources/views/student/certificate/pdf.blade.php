@@ -103,7 +103,7 @@
         
         <div class="footer">
             <div class="signature-block">
-                <div class="signature-name">{{ $certificate->enrollment->course->mentor->name ?? 'Mentor Clearn' }}</div>
+                <div class="signature-name">{{ $certificate->enrollment->course->mentor->name ?? 'Pengajar Clearn' }}</div>
                 <div class="signature-title">Tanda Tangan Pengajar</div>
             </div>
             <div class="signature-block">
