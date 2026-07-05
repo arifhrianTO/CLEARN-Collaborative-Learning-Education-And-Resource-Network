@@ -136,7 +136,11 @@ Route::middleware('auth')->group(function () {
             Route::delete('/exercises/{exercise}', [ExerciseController::class, 'destroy'])->name('sessions.exercises.destroy');
             Route::get('/sessions/{session}/projects/create', [FinalProjectController::class, 'create'])->name('sessions.projects.create');
             Route::post('/sessions/{session}/projects', [FinalProjectController::class, 'store'])->name('sessions.projects.store');
-            Route::delete('/projects/{finalProject}', [FinalProjectController::class, 'destroy'])->name('projects.destroy');
+            Route::delete('/projects/{finalProject}', [FinalProjectController::class, 
+'destroy'])->name('projects.destroy');
+            Route::get('/projects/{project}/submissions', [FinalProjectController::class, 'submissions'])->name('projects.submissions');
+            Route::get('/projects/submissions/{result}', [FinalProjectController::class, 'submissionDetail'])->name('projects.submission.detail');
+            Route::post('/projects/submissions/{result}/grade', [FinalProjectController::class, 'gradeSubmission'])->name('projects.submission.grade');
 
             Route::get('/student', [StudentController::class, 'index'])->name('student.index');
 
