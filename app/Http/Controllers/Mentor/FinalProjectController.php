@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Mentor;
 use App\Http\Controllers\Controller;
 use App\Models\FinalProject;
 use App\Models\Session;
+use App\Models\FinalProjectResult;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -389,5 +391,107 @@ class FinalProjectController extends Controller
                 'success',
                 'Tugas Akhir berhasil dihapus.'
             );
+    }
+
+    /**
+     * Menampilkan daftar pengumpulan (submissions) tugas akhir.
+     */
+    public function submissions(FinalProject $project, Request $request)
+    {
+        $project->load(['session.course']);
+
+        if (
+            !$project->session ||
+            !$project->session->course ||
+            (int) $project->session->course->mentor_id !== (int) Auth::id()
+        ) {
+            abort(403, 'Anda tidak memiliki akses ke data ini.');
+        }
+
+        $query = FinalProjectResult::with(['enrollment.student'])
+            ->where('final_project_id', $project->id);
+
+        $filter = $request->input('filter', 'all');
+
+        if ($filter === 'pending') {
+            $query->whereNull('final_project_score');
+        } elseif ($filter === 'graded') {
+            $query->whereNotNull('final_project_score');
+        }
+
+        $submissions = $query->latest('started_at')->get();
+
+        $totalSubmissions = FinalProjectResult::where('final_project_id', $project->id)->count();
+        $pendingCount = FinalProjectResult::where('final_project_id', $project->id)->whereNull('final_project_score')->count();
+        $gradedCount = FinalProjectResult::where('final_project_id', $project->id)->whereNotNull('final_project_score')->count();
+
+        return view('mentor.submissions.submissions', compact(
+            'project',
+            'submissions',
+            'totalSubmissions',
+            'pendingCount',
+            'gradedCount',
+            'filter'
+        ));
+    }
+
+    /**
+     * Menampilkan detail satu pengumpulan tugas akhir.
+     */
+    public function submissionDetail(FinalProjectResult $result)
+    {
+        $result->load([
+            'finalProject.session.course',
+            'enrollment.student'
+        ]);
+
+        if (
+            !$result->finalProject ||
+            !$result->finalProject->session ||
+            !$result->finalProject->session->course ||
+            (int) $result->finalProject->session->course->mentor_id !== (int) Auth::id()
+        ) {
+            abort(403, 'Anda tidak memiliki akses ke data ini.');
+        }
+
+        return view('mentor.submissions.detail', compact('result'));
+    }
+
+    /**
+     * Memproses penilaian tugas akhir.
+     */
+    public function gradeSubmission(Request $request, FinalProjectResult $result)
+    {
+        $result->load(['finalProject.session.course', 'enrollment']);
+
+        if (
+            !$result->finalProject ||
+            !$result->finalProject->session ||
+            !$result->finalProject->session->course ||
+            (int) $result->finalProject->session->course->mentor_id !== (int) Auth::id()
+        ) {
+            abort(403, 'Anda tidak memiliki akses ke data ini.');
+        }
+
+        $validated = $request->validate([
+            'skor' => 'required|integer|min:0|max:100',
+            'komentar' => 'nullable|string|max:1000',
+        ]);
+
+        $result->update([
+            'final_project_score' => $validated['skor'],
+            'mentor_notes' => $validated['komentar'],
+        ]);
+
+        // Cek jika score >= kelulusan (misalnya >= 70) dan update progress
+        if ($validated['skor'] >= 70) {
+            // Update progres student jika belum 100%
+             if($result->enrollment->progress < 100) {
+                  $result->enrollment->update(['progress' => 100]);
+             }
+        }
+
+        return redirect()->route('mentor.projects.submission.detail', $result->id)
+            ->with('success', 'Penilaian berhasil disimpan.');
     }
 }

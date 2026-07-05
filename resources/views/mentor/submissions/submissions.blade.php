@@ -1,52 +1,41 @@
 @extends('layouts.dashboard')
 
-@section('title', 'CLEARN │ Pengumpulan')
+@section('title', 'CLEARN ", Pengumpulan')
 
 @section('content')
-
-{{-- Sidebar --}}
-<x-dashboard.sidebar
-    role="{{ auth()->user()->role }}"
-    name="{{ auth()->user()->name }}"
-    initials="{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}"
-    photo="{{ auth()->user()->profile_picture }}"
-    active="submissions" />
 
 <main class="flex-1 p-5 lg:p-8">
     <div class="max-w-5xl mx-auto">
 
-        {{-- Dummy Data --}}
-        @php
-            $submissions = [
-                ['id' => '1', 'name' => 'Alya Ghaitsa', 'file' => 'project_Alya.zip', 'date' => '25 Mei 2026, 10:20', 'status' => 'pending'],
-                ['id' => '2', 'name' => 'Pelajar1', 'file' => 'tailwind.zip', 'date' => '25 Mei 2026, 14:30', 'status' => 'graded'],
-                ['id' => '3', 'name' => 'Pelajar2', 'file' => 'final.pdf', 'date' => '26 Mei 2026, 09:15', 'status' => 'pending'],
-                ['id' => '4', 'name' => 'Pelajar3', 'file' => 'web.zip', 'date' => '26 Mei 2026, 11:00', 'status' => 'graded'],
-            ];
-            
-            $total = count($submissions);
-            $pending = count(array_filter($submissions, fn($s) => $s['status'] == 'pending'));
-            $graded = count(array_filter($submissions, fn($s) => $s['status'] == 'graded'));
-        @endphp
-
         {{-- Header Section --}}
-        <div class="mb-6">
-            <h1 class="text-lg font-bold dark:text-white text-slate-800">Daftar Pengumpulan</h1>
-            <p class="text-[11px] dark:text-slate-500 text-slate-400 font-medium">
-                Tugas Akhir (Praktikum) • {{ $total }} Siswa Mengumpulkan
-            </p>
+        <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+                <h1 class="text-lg font-bold dark:text-white text-slate-800">Daftar Pengumpulan</h1>
+                <p class="text-[11px] dark:text-slate-500 text-slate-400 font-medium">
+                    Tugas Akhir: {{ $project->project_title }} ? {{ $totalSubmissions }} Siswa Mengumpulkan
+                </p>
+            </div>
+            
+            <a href="{{ route('mentor.courses.show ', $project->session->course_id) }}" 
+               class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-white/10 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                Kembali ke Kurikulum
+            </a>
         </div>
 
         {{-- Navigation Tabs --}}
         <div class="flex items-center gap-6 mb-6 border-b border-slate-200 dark:border-white/5">
-            <a href="#" class="pb-3 text-[10px] font-black uppercase tracking-widest border-b-2 border-primary text-primary">
-                Semua ({{ $total }})
+            <a href="{{ route('mentor.projects.submissions', ['project' => $project->id, 'filter' => 'all']) }}" 
+               class="pb-3 text-[10px] font-black uppercase tracking-widest border-b-2 {{ $filter == 'all' ? 'border-primary text-primary' : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-white' }} transition-all">
+                Semua ({{ $totalSubmissions }})
             </a>
-            <a href="#" class="pb-3 text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-all">
-                Menunggu ({{ $pending }})
+            <a href="{{ route('mentor.projects.submissions', ['project' => $project->id, 'filter' => 'pending']) }}" 
+               class="pb-3 text-[10px] font-bold uppercase tracking-widest border-b-2 {{ $filter == 'pending' ? 'border-primary text-primary' : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-white' }} transition-all">
+                Menunggu ({{ $pendingCount }})
             </a>
-            <a href="#" class="pb-3 text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-all">
-                Sudah Dinilai ({{ $graded }})
+            <a href="{{ route('mentor.projects.submissions', ['project' => $project->id, 'filter' => 'graded']) }}" 
+               class="pb-3 text-[10px] font-bold uppercase tracking-widest border-b-2 {{ $filter == 'graded' ? 'border-primary text-primary' : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-white' }} transition-all">
+                Sudah Dinilai ({{ $gradedCount }})
             </a>
         </div>
 
@@ -64,30 +53,37 @@
                         </tr>
                     </thead>
                     <tbody class="text-[11px] dark:text-slate-300 text-slate-600 divide-y dark:divide-white/5 divide-slate-200">
-                        @foreach($submissions as $sub)
+                        @forelse($submissions as $sub)
                         <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-all">
-                            <td class="px-8 py-5 font-bold">{{ $sub['name'] }}</td>
+                            <td class="px-8 py-5 font-bold">{{ $sub->enrollment->student->name }}</td>
                             <td class="px-8 py-5">
                                 <div class="flex items-center gap-2 text-slate-400">
-                                    <i class="fas fa-file-archive"></i> <span>{{ $sub['file'] }}</span>
+                                    <i class="fas fa-file-archive"></i> 
+                                    <span class="truncate max-w-[150px]" title="{{ basename($sub->submission_file) }}">{{ basename($sub->submission_file) }}</span>
                                 </div>
                             </td>
-                            <td class="px-8 py-5">{{ $sub['date'] }}</td>
+                            <td class="px-8 py-5">{{ $sub->started_at ? $sub->started_at->translatedFormat('d M Y, H:i') : '-' }}</td>
                             <td class="px-8 py-5">
-                                @if($sub['status'] == 'graded')
-                                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 font-bold rounded-full text-[9px] uppercase">Sudah Dinilai</span>
+                                @if($sub->final_project_score !== null)
+                                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 font-bold rounded-full text-[9px] uppercase">Dinilai ({{ $sub->final_project_score }})</span>
                                 @else
                                     <span class="px-3 py-1 bg-amber-500/10 text-amber-500 font-bold rounded-full text-[9px] uppercase">Menunggu</span>
                                 @endif
                             </td>
                             <td class="px-8 py-5 text-right">
-                                <a href="{{ url('/mentor/final-projects/submissions/' . $sub['id']) }}" 
-                                class="text-primary hover:text-white font-bold transition-all underline decoration-dotted">
+                                <a href="{{ route('mentor.projects.submission.detail', $sub->id) }}" 
+                                class="text-primary hover:text-primary/80 font-bold transition-all underline decoration-dotted">
                                     Detail
                                 </a>
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="5" class="px-8 py-8 text-center text-slate-400 text-xs italic">
+                                Belum ada pengumpulan yang sesuai dengan filter ini.
+                            </td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

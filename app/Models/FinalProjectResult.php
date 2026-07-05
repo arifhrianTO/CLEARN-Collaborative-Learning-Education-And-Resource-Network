@@ -13,6 +13,7 @@ class FinalProjectResult extends Model
         'final_project_id',
         'enrollment_id',
         'final_project_score',
+        'mentor_notes',
         'submission_file',
         'deadline',
         'started_at',

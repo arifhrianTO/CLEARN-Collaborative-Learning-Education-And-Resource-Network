@@ -610,9 +610,14 @@
                                                 </div>
                                             </div>
 
-                                            <button type="button" class="px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition">
-                                                Detail Tugas
-                                            </button>
+                                            <div class="flex flex-col gap-2">
+                                                <a href="{{ route('mentor.projects.submissions', $project->id) }}" class="px-4 py-2 text-center rounded-xl bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest hover:brightness-110 transition shadow-md shadow-emerald-500/20">
+                                                    Lihat Pengumpulan
+                                                </a>
+                                                <button type="button" class="px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition">
+                                                    Detail Tugas
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <p class="text-xs dark:text-slate-400 text-slate-600 mt-3 leading-relaxed line-clamp-3">
