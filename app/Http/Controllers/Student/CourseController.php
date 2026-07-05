@@ -164,7 +164,7 @@ class CourseController extends Controller
             ->whereHas('finalProjectResults', function ($q) {
                 $q->where('final_project_score', '>=', 70);
             })
-            ->with(['course.mentor'])
+            ->with(['course.mentor', 'finalProjectResults'])
             ->get();
 
         return view('student.certificate.index', compact('certificates', 'totalCertificates', 'completedCourses', 'claimableEnrollments'));
