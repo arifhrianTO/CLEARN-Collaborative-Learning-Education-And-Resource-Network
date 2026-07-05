@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('images/logo-clearn.png') }}">
-    <title>CLEARN │ Sertifikat</title>
+    <title>CLEARN â”‚ Sertifikat</title>
 
     {{-- Vite Assets --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -92,6 +92,30 @@
                     </div>
                 </div>
             </div>
+
+                        {{-- Klaim Sertifikat --}}
+            @if($claimableEnrollments->isNotEmpty())
+            <div class="mb-8">
+                <h2 class="text-sm font-black tracking-tight mb-4">Sertifikat Tersedia</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    @foreach($claimableEnrollments as $enrollment)
+                    <div class="card-bg p-5 flex items-center justify-between">
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-sm font-bold leading-tight mb-1 truncate">{{ $enrollment->course->course_title }}</h3>
+                            <p class="text-[10px] text-muted-custom">Nilai: {{ $enrollment->finalProjectResults->first()->final_project_score }}/100</p>
+                        </div>
+                        <form action="{{ route('student.certificate.claim', $enrollment) }}" method="POST" class="ml-4 shrink-0">
+                            @csrf
+                            <button type="submit"
+                                class="px-5 py-2.5 bg-primary text-white text-[10px] font-black uppercase rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/20 active:scale-95">
+                                Klaim Sertifikat
+                            </button>
+                        </form>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
 
             {{-- Grid Sertifikat (Ukuran Selaras dengan Course Card) --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -38,6 +38,7 @@
                     </label>
 
                     <input type="email" name="email" value="{{ old('email') }}" required
+                        placeholder="contoh@email.com"
                         class="w-full px-4 py-3 rounded-xl outline-none
                             bg-slate-50 dark:bg-[#1A1625]
                             border border-slate-200 dark:border-slate-700
@@ -55,6 +56,7 @@
 
                     <div class="relative">
                         <input type="password" name="password"
+                            placeholder="Masukkan kata sandi"
                             class="w-full px-4 py-3 pr-12 rounded-xl outline-none
                                 bg-slate-50 dark:bg-[#1A1625]
                                 border border-slate-200 dark:border-slate-700

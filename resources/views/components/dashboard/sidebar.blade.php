@@ -1,4 +1,4 @@
-@props([
+﻿@props([
 'role' => 'student',
 'name' => 'User',
 'initials' => 'U',
@@ -101,6 +101,12 @@
                 icon="fa-book"
                 label="Kursus Saya"
                 :active="request()->routeIs('mentor.courses.*')" />
+
+            <x-dashboard.sidebar-item
+                href="{{ route('mentor.penilaian.index') }}"
+                icon="fa-clipboard-list"
+                label="Penilaian"
+                :active="request()->routeIs('mentor.penilaian.*')" />
 
             <x-dashboard.sidebar-item
                 href="{{ route('mentor.student.index')}}"
@@ -217,6 +223,7 @@
                 @elseif($role == 'mentor' || $role == 'Pengajar')
                 <x-dashboard.sidebar-item href="{{ route('mentor.dashboard')}}" icon="fa-chart-pie" label="Beranda" :active="request()->routeIs('mentor.dashboard')" />
                 <x-dashboard.sidebar-item href="{{ route('mentor.courses.index') }}" icon="fa-book" label="Kursus Saya" :active="request()->routeIs('mentor.courses.*')" />
+                <x-dashboard.sidebar-item href="{{ route('mentor.penilaian.index') }}" icon="fa-clipboard-list" label="Penilaian" :active="request()->routeIs('mentor.penilaian.*')" />
                 <x-dashboard.sidebar-item href="{{ route('mentor.student.index')}}" icon="fa-users" label="Pelajar" :active="request()->routeIs('mentor.student.*')" />
                 <x-dashboard.sidebar-item href="{{ route('mentor.finance.index') }}" icon="fa-wallet" label="Pendapatan" :active="request()->routeIs('mentor.finance.*')" />
                 <x-dashboard.sidebar-item href="/settings" icon="fa-gear" label="Pengaturan" :active="request()->is('settings*')" />

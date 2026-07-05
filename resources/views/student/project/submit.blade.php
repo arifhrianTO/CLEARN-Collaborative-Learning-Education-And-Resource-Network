@@ -1,4 +1,4 @@
-@extends('layouts.learning')
+﻿@extends('layouts.learning')
 
 @section('content')
     <div class="flex w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#0F0B1A]">
@@ -90,9 +90,12 @@
                         @if($result->final_project_score !== null)
                             <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1">Tugas Selesai Dinilai</p>
                             <p class="text-xs text-slate-500">Anda mendapatkan skor: <span class="font-black text-emerald-500">{{ $result->final_project_score }}</span></p>
+                            @if($existingRate)
+                            <p class="text-[10px] text-slate-400 mt-3">Rating yang Anda berikan: {{ $existingRate->course_rate }}/5</p>
+                            @endif
                         @else
                             <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1">Tugas Berhasil Dikirim</p>
-                            <p class="text-xs text-slate-500">Menunggu penilaian dari mentor. Anda tidak dapat mengunggah file baru saat ini.</p>
+                            <p class="text-xs text-slate-500">Menunggu penilaian dari pengajar. Anda tidak dapat mengunggah file baru saat ini.</p>
                         @endif
                     </div>
                 @else
@@ -103,9 +106,27 @@
                             <p class="text-[12px] font-bold text-slate-500 group-hover:text-primary transition-colors" id="file-name">Pilih file atau seret ke sini</p>
                             <input type="file" name="submission_file" id="submission_file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" required>
                         </label>
+
+                        {{-- Rating Wajib --}}
+                        <div class="mt-6 p-4 bg-slate-50 dark:bg-[#0b0a1a] rounded-xl border border-slate-200 dark:border-white/5">
+                            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Rating Kursus <span class="text-red-500">*</span></p>
+                            <div class="flex items-center gap-1 mb-3" id="star-rating">
+                                <input type="hidden" name="course_rate" id="course_rate" value="0" required>
+                                @for($i = 1; $i <= 5; $i++)
+                                <button type="button" class="star-btn text-2xl text-slate-300 hover:text-yellow-400 transition-colors" data-value="{{ $i }}">
+                                    <i class="fa-star fa-regular"></i>
+                                </button>
+                                @endfor
+                            </div>
+                            @error('course_rate')
+                            <p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>
+                            @enderror
+                            <textarea name="course_comment" rows="2" placeholder="Tulis komentar Anda tentang kursus ini (opsional)..."
+                                class="w-full bg-white dark:bg-[#1A1625] p-3 dark:text-white text-xs rounded-lg border dark:border-white/5 border-slate-200 mt-2"></textarea>
+                        </div>
                         
                         <button type="submit" class="mt-6 w-full py-3 bg-primary hover:bg-primary/90 text-white text-[12px] font-bold rounded-lg uppercase tracking-widest transition-all">
-                            Kirim Tugas
+                            Kirim Tugas & Rating
                         </button>
                     </form>
                 @endif
@@ -143,7 +164,7 @@
                 </div>
                 
                 <div class="mt-8 p-4 bg-slate-100 dark:bg-slate-900/50 rounded-xl border border-gray-200 dark:border-gray-800 text-[10px] text-slate-500 italic">
-                    Catatan: Penilaian akan diproses oleh mentor setelah tugas diterima. Anda dapat memperbarui kiriman jika belum dinilai.
+                    Catatan: Penilaian akan diproses oleh pengajar setelah tugas diterima.
                 </div>
             </div>
             
@@ -153,6 +174,22 @@
     </div>
 
     <script>
+        // Star Rating
+        document.querySelectorAll('.star-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var value = parseInt(this.dataset.value);
+                document.getElementById('course_rate').value = value;
+                document.querySelectorAll('.star-btn').forEach(function(s, i) {
+                    var icon = s.querySelector('i');
+                    if (i < value) {
+                        icon.className = 'fa-star fas text-yellow-400';
+                    } else {
+                        icon.className = 'fa-star fa-regular text-slate-300';
+                    }
+                });
+            });
+        });
+
         document.getElementById('submission_file').addEventListener('change', function(e) {
             var fileName = e.target.files[0].name;
             document.getElementById('file-name').textContent = fileName;
