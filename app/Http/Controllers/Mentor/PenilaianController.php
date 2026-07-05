@@ -15,13 +15,28 @@ class PenilaianController extends Controller
         $mentorId = Auth::id();
 
         $courses = Course::where('mentor_id', $mentorId)
-            ->whereHas('sessions.finalProjects.finalProjectResults', function ($q) {
-                $q->whereNull('final_project_score');
+            ->whereHas('sessions', function ($q) {
+                $q->whereHas('finalProjects', function ($q) {
+                    $q->whereHas('results', function ($q) {
+                        $q->whereNull('final_project_score');
+                    });
+                });
             })
-            ->withCount(['sessions.finalProjects.finalProjectResults as pending_count' => function ($q) {
-                $q->whereNull('final_project_score');
+            ->addSelect(['pending_count' => function ($q) {
+                $q->selectRaw('COUNT(*)')
+                    ->from('final_project_results')
+                    ->join('final_projects', 'final_project_results.final_project_id', '=', 'final_projects.id')
+                    ->join('sessions', 'final_projects.sessions_id', '=', 'sessions.id')
+                    ->whereColumn('sessions.course_id', 'courses.id')
+                    ->whereNull('final_project_score');
             }])
-            ->withCount(['sessions.finalProjects.finalProjectResults as total_submissions'])
+            ->addSelect(['total_submissions' => function ($q) {
+                $q->selectRaw('COUNT(*)')
+                    ->from('final_project_results')
+                    ->join('final_projects', 'final_project_results.final_project_id', '=', 'final_projects.id')
+                    ->join('sessions', 'final_projects.sessions_id', '=', 'sessions.id')
+                    ->whereColumn('sessions.course_id', 'courses.id');
+            }])
             ->get();
 
         return view('mentor.penilaian.index', compact('courses'));
@@ -31,11 +46,11 @@ class PenilaianController extends Controller
     {
         $this->authorizeMentor($course);
 
-        $results = FinalProjectResult::whereHas('finalProject.session.course', function ($q) use ($course) {
-            $q->where('id', $course->id);
+        $results = FinalProjectResult::whereHas('finalProject.session', function ($q) use ($course) {
+            $q->where('course_id', $course->id);
         })
             ->with(['finalProject', 'enrollment.student', 'enrollment.course'])
-            ->orderByRaw('ISNULL(final_project_score), final_project_score ASC')
+            ->orderByRaw('final_project_score IS NULL DESC, final_project_score ASC')
             ->latest()
             ->get();
 
