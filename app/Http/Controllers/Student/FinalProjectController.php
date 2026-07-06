@@ -88,7 +88,6 @@ class FinalProjectController extends Controller
             'final_project_id' => $projectId,
             'enrollment_id'    => $enrollment->id,
             'submission_file'  => $filePath,
-            'started_at'       => now(),
         ]);
 
         // Save Rating
@@ -98,9 +97,6 @@ class FinalProjectController extends Controller
             'course_rate'     => $request->course_rate,
             'course_comment'  => $request->course_comment,
         ]);
-
-        // Mark enrollment as completed
-        $enrollment->update(['progress' => 100]);
 
         return back()->with('success', 'Tugas akhir berhasil dikirim. Silakan tunggu penilaian dari pengajar.');
     }

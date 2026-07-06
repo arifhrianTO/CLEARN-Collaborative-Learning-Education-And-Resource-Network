@@ -5,7 +5,7 @@
 @section('content')
 <div class="p-6 lg:p-10">
 
-    <a href="javascript:history.back()" class="fixed top-8 left-8 z-50 w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-[#1A1625] border border-gray-200 dark:border-[#2d2644] hover:scale-110 transition-all shadow-sm group">
+    <a href="{{ route('student.dashboard') }}" class="fixed top-8 left-8 z-50 w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-[#1A1625] border border-gray-200 dark:border-[#2d2644] hover:scale-110 transition-all shadow-sm group">
         <i class="fas fa-arrow-left text-primary group-hover:-translate-x-1 transition-transform"></i>
     </a>
 
@@ -54,31 +54,6 @@
                         <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/20">
                             <i class="far fa-play-circle text-4xl text-white mb-2 group-hover:scale-110 transition-transform"></i>
                             <span class="text-[8px] text-white font-black uppercase tracking-[0.2em]">Pratinjau</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-bg p-6 md:p-8">
-                    <h3 class="text-[15px] font-black mb-6 flex items-center gap-2">
-                        <span class="w-1.5 h-5 bg-primary rounded-full"></span>
-                        Apa yang Akan Anda Pelajari
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
-                        <div class="flex items-start gap-3">
-                            <i class="fas fa-check-circle text-primary mt-0.5 text-sm"></i>
-                            <p class="text-[12px] font-bold">Membuat struktur website menggunakan HTML5</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <i class="fas fa-check-circle text-primary mt-0.5 text-sm"></i>
-                            <p class="text-[12px] font-bold">Mendesain tampilan modern dengan Tailwind</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <i class="fas fa-check-circle text-primary mt-0.5 text-sm"></i>
-                            <p class="text-[12px] font-bold">Interaksi menggunakan JavaScript ES6</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <i class="fas fa-check-circle text-primary mt-0.5 text-sm"></i>
-                            <p class="text-[12px] font-bold">Membangun aplikasi dengan Laravel</p>
                         </div>
                     </div>
                 </div>

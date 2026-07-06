@@ -102,9 +102,7 @@ class LandingController extends Controller
             });
 
         $totalMentors = $mentors->count();
-        $totalStudents = $mentors->sum('student_count');
-        $averageRating = 4.8;
 
-        return view('landing.mentor', compact('mentors', 'totalMentors', 'totalStudents', 'averageRating', 'search'));
+        return view('landing.mentor', compact('mentors', 'totalMentors', 'search'));
     }
 }

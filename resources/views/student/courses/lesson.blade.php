@@ -24,7 +24,7 @@
 
     <header class="h-16 border-b border-gray-200 dark:border-border-custom bg-white/80 dark:bg-dark-sidebar backdrop-blur-md px-6 flex items-center justify-between shrink-0 z-50">
         <div class="flex items-center gap-4">
-            <a href="{{ route('student.course.show', $course->course_slug) }}" class="p-2 hover:bg-gray-500/10 rounded-lg transition text-slate-500 hover:text-primary">
+            <a href="{{ route('student.dashboard') }}" class="p-2 hover:bg-gray-500/10 rounded-lg transition text-slate-500 hover:text-primary">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h2 class="font-bold text-sm tracking-tight hidden md:block">

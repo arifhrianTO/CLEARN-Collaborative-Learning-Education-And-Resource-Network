@@ -21,7 +21,7 @@
         </div>
 
         {{-- Ringkasan Statistik (4 Kolom) dengan bg-[#161525] --}}
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
             <!-- Statistik 1: Kursus -->
             <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-10 h-10 rounded-xl bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8] text-sm">
@@ -33,21 +33,7 @@
                 </div>
             </div>
 
-            <!-- Statistik 2: Belajar -->
-            <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
-                <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 text-sm">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div>
-                    @php
-                        $ongoing = collect($enrollments->items())->filter(function($enrollment) { return $enrollment->progress > 0 && $enrollment->progress < 100; })->count();
-                    @endphp
-                    <h2 class="text-xl font-black leading-none dark:text-white text-slate-800">{{ $ongoing }}</h2>
-                    <span class="text-[9px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-widest">Belajar</span>
-                </div>
-            </div>
-
-            <!-- Statistik 3: Selesai -->
+            <!-- Statistik 2: Selesai -->
             <div class="p-5 flex items-center gap-4 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm">
                 <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 text-sm">
                     <i class="fas fa-check-circle"></i>
@@ -81,41 +67,35 @@
         </div>
 
         {{-- Filter Tab Konten --}}
-        <div class="flex flex-wrap gap-2 mb-6">
-            <button class="px-6 py-2 rounded-xl text-[11px] font-bold transition-all bg-primary text-white shadow-sm border border-primary active:scale-95">
+        <div class="flex flex-wrap gap-2 mb-6" id="filterTabs">
+            <button class="filter-btn px-6 py-2 rounded-xl text-[11px] font-bold transition-all bg-primary text-white shadow-sm border border-primary active:scale-95" data-filter="all">
                 Semua Kursus
             </button>
-            <button class="px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95">
-                Sedang Berjalan
-            </button>
-            <button class="px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95">
+            <button class="filter-btn px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95" data-filter="completed">
                 Selesai
             </button>
         </div>
 
         {{-- Grid Course List: 1 Baris 3 Kolom --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="courseGrid">
 
             @foreach($enrollments as $enrollment)
                 @php
-                    $isCompleted = $enrollment->progress == 100;
-                    $colorClass = $isCompleted ? 'emerald' : 'primary';
+                    $pendingResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNull('final_project_score')->first() : null;
+                    $isPending = (bool) $pendingResult;
+                    $isCompleted = !$isPending && $enrollment->progress == 100;
+                    $colorClass = $isCompleted ? 'emerald' : ($isPending ? 'amber' : 'primary');
                     $coverImage = $enrollment->course->course_thumbnail
                         ? (Str::startsWith($enrollment->course->course_thumbnail, 'http')
                             ? $enrollment->course->course_thumbnail
                             : Storage::url($enrollment->course->course_thumbnail))
                         : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop';
                 @endphp
-<<<<<<< HEAD
-                <div class="dark:bg-[#161525] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors">
-                    <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 block" onclick="window.location='{{ route('public.course.show', $enrollment->course->course_slug) }}'">
-=======
-                <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors">
+                <div class="course-card dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors" data-status="{{ $isCompleted ? 'completed' : 'ongoing' }}">
                     <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 block" onclick="window.location='{{ route('student.course.show', $enrollment->course->course_slug) }}'">
->>>>>>> main
                         <img src="{{ $coverImage }}" alt="{{ $enrollment->course->course_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer">
-                        <span class="absolute top-3 right-3 bg-{{ $isCompleted ? 'emerald' : 'primary' }} text-white text-[8px] font-black uppercase tracking-wider px-2 py-1 rounded-md">
-                            {{ $isCompleted ? 'LULUS' : 'DIBELI' }}
+                        <span class="absolute top-3 right-3 bg-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : 'primary') }} text-white text-[8px] font-black uppercase tracking-wider px-2 py-1 rounded-md">
+                            {{ $isCompleted ? 'LULUS' : ($isPending ? 'MENUNGGU' : 'DIBELI') }}
                         </span>
                         @if($enrollment->course->category)
                             <div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-1 rounded">
@@ -133,8 +113,8 @@
                         <div class="space-y-3">
                             <div class="space-y-1">
                                 <div class="flex justify-between text-[9px] font-bold uppercase tracking-wider dark:text-slate-500 text-slate-400">
-                                    <span>{{ $isCompleted ? 'Selesai' : 'Progres Belajar' }}</span>
-                                    <span class="text-{{ $isCompleted ? 'emerald' : 'primary' }}">{{ $enrollment->progress }}%</span>
+                                    <span>{{ $isCompleted ? 'Selesai' : ($isPending ? 'Menunggu Penilaian' : 'Progres Belajar') }}</span>
+                                    <span class="text-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : 'primary') }}">{{ $isPending ? '-' : $enrollment->progress . '%' }}</span>
                                 </div>
                                 <div class="w-full h-1.5 dark:bg-[#0F0B1A] bg-slate-100 rounded-full overflow-hidden">
                                     <div class="h-full bg-{{ $isCompleted ? 'emerald' : 'primary' }} rounded-full" style="width: {{ $enrollment->progress }}%"></div>
@@ -143,12 +123,19 @@
 
                             @if($isCompleted)
                                 <div class="grid grid-cols-2 gap-2">
-                                    <a href="{{ route('student.certif') }}" class="block text-center w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
-                                        Klaim
-                                    </a>
-                                    <button onclick="showReviewModal()" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
+                                    <form action="{{ route('student.certificate.claim', $enrollment->id) }}" method="POST" class="block">
+                                        @csrf
+                                        <button type="submit" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
+                                            Klaim
+                                        </button>
+                                    </form>
+                                    <button onclick="showReviewModal({{ $enrollment->id }}, {{ $enrollment->course_id }})" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
                                         Beri Nilai
                                     </button>
+                                </div>
+                            @elseif($isPending)
+                                <div class="block text-center w-full bg-amber-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-amber-500/20 opacity-70 cursor-not-allowed uppercase tracking-widest">
+                                    Menunggu Penilaian
                                 </div>
                             @else
                                 <a href="{{ route('student.course.lesson', $enrollment->course->course_slug) }}" class="block text-center w-full bg-primary text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
@@ -161,57 +148,13 @@
             @endforeach
 
             {{-- Slot Kosong / Tambah Kursus Baru --}}
-            <div class="dark:bg-[#1A1625]/40 bg-slate-100/50 border-2 border-dashed dark:border-white/5 border-slate-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center group min-h-[330px]">
+            <div class="course-card dark:bg-[#1A1625]/40 bg-slate-100/50 border-2 border-dashed dark:border-white/5 border-slate-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center group min-h-[330px]" data-status="empty">
                 <div class="w-12 h-12 rounded-xl dark:bg-[#1A1625] bg-slate-200/50 flex items-center justify-center text-slate-400 mb-3 group-hover:scale-110 transition-transform">
                     <i class="fas fa-plus text-sm"></i>
                 </div>
-                <p class="text-xs font-bold dark:text-slate-400 text-slate-600 mb-1">Ingin Belajar Hal Baru?</p>
-                <p class="text-[10px] dark:text-slate-500 text-slate-400 max-w-[180px] mb-4">Temukan ratusan materi berkualitas lainnya.</p>
                 <a href="{{ route('course') }}" class="px-5 py-2 inline-block border dark:border-white/5 border-slate-300 dark:text-white text-slate-700 text-[10px] font-bold rounded-xl uppercase tracking-widest hover:bg-white dark:hover:bg-[#161525] transition-all">
                     Jelajahi Kursus
                 </a>
-            </div>
-
-        </div>
-
-        <div class="mt-6">
-            {{ collect($enrollments->items())->isEmpty() ? '' : $enrollments->links() }}
-        </div>
-                    <div class="mb-4">
-                        <h3 class="text-xs font-bold leading-tight tracking-tight dark:text-white text-slate-800 mb-1 line-clamp-2">Dasar UI/UX Design untuk Pemula</h3>
-                        <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">Pengajar Desain Clearn</p>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-center gap-2 py-1.5 rounded-xl border dark:border-emerald-500/10 border-emerald-100 bg-emerald-500/5 text-emerald-500 text-[9px] font-bold uppercase tracking-wider">
-                            <i class="fas fa-shield-alt"></i> Sertifikat Tersedia
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2">
-                            {{-- Tombol Klaim Sertifikat --}}
-                            <button class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
-                                Klaim Sertifikat
-                            </button>
-
-                            {{-- Tombol Beri Nilai (Dibuat Hijau senada) --}}
-                            <button onclick="showReviewModal()" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
-                                Beri Nilai
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Slot Kosong / Tambah Kursus Baru --}}
-            <div class="dark:bg-[#1A1625]/40 bg-slate-100/50 border-2 border-dashed dark:border-white/5 border-slate-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center group min-h-[330px]">
-                <div class="w-12 h-12 rounded-xl dark:bg-[#1A1625] bg-slate-200/50 flex items-center justify-center text-slate-400 mb-3 group-hover:scale-110 transition-transform">
-                    <i class="fas fa-plus text-sm"></i>
-                </div>
-                <p class="text-xs font-bold dark:text-slate-400 text-slate-600 mb-1">Ingin Belajar Hal Baru?</p>
-                <p class="text-[10px] dark:text-slate-500 text-slate-400 max-w-[180px] mb-4">Temukan ratusan materi berkualitas lainnya.</p>
-                <button class="px-5 py-2 border dark:border-white/5 border-slate-300 dark:text-white text-slate-700 text-[10px] font-bold rounded-xl uppercase tracking-widest hover:bg-white dark:hover:bg-[#161525] transition-all">
-                    Jelajahi Kursus
-                </button>
             </div>
 
         </div>
@@ -225,20 +168,49 @@
 
 @push('scripts')
 <script>
-    function showReviewModal() {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('bg-primary', 'text-white', 'border-primary');
+                b.classList.add('dark:bg-[#1A1625]', 'bg-white', 'dark:border-white/5', 'border-slate-200', 'dark:text-slate-400', 'text-slate-500');
+            });
+            this.classList.remove('dark:bg-[#1A1625]', 'bg-white', 'dark:border-white/5', 'border-slate-200', 'dark:text-slate-400', 'text-slate-500');
+            this.classList.add('bg-primary', 'text-white', 'border-primary');
+
+            const filter = this.dataset.filter;
+            document.querySelectorAll('.course-card').forEach(card => {
+                if (filter === 'all') {
+                    card.style.display = '';
+                } else if (filter === 'completed') {
+                    card.style.display = card.dataset.status === 'completed' ? '' : 'none';
+                }
+            });
+        });
+    });
+
+    let selectedEnrollment = null;
+    let selectedCourse = null;
+
+    function showReviewModal(enrollmentId, courseId) {
+        selectedEnrollment = enrollmentId;
+        selectedCourse = courseId;
+
         Swal.fire({
             title: 'Beri Penilaian',
             html: `
+            <input type="hidden" id="review-enrollment" value="${enrollmentId}">
+            <input type="hidden" id="review-course" value="${courseId}">
             <div class="flex flex-col gap-4 text-left">
                 <div>
-                    <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Rating</label>
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Rating <span class="text-red-500">*</span></label>
                     <div class="flex justify-center gap-2 my-2 text-2xl text-amber-400" id="star-rating">
-                        <i class="fas fa-star cursor-pointer" onclick="setRating(1)"></i>
-                        <i class="fas fa-star cursor-pointer" onclick="setRating(2)"></i>
-                        <i class="fas fa-star cursor-pointer" onclick="setRating(3)"></i>
-                        <i class="fas fa-star cursor-pointer" onclick="setRating(4)"></i>
-                        <i class="fas fa-star cursor-pointer" onclick="setRating(5)"></i>
+                        <i class="fa-regular fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="1"></i>
+                        <i class="fa-regular fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="2"></i>
+                        <i class="fa-regular fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="3"></i>
+                        <i class="fa-regular fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="4"></i>
+                        <i class="fa-regular fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="5"></i>
                     </div>
+                    <input type="hidden" id="review-rating" value="0">
                 </div>
                 <textarea id="review-comment" class="w-full p-3 bg-slate-50 dark:bg-[#0F0B1A] border dark:border-white/10 rounded-xl text-xs" placeholder="Ceritakan pengalaman Anda..."></textarea>
             </div>
@@ -247,20 +219,57 @@
             confirmButtonColor: '#A487F8',
             background: document.documentElement.classList.contains('dark') ? '#161525' : '#ffffff',
             color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#000000',
+            didOpen: () => {
+                document.querySelectorAll('#star-rating i').forEach(function(star) {
+                    star.addEventListener('click', function() {
+                        var rating = parseInt(this.dataset.rating);
+                        document.getElementById('review-rating').value = rating;
+                        document.querySelectorAll('#star-rating i').forEach(function(s, i) {
+                            if (i < rating) {
+                                s.className = 'fas fa-star cursor-pointer text-yellow-400';
+                            } else {
+                                s.className = 'fa-regular fa-star cursor-pointer hover:text-yellow-400 transition-colors';
+                            }
+                        });
+                    });
+                });
+            },
             preConfirm: () => {
+                const rating = document.getElementById('review-rating').value;
+                if (rating == 0) {
+                    Swal.showValidationMessage('Rating wajib diisi');
+                    return false;
+                }
                 const comment = document.getElementById('review-comment').value;
-                return {
-                    comment: comment
-                };
+                return fetch('/student/rate/' + selectedEnrollment, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        course_rate: parseInt(rating),
+                        course_comment: comment,
+                    })
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('Gagal mengirim rating');
+                    }
+                    return response.json();
+                });
             }
-        });
-    }
-
-    // Fungsi sederhana untuk interaksi bintang (opsional)
-    function setRating(rating) {
-        const stars = document.querySelectorAll('#star-rating i');
-        stars.forEach((star, index) => {
-            star.style.color = index < rating ? '#fbbf24' : '#d1d5db';
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Rating berhasil dikirim!',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    background: document.documentElement.classList.contains('dark') ? '#161525' : '#ffffff',
+                    color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#000000',
+                });
+            }
         });
     }
 </script>
