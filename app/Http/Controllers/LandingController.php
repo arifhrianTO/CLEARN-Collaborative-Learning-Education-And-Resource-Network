@@ -39,6 +39,15 @@ class LandingController extends Controller
         return view('landing.index', compact('courses', 'heroCategories', 'studentCount', 'courseCount', 'mentorCount', 'mentors'));
     }
 
+    public function tutorial()
+    {
+        $mentorCount = User::where('role', 'mentor')->where('status', 'active')->count();
+        $studentCount = User::where('role', 'student')->where('status', 'active')->count();
+        $courseCount = Course::where('status_publish', 'published')->count();
+
+        return view('landing.tutorial', compact('mentorCount', 'studentCount', 'courseCount'));
+    }
+
     public function course(\Illuminate\Http\Request $request)
     {
         $search = $request->query('search');

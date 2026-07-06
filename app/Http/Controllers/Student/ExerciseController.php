@@ -16,6 +16,34 @@ use Illuminate\View\View;
 
 class ExerciseController extends Controller
 {
+    public function quiz(int $exerciseId): View|RedirectResponse
+    {
+        $exercise = Exercise::with(['questions.options', 'session.course'])->findOrFail($exerciseId);
+
+        $userId = auth()->id();
+
+        $enrollment = Enrollment::where('student_id', $userId)
+            ->whereHas('course.sessions.exercises', function ($query) use ($exerciseId) {
+                $query->where('exercises.id', $exerciseId);
+            })
+            ->first();
+
+        if (!$enrollment) {
+             return redirect()->route('student.course.index')->with('error', 'Anda belum terdaftar di kursus ini.');
+        }
+
+        $hasAttempted = ExerciseAttempt::where('enrollment_id', $enrollment->id)
+            ->where('exercise_id', $exerciseId)
+            ->exists();
+
+        if ($hasAttempted) {
+             return redirect()->route('student.course.lesson', $exercise->session->course->course_slug)
+                ->with('error', 'Anda sudah mengerjakan kuis ini sebelumnya. Kuis hanya dapat dikerjakan satu kali.');
+        }
+
+        return view('student.quiz.index', compact('exercise'));
+    }
+
     public function show(int $exerciseId): View|RedirectResponse
     {
         $exercise = Exercise::with(['questions.options', 'session.course'])->findOrFail($exerciseId);
@@ -115,7 +143,7 @@ class ExerciseController extends Controller
                 'attempt_number'  => $attemptNumber,
                 'start_time'      => now(),
                 'end_time'        => now(),
-                'attempt_status'  => 'completed',
+                'attempt_status'  => 'submitted',
             ]);
 
             $correctCount = 0;

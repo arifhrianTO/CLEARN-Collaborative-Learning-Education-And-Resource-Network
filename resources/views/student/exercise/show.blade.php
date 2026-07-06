@@ -62,9 +62,7 @@
 
                                 <div class="hidden">
                                     @foreach($exercise->questions as $q)
-                                        @if($q->id != $question->id)
-                                            <input type="hidden" name="answer[{{ $q->id }}]" id="hidden-answer-{{ $loop->iteration }}" value="">
-                                        @endif
+                                        <input type="hidden" name="answer[{{ $q->id }}]" id="hidden-answer-{{ $loop->iteration }}" value="">
                                     @endforeach
                                 </div>
 
