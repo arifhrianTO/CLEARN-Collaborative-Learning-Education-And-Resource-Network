@@ -12,6 +12,8 @@ $isMentor = $role === 'mentor';
 $isAdmin = $role === 'admin';
 $isStudent = in_array($role, ['student', 'students']);
 
+$isVerified = $isMentor && $user->status === 'active';
+
 $hideUsername = $isAdmin || $isStudent;
 @endphp
 
@@ -196,6 +198,13 @@ $hideUsername = $isAdmin || $isStudent;
                             Lengkapi profil keahlian dan dokumen pendukung kamu sebagai pengajar.
                         </p>
 
+                        @if($isVerified)
+                        <div class="flex items-center gap-2 px-4 py-3 mb-5 rounded-xl bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 text-sm font-semibold">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Informasi pengajar telah diverifikasi dan tidak dapat diubah.
+                        </div>
+                        @endif
+
                         <div class="mb-5">
                             <label class="block text-[11px] font-bold uppercase tracking-wide dark:text-slate-400 text-slate-500 mb-1.5">
                                 Bio
@@ -203,7 +212,8 @@ $hideUsername = $isAdmin || $isStudent;
                             <textarea
                                 name="bio"
                                 rows="4"
-                                class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
+                                @if($isVerified) readonly @endif
+                                class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none @if($isVerified) opacity-60 cursor-not-allowed @else focus:border-primary/50 focus:ring-4 focus:ring-primary/10 @endif transition"
                                 placeholder="Ceritakan tentang dirimu...">{{ old('bio', $mentor?->bio) }}</textarea>
                             @error('bio')
                             <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -219,7 +229,8 @@ $hideUsername = $isAdmin || $isStudent;
                                     type="text"
                                     name="expertise"
                                     value="{{ old('expertise', $mentor?->expertise) }}"
-                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
+                                    @if($isVerified) readonly @endif
+                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none @if($isVerified) opacity-60 cursor-not-allowed @else focus:border-primary/50 focus:ring-4 focus:ring-primary/10 @endif transition"
                                     placeholder="Misal: Web Development, Data Science">
                                 @error('expertise')
                                 <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -234,7 +245,8 @@ $hideUsername = $isAdmin || $isStudent;
                                     type="url"
                                     name="linkedin_link"
                                     value="{{ old('linkedin_link', $mentor?->linkedin_link) }}"
-                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
+                                    @if($isVerified) readonly @endif
+                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none @if($isVerified) opacity-60 cursor-not-allowed @else focus:border-primary/50 focus:ring-4 focus:ring-primary/10 @endif transition"
                                     placeholder="https://linkedin.com/in/username">
                                 @error('linkedin_link')
                                 <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -249,7 +261,8 @@ $hideUsername = $isAdmin || $isStudent;
                                     type="url"
                                     name="sinta_link"
                                     value="{{ old('sinta_link', $mentor?->sinta_link) }}"
-                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
+                                    @if($isVerified) readonly @endif
+                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none @if($isVerified) opacity-60 cursor-not-allowed @else focus:border-primary/50 focus:ring-4 focus:ring-primary/10 @endif transition"
                                     placeholder="https://sinta.kemdikbud.go.id/...">
                                 @error('sinta_link')
                                 <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -264,7 +277,8 @@ $hideUsername = $isAdmin || $isStudent;
                                     type="url"
                                     name="scopus_link"
                                     value="{{ old('scopus_link', $mentor?->scopus_link) }}"
-                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
+                                    @if($isVerified) readonly @endif
+                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none @if($isVerified) opacity-60 cursor-not-allowed @else focus:border-primary/50 focus:ring-4 focus:ring-primary/10 @endif transition"
                                     placeholder="https://www.scopus.com/...">
                                 @error('scopus_link')
                                 <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -279,7 +293,8 @@ $hideUsername = $isAdmin || $isStudent;
                                     type="text"
                                     name="front_title"
                                     value="{{ old('front_title', $mentor?->front_title) }}"
-                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
+                                    @if($isVerified) readonly @endif
+                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none @if($isVerified) opacity-60 cursor-not-allowed @else focus:border-primary/50 focus:ring-4 focus:ring-primary/10 @endif transition"
                                     placeholder="Misal: Dr.">
                                 @error('front_title')
                                 <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -294,7 +309,8 @@ $hideUsername = $isAdmin || $isStudent;
                                     type="text"
                                     name="back_title"
                                     value="{{ old('back_title', $mentor?->back_title) }}"
-                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
+                                    @if($isVerified) readonly @endif
+                                    class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none @if($isVerified) opacity-60 cursor-not-allowed @else focus:border-primary/50 focus:ring-4 focus:ring-primary/10 @endif transition"
                                     placeholder="Misal: M.Kom., Ph.D.">
                                 @error('back_title')
                                 <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -315,6 +331,19 @@ $hideUsername = $isAdmin || $isStudent;
                                     {{ $doc['label'] }}
                                 </label>
 
+                                @if($isVerified)
+                                    @if($doc['file'])
+                                    <a href="{{ asset('storage/'.$doc['file']) }}" target="_blank"
+                                        class="flex items-center gap-2 px-3 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl text-[12px] text-primary hover:underline truncate">
+                                        <i class="fa-regular fa-file text-sm shrink-0"></i>
+                                        <span class="truncate">{{ $doc['file'] }}</span>
+                                    </a>
+                                    @else
+                                    <div class="px-3 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl text-[12px] dark:text-slate-500 text-slate-400">
+                                        Tidak ada file
+                                    </div>
+                                    @endif
+                                @else
                                 {{-- Drop Zone --}}
                                 <div
                                     id="zone-{{ $doc['id'] }}"
@@ -358,6 +387,7 @@ $hideUsername = $isAdmin || $isStudent;
                                 @error($doc['name'])
                                 <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
+                                @endif
                             </div>
                             @endforeach
 
@@ -375,11 +405,13 @@ $hideUsername = $isAdmin || $isStudent;
                     <input type="file" id="photo" name="photo" class="hidden" accept="image/*">
                     <input type="hidden" id="remove_photo" name="remove_photo" value="0">
 
+                    @if(!$isVerified)
                     <button
                         type="submit"
                         class="bg-primary text-white px-6 py-2.5 rounded-xl text-[13px] font-bold hover:brightness-110 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 transition">
                         Simpan Perubahan
                     </button>
+                    @endif
                 </form>
             </div>
         </div>

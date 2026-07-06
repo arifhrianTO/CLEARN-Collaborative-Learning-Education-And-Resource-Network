@@ -8,7 +8,7 @@
     <span class="absolute top-4 left-1/2 -translate-x-1/2
                  bg-[#A487F8]/20 text-[#A487F8] text-xs font-semibold
                  px-3 py-1 rounded-full">
-        ★ Rating Tertinggi
+        ★ Pengajar
     </span>
 
     {{-- Avatar --}}

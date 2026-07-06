@@ -21,7 +21,7 @@ class DashboardService
                     $q->whereIn('connection_status', ['success', 'settlement', 'capture', 'paid', 'sukses']);
                 });
             })
-            ->with(['course.category', 'course.mentor'])
+            ->with(['course.category', 'course.mentor', 'finalProjectResults'])
             ->get();
             
         $completedCoursesCount = $activeEnrollments->where('progress', 100)->count();

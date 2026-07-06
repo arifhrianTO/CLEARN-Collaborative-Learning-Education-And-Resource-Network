@@ -61,7 +61,7 @@
             </div>
 
             {{-- Ringkasan Statistik (Selaras dengan Dashboard/Riwayat) --}}
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 <div class="card-bg p-5 flex items-center gap-4">
                     <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 text-sm">
                         <i class="fas fa-certificate"></i>
@@ -82,15 +82,6 @@
                     </div>
                 </div>
 
-                <div class="card-bg p-5 flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-[#A487F8]/10 flex items-center justify-center text-[#A487F8] text-sm">
-                        <i class="fas fa-share-nodes"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-black leading-none">0</h2>
-                        <span class="text-[9px] font-bold text-muted-custom uppercase tracking-widest">Dibagikan</span>
-                    </div>
-                </div>
             </div>
 
                         {{-- Klaim Sertifikat --}}
@@ -187,11 +178,7 @@
                 <div class="relative z-10">
                     <h2 class="text-xl font-black mb-2">Terus Tingkatkan Keahlian Anda</h2>
                     <p class="text-white/80 text-[12px] mb-6 max-w-lg mx-auto font-medium">Selesaikan kursus lainnya dan kumpulkan sertifikat untuk memperkuat profil profesional Anda.</p>
-                    <div class="flex flex-wrap justify-center gap-3">
-                        <button class="bg-white text-primary px-6 py-2.5 rounded-xl font-black text-[10px] uppercase hover:bg-slate-50 transition-all active:scale-95">
-                            Cari Kursus Baru
-                        </button>
-                    </div>
+
                 </div>
                 <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                 <div class="absolute bottom-0 left-0 w-24 h-24 bg-black/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>

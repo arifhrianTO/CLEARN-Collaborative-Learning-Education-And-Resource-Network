@@ -7,6 +7,8 @@ use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\Certificate;
 use App\Models\ExerciseResult;
+use App\Models\Rate;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +29,7 @@ class CourseController extends Controller
                     $q->whereIn('connection_status', ['success', 'settlement', 'capture', 'paid', 'sukses']);
                 });
             })
-            ->with(['course.category', 'course.mentor'])
+            ->with(['course.category', 'course.mentor', 'finalProjectResults'])
             ->latest()
             ->paginate(12);
 
@@ -38,6 +40,7 @@ class CourseController extends Controller
     {
         $course = Course::where('course_slug', $slug)
             ->with(['enrollments', 'rates', 'sessions.lessons'])
+            ->withCount('sessions')
             ->firstOrFail();
 
         $sudahEnroll = false;
@@ -228,6 +231,29 @@ class CourseController extends Controller
             ->with('success', 'Selamat! Sertifikat berhasil diklaim.');
     }
 
+    public function submitRating(Request $request, Enrollment $enrollment): \Illuminate\Http\JsonResponse
+    {
+        if ($enrollment->student_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $data = $request->validate([
+            'course_rate'    => ['required', 'numeric', 'min:1', 'max:5'],
+            'course_comment' => ['nullable', 'string', 'max:1000'],
+        ]);
+
+        Rate::updateOrCreate(
+            ['enrollment_id' => $enrollment->id],
+            [
+                'course_id'      => $enrollment->course_id,
+                'course_rate'    => $data['course_rate'],
+                'course_comment' => $data['course_comment'] ?? null,
+            ]
+        );
+
+        return response()->json(['success' => true]);
+    }
+
     public function progress(): View
     {
         $user = Auth::user();
@@ -242,12 +268,16 @@ class CourseController extends Controller
                     $q->whereIn('connection_status', ['success', 'settlement', 'capture', 'paid', 'sukses']);
                 });
             })
-            ->with(['course.category'])
+            ->with(['course.category', 'finalProjectResults'])
             ->latest()
             ->get();
 
-        $activeCoursesCount = $enrollments->where('progress', '<', 100)->count();
-        $completedCoursesCount = $enrollments->where('progress', 100)->count();
+        $activeCoursesCount = $enrollments->where('progress', '<', 100)
+            ->filter(fn($e) => !$e->finalProjectResults?->whereNull('final_project_score')->count())
+            ->count();
+        $completedCoursesCount = $enrollments->where('progress', 100)
+            ->filter(fn($e) => !$e->finalProjectResults?->whereNull('final_project_score')->count())
+            ->count();
 
         // Asumsi nilai kuis diambil dari rata-rata ExerciseResult, 
         // Jika belum ada datanya, bisa kita berikan nilai default atau hitung berdasarkan yang ada.

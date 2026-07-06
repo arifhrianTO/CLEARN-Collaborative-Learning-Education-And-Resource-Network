@@ -101,6 +101,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/project/{projectId}', [\App\Http\Controllers\Student\FinalProjectController::class, 'show'])->name('project.show');
             Route::post('/project/{projectId}', [\App\Http\Controllers\Student\FinalProjectController::class, 'submit'])->name('project.submit');
 
+            Route::post('/rate/{enrollment}', [StudentCourseController::class, 'submitRating'])->name('rate.submit');
+
             Route::get('/history', [StudentPaymentController::class, 'history'])->name('history');
             Route::get('/checkout/{course_id}', [StudentPaymentController::class, 'checkout'])->name('checkout');
             Route::get('/payment/success', [StudentPaymentController::class, 'successCallback'])->name('payment.success');

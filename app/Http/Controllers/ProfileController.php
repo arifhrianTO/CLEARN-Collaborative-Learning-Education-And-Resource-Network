@@ -78,8 +78,8 @@ class ProfileController extends Controller
 
         $user->save();
 
-        // Hanya mentor yang punya data tambahan
-        if ($user->role === 'mentor') {
+        // Hanya mentor yang punya data tambahan, dan hanya jika belum terverifikasi
+        if ($user->role === 'mentor' && $user->status !== 'active') {
             $this->updateMentorProfile($request, $user);
         }
 
@@ -141,6 +141,10 @@ class ProfileController extends Controller
         $user = $request->user();
 
         abort_unless($user->role === 'mentor', 403);
+
+        if ($user->status === 'active') {
+            abort(403, 'Informasi pengajar telah diverifikasi dan tidak dapat diubah.');
+        }
 
         $data = $request->validate([
             'bank_name'    => ['required', 'string', 'max:255'],
