@@ -141,12 +141,6 @@
                 :active="request()->routeIs('student.course.*')" />
 
             <x-dashboard.sidebar-item
-                href="{{ route('student.progress') }}"
-                icon="fa-chart-line"
-                label="Progres"
-                :active="request()->routeIs('student.progress')" />
-
-            <x-dashboard.sidebar-item
                 href="{{ route('student.certif') }}"
                 icon="fa-trophy"
                 label="Sertifikat"
@@ -230,7 +224,6 @@
                 @else
                 <x-dashboard.sidebar-item href="{{ route('student.dashboard') }}" icon="fa-chart-pie" label="Beranda" :active="request()->routeIs('student.dashboard')" />
                 <x-dashboard.sidebar-item href="{{ route('student.course.index') }}" icon="fa-book-open" label="Kursus Saya" :active="request()->routeIs('student.course.*')" />
-                <x-dashboard.sidebar-item href="{{ route('student.progress') }}" icon="fa-chart-line" label="Progres" :active="request()->routeIs('student.progress')" />
                 <x-dashboard.sidebar-item href="{{ route('student.certif') }}" icon="fa-trophy" label="Sertifikat" :active="request()->routeIs('student.certif')" />
                 <x-dashboard.sidebar-item href="{{ route('student.history') }}" icon="fa-clock-rotate-left" label="Riwayat" :active="request()->routeIs('student.history')" />
                 <x-dashboard.sidebar-item href="/settings" icon="fa-gear" label="Pengaturan" :active="request()->is('settings*')" />

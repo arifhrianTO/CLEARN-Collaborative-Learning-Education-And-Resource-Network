@@ -63,11 +63,14 @@
             <div class="p-5 dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm flex flex-col md:flex-row gap-5 items-start md:items-center justify-between">
                 <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full">
                     <div class="w-full sm:w-28 h-20 bg-slate-100 dark:bg-[#0F0B1A] rounded-xl overflow-hidden flex-shrink-0 border dark:border-white/5 border-slate-200">
-                        @if($enrollment->course->course_image)
-                            <img src="{{ Storage::url($enrollment->course->course_image) }}" alt="Thumbnail" class="w-full h-full object-cover">
-                        @else
-                            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop" alt="Thumbnail Default" class="w-full h-full object-cover">
-                        @endif
+                        @php
+                            $progCover = $enrollment->course->course_thumbnail
+                                ? (Str::startsWith($enrollment->course->course_thumbnail, 'http')
+                                    ? $enrollment->course->course_thumbnail
+                                    : Storage::url($enrollment->course->course_thumbnail))
+                                : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop';
+                        @endphp
+                        <img src="{{ $progCover }}" alt="Thumbnail" class="w-full h-full object-cover">
                     </div>
 
                     <div class="flex-1 min-w-0">
@@ -113,13 +116,13 @@
                 </div>
             </div>
             @empty
-                <div class="card-bg p-10 text-center">
-                    <div class="w-16 h-16 bg-gray-100 dark:bg-[#1A1625] rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+                <div class="dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl p-10 text-center">
+                    <div class="w-16 h-16 dark:bg-[#0F0B1A] bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 dark:text-slate-500 text-slate-400">
                         <i class="fas fa-book text-2xl"></i>
                     </div>
-                    <h3 class="text-lg font-bold mb-2">Belum ada kelas</h3>
-                    <p class="text-muted-custom text-sm mb-6">Anda belum mendaftar ke kursus apapun.</p>
-                    <a href="{{ route('course') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Cari Kursus</a>
+                    <h3 class="text-lg font-bold dark:text-white text-slate-800 mb-2">Belum ada kelas</h3>
+                    <p class="text-xs dark:text-slate-500 text-slate-400 mb-6">Anda belum mendaftar ke kursus apapun.</p>
+                    <a href="{{ route('course') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-xl text-xs font-bold shadow-lg shadow-primary/20 hover:brightness-110 active:scale-95 transition-all">Cari Kursus</a>
                 </div>
             @endforelse
         </div>
