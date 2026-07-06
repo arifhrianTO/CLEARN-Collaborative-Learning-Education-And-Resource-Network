@@ -71,7 +71,7 @@
                         @endforeach
 
                         @if($session->exercise)
-                        <a href="{{ route('student.exercise.show', $session->exercise->id) }}" class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group {{ request()->routeIs('student.exercise.*') && request()->route('exerciseId') == $session->exercise->id ? 'bg-primary/10 text-primary' : '' }}">
+                        <a href="{{ route('student.quiz.show', $session->exercise->id) }}" class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group {{ request()->routeIs('student.quiz.*') && request()->route('exerciseId') == $session->exercise->id ? 'bg-primary/10 text-primary' : '' }}">
                             <div class="flex items-center gap-3">
                                 <i class="far fa-file-alt text-xs group-hover:text-primary"></i>
                                 <span class="text-[13px] font-semibold leading-tight group-hover:text-primary transition-colors text-zinc-300">Latihan: {{ $session->exercise->exercise_title }}</span>

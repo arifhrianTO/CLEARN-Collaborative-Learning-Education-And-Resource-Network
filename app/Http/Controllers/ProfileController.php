@@ -142,10 +142,6 @@ class ProfileController extends Controller
 
         abort_unless($user->role === 'mentor', 403);
 
-        if ($user->status === 'active') {
-            abort(403, 'Informasi pengajar telah diverifikasi dan tidak dapat diubah.');
-        }
-
         $data = $request->validate([
             'bank_name'    => ['required', 'string', 'max:255'],
             'bank_account' => ['required', 'string', 'max:255'],

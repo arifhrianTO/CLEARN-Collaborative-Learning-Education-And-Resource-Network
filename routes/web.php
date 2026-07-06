@@ -41,7 +41,7 @@ Route::post('/course/{slug}/enroll', [StudentCourseController::class, 'enroll'])
 Route::get('/category', [LandingController::class, 'category'])->name('category');
 Route::get('/mentor', [LandingController::class, 'mentor'])->name('mentor');
 Route::get('/choose-role', fn() => view('auth.choose_role'))->name('choose_role');
-Route::get('/tutorial', fn() => view('landing.tutorial'))->name('tutorial');
+Route::get('/tutorial', [LandingController::class, 'tutorial'])->name('tutorial');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showForm'])->name('login');
@@ -97,6 +97,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/exercise/{exerciseId}', [StudentExerciseController::class, 'show'])->name('exercise.show');
             Route::get('/exercise/{exerciseId}/start', [StudentExerciseController::class, 'start'])->name('exercise.start');
             Route::post('/exercise/{exerciseId}', [StudentExerciseController::class, 'submit'])->name('exercise.submit');
+            Route::get('/quiz/{exerciseId}', [StudentExerciseController::class, 'quiz'])->name('quiz.show');
 
             Route::get('/project/{projectId}', [\App\Http\Controllers\Student\FinalProjectController::class, 'show'])->name('project.show');
             Route::post('/project/{projectId}', [\App\Http\Controllers\Student\FinalProjectController::class, 'submit'])->name('project.submit');

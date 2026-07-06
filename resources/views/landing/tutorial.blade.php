@@ -145,27 +145,22 @@
       </div>
   </section>
   <section class="px-6 mt-20">
-      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mt-20">
+      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 mt-20">
 
-          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
-              <h3 class="text-3xl font-bold text-[#A487F8]"><?php echo "50"?></h3>
-              <p class="text-xs text-slate-500 dark:text-gray-400">Pengajar Aktif</p>
-          </div>
+        <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
+            <h3 class="text-3xl font-bold text-[#A487F8]">{{ $mentorCount }}</h3>
+            <p class="text-xs text-slate-500 dark:text-gray-400">Pengajar Aktif</p>
+        </div>
 
-          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
-              <h3 class="text-3xl font-bold text-[#A487F8]"><?php echo "20"?></h3>
-              <p class="text-xs text-slate-500 dark:text-gray-400">Pendapatan Pengajar</p>
-          </div>
+        <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
+            <h3 class="text-3xl font-bold text-[#A487F8]">{{ $studentCount }}</h3>
+            <p class="text-xs text-slate-500 dark:text-gray-400">Pelajar Aktif</p>
+        </div>
 
-          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
-              <h3 class="text-3xl font-inter font-bold text-[#A487F8]"><?php echo "2"?></h3>
-              <p class="text-xs text-slate-500 dark:text-gray-400">Pelajar Diajar</p>
-          </div>
-
-          <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
-              <h3 class="text-3xl font-bold text-[#A487F8]"><?php echo "50" ?></h3>
-              <p class="text-xs text-slate-500 dark:text-gray-400">Negara Terjangkau</p>
-          </div>
+        <div class="bg-white dark:bg-[#1A1625] p-6 rounded-2xl text-center shadow-sm dark:shadow-none">
+            <h3 class="text-3xl font-bold text-[#A487F8]">{{ $courseCount }}</h3>
+            <p class="text-xs text-slate-500 dark:text-gray-400">Jumlah Kursus</p>
+        </div>
 
       </div>
   </section>

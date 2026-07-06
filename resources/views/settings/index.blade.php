@@ -165,25 +165,7 @@ $hideUsername = $isAdmin || $isStudent;
                             @enderror
                         </div>
 
-                        @unless($hideUsername)
-                        <div>
-                            <label class="block text-[11px] font-bold uppercase tracking-wide dark:text-slate-400 text-slate-500 mb-1.5">
-                                 Nama Pengguna
-                            </label>
-                            <input
-                                type="text"
-                                name="username"
-                                value="{{ old('username', $user->username ?? '') }}"
-                                class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
-                                placeholder="nama_pengguna">
-                            <p class="text-[11px] dark:text-slate-500 text-slate-400 mt-1">
-                                Gunakan huruf kecil, angka, titik, atau underscore.
-                            </p>
-                            @error('username')
-                            <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        @endunless
+
                     </div>
 
                     {{-- ============ PENGAJAR ONLY ============ --}}
@@ -405,13 +387,11 @@ $hideUsername = $isAdmin || $isStudent;
                     <input type="file" id="photo" name="photo" class="hidden" accept="image/*">
                     <input type="hidden" id="remove_photo" name="remove_photo" value="0">
 
-                    @if(!$isVerified)
                     <button
                         type="submit"
                         class="bg-primary text-white px-6 py-2.5 rounded-xl text-[13px] font-bold hover:brightness-110 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 transition">
                         Simpan Perubahan
                     </button>
-                    @endif
                 </form>
             </div>
         </div>
