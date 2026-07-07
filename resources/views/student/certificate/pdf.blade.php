@@ -115,6 +115,12 @@
         <div class="cert-id">
             <strong>ID:</strong> {{ $certificate->certificate_number }}
         </div>
+
+        <!-- Tambahan Kode QR Code -->
+        <div style="position: absolute; bottom: 10px; right: 40px; text-align: center;">
+            <img src="data:image/svg+xml;base64, {!! base64_encode(QrCode::format('svg')->size(60)->generate(route('student.certificate.show', $certificate->id))) !!}" alt="QR Code">
+            <div style="font-size: 8px; color: #888; margin-top: 5px;">Scan to Verify</div>
+        </div>
     </div>
 </body>
 </html>
