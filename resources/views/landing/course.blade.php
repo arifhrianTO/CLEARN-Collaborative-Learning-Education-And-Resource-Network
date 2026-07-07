@@ -26,7 +26,7 @@
     <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
 
         <div class="relative w-full md:max-w-x6">
-            <form action="{{ route('course') }}" method="GET" class="w-full">
+            <form id="courseSearchForm" action="{{ route('course') }}" method="GET" class="w-full">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
@@ -62,13 +62,13 @@
     </div>
 
     @if($courses->count() > 0)
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div id="courseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach($courses as $course)
         <x-landing.course :course="$course" />
         @endforeach
     </div>
     @else
-    <div class="w-full bg-white dark:bg-[#111116] border border-slate-200 dark:border-white/5 rounded-3xl p-12 text-center">
+    <div id="courseContainerEmpty" class="w-full bg-white dark:bg-[#111116] border border-slate-200 dark:border-white/5 rounded-3xl p-12 text-center">
         <div class="w-20 h-20 bg-slate-100 dark:bg-[#1a1625] rounded-full flex items-center justify-center mx-auto mb-6">
             <i class="fa-solid fa-search text-2xl text-slate-400"></i>
         </div>
@@ -98,4 +98,50 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('courseSearch');
+        
+        if (searchInput) {
+            let timer;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(timer);
+                
+                timer = setTimeout(function() {
+                    const searchValue = searchInput.value;
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('search', searchValue);
+                    
+                    fetch(url.toString(), {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        
+                        // Update the course list
+                        const currentSection = document.querySelector('section.py-20');
+                        const newSection = doc.querySelector('section.py-20');
+                        
+                        if (currentSection && newSection) {
+                            currentSection.innerHTML = newSection.innerHTML;
+                        }
+                        
+                        // Update URL without reload
+                        window.history.pushState({}, '', url);
+                    })
+                    .catch(error => console.error('Error fetching search results:', error));
+                }, 300); // 300ms debounce
+            });
+        }
+    });
+</script>
+@endpush
+
 @endsection

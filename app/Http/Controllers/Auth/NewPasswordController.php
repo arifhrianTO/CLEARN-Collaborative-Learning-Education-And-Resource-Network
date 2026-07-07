@@ -52,12 +52,19 @@ class NewPasswordController extends Controller
             }
         );
 
-        // If the password was successfully reset, we will redirect the user back to
-        // the application's home authenticated view. If there is an error we can
-        // redirect them back to where they came from with their error message.
-        return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                        ->withErrors(['email' => __($status)]);
+        // Jika user masih punya session (sedang login) setelah reset password,
+        // logout paksa agar dia kembali login menggunakan password baru
+        if ($status == Password::PASSWORD_RESET) {
+            if (auth()->check()) {
+                auth()->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+            }
+            
+            return redirect()->route('login')->with('success', 'Kata sandi berhasil diperbarui! Silakan masuk dengan kata sandi baru Anda.');
+        }
+
+        return back()->withInput($request->only('email'))
+                    ->withErrors(['email' => __($status)]);
     }
 }

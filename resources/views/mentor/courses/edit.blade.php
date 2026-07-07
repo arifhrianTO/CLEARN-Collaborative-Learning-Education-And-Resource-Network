@@ -118,10 +118,14 @@
                             required
                             placeholder="Contoh: 3"
                             class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
-
-                        <p class="text-[10px] text-slate-400 mt-2">
-                            Pertemuan saat ini: {{ $course->sessions->count() }}. Hanya bisa menambah Pertemuan.
-                        </p>
+                        
+                        {{-- Keterangan Peraturan Pertemuan --}}
+                        <div class="mt-3 p-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex gap-2">
+                            <i class="fa-solid fa-circle-info text-blue-500 mt-0.5 text-[10px]"></i>
+                            <p class="text-[10px] text-blue-600 dark:text-blue-300 font-medium leading-relaxed">
+                                <strong>Penting pertemuan saat ini: {{ $course->sessions->count() }}:</strong>  Pertemuan yang sudah dibuat tidak dapat dikurangi/dihapus. Jika Anda menambahkan angka di atas, pertemuan baru akan ditambahkan. Sesi paling terakhir akan selalu menjadi Tugas Akhir.
+                            </p>
+                        </div>
                     </div>
 
                     {{-- Harga --}}
@@ -130,13 +134,35 @@
                             Harga (RP)
                         </label>
 
-                        <input type="number"
-                            name="course_price"
-                            value="{{ old('course_price', $course->course_price) }}"
-                            min="0"
-                            required
-                            placeholder="Contoh: 50000"
-                            class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold text-sm">Rp</span>
+                            <input type="text"
+                                id="display_price"
+                                value="{{ rtrim(rtrim(number_format(old('course_price', $course->course_price), 2, '.', ''), '0'), '.') }}"
+                                required
+                                placeholder="Contoh: 50.000"
+                                class="w-full pl-10 pr-4 py-3 rounded-xl bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/10 dark:text-white text-slate-800 text-sm outline-none focus:border-primary transition">
+                            <input type="hidden" id="actual_price" name="course_price" value="{{ rtrim(rtrim(number_format(old('course_price', $course->course_price), 2, '.', ''), '0'), '.') }}">
+                        </div>
+
+                        {{-- Keterangan Pembagian Profit --}}
+                        <div class="mt-3 p-4 rounded-xl bg-primary/5 border border-primary/20 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-wallet text-primary text-[10px]"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">Estimasi Pendapatan Anda (80%)</p>
+                                    <p class="text-xs font-black text-primary" id="mentor_profit_display">Rp 0</p>
+                                </div>
+                            </div>
+                            <div class="hidden sm:block w-px h-8 bg-primary/20"></div>
+                            <div>
+                                <p class="text-[9px] font-semibold text-slate-500 dark:text-slate-400">Biaya Platform (20%)</p>
+                                <p class="text-[10px] font-bold text-slate-600 dark:text-slate-400" id="admin_fee_display">Rp 0</p>
+                            </div>
+                        </div>
+
                     </div>
 
                     {{-- Thumbnail --}}
@@ -192,6 +218,59 @@
         if (descTextarea) {
             descTextarea.style.height = 'auto';
             descTextarea.style.height = descTextarea.scrollHeight + 'px';
+        }
+
+        // Setup format uang untuk harga kursus
+        const displayInput = document.getElementById('display_price');
+        const actualInput = document.getElementById('actual_price');
+        const mentorProfitDisplay = document.getElementById('mentor_profit_display');
+        const adminFeeDisplay = document.getElementById('admin_fee_display');
+
+        if (displayInput && actualInput) {
+            const formatRupiah = (angka) => {
+                if (!angka) return '';
+                return new Intl.NumberFormat('id-ID').format(angka);
+            };
+
+            const calculateProfit = (price) => {
+                if(!price || isNaN(price)) {
+                    if(mentorProfitDisplay) mentorProfitDisplay.textContent = 'Rp 0';
+                    if(adminFeeDisplay) adminFeeDisplay.textContent = 'Rp 0';
+                    return;
+                }
+                
+                const numPrice = parseFloat(price);
+                const mentorProfit = numPrice * 0.8;
+                const adminFee = numPrice * 0.2;
+                
+                if(mentorProfitDisplay) mentorProfitDisplay.textContent = 'Rp ' + formatRupiah(mentorProfit);
+                if(adminFeeDisplay) adminFeeDisplay.textContent = 'Rp ' + formatRupiah(adminFee);
+            };
+
+            // Format nilai yang sudah ada saat awal load
+            if (actualInput.value) {
+                // Hapus titik desimal (,00) jika ada agar tidak dikira angka besar
+                const initialStrValue = actualInput.value.toString().split('.')[0];
+                const cleanInitialValue = initialStrValue.replace(/[^0-9]/g, '');
+                displayInput.value = formatRupiah(cleanInitialValue);
+                actualInput.value = cleanInitialValue;
+                calculateProfit(cleanInitialValue);
+            }
+
+            displayInput.addEventListener('input', function(e) {
+                // Hanya boleh angka
+                let value = this.value.replace(/[^0-9]/g, '');
+
+                if (value) {
+                    this.value = formatRupiah(value);
+                    actualInput.value = value;
+                    calculateProfit(value);
+                } else {
+                    this.value = '';
+                    actualInput.value = '';
+                    calculateProfit(0);
+                }
+            });
         }
     });
 </script>

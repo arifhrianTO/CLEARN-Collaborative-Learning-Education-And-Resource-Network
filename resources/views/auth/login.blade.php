@@ -24,6 +24,20 @@
             <form method="POST" action="{{ route('login.post') }}" class="space-y-5">
                 @csrf
 
+                @if (session('success'))
+                <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-start gap-3">
+                    <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                    <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">{{ session('success') }}</p>
+                </div>
+                @endif
+
+                @if (session('status'))
+                <div class="p-4 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex items-start gap-3">
+                    <i class="fa-solid fa-info-circle text-blue-500 mt-0.5"></i>
+                    <p class="text-xs text-blue-600 dark:text-blue-400 font-semibold">{{ session('status') }}</p>
+                </div>
+                @endif
+
                 @if ($errors->any())
                 <div class="p-4 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20">
                     @foreach ($errors->all() as $error)

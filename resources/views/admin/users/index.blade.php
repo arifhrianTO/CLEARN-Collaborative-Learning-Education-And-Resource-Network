@@ -23,17 +23,17 @@
             </div>
 
             {{-- Filter & Search Form --}}
-            <form action="{{ route('admin.users.index') }}" method="GET" class="flex flex-col sm:flex-row items-center gap-3">
+            <form id="userSearchForm" action="{{ route('admin.users.index') }}" method="GET" class="flex flex-col sm:flex-row items-center gap-3">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                         <i class="fas fa-search text-slate-400 text-[10px]"></i>
                     </span>
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, email, username..." 
+                    <input type="text" id="userSearchInput" name="search" value="{{ request('search') }}" placeholder="Cari nama, email, username..." 
                         class="w-full sm:w-64 pl-8 pr-4 py-2 bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 rounded-xl text-xs text-slate-600 dark:text-slate-300 focus:ring-[#A487F8] focus:border-[#A487F8] transition-all">
                 </div>
 
                 <div class="flex items-center gap-2 w-full sm:w-auto">
-                    <select name="role" onchange="this.form.submit()" 
+                    <select name="role" id="roleSelect" onchange="this.form.submit()" 
                         class="w-full sm:w-auto px-4 py-2 bg-white dark:bg-[#1A1625] border border-slate-200 dark:border-white/5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 focus:ring-[#A487F8] focus:border-[#A487F8] appearance-none cursor-pointer">
                         <option value="">Semua Peran</option>
                         <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
@@ -51,7 +51,7 @@
         </div>
 
         {{-- Tabel Daftar Pengguna --}}
-        <div class="bg-white dark:bg-[#1A1625] border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div id="usersTableContainer" class="bg-white dark:bg-[#1A1625] border dark:border-white/5 border-slate-200 rounded-2xl shadow-sm overflow-hidden">
             <table class="w-full text-left">
                 <thead>
                     <tr class="border-b dark:border-white/5 border-slate-100">
@@ -199,5 +199,58 @@
 
     </div>
 </main>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('userSearchInput');
+        const roleSelect = document.getElementById('roleSelect');
+        
+        if (searchInput) {
+            let timer;
+            
+            const fetchResults = function() {
+                const searchValue = searchInput.value;
+                const roleValue = roleSelect ? roleSelect.value : '';
+                const url = new URL(window.location.href);
+                
+                url.searchParams.set('search', searchValue);
+                if (roleValue) {
+                    url.searchParams.set('role', roleValue);
+                } else {
+                    url.searchParams.delete('role');
+                }
+                
+                fetch(url.toString(), {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    
+                    // Update the table container
+                    const currentContainer = document.getElementById('usersTableContainer');
+                    const newContainer = doc.getElementById('usersTableContainer');
+                    
+                    if (currentContainer && newContainer) {
+                        currentContainer.innerHTML = newContainer.innerHTML;
+                    }
+                    
+                    window.history.pushState({}, '', url);
+                })
+                .catch(error => console.error('Error fetching search results:', error));
+            };
+
+            searchInput.addEventListener('input', function() {
+                clearTimeout(timer);
+                timer = setTimeout(fetchResults, 300); // 300ms debounce
+            });
+        }
+    });
+</script>
+@endpush
 
 @endsection

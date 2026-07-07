@@ -275,7 +275,7 @@
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
 
                 {{-- Informasi Pagination --}}
-                <p class="text-[10px] font-semibold dark:text-slate-500 text-slate-400">
+                <p class="invisible text-[10px] font-semibold dark:text-slate-500 text-slate-400">
                     Menampilkan
 
                     <span class="font-black dark:text-white text-slate-700">

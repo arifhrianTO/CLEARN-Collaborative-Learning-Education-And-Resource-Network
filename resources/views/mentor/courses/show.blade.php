@@ -238,6 +238,19 @@
                 </button>
             </div>
 
+            {{-- ALERT INFO PERTEMUAN --}}
+            <div class="mb-6 p-4 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-circle-info text-blue-500"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-blue-700 dark:text-blue-400">Penting! Aturan Pertemuan & Tugas Akhir</h4>
+                    <p class="text-[11px] text-blue-600 dark:text-blue-300 mt-1 font-medium leading-relaxed">
+                        Harap berhati-hati: <strong>Pertemuan yang sudah dibuat tidak dapat dihapus.</strong> Secara otomatis, sistem akan selalu mengatur <strong>Pertemuan Terakhir</strong> sebagai sesi untuk ujian "Tugas Akhir".
+                    </p>
+                </div>
+            </div>
+
             <div class="space-y-4">
                 @forelse($course->sessions as $index => $session)
 
