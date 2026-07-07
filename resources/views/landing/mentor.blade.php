@@ -26,7 +26,7 @@
 <div class="w-full bg-slate-100 dark:bg-[#0F0B1A] py-6 border-y border-slate-200 dark:border-white/5 transition-colors">
     <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="relative w-full md:max-w-x6">
-            <form action="{{ route('mentor') }}" method="GET" class="w-full">
+            <form id="mentorSearchForm" action="{{ route('mentor') }}" method="GET" class="w-full">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
@@ -100,5 +100,49 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('mentorSearch');
+        
+        if (searchInput) {
+            let timer;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(timer);
+                
+                timer = setTimeout(function() {
+                    const searchValue = searchInput.value;
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('search', searchValue);
+                    
+                    fetch(url.toString(), {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        
+                        // Update the mentor list section
+                        const currentSection = document.getElementById('pengajar');
+                        const newSection = doc.getElementById('pengajar');
+                        
+                        if (currentSection && newSection) {
+                            currentSection.innerHTML = newSection.innerHTML;
+                        }
+                        
+                        window.history.pushState({}, '', url);
+                    })
+                    .catch(error => console.error('Error fetching search results:', error));
+                }, 300); // 300ms debounce
+            });
+        }
+    });
+</script>
+@endpush
 
 @endsection

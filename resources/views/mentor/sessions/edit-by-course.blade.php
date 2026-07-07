@@ -63,6 +63,15 @@
                         Isi judul dan deskripsi setiap pertemuan. Pertemuan terakhir khusus untuk tugas akhir.
                     </p>
                 </div>
+                
+                {{-- Alert Info Peraturan Pertemuan --}}
+                <div class="mt-4 p-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex gap-2">
+                    <i class="fa-solid fa-circle-info text-blue-500 mt-0.5 text-[10px]"></i>
+                    <p class="text-[10px] text-blue-600 dark:text-blue-300 font-medium leading-relaxed">
+                        <strong>Perhatian:</strong> Kotak pertemuan di bawah ini telah dibuat sesuai dengan jumlah yang Anda tentukan sebelumnya dan <strong>tidak dapat dihapus</strong>. Silakan isi materi dengan cermat. Pertemuan yang paling terakhir otomatis dialokasikan khusus sebagai sesi <strong>Tugas Akhir</strong>.
+                    </p>
+                </div>
+            </div>
 
                 <div class="space-y-5">
                     @foreach($course->sessions as $index => $session)
