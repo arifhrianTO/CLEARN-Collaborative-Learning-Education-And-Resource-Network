@@ -8,7 +8,7 @@
     openModal: false,
     skor: {{ $result->final_project_score !== null ? $result->final_project_score : 'null' }},
     komentar: {{ $result->mentor_notes !== null ? json_encode($result->mentor_notes) : 'null' }},
-    status: '{{ $result->final_project_score !== null ? 'Dinilai' : 'Menunggu' }}',
+    status: '{{ $result->final_project_score !== null ? ($result->final_project_score >= 70 ? 'Lulus' : 'Tidak Lulus') : 'Menunggu' }}',
     waktuPengumpulan: '{{ $result->started_at ? $result->started_at->translatedFormat('d M Y, H:i') : '-' }}',
     namaSiswa: '{{ $result->enrollment->student->name }}',
     fileProyek: '{{ basename($result->submission_file) }}',
@@ -67,7 +67,7 @@
                             </div>
                             <div>
                                 <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Status</p>
-                                <span :class="status == 'Menunggu' ? 'bg-amber-500/10 text-amber-500' : 'bg-emerald-500/10 text-emerald-500'" 
+                                <span :class="status == 'Menunggu' ? 'bg-amber-500/10 text-amber-500' : (status == 'Tidak Lulus' ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500')" 
                                     class="inline-block mt-1 px-3 py-1 rounded-full font-bold uppercase text-[9px]" 
                                     x-text="status"></span>
                             </div>

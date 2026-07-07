@@ -85,15 +85,15 @@
                                     @endforelse
 
                                     @if($session->exercise)
-                                        <div class="inner-item flex items-center justify-between p-4 bg-gray-50/50 dark:bg-[#1A1625] border border-gray-100 dark:border-[#2d2644] rounded-xl">
+                                        <a href="{{ route('student.quiz.show', $session->exercise->id) }}" class="inner-item flex items-center justify-between p-4 bg-gray-50/50 dark:bg-[#1A1625] border border-gray-100 dark:border-[#2d2644] rounded-xl hover:border-primary/30 transition-all group">
                                             <div class="flex items-center gap-4">
                                                 <i class="fas fa-file-alt text-primary text-sm"></i>
-                                                <span class="text-[12px] font-extrabold uppercase tracking-tight">
+                                                <span class="text-[12px] font-extrabold uppercase tracking-tight group-hover:text-primary transition-colors">
                                                     Latihan: {{ $session->exercise->exercise_title }}
                                                 </span>
                                             </div>
                                             <span class="text-[10px] text-amber-500 font-bold uppercase tracking-wider bg-amber-500/10 px-2 py-0.5 rounded">Kuis</span>
-                                        </div>
+                                        </a>
                                     @endif
                                 </div>
                             </div>

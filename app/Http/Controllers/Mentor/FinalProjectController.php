@@ -483,12 +483,9 @@ class FinalProjectController extends Controller
             'mentor_notes' => $validated['komentar'],
         ]);
 
-        // Cek jika score >= kelulusan (misalnya >= 70) dan update progress
-        if ($validated['skor'] >= 70) {
-            // Update progres student jika belum 100%
-             if($result->enrollment->progress < 100) {
-                  $result->enrollment->update(['progress' => 100]);
-             }
+        // Update progres student ke 100% setelah dinilai
+        if ($result->enrollment->progress < 100) {
+            $result->enrollment->update(['progress' => 100]);
         }
 
         return redirect()->route('mentor.projects.submission.detail', $result->id)

@@ -34,12 +34,19 @@
 
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-3">
+                @php
+                    $allLessons = $course->sessions->flatMap->lessons;
+                    $totalLessons = $allLessons->count();
+                    $currentIndex = $activeLesson ? $allLessons->search(function($l) use ($activeLesson) { return $l->id === $activeLesson->id; }) : 0;
+                    $currentPosition = $currentIndex !== false ? $currentIndex + 1 : 0;
+                    $progressPercent = $totalLessons > 0 ? round(($currentPosition / $totalLessons) * 100) : 0;
+                @endphp
                 <div class="text-right hidden sm:block">
                     <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Progres Kursus</p>
-                    <p class="text-xs font-black">14% <span class="text-slate-400 font-medium">(2/12 Materi)</span></p>
+                    <p class="text-xs font-black">{{ $progressPercent }}% <span class="text-slate-400 font-medium">({{ $currentPosition }}/{{ $totalLessons }} Materi)</span></p>
                 </div>
                 <div class="w-32 h-2 bg-gray-200 dark:bg-border-custom rounded-full overflow-hidden">
-                    <div class="h-full bg-primary" style="width:14%"></div>
+                    <div class="h-full bg-primary" style="width:{{ $progressPercent }}%"></div>
                 </div>
             </div>
 
@@ -71,12 +78,28 @@
                         @endforeach
 
                         @if($session->exercise)
+                        @php
+                            $exerciseResult = $enrollment->exerciseResults
+                                ->first(fn($r) => $r->exerciseAttempt->exercise_id === $session->exercise->id);
+                            $isLulus = $enrollment->progress === 100;
+                        @endphp
+
+                        @if($isLulus && $exerciseResult)
+                        <div class="flex items-center justify-between px-4 py-3 rounded-xl bg-black/5 dark:bg-dark-card-lighter text-slate-400 dark:text-zinc-500 cursor-default">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-check-circle text-green-500 text-xs"></i>
+                                <span class="text-[13px] font-semibold leading-tight text-zinc-300">Latihan: {{ $session->exercise->exercise_title }}</span>
+                            </div>
+                            <span class="text-xs font-bold text-green-500">{{ $exerciseResult->exercise_result_score }}</span>
+                        </div>
+                        @else
                         <a href="{{ route('student.quiz.show', $session->exercise->id) }}" class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group {{ request()->routeIs('student.quiz.*') && request()->route('exerciseId') == $session->exercise->id ? 'bg-primary/10 text-primary' : '' }}">
                             <div class="flex items-center gap-3">
-                                <i class="far fa-file-alt text-xs group-hover:text-primary"></i>
+                                <i class="fas fa-pen text-xs group-hover:text-primary"></i>
                                 <span class="text-[13px] font-semibold leading-tight group-hover:text-primary transition-colors text-zinc-300">Latihan: {{ $session->exercise->exercise_title }}</span>
                             </div>
                         </a>
+                        @endif
                         @endif
 
                         @if(count($session->finalProjects) > 0)

@@ -51,9 +51,13 @@
                             </div>
                             <div>
                                 <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Status</p>
-                                @if($result->final_project_score !== null)
+                                @if($result->final_project_score !== null && $result->final_project_score >= 70)
                                 <span class="inline-block mt-1 px-3 py-1 bg-emerald-500/10 text-emerald-500 font-bold rounded-full text-[9px] uppercase">
-                                    Sudah Dinilai
+                                    Lulus
+                                </span>
+                                @elseif($result->final_project_score !== null)
+                                <span class="inline-block mt-1 px-3 py-1 bg-red-500/10 text-red-500 font-bold rounded-full text-[9px] uppercase">
+                                    Tidak Lulus
                                 </span>
                                 @else
                                 <span class="inline-block mt-1 px-3 py-1 bg-amber-500/10 text-amber-500 font-bold rounded-full text-[9px] uppercase">

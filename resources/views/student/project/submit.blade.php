@@ -84,19 +84,40 @@
                     </div>
                 </div>
 
-                @if($result)
+                @if($result && $result->final_project_score !== null && $result->final_project_score >= 70)
                     <div class="border border-emerald-500/30 bg-emerald-500/5 rounded-xl p-10 flex flex-col items-center justify-center text-center h-full min-h-[250px]">
                         <i class="fas fa-check-circle text-emerald-500 text-3xl mb-3"></i>
-                        @if($result->final_project_score !== null)
-                            <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1">Tugas Selesai Dinilai</p>
-                            <p class="text-xs text-slate-500">Anda mendapatkan skor: <span class="font-black text-emerald-500">{{ $result->final_project_score }}</span></p>
-                            @if($existingRate)
-                            <p class="text-[10px] text-slate-400 mt-3">Rating yang Anda berikan: {{ $existingRate->course_rate }}/5</p>
+                        <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1">Tugas Selesai Dinilai</p>
+                        <p class="text-xs text-slate-500">Anda mendapatkan skor: <span class="font-black text-emerald-500">{{ $result->final_project_score }}</span></p>
+                    </div>
+                @elseif($result && $result->final_project_score !== null)
+                    <div class="border border-red-500/30 bg-red-500/5 rounded-xl p-6 mb-6">
+                        <div class="flex flex-col items-center justify-center text-center">
+                            <i class="fas fa-times-circle text-red-500 text-3xl mb-3"></i>
+                            <p class="text-sm font-bold text-red-600 dark:text-red-400 mb-1">Tugas Tidak Lulus</p>
+                            <p class="text-xs text-slate-500">Skor: <span class="font-black text-red-500">{{ $result->final_project_score }}</span></p>
+                            @if($result->mentor_notes)
+                            <p class="text-[10px] text-slate-400 mt-3 italic">&ldquo;{{ $result->mentor_notes }}&rdquo;</p>
                             @endif
-                        @else
-                            <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1">Tugas Berhasil Dikirim</p>
-                            <p class="text-xs text-slate-500">Menunggu penilaian dari pengajar. Anda tidak dapat mengunggah file baru saat ini.</p>
-                        @endif
+                            <p class="text-[11px] text-slate-500 mt-4 font-bold">Silakan upload ulang tugas Anda.</p>
+                        </div>
+                    </div>
+                    <form action="{{ route('student.project.submit', $project->id) }}" method="POST" enctype="multipart/form-data" class="flex flex-col flex-1">
+                        @csrf
+                        <label for="submission_file" class="flex-1 min-h-[150px] border-2 border-dashed border-red-300 dark:border-red-700 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary transition-all relative overflow-hidden group">
+                            <i class="fas fa-file-archive text-slate-400 group-hover:text-primary transition-colors text-2xl mb-2"></i>
+                            <p class="text-[11px] font-bold text-slate-500 group-hover:text-primary transition-colors" id="file-name">Pilih file baru atau seret ke sini</p>
+                            <input type="file" name="submission_file" id="submission_file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" required>
+                        </label>
+                        <button type="submit" class="mt-4 w-full py-3 bg-primary hover:bg-primary/90 text-white text-[12px] font-bold rounded-lg uppercase tracking-widest transition-all">
+                            Upload Ulang Tugas
+                        </button>
+                    </form>
+                @elseif($result)
+                    <div class="border border-amber-500/30 bg-amber-500/5 rounded-xl p-10 flex flex-col items-center justify-center text-center h-full min-h-[250px]">
+                        <i class="fas fa-clock text-amber-500 text-3xl mb-3"></i>
+                        <p class="text-sm font-bold text-amber-600 dark:text-amber-400 mb-1">Tugas Berhasil Dikirim</p>
+                        <p class="text-xs text-slate-500">Menunggu penilaian dari pengajar. Anda tidak dapat mengunggah file baru saat ini.</p>
                     </div>
                 @else
                     <form action="{{ route('student.project.submit', $project->id) }}" method="POST" enctype="multipart/form-data" class="flex flex-col h-full">
@@ -107,26 +128,8 @@
                             <input type="file" name="submission_file" id="submission_file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" required>
                         </label>
 
-                        {{-- Rating Wajib --}}
-                        <div class="mt-6 p-4 bg-slate-50 dark:bg-[#0b0a1a] rounded-xl border border-slate-200 dark:border-white/5">
-                            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Rating Kursus <span class="text-red-500">*</span></p>
-                            <div class="flex items-center gap-1 mb-3" id="star-rating">
-                                <input type="hidden" name="course_rate" id="course_rate" value="0" required>
-                                @for($i = 1; $i <= 5; $i++)
-                                <button type="button" class="star-btn text-2xl text-slate-300 hover:text-yellow-400 transition-colors" data-value="{{ $i }}">
-                                    <i class="fa-star fa-regular"></i>
-                                </button>
-                                @endfor
-                            </div>
-                            @error('course_rate')
-                            <p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>
-                            @enderror
-                            <textarea name="course_comment" rows="2" placeholder="Tulis komentar Anda tentang kursus ini (opsional)..."
-                                class="w-full bg-white dark:bg-[#1A1625] p-3 dark:text-white text-xs rounded-lg border dark:border-white/5 border-slate-200 mt-2"></textarea>
-                        </div>
-                        
                         <button type="submit" class="mt-6 w-full py-3 bg-primary hover:bg-primary/90 text-white text-[12px] font-bold rounded-lg uppercase tracking-widest transition-all">
-                            Kirim Tugas & Rating
+                            Kirim Tugas
                         </button>
                     </form>
                 @endif
@@ -143,8 +146,10 @@
                             <div class="px-3 py-1 bg-red-500/10 text-red-500 text-[10px] font-bold rounded-full">Belum Mengumpulkan</div>
                         @elseif($result->final_project_score === null)
                             <div class="px-3 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded-full">Menunggu Penilaian</div>
+                        @elseif($result->final_project_score >= 70)
+                            <div class="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold rounded-full">Lulus</div>
                         @else
-                            <div class="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold rounded-full">Sudah Dinilai</div>
+                            <div class="px-3 py-1 bg-red-500/10 text-red-500 text-[10px] font-bold rounded-full">Tidak Lulus</div>
                         @endif
                     </div>
                     
@@ -174,22 +179,6 @@
     </div>
 
     <script>
-        // Star Rating
-        document.querySelectorAll('.star-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var value = parseInt(this.dataset.value);
-                document.getElementById('course_rate').value = value;
-                document.querySelectorAll('.star-btn').forEach(function(s, i) {
-                    var icon = s.querySelector('i');
-                    if (i < value) {
-                        icon.className = 'fa-star fas text-yellow-400';
-                    } else {
-                        icon.className = 'fa-star fa-regular text-slate-300';
-                    }
-                });
-            });
-        });
-
         document.getElementById('submission_file').addEventListener('change', function(e) {
             var fileName = e.target.files[0].name;
             document.getElementById('file-name').textContent = fileName;
