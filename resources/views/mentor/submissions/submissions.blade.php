@@ -64,8 +64,10 @@
                             </td>
                             <td class="px-8 py-5">{{ $sub->started_at ? $sub->started_at->translatedFormat('d M Y, H:i') : '-' }}</td>
                             <td class="px-8 py-5">
-                                @if($sub->final_project_score !== null)
-                                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 font-bold rounded-full text-[9px] uppercase">Dinilai ({{ $sub->final_project_score }})</span>
+                                @if($sub->final_project_score !== null && $sub->final_project_score >= 70)
+                                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 font-bold rounded-full text-[9px] uppercase">Lulus ({{ $sub->final_project_score }})</span>
+                                @elseif($sub->final_project_score !== null)
+                                    <span class="px-3 py-1 bg-red-500/10 text-red-500 font-bold rounded-full text-[9px] uppercase">Tidak Lulus ({{ $sub->final_project_score }})</span>
                                 @else
                                     <span class="px-3 py-1 bg-amber-500/10 text-amber-500 font-bold rounded-full text-[9px] uppercase">Menunggu</span>
                                 @endif

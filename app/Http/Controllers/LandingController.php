@@ -12,6 +12,8 @@ class LandingController extends Controller
     {
         $courses = Course::where('status_publish', 'published')
             ->with('enrollments')
+            ->withAvg('rates', 'course_rate')
+            ->withCount('rates')
             ->latest()
             ->take(6)
             ->get();
@@ -54,6 +56,8 @@ class LandingController extends Controller
 
         $coursesQuery = Course::where('status_publish', 'published')
             ->with('enrollments')
+            ->withAvg('rates', 'course_rate')
+            ->withCount('rates')
             ->latest();
 
         if ($search) {

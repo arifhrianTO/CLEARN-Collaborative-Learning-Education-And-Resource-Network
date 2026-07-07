@@ -29,7 +29,7 @@ class CourseController extends Controller
                     $q->whereIn('connection_status', ['success', 'settlement', 'capture', 'paid', 'sukses']);
                 });
             })
-            ->with(['course.category', 'course.mentor', 'finalProjectResults'])
+            ->with(['course.category', 'course.mentor', 'finalProjectResults', 'rate'])
             ->latest()
             ->paginate(12);
 
@@ -39,7 +39,7 @@ class CourseController extends Controller
     public function show($slug): View
     {
         $course = Course::where('course_slug', $slug)
-            ->with(['enrollments', 'rates', 'sessions.lessons'])
+            ->with(['enrollments', 'rates', 'sessions.lessons', 'sessions.exercise'])
             ->withCount('sessions')
             ->firstOrFail();
 
@@ -102,7 +102,7 @@ class CourseController extends Controller
         // Pengecekan akses: Pastikan student sudah enroll dan sudah bayar lunas (atau kursus gratis)
         $enrollment = Enrollment::where('student_id', Auth::id())
             ->where('course_id', $course->id)
-            ->with('payment')
+            ->with(['payment', 'exerciseResults.exerciseAttempt'])
             ->first();
 
         $hasAccess = false;
@@ -138,7 +138,7 @@ class CourseController extends Controller
             $activeLesson = $course->sessions->first()->lessons->first();
         }
 
-        return view('student.courses.lesson', compact('course', 'activeLesson'));
+        return view('student.courses.lesson', compact('course', 'activeLesson', 'enrollment'));
     }
 
     public function certificates(): View
@@ -235,6 +235,15 @@ class CourseController extends Controller
     {
         if ($enrollment->student_id !== Auth::id()) {
             abort(403);
+        }
+
+        // Cek apakah tugas sudah dinilai
+        $hasGradedResult = $enrollment->finalProjectResults()
+            ->whereNotNull('final_project_score')
+            ->exists();
+
+        if (!$hasGradedResult) {
+            return response()->json(['success' => false, 'message' => 'Belum bisa memberi rating, tugas belum dinilai pengajar.'], 403);
         }
 
         $data = $request->validate([

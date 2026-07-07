@@ -15,7 +15,7 @@
         </p>
         <div class="flex items-center justify-between text-xs mb-5">
             <div class="flex items-center text-yellow-500">
-                <i class="fas fa-star mr-1"></i> 4.8 <span class="text-slate-400 ml-1.5">(10)</span>
+                <i class="fas fa-star mr-1"></i> {{ number_format($course->rates_avg_course_rate ?? 0, 1) }} <span class="text-slate-400 ml-1.5">({{ $course->rates_count ?? 0 }})</span>
             </div>
             <div class="text-slate-400">
                 <i class="fas fa-users mr-1.5"></i> {{ $course->enrollments->count() }} pelajar

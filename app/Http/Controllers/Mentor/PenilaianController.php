@@ -83,10 +83,8 @@ class PenilaianController extends Controller
 
         $result->update($data);
 
-        // Tandai enrollment selesai jika nilai >= 70
-        if ($data['final_project_score'] >= 70) {
-            $result->enrollment->update(['progress' => 100]);
-        }
+        // Tandai enrollment selesai (progres 100%) setelah dinilai
+        $result->enrollment->update(['progress' => 100]);
 
         return redirect()
             ->route('mentor.penilaian.course', $result->enrollment->course_id)
