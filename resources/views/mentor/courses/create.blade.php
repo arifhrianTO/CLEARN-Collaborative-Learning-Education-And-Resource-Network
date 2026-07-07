@@ -110,8 +110,8 @@
                         </label>
 
                         <input type="number"
-                            name="total_sessions"
-                            value="{{ old('total_sessions') }}"
+                            name="session_count"
+                            value="{{ old('session_count') }}"
                             min="1"
                             max="50"
                             required
