@@ -64,9 +64,14 @@
                 @php
                     $pendingResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNull('final_project_score')->first() : null;
                     $isPending = (bool) $pendingResult;
-                    $isCompleted = !$isPending && $enrollment->progress == 100;
-                    $colorClass = $isCompleted ? 'emerald' : ($isPending ? 'amber' : 'primary');
-                    $colorHex = $isCompleted ? 'rgba(16,185,129,0.4)' : ($isPending ? 'rgba(245,158,11,0.4)' : 'rgba(164,135,248,0.4)');
+                    $failedResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNotNull('final_project_score')->where('final_project_score', '<', 70)->first() : null;
+                    $isFailed = (bool) $failedResult;
+                    $isCompleted = !$isPending && !$isFailed && $enrollment->progress == 100;
+                    $colorClass = $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary'));
+                    $colorHex = $isCompleted ? 'rgba(16,185,129,0.4)' : ($isPending ? 'rgba(245,158,11,0.4)' : ($isFailed ? 'rgba(239,68,68,0.4)' : 'rgba(164,135,248,0.4)'));
+                    $hasCertificate = $enrollment->certificate ? true : false;
+                    $finalProject = $enrollment->course->sessions->flatMap->finalProjects->first();
+                    $projectId = $finalProject?->id;
                     $coverImage = $enrollment->course->course_thumbnail 
                         ? (Str::startsWith($enrollment->course->course_thumbnail, 'http') 
                             ? $enrollment->course->course_thumbnail 
@@ -90,21 +95,27 @@
                                     <h3 class="font-bold text-sm leading-tight dark:text-white text-slate-800 mb-1">{{ $enrollment->course->course_title }}</h3>
                                     <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">{{ $enrollment->course->mentor->name ?? 'Tim Pengajar Clearn' }}</p>
                                 </div>
-                                <span class="text-[10px] font-black text-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : 'primary') }}-500 bg-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : 'primary') }}-500/10 px-2 py-1 rounded-md">
-                                    {{ $isCompleted ? 'LULUS' : ($isPending ? 'MENUNGGU' : $enrollment->progress . '%') }}
+                                <span class="text-[10px] font-black text-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary')) }}-500 bg-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary')) }}-500/10 px-2 py-1 rounded-md">
+                                    {{ $isCompleted ? 'LULUS' : ($isPending ? 'MENUNGGU' : ($isFailed ? 'TIDAK LULUS' : $enrollment->progress . '%')) }}
                                 </span>
                             </div>
 
                             <div class="w-full dark:bg-[#0F0B1A] bg-slate-100 h-1.5 rounded-full mb-1">
-                                <div class="bg-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : 'primary') }}-500 h-1.5 rounded-full shadow-[0_0_8px_{{ $colorHex }}]" style="width: {{ $isPending ? 100 : $enrollment->progress }}%"></div>
+                                <div class="bg-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary')) }}-500 h-1.5 rounded-full shadow-[0_0_8px_{{ $colorHex }}]" style="width: {{ $isPending ? 100 : $enrollment->progress }}%"></div>
                             </div>
                             
-                            @if($isCompleted)
+                            @if($isCompleted && $hasCertificate)
+                                <div class="flex items-center gap-1.5 text-[9px] text-emerald-500 font-bold uppercase tracking-wider">
+                                    <i class="fas fa-shield-alt"></i> Sertifikat Diklaim
+                                </div>
+                            @elseif($isCompleted)
                                 <div class="flex items-center gap-1.5 text-[9px] text-emerald-500 font-bold uppercase tracking-wider">
                                     <i class="fas fa-shield-alt"></i> Sertifikat Tersedia
                                 </div>
                             @elseif($isPending)
                                 <p class="text-[9px] dark:text-slate-500 text-slate-400 font-bold uppercase tracking-wider">Menunggu Penilaian</p>
+                            @elseif($isFailed)
+                                <p class="text-[9px] text-red-500 font-bold uppercase tracking-wider">Tidak Lulus - Ajukan Ulang</p>
                             @else
                                 <p class="text-[9px] dark:text-slate-500 text-slate-400 font-bold uppercase tracking-wider">Progres Belajar</p>
                             @endif
@@ -112,11 +123,16 @@
 
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-3 mt-3 border-t dark:border-white/5 border-slate-100">
                             <p class="text-[10px] dark:text-slate-400 text-slate-500">
-                                Status: <span class="dark:text-white text-slate-800 font-bold">{{ $isCompleted ? 'Semua materi telah diselesaikan' : ($isPending ? 'Menunggu penilaian pengajar' : 'Sedang Dipelajari') }}</span>
+                                Status: <span class="dark:text-white text-slate-800 font-bold">{{ $isCompleted && $hasCertificate ? 'Sertifikat sudah diklaim' : ($isCompleted ? 'Semua materi telah diselesaikan' : ($isPending ? 'Menunggu penilaian pengajar' : ($isFailed ? 'Tugas akhir tidak memenuhi syarat' : 'Sedang Dipelajari'))) }}</span>
                             </p>
                             
                             <div class="flex gap-2 w-full sm:w-auto">
-                                @if($isCompleted)
+                                @if($isCompleted && $hasCertificate)
+                                    <button onclick="window.location='{{ route('student.certificate.show', $enrollment->certificate->id) }}'"
+                                        class="flex-1 sm:flex-initial bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-emerald-500/30 transition-all active:scale-95">
+                                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                                    </button>
+                                @elseif($isCompleted)
                                     <form action="{{ route('student.certificate.claim', $enrollment->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="flex-1 sm:flex-initial bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-emerald-500/30 transition-all active:scale-95">
@@ -127,6 +143,11 @@
                                     <div class="w-full sm:w-auto bg-amber-500 text-white px-5 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest text-center opacity-70 cursor-not-allowed">
                                         Menunggu Penilaian
                                     </div>
+                                @elseif($isFailed)
+                                    <button onclick="window.location.href='{{ $projectId ? route('student.project.show', $projectId) : '#' }}'"
+                                        class="w-full sm:w-auto bg-red-500 text-white px-5 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-red-500/30 transition-all active:scale-95">
+                                        <i class="fa-solid fa-rotate"></i> Ajukan Ulang
+                                    </button>
                                 @else
                                     <button onclick="window.location.href='{{ route('student.course.lesson', $enrollment->course->course_slug) }}'"
                                         class="w-full sm:w-auto bg-primary text-white px-5 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-primary/30 transition-all active:scale-95">

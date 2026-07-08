@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -29,7 +30,7 @@ class CourseController extends Controller
                     $q->whereIn('connection_status', ['success', 'settlement', 'capture', 'paid', 'sukses']);
                 });
             })
-            ->with(['course.category', 'course.mentor', 'finalProjectResults', 'rate'])
+            ->with(['course.category', 'course.mentor', 'finalProjectResults', 'rate', 'certificate'])
             ->latest()
             ->paginate(12);
 
@@ -39,7 +40,7 @@ class CourseController extends Controller
     public function show($slug): View
     {
         $course = Course::where('course_slug', $slug)
-            ->with(['enrollments', 'rates', 'sessions.lessons', 'sessions.exercise'])
+            ->with(['enrollments', 'rates', 'sessions.lessons', 'sessions.exercise', 'sessions.finalProjects.materials'])
             ->withCount('sessions')
             ->firstOrFail();
 
@@ -158,6 +159,9 @@ class CourseController extends Controller
 
         $completedCourses = Enrollment::where('student_id', $user->id)
             ->where('progress', 100)
+            ->whereDoesntHave('finalProjectResults', function ($q) {
+                $q->whereNotNull('final_project_score')->where('final_project_score', '<', 70);
+            })
             ->count();
 
         // Courses that can claim certificate (completed + graded >= 70, no certificate yet)
@@ -223,7 +227,7 @@ class CourseController extends Controller
 
         $certificate = Certificate::create([
             'enrollment_id'      => $enrollment->id,
-            'certificate_number' => 'CLN-' . strtoupper(uniqid()),
+            'certificate_number' => 'CLN-' . strtoupper(Str::random(16)),
             'issue_date'         => now(),
         ]);
 
@@ -286,6 +290,7 @@ class CourseController extends Controller
             ->count();
         $completedCoursesCount = $enrollments->where('progress', 100)
             ->filter(fn($e) => !$e->finalProjectResults?->whereNull('final_project_score')->count())
+            ->filter(fn($e) => !$e->finalProjectResults?->where('final_project_score', '<', 70)->count())
             ->count();
 
         // Asumsi nilai kuis diambil dari rata-rata ExerciseResult, 

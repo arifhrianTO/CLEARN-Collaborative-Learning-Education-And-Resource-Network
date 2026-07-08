@@ -29,15 +29,23 @@
 
 <body class="min-h-screen font-sans antialiased bg-white dark:bg-[#0f0a19] text-slate-900 dark:text-white transition-colors duration-300">
 
-    {{-- Tombol Kembali dan Toggle Tema --}}
-    <div class="fixed top-5 left-5 right-5 z-50 flex justify-between items-center px-4">
+    {{-- Flash Messages --}}
+    @if(session('success'))
+        <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-green-500 text-white px-6 py-3 rounded-xl text-sm font-bold shadow-lg shadow-green-500/30 animate-fade-down">
+            <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-red-500 text-white px-6 py-3 rounded-xl text-sm font-bold shadow-lg shadow-red-500/30 animate-fade-down">
+            <i class="fas fa-exclamation-circle mr-2"></i>{{ session('error') }}
+        </div>
+    @endif
+
+    {{-- Tombol Kembali --}}
+    <div class="fixed top-5 left-5 z-50">
         <a href="{{ route('student.certif') }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-[#1c1826] border border-gray-100 dark:border-gray-800 hover:scale-110 transition-all shadow-sm group">
             <i class="fas fa-arrow-left text-[#7C3AED] group-hover:-translate-x-1 transition-transform"></i>
         </a>
-        <button onclick="window.toggleTheme()"
-            class="w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-[#1c1826] text-[#7C3AED] shadow-sm border border-gray-100 dark:border-gray-800 hover:scale-110 transition-all duration-300">
-            <i id="theme-icon" class="fas fa-moon text-lg"></i>
-        </button>
     </div>
 
     {{-- Container Utama: Flex untuk memusatkan secara vertikal --}}
@@ -114,7 +122,7 @@
 
                         <div class="flex items-center gap-3">
                             <div class="w-16 h-16 rounded-lg bg-white p-1">
-                                {!! QrCode::format('svg')->size(56)->generate(route('student.certificate.show', $certificate->id)) !!}
+                                {!! app('qrcode')->format('svg')->size(56)->generate(route('student.certificate.show', $certificate->id)) !!}
                             </div>
                             <p class="text-[10px] font-medium text-gray-500 max-w-[80px]">Scan to verify authenticity</p>
                         </div>
@@ -125,7 +133,7 @@
             {{-- Info Verifikasi Platform (Kecil di bawah kertas) --}}
             <div class="p-3 bg-violet-100 rounded-lg text-center text-[#7C3AED] text-[11px] font-medium flex items-center justify-center gap-2 mb-10 max-w-sm mx-auto">
                 <i class="fas fa-info-circle"></i>
-                Diverifikasi oleh Platform Kursus –
+                Diverifikasi oleh CLEARN
             </div>
 
             {{-- Tombol Aksi --}}
@@ -133,9 +141,6 @@
                 <a href="{{ route('student.certificate.download', $certificate->id) }}" class="bg-[#9F67F2] text-white font-bold px-8 py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all hover:bg-[#8B5CF6] shadow-lg shadow-violet-500/20 active:scale-95 uppercase tracking-widest text-[10px]">
                     <i class="fas fa-download"></i> Download Certificate (PDF)
                 </a>
-                <button onclick="navigator.clipboard.writeText('{{ route('student.certificate.show', $certificate->id) }}'); alert('Link sertifikat disalin ke clipboard!');" class="bg-white text-[#9F67F2] border border-gray-100 font-bold px-8 py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all hover:bg-gray-50 shadow-sm active:scale-95 uppercase tracking-widest text-[10px]">
-                    <i class="fas fa-share-alt"></i> Share Certificate
-                </button>
             </div>
 
         </div>
