@@ -43,6 +43,18 @@
 
 <body class="min-h-screen flex">
 
+    {{-- Flash Messages --}}
+    @if(session('success'))
+        <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-green-500 text-white px-6 py-3 rounded-xl text-sm font-bold shadow-lg shadow-green-500/30 animate-fade-down">
+            <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-red-500 text-white px-6 py-3 rounded-xl text-sm font-bold shadow-lg shadow-red-500/30 animate-fade-down">
+            <i class="fas fa-exclamation-circle mr-2"></i>{{ session('error') }}
+        </div>
+    @endif
+
     {{-- Sidebar Pelajar --}}
     <x-dashboard.sidebar
     role="Student"
@@ -118,8 +130,8 @@
 
                         <div class="flex justify-between items-start mb-6">
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-graduation-cap text-primary text-xl"></i>
-                                <span class="font-black text-lg tracking-tighter italic">clearn</span>
+                                <img src="{{ asset('images/logo-clearn.png') }}" alt="Clearn" class="h-7 w-auto">
+                                <span class="font-black text-lg tracking-tighter">clearn</span>
                             </div>
                             <p class="text-[8px] font-black text-muted-custom uppercase tracking-[0.2em]">Sertifikat Penyelesaian</p>
                         </div>
@@ -145,9 +157,10 @@
 
                     {{-- Tombol Aksi (Kecil & Selaras) --}}
                     <div class="p-4 flex gap-3 bg-white dark:bg-[#1A1625] border-t border-gray-100 dark:border-[#2d2644]">
-                        <button class="flex-1 bg-primary text-white text-[10px] font-extrabold py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
+                        <a href="{{ route('student.certificate.download', $cert->id) }}"
+                            class="flex-1 bg-primary text-white text-[10px] font-extrabold py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95 block text-center">
                             <i class="fas fa-download mr-2"></i>Unduh
-                        </button>
+                        </a>
                         <button
                             type="button"
                             onclick="window.location='{{ route('student.certificate.show', $cert->id) }}'"

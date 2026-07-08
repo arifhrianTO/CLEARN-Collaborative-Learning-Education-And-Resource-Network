@@ -21,10 +21,15 @@ class DashboardService
                     $q->whereIn('connection_status', ['success', 'settlement', 'capture', 'paid', 'sukses']);
                 });
             })
-            ->with(['course.category', 'course.mentor', 'finalProjectResults'])
+            ->with(['course.category', 'course.mentor', 'finalProjectResults', 'certificate'])
             ->get();
             
-        $completedCoursesCount = $activeEnrollments->where('progress', 100)->count();
+        $completedCoursesCount = $activeEnrollments->filter(function($enrollment) {
+            $failedResult = $enrollment->finalProjectResults
+                ? $enrollment->finalProjectResults->whereNotNull('final_project_score')->where('final_project_score', '<', 70)->first()
+                : null;
+            return $enrollment->progress == 100 && !$failedResult;
+        })->count();
         $totalCertificates = \App\Models\Certificate::whereHas('enrollment', function ($q) use ($user) {
             $q->where('enrollments.student_id', $user->id);
         })->count();

@@ -67,11 +67,14 @@
         </div>
 
         {{-- Filter Tab Konten --}}
-        <div class="flex flex-wrap gap-2 mb-6" id="filterTabs">
-            <button class="filter-btn px-6 py-2 rounded-xl text-[11px] font-bold transition-all bg-primary text-white shadow-sm border border-primary active:scale-95" data-filter="all">
+        <div class="flex gap-2 mb-6" id="filterTabs">
+            <button class="filter-btn flex-1 px-6 py-2 rounded-xl text-[11px] font-bold transition-all bg-primary text-white shadow-sm border border-primary active:scale-95" data-filter="all">
                 Semua Kursus
             </button>
-            <button class="filter-btn px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95" data-filter="completed">
+            <button class="filter-btn flex-1 px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95" data-filter="pending">
+                Menunggu
+            </button>
+            <button class="filter-btn flex-1 px-6 py-2 rounded-xl text-[11px] font-bold transition-all dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 hover:border-primary active:scale-95" data-filter="completed">
                 Selesai
             </button>
         </div>
@@ -93,7 +96,7 @@
                             : Storage::url($enrollment->course->course_thumbnail))
                         : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop';
                 @endphp
-                <div class="course-card dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors" data-status="{{ $isCompleted ? 'completed' : ($isFailed ? 'failed' : 'ongoing') }}">
+                <div class="course-card dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors" data-status="{{ $isCompleted ? 'completed' : ($isPending ? 'pending' : ($isFailed ? 'failed' : 'ongoing')) }}">
                     <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 block" onclick="window.location='{{ route('student.course.show', $enrollment->course->course_slug) }}'">
                         <img src="{{ $coverImage }}" alt="{{ $enrollment->course->course_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer">
                         <span class="absolute top-3 right-3 bg-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary')) }} text-white text-[8px] font-black uppercase tracking-wider px-2 py-1 rounded-md">
@@ -125,12 +128,18 @@
 
                             @if($isCompleted)
                                 <div class="grid grid-cols-2 gap-2">
-                                    <form action="{{ route('student.certificate.claim', $enrollment->id) }}" method="POST" class="block">
-                                        @csrf
-                                        <button type="submit" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
-                                            Klaim
+                                    @if($enrollment->certificate)
+                                        <button onclick="window.location='{{ route('student.certificate.show', $enrollment->certificate->id) }}'" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
+                                            Lihat
                                         </button>
-                                    </form>
+                                    @else
+                                        <form action="{{ route('student.certificate.claim', $enrollment->id) }}" method="POST" class="block">
+                                            @csrf
+                                            <button type="submit" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
+                                                Klaim
+                                            </button>
+                                        </form>
+                                    @endif
                                     @php
                                         $existingRate = $enrollment->rate;
                                     @endphp
@@ -190,6 +199,8 @@
             document.querySelectorAll('.course-card').forEach(card => {
                 if (filter === 'all') {
                     card.style.display = '';
+                } else if (filter === 'pending') {
+                    card.style.display = card.dataset.status === 'pending' ? '' : 'none';
                 } else if (filter === 'completed') {
                     card.style.display = card.dataset.status === 'completed' ? '' : 'none';
                 }

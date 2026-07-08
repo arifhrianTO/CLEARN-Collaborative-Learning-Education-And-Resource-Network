@@ -95,6 +95,25 @@
                                             <span class="text-[10px] text-amber-500 font-bold uppercase tracking-wider bg-amber-500/10 px-2 py-0.5 rounded">Kuis</span>
                                         </a>
                                     @endif
+
+                                    @foreach($session->finalProjects as $project)
+                                        <div class="inner-item flex items-center justify-between p-4 bg-emerald-50/50 dark:bg-emerald-500/5 border border-emerald-100 dark:border-emerald-500/20 rounded-xl">
+                                            <div class="flex items-center gap-4 min-w-0">
+                                                <i class="fas fa-diagram-project text-emerald-500 text-sm shrink-0"></i>
+                                                <div class="min-w-0">
+                                                    <span class="text-[12px] font-extrabold uppercase tracking-tight">
+                                                        {{ $project->project_title }}
+                                                    </span>
+                                                    @if($project->duration_days)
+                                                        <p class="text-[10px] text-muted-custom font-medium mt-0.5">
+                                                            <i class="fa-regular fa-clock"></i> Waktu Pengerjaan: {{ $project->duration_days }} Hari
+                                                        </p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <span class="text-[10px] text-emerald-500 font-bold uppercase tracking-wider bg-emerald-500/10 px-2 py-0.5 rounded shrink-0">Tugas Akhir</span>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         @empty

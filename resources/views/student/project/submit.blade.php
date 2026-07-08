@@ -1,4 +1,4 @@
-﻿@extends('layouts.learning')
+@extends('layouts.learning')
 
 @section('content')
     <div class="flex w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#0F0B1A]">
@@ -67,6 +67,50 @@
                     {!! nl2br(e($project->project_description)) !!}
                 </div>
             </div>
+
+            {{-- Material Pendukung dari Pengajar --}}
+            @if($project->materials->isNotEmpty())
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-paperclip text-slate-400 text-sm"></i>
+                        <h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Material Pendukung</h3>
+                    </div>
+                    <div class="space-y-3">
+                        @foreach($project->materials as $material)
+                            @php
+                                $type = strtolower($material->type ?? '');
+                                $file = $material->file_path ?? null;
+                                $url = $material->url ?? null;
+                                $source = $url ?: ($file ? Storage::url($file) : null);
+                            @endphp
+
+                            @if($type === 'pdf' && $source)
+                                <a href="{{ $source }}" target="_blank"
+                                    class="flex items-center gap-4 p-4 rounded-xl bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 transition group">
+                                    <div class="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-500 flex items-center justify-center shrink-0 group-hover:bg-cyan-500 group-hover:text-white transition">
+                                        <i class="fa-regular fa-file-pdf text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-slate-700 dark:text-slate-300 group-hover:text-cyan-500 transition">File Panduan (PDF)</p>
+                                        <p class="text-[10px] text-slate-500">Klik untuk membuka</p>
+                                    </div>
+                                </a>
+                            @elseif($type === 'link' && $source)
+                                <a href="{{ $source }}" target="_blank"
+                                    class="flex items-center gap-4 p-4 rounded-xl bg-primary/5 border border-primary/20 hover:bg-primary/10 transition group">
+                                    <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition">
+                                        <i class="fa-solid fa-link text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-slate-700 dark:text-slate-300 group-hover:text-primary transition">Link Referensi</p>
+                                        <p class="text-[10px] text-slate-500 truncate max-w-xs">{{ $source }}</p>
+                                    </div>
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
 
         {{-- 2. GRID UPLOAD & STATUS --}}

@@ -317,15 +317,15 @@ class FinalProjectController extends Controller
             }
         });
 
-            return redirect()
-                ->route(
-                    'mentor.courses.sessions.edit',
-                    $session->course_id
-                )
-                ->with(
-                    'error',
-                    'Kursus ini sudah memiliki Tugas Akhir.'
-                );
+        return redirect()
+            ->route(
+                'mentor.courses.sessions.edit',
+                $session->course_id
+            )
+            ->with(
+                'success',
+                'Tugas Akhir berhasil ditambahkan.'
+            );
     }
 
     /**

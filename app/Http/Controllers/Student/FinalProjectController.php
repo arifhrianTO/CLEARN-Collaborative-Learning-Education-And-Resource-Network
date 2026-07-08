@@ -15,7 +15,7 @@ class FinalProjectController extends Controller
 {
     public function show(int $projectId): View|RedirectResponse
     {
-        $project = FinalProject::with(['session.course'])->findOrFail($projectId);
+        $project = FinalProject::with(['session.course', 'materials'])->findOrFail($projectId);
         $userId = auth()->id();
 
         $enrollment = Enrollment::where('student_id', $userId)
