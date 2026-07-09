@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', 'CLEARN ", Atur Ulang Kata Sandi')
+@section('title', 'CLEARN │ Atur Ulang Kata Sandi')
 
 @section('content')
 <div class="bg-white dark:bg-[#1A1625] border border-slate-100 dark:border-white/5 p-8 rounded-3xl shadow-2xl w-full">

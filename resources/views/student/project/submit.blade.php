@@ -1,5 +1,7 @@
 @extends('layouts.learning')
 
+@section('title', 'Upload Tugas Akhir')
+
 @section('content')
     <div class="flex w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#0F0B1A]">
         

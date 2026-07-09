@@ -27,13 +27,18 @@ class LandingController extends Controller
             ->withCount(['courses' => function ($query) {
                 $query->where('status_publish', 'published');
             }])
-            ->with(['courses.enrollments'])
+            ->with(['courses.enrollments', 'courses.rates'])
             ->take(4)
             ->get()
             ->map(function ($mentor) {
                 $mentor->student_count = $mentor->courses->sum(function ($course) {
                     return $course->enrollments->count();
                 });
+                $ratings = $mentor->courses->flatMap(function ($course) {
+                    return $course->rates->pluck('course_rate');
+                });
+                $mentor->rating = $ratings->count() > 0 ? round($ratings->avg(), 1) : 0;
+                $mentor->rating_count = $ratings->count();
                 return $mentor;
             });
 
@@ -97,7 +102,7 @@ class LandingController extends Controller
             ->withCount(['courses' => function ($query) {
                 $query->where('status_publish', 'published');
             }])
-            ->with(['courses.enrollments']);
+            ->with(['courses.enrollments', 'courses.rates']);
 
         if ($search) {
             $mentorsQuery->where(function ($q) use ($search) {
@@ -111,6 +116,11 @@ class LandingController extends Controller
                 $mentor->student_count = $mentor->courses->sum(function ($course) {
                     return $course->enrollments->count();
                 });
+                $ratings = $mentor->courses->flatMap(function ($course) {
+                    return $course->rates->pluck('course_rate');
+                });
+                $mentor->rating = $ratings->count() > 0 ? round($ratings->avg(), 1) : 0;
+                $mentor->rating_count = $ratings->count();
                 return $mentor;
             });
 

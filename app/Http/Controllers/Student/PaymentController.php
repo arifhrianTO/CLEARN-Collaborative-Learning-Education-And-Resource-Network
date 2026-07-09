@@ -77,7 +77,7 @@ class PaymentController extends Controller
                 ->first();
             
             if ($existingPayment || $course->course_price == 0) {
-                 return redirect()->route('student.course.show', $course->slug)
+                 return redirect()->route('student.course.show', $course->course_slug)
                      ->with('error', 'Anda sudah terdaftar di kursus ini.');
             }
         }
@@ -92,21 +92,30 @@ class PaymentController extends Controller
             ]);
         }
 
-        // Buat Payment Record
-        // Generate Order ID (kombinasi enrollment_id dan timestamp untuk unik)
-        $orderId = 'TRX-' . $existingEnrollment->id . '-' . time();
         $grossAmount = $course->course_price;
 
-        $payment = Payment::create([
-            'enrollment_id' => $existingEnrollment->id,
-            'midtrans_order_id' => $orderId,
-            'transaction_id' => null, // Akan diisi saat webhook callback
-            'payment_type' => null,
-            'connection_status' => 'pending',
-            'gross_amount' => $grossAmount,
-            'paid_at' => null,
-            'raw_response' => null,
-        ]);
+        // Cek apakah sudah ada payment pending untuk enrollment ini
+        $payment = Payment::where('enrollment_id', $existingEnrollment->id)
+            ->where('connection_status', 'pending')
+            ->first();
+
+        if (!$payment) {
+            // Buat Payment Record baru
+            $orderId = 'TRX-' . $existingEnrollment->id . '-' . time();
+
+            $payment = Payment::create([
+                'enrollment_id' => $existingEnrollment->id,
+                'midtrans_order_id' => $orderId,
+                'transaction_id' => null,
+                'payment_type' => null,
+                'connection_status' => 'pending',
+                'gross_amount' => $grossAmount,
+                'paid_at' => null,
+                'raw_response' => null,
+            ]);
+        }
+
+        $orderId = $payment->midtrans_order_id;
 
         // Setup Parameter Midtrans
         $params = array(

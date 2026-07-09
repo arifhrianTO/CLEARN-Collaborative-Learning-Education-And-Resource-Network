@@ -79,7 +79,14 @@
             <img src="{{ $mentor->profile_picture ? asset('storage/' . $mentor->profile_picture) : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random' }}" class="w-28 h-28 rounded-full mx-auto mb-6 object-cover border-4 border-slate-200 dark:border-gray-800" alt="{{ $mentor->name }}">
             <h6 class="font-bold text-lg mb-1.5">{{ $mentor->name }}</h6>
             <p class="text-xs text-[#A487F8] dark:text-[#A487F8] mb-6 font-semibold tracking-wider">{{ $mentor->occupation ?? 'Pengajar' }}</p>
-            <div class="text-xs text-slate-500 border-t border-slate-100 dark:border-gray-800/50 pt-5 space-y-1">
+            <div class="flex items-center justify-center gap-1 mb-3 text-yellow-400">
+                @for($i = 1; $i <= 5; $i++)
+                    <i class="fas fa-star text-xs {{ $i <= round($mentor->rating) ? '' : 'text-slate-300 dark:text-slate-600' }}"></i>
+                @endfor
+                <span class="text-slate-500 dark:text-slate-400 text-xs font-semibold ml-1">{{ number_format($mentor->rating, 1) }}</span>
+                <span class="text-slate-400 text-[10px]">({{ $mentor->rating_count }})</span>
+            </div>
+            <div class="text-xs text-slate-500 border-t border-slate-100 dark:border-gray-800/50 pt-4 space-y-1">
                 <p>{{ $mentor->student_count ?? 0 }} Pelajar</p>
                 <p>{{ $mentor->courses_count ?? 0 }} Kursus</p>
             </div>

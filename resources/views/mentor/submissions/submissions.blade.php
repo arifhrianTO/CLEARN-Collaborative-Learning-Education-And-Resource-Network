@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'CLEARN ", Pengumpulan')
+@section('title', 'CLEARN │ Pengumpulan')
 
 @section('content')
 

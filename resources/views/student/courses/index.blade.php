@@ -1,5 +1,7 @@
 @extends('layouts.dashboard')
 
+@section('title', 'CLEARN │ Kursus Saya')
+
 @section('content')
 
 <!-- Component Sidebar -->
@@ -143,9 +145,15 @@
                                     @php
                                         $existingRate = $enrollment->rate;
                                     @endphp
-                                    <button onclick="showReviewModal({{ $enrollment->id }}, {{ $enrollment->course_id }}, {{ $existingRate ? $existingRate->course_rate : 0 }}, '{{ $existingRate ? addslashes($existingRate->course_comment ?? '') : '' }}')" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
-                                        {{ $existingRate ? 'Ubah Ulasan' : 'Beri Nilai' }}
-                                    </button>
+                                    @if($existingRate)
+                                        <div class="w-full bg-slate-400 text-white text-[10px] font-bold py-2.5 rounded-xl opacity-60 cursor-not-allowed uppercase tracking-widest text-center">
+                                            Sudah Dinilai
+                                        </div>
+                                    @else
+                                        <button onclick="showReviewModal({{ $enrollment->id }}, {{ $enrollment->course_id }}, 0)" class="w-full bg-emerald-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:brightness-110 transition-all uppercase tracking-widest active:scale-95">
+                                            Beri Nilai
+                                        </button>
+                                    @endif
                                 </div>
                             @elseif($isPending)
                                 <div class="block text-center w-full bg-amber-500 text-white text-[10px] font-bold py-2.5 rounded-xl shadow-lg shadow-amber-500/20 opacity-70 cursor-not-allowed uppercase tracking-widest">
@@ -221,7 +229,7 @@
         });
     }
 
-    function showReviewModal(enrollmentId, courseId, existingRating, existingComment) {
+    function showReviewModal(enrollmentId, courseId, existingRating) {
         selectedEnrollment = enrollmentId;
         selectedCourse = courseId;
 
@@ -242,7 +250,6 @@
                     </div>
                     <input type="hidden" id="review-rating" value="${existingRating}">
                 </div>
-                <textarea id="review-comment" class="w-full p-3 bg-slate-50 dark:bg-[#0F0B1A] border dark:border-white/10 rounded-xl text-xs" placeholder="Ceritakan pengalaman Anda...">${existingComment || ''}</textarea>
             </div>
         `,
             confirmButtonText: 'Kirim Ulasan',
@@ -265,7 +272,6 @@
                     Swal.showValidationMessage('Rating wajib diisi');
                     return false;
                 }
-                const comment = document.getElementById('review-comment').value;
                 return fetch('/student/rate/' + selectedEnrollment, {
                     method: 'POST',
                     headers: {
@@ -275,7 +281,6 @@
                     },
                     body: JSON.stringify({
                         course_rate: parseInt(rating),
-                        course_comment: comment,
                     })
                 }).then(response => {
                     if (!response.ok) {

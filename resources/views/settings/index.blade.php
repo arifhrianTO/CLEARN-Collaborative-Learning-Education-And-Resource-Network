@@ -183,7 +183,7 @@ $hideUsername = $isAdmin || $isStudent;
                         @if($isVerified)
                         <div class="flex items-center gap-2 px-4 py-3 mb-5 rounded-xl bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 text-sm font-semibold">
                             <i class="fa-solid fa-check-circle"></i>
-                            Informasi pengajar telah diverifikasi dan tidak dapat diubah.
+                            Informasi pengajar telah diverifikasi. Hanya bio yang dapat diubah.
                         </div>
                         @endif
 
@@ -194,8 +194,7 @@ $hideUsername = $isAdmin || $isStudent;
                             <textarea
                                 name="bio"
                                 rows="4"
-                                @if($isVerified) readonly @endif
-                                class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none @if($isVerified) opacity-60 cursor-not-allowed @else focus:border-primary/50 focus:ring-4 focus:ring-primary/10 @endif transition"
+                                class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
                                 placeholder="Ceritakan tentang dirimu...">{{ old('bio', $mentor?->bio) }}</textarea>
                             @error('bio')
                             <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
