@@ -78,9 +78,17 @@ class ProfileController extends Controller
 
         $user->save();
 
-        // Hanya mentor yang punya data tambahan, dan hanya jika belum terverifikasi
-        if ($user->role === 'mentor' && $user->status !== 'active') {
-            $this->updateMentorProfile($request, $user);
+        if ($user->role === 'mentor') {
+            if ($user->status !== 'active') {
+                $this->updateMentorProfile($request, $user);
+            } else {
+                $request->validate([
+                    'bio' => ['nullable', 'string', 'max:2000'],
+                ]);
+                $user->profileAccount()->updateOrCreate([], [
+                    'bio' => $request->input('bio'),
+                ]);
+            }
         }
 
         return Redirect::route('settings.edit')

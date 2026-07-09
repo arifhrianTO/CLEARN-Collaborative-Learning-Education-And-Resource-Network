@@ -47,6 +47,8 @@ class CourseController extends Controller
         $sudahEnroll = false;
         $isPaid = false;
 
+        $hasPendingPayment = false;
+
         if (Auth::check()) {
             $enrollment = Enrollment::where('student_id', Auth::id())
                 ->where('course_id', $course->id)
@@ -59,26 +61,43 @@ class CourseController extends Controller
                 if ($course->course_price == 0 || ($enrollment->payment && in_array($enrollment->payment->connection_status, ['success', 'settlement', 'capture', 'paid', 'sukses']))) {
                     $isPaid = true;
                 }
+                // Ada pembayaran pending
+                if ($course->course_price > 0 && $enrollment->payment && $enrollment->payment->connection_status === 'pending') {
+                    $hasPendingPayment = true;
+                }
             }
         }
 
-        return view('student.courses.show', compact('course', 'sudahEnroll', 'isPaid'));
+        return view('student.courses.show', compact('course', 'sudahEnroll', 'isPaid', 'hasPendingPayment'));
     }
 
     public function enroll($slug): RedirectResponse
     {
         $course = Course::where('course_slug', $slug)->firstOrFail();
 
-        $sudahEnroll = Enrollment::where('student_id', Auth::id())
+        $enrollment = Enrollment::where('student_id', Auth::id())
             ->where('course_id', $course->id)
-            ->exists();
+            ->with('payment')
+            ->first();
 
-        if ($sudahEnroll) {
-            return redirect()->route('student.course.lesson', $course->course_slug)
-                ->with('info', 'Kamu sudah terdaftar di kursus ini.');
+        if ($enrollment) {
+            // Kalau kursus gratis, langsung akses
+            if ($course->course_price == 0) {
+                return redirect()->route('student.course.lesson', $course->course_slug)
+                    ->with('info', 'Kamu sudah terdaftar di kursus ini.');
+            }
+
+            // Kaludah bayar, langsung akses
+            if ($enrollment->payment && in_array($enrollment->payment->connection_status, ['success', 'settlement', 'capture', 'paid', 'sukses'])) {
+                return redirect()->route('student.course.lesson', $course->course_slug)
+                    ->with('info', 'Kamu sudah terdaftar di kursus ini.');
+            }
+
+            // Kalau belum bayar, arahkan ke checkout
+            return redirect()->route('student.checkout', ['course_id' => $course->id]);
         }
 
-        // Kalau kursus berbayar, tolak proses ini dan arahkan ke checkout
+        // Kalau kursus berbayar, langsung arahkan ke checkout
         if ($course->course_price > 0) {
             return redirect()->route('student.checkout', ['course_id' => $course->id]);
         }
@@ -241,6 +260,10 @@ class CourseController extends Controller
             abort(403);
         }
 
+        if ($enrollment->rate()->exists()) {
+            return response()->json(['success' => false, 'message' => 'Kamu sudah memberi rating untuk kursus ini.'], 403);
+        }
+
         // Cek apakah tugas sudah dinilai
         $hasGradedResult = $enrollment->finalProjectResults()
             ->whereNotNull('final_project_score')
@@ -252,17 +275,13 @@ class CourseController extends Controller
 
         $data = $request->validate([
             'course_rate'    => ['required', 'numeric', 'min:1', 'max:5'],
-            'course_comment' => ['nullable', 'string', 'max:1000'],
         ]);
 
-        Rate::updateOrCreate(
-            ['enrollment_id' => $enrollment->id],
-            [
-                'course_id'      => $enrollment->course_id,
-                'course_rate'    => $data['course_rate'],
-                'course_comment' => $data['course_comment'] ?? null,
-            ]
-        );
+        Rate::create([
+            'enrollment_id' => $enrollment->id,
+            'course_id'     => $enrollment->course_id,
+            'course_rate'   => $data['course_rate'],
+        ]);
 
         return response()->json(['success' => true]);
     }

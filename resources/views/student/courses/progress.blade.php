@@ -1,5 +1,7 @@
 @extends('layouts.dashboard')
 
+@section('title', 'CLEARN │ Kemajuan')
+
 @section('content')
 
 <!-- Component Sidebar -->

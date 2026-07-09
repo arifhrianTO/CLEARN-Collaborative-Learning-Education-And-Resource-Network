@@ -156,6 +156,11 @@
                                 <i class="fas fa-play text-sm"></i>
                                 Mulai Belajar
                             </a>
+                        @elseif(isset($hasPendingPayment) && $hasPendingPayment)
+                            <a href="{{ route('student.checkout', ['course_id' => $course->id]) }}" class="w-full bg-amber-500 hover:brightness-110 text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-lg shadow-amber-500/20 uppercase tracking-[0.2em] text-[10px]">
+                                <i class="fas fa-credit-card text-sm"></i>
+                                Lanjutkan Pembayaran
+                            </a>
                         @else
                             <a href="{{ auth()->check() ? route('public.course.enroll', $course->course_slug) : route('login') }}" 
                                @if(auth()->check()) onclick="event.preventDefault(); document.getElementById('enrollConfirmModal').classList.remove('hidden');" @endif

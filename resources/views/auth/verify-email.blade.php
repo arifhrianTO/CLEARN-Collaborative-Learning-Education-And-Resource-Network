@@ -1,4 +1,5 @@
 <x-guest-layout>
+    @section('title', 'CLEARN │ Verifikasi Email')
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
         {{ __('Terima kasih telah mendaftar! Sebelum memulai, silakan verifikasi alamat email Anda dengan mengklik tautan yang telah kami kirimkan. Jika tidak menerima email, kami akan dengan senang hati mengirimkan ulang.') }}
     </div>
