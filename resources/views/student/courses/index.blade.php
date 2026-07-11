@@ -99,7 +99,7 @@
                         : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop';
                 @endphp
                 <div class="course-card dark:bg-[#1A1625] bg-white border dark:border-white/5 border-slate-200 rounded-2xl overflow-hidden flex flex-col group shadow-sm hover:border-{{ $colorClass }}-500/50 transition-colors" data-status="{{ $isCompleted ? 'completed' : ($isPending ? 'pending' : ($isFailed ? 'failed' : 'ongoing')) }}">
-                    <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 block" onclick="window.location='{{ route('student.course.show', $enrollment->course->course_slug) }}'">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 block" onclick="window.location='{{ route('student.course.lesson', $enrollment->course->course_slug) }}'">
                         <img src="{{ $coverImage }}" alt="{{ $enrollment->course->course_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer">
                         <span class="absolute top-3 right-3 bg-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary')) }} text-white text-[8px] font-black uppercase tracking-wider px-2 py-1 rounded-md">
                             {{ $isCompleted ? 'LULUS' : ($isPending ? 'MENUNGGU' : ($isFailed ? 'TIDAK LULUS' : 'DIBELI')) }}
