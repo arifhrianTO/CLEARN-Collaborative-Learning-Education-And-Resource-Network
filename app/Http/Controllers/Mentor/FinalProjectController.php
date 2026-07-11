@@ -483,10 +483,8 @@ class FinalProjectController extends Controller
             'mentor_notes' => $validated['komentar'],
         ]);
 
-        // Update progres student ke 100% setelah dinilai
-        if ($result->enrollment->progress < 100) {
-            $result->enrollment->update(['progress' => 100]);
-        }
+        // Rekalkulasi progres
+        $result->enrollment->recalculateAndSaveProgress();
 
         return redirect()->route('mentor.projects.submission.detail', $result->id)
             ->with('success', 'Penilaian berhasil disimpan.');

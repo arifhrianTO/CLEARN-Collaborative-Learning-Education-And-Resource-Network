@@ -35,18 +35,14 @@
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-3">
                 @php
-                    $allLessons = $course->sessions->flatMap->lessons;
-                    $totalLessons = $allLessons->count();
-                    $currentIndex = $activeLesson ? $allLessons->search(function($l) use ($activeLesson) { return $l->id === $activeLesson->id; }) : 0;
-                    $currentPosition = $currentIndex !== false ? $currentIndex + 1 : 0;
-                    $progressPercent = $totalLessons > 0 ? round(($currentPosition / $totalLessons) * 100) : 0;
+                    $progressPercent = $enrollment->progress;
                 @endphp
                 <div class="text-right hidden sm:block">
                     <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Progres Kursus</p>
-                    <p class="text-xs font-black">{{ $progressPercent }}% <span class="text-slate-400 font-medium">({{ $currentPosition }}/{{ $totalLessons }} Materi)</span></p>
+                    <p class="text-xs font-black">{{ $progressPercent }}% </p>
                 </div>
                 <div class="w-32 h-2 bg-gray-200 dark:bg-border-custom rounded-full overflow-hidden">
-                    <div class="h-full bg-primary" style="width:{{ $progressPercent }}%"></div>
+                    <div class="h-full bg-primary transition-all duration-500" style="width:{{ $progressPercent }}%"></div>
                 </div>
             </div>
 
@@ -68,29 +64,70 @@
 
                     <div class="space-y-2">
                         @foreach($session->lessons as $lesson)
-                        <a href="{{ route('student.course.lesson', ['slug' => $course->course_slug, 'lesson_id' => $lesson->id]) }}" class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group {{ request('lesson_id') == $lesson->id ? 'bg-primary/10 text-primary' : '' }}">
+                        @php
+                            $lessonIndex = -1;
+                            foreach ($linearCurriculum as $index => $item) {
+                                if ($item['type'] === 'lesson' && $item['id'] === $lesson->id) {
+                                    $lessonIndex = $index;
+                                    break;
+                                }
+                            }
+                            $isCompleted = in_array($lesson->id, $completedLessons);
+                            $isLocked = $lessonIndex > $lastUnlockedIndex;
+                            $isActive = request('lesson_id') == $lesson->id || (empty(request('lesson_id')) && $activeLesson->id === $lesson->id);
+                        @endphp
+                        
+                        @if($isLocked)
+                        <div class="flex flex-col gap-1 px-4 py-3 rounded-xl bg-transparent text-slate-300 dark:text-zinc-600 cursor-not-allowed">
                             <div class="flex items-center gap-3">
-                                <i class="far fa-play-circle text-xs group-hover:text-primary"></i>
+                                <i class="fas fa-lock text-xs"></i>
+                                <span class="text-[13px] font-semibold leading-tight">{{ $lesson->lessons_title }}</span>
+                            </div>
+                        </div>
+                        @else
+                        <a href="{{ route('student.course.lesson', ['slug' => $course->course_slug, 'lesson_id' => $lesson->id]) }}" class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group {{ $isActive ? 'bg-primary/10 text-primary' : '' }}">
+                            <div class="flex items-center gap-3">
+                                @if($isCompleted)
+                                    <i class="fas fa-check-circle text-green-500 text-xs"></i>
+                                @else
+                                    <i class="far fa-play-circle text-xs group-hover:text-primary"></i>
+                                @endif
                                 <span class="text-[13px] font-semibold leading-tight group-hover:text-primary transition-colors">{{ $lesson->lessons_title }}</span>
                             </div>
-
                         </a>
+                        @endif
                         @endforeach
 
                         @if($session->exercise)
                         @php
+                            $exerciseIndex = -1;
+                            foreach ($linearCurriculum as $index => $item) {
+                                if ($item['type'] === 'exercise' && $item['id'] === $session->exercise->id) {
+                                    $exerciseIndex = $index;
+                                    break;
+                                }
+                            }
+                            $isExerciseCompleted = in_array($session->exercise->id, $attemptedExercises);
+                            $isExerciseLocked = $exerciseIndex > $lastUnlockedIndex;
+                            
                             $exerciseResult = $enrollment->exerciseResults
                                 ->first(fn($r) => $r->exerciseAttempt->exercise_id === $session->exercise->id);
-                            $isLulus = $enrollment->progress === 100;
                         @endphp
 
-                        @if($isLulus && $exerciseResult)
+                        @if($isExerciseCompleted && $exerciseResult)
                         <div class="flex items-center justify-between px-4 py-3 rounded-xl bg-black/5 dark:bg-dark-card-lighter text-slate-400 dark:text-zinc-500 cursor-default">
                             <div class="flex items-center gap-3">
                                 <i class="fas fa-check-circle text-green-500 text-xs"></i>
                                 <span class="text-[13px] font-semibold leading-tight text-zinc-300">Latihan: {{ $session->exercise->exercise_title }}</span>
                             </div>
                             <span class="text-xs font-bold text-green-500">{{ $exerciseResult->exercise_result_score }}</span>
+                        </div>
+                        @elseif($isExerciseLocked)
+                        <div class="flex flex-col gap-1 px-4 py-3 rounded-xl bg-transparent text-slate-300 dark:text-zinc-600 cursor-not-allowed">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-lock text-xs"></i>
+                                <span class="text-[13px] font-semibold leading-tight">Latihan: {{ $session->exercise->exercise_title }}</span>
+                            </div>
                         </div>
                         @else
                         <a href="{{ route('student.quiz.show', $session->exercise->id) }}" class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group {{ request()->routeIs('student.quiz.*') && request()->route('exerciseId') == $session->exercise->id ? 'bg-primary/10 text-primary' : '' }}">
@@ -104,12 +141,37 @@
 
                         @if(count($session->finalProjects) > 0)
                         @foreach($session->finalProjects as $project)
+                        @php
+                            $projectIndex = -1;
+                            foreach ($linearCurriculum as $index => $item) {
+                                if ($item['type'] === 'final_project' && $item['id'] === $project->id) {
+                                    $projectIndex = $index;
+                                    break;
+                                }
+                            }
+                            $isProjectCompleted = in_array($project->id, $submittedProjects);
+                            $isProjectLocked = $projectIndex > $lastUnlockedIndex;
+                        @endphp
+                        
+                        @if($isProjectLocked)
+                        <div class="flex flex-col gap-1 px-4 py-3 rounded-xl bg-transparent text-slate-300 dark:text-zinc-600 cursor-not-allowed">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-lock text-xs"></i>
+                                <span class="text-[13px] font-semibold leading-tight">Tugas Akhir: {{ $project->project_title }}</span>
+                            </div>
+                        </div>
+                        @else
                         <a href="{{ route('student.project.show', $project->id) }}" class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-dark-card-lighter text-slate-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-all cursor-pointer group">
                             <div class="flex items-center gap-3">
-                                <i class="far fa-file-archive text-xs group-hover:text-primary"></i>
+                                @if($isProjectCompleted)
+                                    <i class="fas fa-check-circle text-green-500 text-xs"></i>
+                                @else
+                                    <i class="far fa-file-archive text-xs group-hover:text-primary"></i>
+                                @endif
                                 <span class="text-[13px] font-semibold leading-tight group-hover:text-primary transition-colors text-zinc-300">Tugas Akhir: {{ $project->project_title }}</span>
                             </div>
                         </a>
+                        @endif
                         @endforeach
                         @endif
                     </div>

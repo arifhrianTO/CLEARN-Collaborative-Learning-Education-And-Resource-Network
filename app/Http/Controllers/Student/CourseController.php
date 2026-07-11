@@ -158,7 +158,118 @@ class CourseController extends Controller
             $activeLesson = $course->sessions->first()->lessons->first();
         }
 
-        return view('student.courses.lesson', compact('course', 'activeLesson', 'enrollment'));
+        // --- Logika Linear Tracking & Locking ---
+        $linearCurriculum = [];
+        foreach ($course->sessions as $session) {
+            foreach ($session->lessons as $lesson) {
+                $linearCurriculum[] = ['type' => 'lesson', 'id' => $lesson->id, 'item' => $lesson, 'session_id' => $session->id];
+            }
+            if ($session->exercise) {
+                $linearCurriculum[] = ['type' => 'exercise', 'id' => $session->exercise->id, 'item' => $session->exercise, 'session_id' => $session->id];
+            }
+            foreach ($session->finalProjects as $fp) {
+                $linearCurriculum[] = ['type' => 'final_project', 'id' => $fp->id, 'item' => $fp, 'session_id' => $session->id];
+            }
+        }
+
+        $completedLessons = is_array($enrollment->completed_lessons) ? $enrollment->completed_lessons : [];
+        $attemptedExercises = $enrollment->exerciseResults()->with('exerciseAttempt')->get()
+            ->pluck('exerciseAttempt.exercise_id')->filter()->unique()->toArray();
+        $submittedProjects = $course->sessions->flatMap->finalProjects->map(function ($fp) use ($enrollment) {
+            $result = $enrollment->finalProjectResults()->where('final_project_id', $fp->id)->first();
+            // Project dianggap selesai (hijau) JIKA: ada file submit DAN (nilainya belum keluar ATAU nilainya >= 70)
+            if ($result && $result->submission_file) {
+                if ($result->final_project_score === null || $result->final_project_score >= 70) {
+                    return $fp->id;
+                }
+            }
+            return null;
+        })->filter()->toArray();
+
+        $lastUnlockedIndex = 0;
+        $requestedIndex = -1;
+        $activeItemType = 'lesson'; // Default
+
+        if ($activeLesson) {
+             foreach ($linearCurriculum as $index => $item) {
+                 if ($item['type'] === 'lesson' && $item['id'] === $activeLesson->id) {
+                     $requestedIndex = $index;
+                     break;
+                 }
+             }
+        }
+
+        // Cari seberapa jauh dia boleh mengakses
+        for ($i = 0; $i < count($linearCurriculum); $i++) {
+            $item = $linearCurriculum[$i];
+            $isCompleted = false;
+
+            if ($item['type'] === 'lesson') {
+                if (in_array($item['id'], $completedLessons)) {
+                    $isCompleted = true;
+                }
+            } elseif ($item['type'] === 'exercise') {
+                if (in_array($item['id'], $attemptedExercises)) {
+                    $isCompleted = true;
+                }
+            } elseif ($item['type'] === 'final_project') {
+                 if (in_array($item['id'], $submittedProjects)) {
+                    $isCompleted = true;
+                 }
+            }
+
+            if ($isCompleted) {
+                $lastUnlockedIndex = $i + 1; // Dia boleh buka materi berikutnya
+            } else {
+                break; // Berhenti mengecek jika ketemu materi yang belum selesai
+            }
+        }
+
+        // Batasi $lastUnlockedIndex agar tidak melebihi total index
+        if ($lastUnlockedIndex >= count($linearCurriculum)) {
+            $lastUnlockedIndex = count($linearCurriculum) - 1;
+        }
+
+        // --- Logika Redirect / Kunci ---
+        // Jika dia mencoba mengakses indeks yang lebih besar dari yang diizinkan (yang masih digembok)
+        // KECUALI jika dia baru mau buka final project DAN index sebelum final project sudah unlock
+        if ($requestedIndex > $lastUnlockedIndex) {
+            // Cek apakah item yang direquest adalah final_project dan item sebelumnya sudah unlock
+            if (!($linearCurriculum[$requestedIndex]['type'] === 'final_project' && $requestedIndex === $lastUnlockedIndex)) {
+                
+                // Cari safe lesson (pelajaran terakhir yang aman)
+                $safeLessonId = null;
+                for ($j = $lastUnlockedIndex; $j >= 0; $j--) {
+                    if (isset($linearCurriculum[$j]) && $linearCurriculum[$j]['type'] === 'lesson') {
+                        $safeLessonId = $linearCurriculum[$j]['id'];
+                        break;
+                    }
+                }
+                
+                if ($safeLessonId) {
+                    return redirect()->route('student.course.lesson', ['slug' => $course->course_slug, 'lesson_id' => $safeLessonId])
+                        ->with('error', 'Anda harus menyelesaikan materi sebelumnya terlebih dahulu.');
+                }
+            }
+        }
+
+        // --- Catat Progres Lesson (Materi yang sedang dibaca saat ini, jika sah) ---
+        if ($activeLesson && $requestedIndex <= $lastUnlockedIndex) {
+            if (!in_array($activeLesson->id, $completedLessons)) {
+                $completedLessons[] = $activeLesson->id;
+                $enrollment->update(['completed_lessons' => array_values(array_unique($completedLessons))]);
+                $enrollment->refresh(); // Refresh data dari DB
+                
+                // Hitung ulang progres total
+                $enrollment->recalculateAndSaveProgress();
+                
+                // Karena materi saat ini baru saja ditandai selesai,
+                // kita tingkatkan lastUnlockedIndex agar materi selanjutnya langsung terbuka (tidak tergembok).
+                $lastUnlockedIndex++;
+            }
+        }
+
+        return view('student.courses.lesson', compact('course', 'activeLesson', 'enrollment', 'linearCurriculum', 'completedLessons', 'attemptedExercises', 'submittedProjects', 'lastUnlockedIndex'));
     }
 
     public function certificates(): View

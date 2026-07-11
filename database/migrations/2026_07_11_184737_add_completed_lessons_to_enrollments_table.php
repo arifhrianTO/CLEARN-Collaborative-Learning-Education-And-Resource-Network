@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('final_project_results', function (Blueprint $table) {
-            $table->dateTime('started_at')->nullable();
+        Schema::table('enrollments', function (Blueprint $table) {
+            $table->json('completed_lessons')->nullable()->after('progress');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::table('final_project_results', function (Blueprint $table) {
-            $table->dropColumn('started_at');
+        Schema::table('enrollments', function (Blueprint $table) {
+            $table->dropColumn('completed_lessons');
         });
     }
 };

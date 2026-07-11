@@ -86,7 +86,7 @@
 
             @foreach($enrollments as $enrollment)
                 @php
-                    $pendingResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNull('final_project_score')->first() : null;
+                    $pendingResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNull('final_project_score')->whereNotNull('submission_file')->first() : null;
                     $isPending = (bool) $pendingResult;
                     $failedResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNotNull('final_project_score')->where('final_project_score', '<', 70)->first() : null;
                     $isFailed = (bool) $failedResult;
@@ -120,11 +120,11 @@
                         <div class="space-y-3">
                             <div class="space-y-1">
                                 <div class="flex justify-between text-[9px] font-bold uppercase tracking-wider dark:text-slate-500 text-slate-400">
-                                    <span>{{ $isCompleted ? 'Selesai' : ($isPending ? 'Menunggu Penilaian' : ($isFailed ? 'Tidak Lulus' : 'Progres Belajar')) }}</span>
-                                    <span class="text-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary')) }}">{{ $isPending ? '-' : $enrollment->progress . '%' }}</span>
+                                    <span>{{ $isCompleted ? 'Selesai' : ($isFailed ? 'Tidak Lulus' : 'Progres Belajar') }}</span>
+                                    <span class="text-{{ $isCompleted ? 'emerald-500' : ($isFailed ? 'red-500' : 'primary') }}">{{ $enrollment->progress }}%</span>
                                 </div>
                                 <div class="w-full h-1.5 dark:bg-[#0F0B1A] bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-{{ $isCompleted ? 'emerald' : ($isFailed ? 'red' : 'primary') }} rounded-full" style="width: {{ $enrollment->progress }}%"></div>
+                                    <div class="h-full {{ $isCompleted ? 'bg-emerald-500' : ($isFailed ? 'bg-red-500' : 'bg-primary') }} rounded-full" style="width: {{ $enrollment->progress }}%"></div>
                                 </div>
                             </div>
 

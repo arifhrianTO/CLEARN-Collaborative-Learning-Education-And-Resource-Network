@@ -76,7 +76,7 @@
                     </div>
 
                     @php
-                        $pendingProgResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNull('final_project_score')->first() : null;
+                        $pendingProgResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNull('final_project_score')->whereNotNull('submission_file')->first() : null;
                         $isProgPending = (bool) $pendingProgResult;
                         $failedProgResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNotNull('final_project_score')->where('final_project_score', '<', 70)->first() : null;
                         $isProgFailed = (bool) $failedProgResult;
@@ -115,15 +115,15 @@
                         </p>
 
                         <div class="w-full bg-slate-100 dark:bg-[#0F0B1A] h-1.5 rounded-full mt-3 overflow-hidden">
-                            <div class="{{ $isProgCompleted ? 'bg-green-500' : ($isProgPending ? 'bg-amber-500' : ($isProgFailed ? 'bg-red-500' : 'bg-primary')) }} h-full transition-all duration-500" style="width: {{ $isProgPending || $isProgFailed ? 100 : $enrollment->progress }}%"></div>
+                            <div class="{{ $isProgCompleted ? 'bg-green-500' : ($isProgFailed ? 'bg-red-500' : 'bg-primary') }} h-full transition-all duration-500" style="width: {{ $enrollment->progress }}%"></div>
                         </div>
                     </div>
                 </div>
 
                     <div class="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 dark:border-white/5 w-full md:w-auto flex-shrink-0">
                         <div class="text-left md:text-right">
-                            <p class="text-xl font-black dark:text-white text-slate-800">{{ $isProgPending ? '-' : ($isProgFailed ? '0' : $enrollment->progress) . '%' }}</p>
-                            <p class="text-[9px] dark:text-slate-500 text-slate-400 font-bold uppercase tracking-wider">{{ $isProgPending ? 'Menunggu' : ($isProgFailed ? 'Gagal' : 'Selesai') }}</p>
+                            <p class="text-xl font-black dark:text-white text-slate-800">{{ $enrollment->progress }}%</p>
+                            <p class="text-[9px] dark:text-slate-500 text-slate-400 font-bold uppercase tracking-wider">{{ $isProgCompleted ? 'Selesai' : ($isProgFailed ? 'Gagal' : 'Sedang Berjalan') }}</p>
                         </div>
                         @if($isProgCompleted)
                             <button class="bg-slate-200 dark:bg-[#0F0B1A] text-slate-500 dark:text-slate-400 text-[10px] font-bold px-5 py-2.5 rounded-xl uppercase tracking-widest cursor-not-allowed w-full sm:w-auto text-center">
