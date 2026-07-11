@@ -83,8 +83,8 @@ class PenilaianController extends Controller
 
         $result->update($data);
 
-        // Tandai enrollment selesai (progres 100%) setelah dinilai
-        $result->enrollment->update(['progress' => 100]);
+        // Rekalkulasi progres
+        $result->enrollment->recalculateAndSaveProgress();
 
         return redirect()
             ->route('mentor.penilaian.course', $result->enrollment->course_id)

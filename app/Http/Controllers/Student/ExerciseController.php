@@ -21,17 +21,80 @@ class ExerciseController extends Controller
         $exercise = Exercise::with(['questions.options', 'session.course'])->findOrFail($exerciseId);
 
         $userId = auth()->id();
-
+        
         $enrollment = Enrollment::where('student_id', $userId)
             ->whereHas('course.sessions.exercises', function ($query) use ($exerciseId) {
                 $query->where('exercises.id', $exerciseId);
             })
             ->first();
-
+            
         if (!$enrollment) {
              return redirect()->route('student.course.index')->with('error', 'Anda belum terdaftar di kursus ini.');
         }
 
+        // --- Pengecekan Kunci (Locking) ---
+        $course = $enrollment->course;
+        $course->load(['sessions.lessons', 'sessions.exercise', 'sessions.finalProjects']);
+        $linearCurriculum = [];
+        foreach ($course->sessions as $session) {
+            foreach ($session->lessons as $lesson) {
+                $linearCurriculum[] = ['type' => 'lesson', 'id' => $lesson->id];
+            }
+            if ($session->exercise) {
+                $linearCurriculum[] = ['type' => 'exercise', 'id' => $session->exercise->id];
+            }
+            foreach ($session->finalProjects as $fp) {
+                $linearCurriculum[] = ['type' => 'final_project', 'id' => $fp->id];
+            }
+        }
+
+        $completedLessons = is_array($enrollment->completed_lessons) ? $enrollment->completed_lessons : [];
+        $attemptedExercises = $enrollment->exerciseResults()->with('exerciseAttempt')->get()
+            ->pluck('exerciseAttempt.exercise_id')->filter()->unique()->toArray();
+        $submittedProjects = $course->sessions->flatMap->finalProjects->map(function ($fp) use ($enrollment) {
+            $result = $enrollment->finalProjectResults()->where('final_project_id', $fp->id)->first();
+            if ($result && $result->submission_file) {
+                if ($result->final_project_score === null || $result->final_project_score >= 70) {
+                    return $fp->id;
+                }
+            }
+            return null;
+        })->filter()->toArray();
+
+        $lastUnlockedIndex = 0;
+        for ($i = 0; $i < count($linearCurriculum); $i++) {
+            $item = $linearCurriculum[$i];
+            $isCompleted = false;
+
+            if ($item['type'] === 'lesson') {
+                $isCompleted = in_array($item['id'], $completedLessons);
+            } elseif ($item['type'] === 'exercise') {
+                $isCompleted = in_array($item['id'], $attemptedExercises);
+            } elseif ($item['type'] === 'final_project') {
+                $isCompleted = in_array($item['id'], $submittedProjects);
+            }
+
+            if ($isCompleted) {
+                $lastUnlockedIndex = $i + 1;
+            } else {
+                break;
+            }
+        }
+
+        $requestedIndex = -1;
+        foreach ($linearCurriculum as $index => $item) {
+             if ($item['type'] === 'exercise' && $item['id'] === $exerciseId) {
+                 $requestedIndex = $index;
+                 break;
+             }
+        }
+
+        if ($requestedIndex > $lastUnlockedIndex) {
+            return redirect()->route('student.course.lesson', $exercise->session->course->course_slug)
+                ->with('error', 'Latihan ini masih terkunci. Silakan selesaikan materi sebelumnya.');
+        }
+        // --- End Pengecekan Kunci ---
+        
         $hasAttempted = ExerciseAttempt::where('enrollment_id', $enrollment->id)
             ->where('exercise_id', $exerciseId)
             ->exists();
@@ -176,6 +239,9 @@ class ExerciseController extends Controller
                 'enrollment_id'         => $enrollment->id,
                 'exercise_result_score' => $score,
             ]);
+            
+            // Rekalkulasi Progres
+            $enrollment->recalculateAndSaveProgress();
 
             return compact('score', 'correctCount', 'totalQuestions');
         });

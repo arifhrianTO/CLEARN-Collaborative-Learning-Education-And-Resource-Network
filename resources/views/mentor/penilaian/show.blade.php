@@ -46,11 +46,30 @@
                             <div>
                                 <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Waktu Pengumpulan</p>
                                 <p class="text-[11px] font-bold dark:text-white text-slate-800 mt-1">
-                                    {{ $result->created_at ? $result->created_at->format('d M Y, H:i') : '-' }}
+                                    {{ $result->updated_at ? $result->updated_at->format('d M Y, H:i') : '-' }}
                                 </p>
                             </div>
                             <div>
-                                <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Status</p>
+                                <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Status Pengumpulan</p>
+                                @php
+                                    $isLate = false;
+                                    if ($result->deadline && $result->updated_at) {
+                                        $isLate = $result->updated_at > $result->deadline;
+                                    }
+                                @endphp
+                                
+                                @if($isLate)
+                                <span class="inline-block mt-1 px-3 py-1 bg-red-500/10 text-red-500 font-bold rounded-full text-[9px] uppercase">
+                                    <i class="fas fa-exclamation-triangle mr-1"></i> Terlambat {{ $result->deadline->diffForHumans($result->updated_at, true) }}
+                                </span>
+                                @else
+                                <span class="inline-block mt-1 px-3 py-1 bg-emerald-500/10 text-emerald-500 font-bold rounded-full text-[9px] uppercase">
+                                    Tepat Waktu
+                                </span>
+                                @endif
+                            </div>
+                            <div>
+                                <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Status Penilaian</p>
                                 @if($result->final_project_score !== null && $result->final_project_score >= 70)
                                 <span class="inline-block mt-1 px-3 py-1 bg-emerald-500/10 text-emerald-500 font-bold rounded-full text-[9px] uppercase">
                                     Lulus
@@ -96,6 +115,16 @@
                     <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">
                         {{ $result->final_project_score !== null ? 'Hasil Penilaian' : 'Aksi Pengajar' }}
                     </h2>
+
+                    @if($isLate)
+                    <div class="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold flex items-start gap-3">
+                        <i class="fas fa-exclamation-circle mt-0.5"></i>
+                        <div>
+                            <p class="uppercase tracking-wider mb-1 text-[10px]">Peringatan Keterlambatan!</p>
+                            <p class="font-medium text-slate-600 dark:text-slate-400">Siswa ini terlambat mengirimkan tugas akhir. Tenggat waktu adalah <span class="font-bold text-slate-800 dark:text-slate-200">{{ $result->deadline->format('d M Y, H:i') }}</span>. Silakan pertimbangkan untuk mengurangi skor sesuai kebijakan Anda.</p>
+                        </div>
+                    </div>
+                    @endif
 
                     @if($result->final_project_score !== null)
                     {{-- Tampilkan Hasil --}}

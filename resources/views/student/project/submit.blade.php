@@ -130,13 +130,13 @@
                     </div>
                 </div>
 
-                @if($result && $result->final_project_score !== null && $result->final_project_score >= 70)
+                @if($result && $result->submission_file && $result->final_project_score !== null && $result->final_project_score >= 70)
                     <div class="border border-emerald-500/30 bg-emerald-500/5 rounded-xl p-10 flex flex-col items-center justify-center text-center h-full min-h-[250px]">
                         <i class="fas fa-check-circle text-emerald-500 text-3xl mb-3"></i>
                         <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1">Tugas Selesai Dinilai</p>
                         <p class="text-xs text-slate-500">Anda mendapatkan skor: <span class="font-black text-emerald-500">{{ $result->final_project_score }}</span></p>
                     </div>
-                @elseif($result && $result->final_project_score !== null)
+                @elseif($result && $result->submission_file && $result->final_project_score !== null)
                     <div class="border border-red-500/30 bg-red-500/5 rounded-xl p-6 mb-6">
                         <div class="flex flex-col items-center justify-center text-center">
                             <i class="fas fa-times-circle text-red-500 text-3xl mb-3"></i>
@@ -150,16 +150,17 @@
                     </div>
                     <form action="{{ route('student.project.submit', $project->id) }}" method="POST" enctype="multipart/form-data" class="flex flex-col flex-1">
                         @csrf
-                        <label for="submission_file" class="flex-1 min-h-[150px] border-2 border-dashed border-red-300 dark:border-red-700 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary transition-all relative overflow-hidden group">
-                            <i class="fas fa-file-archive text-slate-400 group-hover:text-primary transition-colors text-2xl mb-2"></i>
-                            <p class="text-[11px] font-bold text-slate-500 group-hover:text-primary transition-colors" id="file-name">Pilih file baru atau seret ke sini</p>
-                            <input type="file" name="submission_file" id="submission_file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" required>
+                        <label class="flex-1 border-2 border-dashed border-gray-300 dark:border-border-custom rounded-xl flex flex-col items-center justify-center p-8 hover:bg-gray-50 dark:hover:bg-[#1a1625] transition-colors cursor-pointer min-h-[250px]">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                            <span class="text-sm font-bold text-gray-600 dark:text-gray-300">Pilih file untuk diunggah ulang</span>
+                            <span class="text-xs text-gray-500 mt-2">Maks. 50MB ({{ $project->allowed_extensions ?? '.zip, .pdf' }})</span>
+                            <input type="file" name="submission_file" class="hidden" required accept="{{ $project->allowed_extensions ? implode(',', array_map(fn($ext) => '.' . trim($ext), explode(',', $project->allowed_extensions))) : '' }}">
                         </label>
                         <button type="submit" class="mt-4 w-full py-3 bg-primary hover:bg-primary/90 text-white text-[12px] font-bold rounded-lg uppercase tracking-widest transition-all">
                             Upload Ulang Tugas
                         </button>
                     </form>
-                @elseif($result)
+                @elseif($result && $result->submission_file)
                     <div class="border border-amber-500/30 bg-amber-500/5 rounded-xl p-10 flex flex-col items-center justify-center text-center h-full min-h-[250px]">
                         <i class="fas fa-clock text-amber-500 text-3xl mb-3"></i>
                         <p class="text-sm font-bold text-amber-600 dark:text-amber-400 mb-1">Tugas Berhasil Dikirim</p>
@@ -188,7 +189,7 @@
                 <div class="space-y-6">
                     <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4">
                         <span class="text-[11px] text-slate-500 dark:text-slate-400">Status Saat Ini:</span>
-                        @if(!$result)
+                        @if(!$result || !$result->submission_file)
                             <div class="px-3 py-1 bg-red-500/10 text-red-500 text-[10px] font-bold rounded-full">Belum Mengumpulkan</div>
                         @elseif($result->final_project_score === null)
                             <div class="px-3 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded-full">Menunggu Penilaian</div>
@@ -201,6 +202,52 @@
                     
                     @if($result)
                     <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4">
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Mulai Mengerjakan:</span>
+                        <span class="text-[11px] font-bold text-slate-800 dark:text-white">{{ $result->started_at ? $result->started_at->format('d M Y, H:i') : '-' }}</span>
+                    </div>
+
+                    <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4">
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Batas Waktu (Deadline):</span>
+                        <span class="text-[11px] font-bold text-slate-800 dark:text-white">{{ $result->deadline ? $result->deadline->format('d M Y, H:i') : '-' }}</span>
+                    </div>
+
+                    @php
+                        $now = now();
+                        $deadline = $result->deadline;
+                        $isLate = false;
+                        $timeDiff = '';
+                        $isSubmitted = !empty($result->submission_file);
+                        
+                        if ($deadline) {
+                            if ($isSubmitted) {
+                                // Jika sudah submit, cek apakah waktu submit melewati deadline
+                                $isLate = $result->updated_at > $deadline;
+                                if ($isLate) {
+                                    $timeDiff = 'Terlambat ' . $deadline->diffForHumans($result->updated_at, true);
+                                } else {
+                                    $timeDiff = 'Tepat Waktu';
+                                }
+                            } else {
+                                // Jika belum submit, cek sisa waktu saat ini
+                                $isLate = $now > $deadline;
+                                if ($isLate) {
+                                    $timeDiff = 'Terlambat ' . $deadline->diffForHumans($now, true);
+                                } else {
+                                    $timeDiff = 'Sisa ' . $now->diffForHumans($deadline, true);
+                                }
+                            }
+                        }
+                    @endphp
+
+                    <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4">
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Status Waktu:</span>
+                        <span class="text-[11px] font-bold {{ $isLate ? 'text-red-500' : ($isSubmitted ? 'text-emerald-500' : 'text-amber-500') }}">
+                            {{ $timeDiff }}
+                        </span>
+                    </div>
+                    
+                    @if($isSubmitted)
+                    <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4">
                         <span class="text-[11px] text-slate-500 dark:text-slate-400">Terakhir Kirim:</span>
                         <span class="text-[11px] font-bold text-slate-800 dark:text-white">{{ $result->updated_at->format('d M Y, H:i') }}</span>
                     </div>
@@ -211,6 +258,7 @@
                             <i class="fas fa-external-link-alt"></i> Lihat File
                         </a>
                     </div>
+                    @endif
                     @endif
                 </div>
                 

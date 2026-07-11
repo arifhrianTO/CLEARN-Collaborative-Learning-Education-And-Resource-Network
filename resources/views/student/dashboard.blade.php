@@ -62,7 +62,7 @@
         <div class="space-y-4 mb-6">
             @forelse($activeEnrollments->take(3) as $enrollment)
                 @php
-                    $pendingResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNull('final_project_score')->first() : null;
+                    $pendingResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNull('final_project_score')->whereNotNull('submission_file')->first() : null;
                     $isPending = (bool) $pendingResult;
                     $failedResult = $enrollment->finalProjectResults ? $enrollment->finalProjectResults->whereNotNull('final_project_score')->where('final_project_score', '<', 70)->first() : null;
                     $isFailed = (bool) $failedResult;
@@ -96,12 +96,12 @@
                                     <p class="text-[10px] dark:text-slate-500 text-slate-400 font-medium">{{ $enrollment->course->mentor->name ?? 'Tim Pengajar Clearn' }}</p>
                                 </div>
                                 <span class="text-[10px] font-black text-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary')) }}-500 bg-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary')) }}-500/10 px-2 py-1 rounded-md">
-                                    {{ $isCompleted ? 'LULUS' : ($isPending ? 'MENUNGGU' : ($isFailed ? 'TIDAK LULUS' : $enrollment->progress . '%')) }}
+                                    {{ $isCompleted ? 'LULUS (100%)' : ($isFailed ? 'TIDAK LULUS' : $enrollment->progress . '%') }}
                                 </span>
                             </div>
 
                             <div class="w-full dark:bg-[#0F0B1A] bg-slate-100 h-1.5 rounded-full mb-1">
-                                <div class="bg-{{ $isCompleted ? 'emerald' : ($isPending ? 'amber' : ($isFailed ? 'red' : 'primary')) }}-500 h-1.5 rounded-full shadow-[0_0_8px_{{ $colorHex }}]" style="width: {{ $isPending ? 100 : $enrollment->progress }}%"></div>
+                                <div class="{{ $isCompleted ? 'bg-emerald-500' : ($isFailed ? 'bg-red-500' : 'bg-primary') }} h-1.5 rounded-full shadow-[0_0_8px_{{ $colorHex }}]" style="width: {{ $enrollment->progress }}%"></div>
                             </div>
                             
                             @if($isCompleted && $hasCertificate)
