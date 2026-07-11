@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- HERO -->
-<section id="beranda" class="relative min-h-[calc(100vh-5rem)] md:min-h-screen flex flex-col justify-center px-5 md:px-10 pt-20 md:pt-0 pb-10 md:pb-0 text-center overflow-x-hidden transition-colors duration-300 dark:bg-[#0F0B1A]">
+<section id="beranda" class="relative min-h-screen flex flex-col justify-center px-5 md:px-10 text-center overflow-x-hidden transition-colors duration-300 dark:bg-[#0F0B1A]">
     @include('partials.landing.hero')
 </section>
 
