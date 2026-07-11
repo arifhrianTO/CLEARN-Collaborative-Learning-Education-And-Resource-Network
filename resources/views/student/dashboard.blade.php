@@ -22,7 +22,7 @@
                 <h1 class="text-xl font-bold dark:text-white text-slate-800">Beranda Pelajar</h1>
                 <p class="text-[11px] dark:text-slate-500 text-slate-400">Lanjutkan pembelajaran dari kursus yang telah Anda ikuti</p>
             </div>
-            <a href="{{ route('home') }}" class="bg-primary text-white px-5 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:scale-105 shadow-lg shadow-primary/20 active:scale-95">
+            <a href="{{ route('course') }}" class="bg-primary text-white px-5 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:scale-105 shadow-lg shadow-primary/20 active:scale-95">
                 <i class="fa-solid fa-magnifying-glass"></i> Cari Kursus Baru
             </a>
         </div>
@@ -174,7 +174,7 @@
             <div class="relative z-10">
                 <h3 class="font-bold text-sm mb-1">Siap lanjut belajar?</h3>
                 <p class="text-[11px] text-white/80 mb-6 font-medium">Temukan lebih banyak kursus untuk meningkatkan skill Anda</p>
-                <a href="{{ route('home') }}" class="inline-block bg-white text-primary px-8 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform active:scale-95">
+                <a href="{{ route('course') }}" class="inline-block bg-white text-primary px-8 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform active:scale-95">
                     Jelajahi Semua Kursus <i class="ml-2 text-[9px]"></i>
                 </a>
             </div>
