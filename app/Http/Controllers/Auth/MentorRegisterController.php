@@ -26,7 +26,7 @@ class MentorRegisterController extends Controller
             'name'             => ['required', 'string', 'max:255'],
             'front_title'      => ['nullable', 'string', 'max:255'],
             'back_title'       => ['nullable', 'string', 'max:255'],
-            'email'            => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'email'            => ['required', 'string', 'email', 'max:255', 'unique:users,email', new \App\Rules\DisposableEmail],
             'password'         => ['required', 'string', 'min:8', 'confirmed'],
             'expertise'        => ['nullable', 'string', 'max:255'],
             'bio'              => ['nullable', 'string'],
