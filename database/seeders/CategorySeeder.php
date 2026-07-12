@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CategorySeeder extends Seeder
 {
@@ -14,51 +13,209 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        // Pastikan kita mengambil admin_id pertama (Super Admin)
-        $admin = User::where('role', 'admin')->first();
+        $now = Carbon::now();
 
-        if (!$admin) {
-            $this->command->error('Admin belum dibuat! Silakan jalankan AdminSeeder terlebih dahulu.');
-            return;
-        }
-
-        $categories = [
+        DB::table('categories')->insert([
             [
-                'category_name' => 'Pemrograman & IT',
-                'category_icon' => 'fa-solid fa-code',
-                'category_description' => 'Pelajari bahasa pemrograman, arsitektur software, dan teknologi informasi terbaru.',
-                'category_color' => '#3b82f6', // Biru
+                'id' => 1,
+                'admin_id' => 1,
+                'category_name' => 'Web Development',
+                'category_icon' => 'fas fa-code',
+                'category_description' => 'Mempelajari pembuatan website menggunakan HTML, CSS, JavaScript, Laravel, React, dan teknologi web lainnya.',
+                'category_color' => '#3B82F6',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
-                'category_name' => 'Desain Grafis & UI/UX',
-                'category_icon' => 'fa-solid fa-pen-nib',
-                'category_description' => 'Asah kreativitas Anda dalam membuat desain antarmuka, logo, dan ilustrasi digital.',
-                'category_color' => '#ec4899', // Pink
+                'id' => 2,
+                'admin_id' => 1,
+                'category_name' => 'Mobile App Development',
+                'category_icon' => 'fas fa-mobile-screen-button',
+                'category_description' => 'Pelatihan membangun aplikasi Android dan iOS menggunakan Flutter, Kotlin, atau React Native.',
+                'category_color' => '#10B981',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
-                'category_name' => 'Bisnis & Pemasaran',
-                'category_icon' => 'fa-solid fa-chart-line',
-                'category_description' => 'Strategi bisnis, digital marketing, SEO, dan cara meningkatkan penjualan Anda.',
-                'category_color' => '#f59e0b', // Kuning/Amber
+                'id' => 3,
+                'admin_id' => 1,
+                'category_name' => 'Data Science & AI',
+                'category_icon' => 'fas fa-chart-line',
+                'category_description' => 'Belajar analisis data, machine learning, deep learning, dan kecerdasan buatan.',
+                'category_color' => '#8B5CF6',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
-                'category_name' => 'Sains Data & AI',
-                'category_icon' => 'fa-solid fa-robot',
-                'category_description' => 'Eksplorasi big data, machine learning, kecerdasan buatan, dan analisis statistik.',
-                'category_color' => '#10b981', // Hijau (Emerald)
-            ]
-        ];
-
-        foreach ($categories as $cat) {
-            Category::firstOrCreate(
-                ['category_name' => $cat['category_name']],
-                [
-                    'admin_id'             => $admin->id,
-                    'category_icon'        => $cat['category_icon'],
-                    'category_description' => $cat['category_description'],
-                    'category_color'       => $cat['category_color'],
-                ]
-            );
-        }
+                'id' => 4,
+                'admin_id' => 1,
+                'category_name' => 'UI/UX Design',
+                'category_icon' => 'fas fa-palette',
+                'category_description' => 'Mendesain antarmuka dan pengalaman pengguna menggunakan Figma dan prinsip UI/UX modern.',
+                'category_color' => '#EC4899',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 5,
+                'admin_id' => 1,
+                'category_name' => 'Digital Marketing',
+                'category_icon' => 'fas fa-bullhorn',
+                'category_description' => 'Strategi pemasaran digital, SEO, SEM, media sosial, dan content marketing.',
+                'category_color' => '#F59E0B',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 6,
+                'admin_id' => 1,
+                'category_name' => 'Cyber Security',
+                'category_icon' => 'fas fa-shield-halved',
+                'category_description' => 'Mempelajari keamanan jaringan, ethical hacking, dan perlindungan data.',
+                'category_color' => '#EF4444',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 7,
+                'admin_id' => 1,
+                'category_name' => 'Cloud Computing',
+                'category_icon' => 'fas fa-cloud',
+                'category_description' => 'Pelatihan penggunaan layanan cloud seperti AWS, Google Cloud, dan Microsoft Azure.',
+                'category_color' => '#06B6D4',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 8,
+                'admin_id' => 1,
+                'category_name' => 'Database',
+                'category_icon' => 'fas fa-database',
+                'category_description' => 'Belajar MySQL, PostgreSQL, SQL Server, MongoDB, dan perancangan basis data.',
+                'category_color' => '#6366F1',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 9,
+                'admin_id' => 1,
+                'category_name' => 'DevOps',
+                'category_icon' => 'fas fa-server',
+                'category_description' => 'Pelatihan CI/CD, Docker, Kubernetes, Git, dan otomatisasi deployment aplikasi.',
+                'category_color' => '#14B8A6',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 10,
+                'admin_id' => 1,
+                'category_name' => 'Pemrograman Python',
+                'category_icon' => 'fas fa-python',
+                'category_description' => 'Belajar Python untuk automasi, web development, dan data science.',
+                'category_color' => '#FACC15',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 11,
+                'admin_id' => 1,
+                'category_name' => 'Graphic Design',
+                'category_icon' => 'fas fa-pen-ruler',
+                'category_description' => 'Pelatihan desain grafis menggunakan Adobe Photoshop, Illustrator, dan Canva.',
+                'category_color' => '#F472B6',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 12,
+                'admin_id' => 1,
+                'category_name' => 'Video Editing',
+                'category_icon' => 'fas fa-film',
+                'category_description' => 'Belajar editing video menggunakan CapCut, Premiere Pro, dan DaVinci Resolve.',
+                'category_color' => '#DC2626',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 13,
+                'admin_id' => 1,
+                'category_name' => 'Microsoft Office',
+                'category_icon' => 'fas fa-file-word',
+                'category_description' => 'Pelatihan Microsoft Word, Excel, PowerPoint, dan aplikasi perkantoran lainnya.',
+                'category_color' => '#2563EB',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 14,
+                'admin_id' => 1,
+                'category_name' => 'Business & Entrepreneurship',
+                'category_icon' => 'fas fa-briefcase',
+                'category_description' => 'Belajar membangun bisnis, manajemen usaha, dan strategi kewirausahaan.',
+                'category_color' => '#78716C',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 15,
+                'admin_id' => 1,
+                'category_name' => 'Project Management',
+                'category_icon' => 'fas fa-diagram-project',
+                'category_description' => 'Pelatihan pengelolaan proyek menggunakan Scrum, Agile, dan Kanban.',
+                'category_color' => '#0EA5E9',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 16,
+                'admin_id' => 1,
+                'category_name' => 'Public Speaking',
+                'category_icon' => 'fas fa-microphone',
+                'category_description' => 'Mengembangkan kemampuan presentasi, komunikasi, dan berbicara di depan umum.',
+                'category_color' => '#D946EF',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 17,
+                'admin_id' => 1,
+                'category_name' => 'Bahasa Asing',
+                'category_icon' => 'fas fa-language',
+                'category_description' => 'Kursus Bahasa Inggris, Jepang, Korea, Mandarin, dan bahasa asing lainnya.',
+                'category_color' => '#22C55E',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 18,
+                'admin_id' => 1,
+                'category_name' => 'Fotografi',
+                'category_icon' => 'fas fa-camera',
+                'category_description' => 'Belajar teknik fotografi, pencahayaan, komposisi, dan editing foto.',
+                'category_color' => '#A855F7',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 19,
+                'admin_id' => 1,
+                'category_name' => 'Akuntansi & Keuangan',
+                'category_icon' => 'fas fa-calculator',
+                'category_description' => 'Pelatihan akuntansi dasar, laporan keuangan, perpajakan, dan manajemen keuangan.',
+                'category_color' => '#059669',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 20,
+                'admin_id' => 1,
+                'category_name' => 'Jaringan Komputer',
+                'category_icon' => 'fas fa-network-wired',
+                'category_description' => 'Mempelajari instalasi, konfigurasi, dan administrasi jaringan komputer.',
+                'category_color' => '#4F46E5',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+        ]);
     }
 }

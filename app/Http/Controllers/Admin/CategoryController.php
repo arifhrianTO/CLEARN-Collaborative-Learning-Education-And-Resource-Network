@@ -13,10 +13,15 @@ class CategoryController extends Controller
     /**
      * Aturan validasi untuk create & update category.
      */
-    protected function rules(): array
+    protected function rules(?int $categoryId = null): array
     {
         return [
-            'category_name'        => ['required', 'string', 'max:255'],
+            'category_name'        => [
+                'required', 
+                'string', 
+                'max:255',
+                Rule::unique('categories', 'category_name')->ignore($categoryId)
+            ],
             'category_description' => ['nullable', 'string'],
             'category_icon'        => ['nullable', 'string', 'max:100'],
             'category_color'       => ['nullable', 'string', 'max:20'],
@@ -31,6 +36,7 @@ class CategoryController extends Controller
         return [
             'category_name.required' => 'Nama kategori wajib diisi.',
             'category_name.max'      => 'Nama kategori maksimal 255 karakter.',
+            'category_name.unique'   => 'Kategori dengan nama ini sudah ada, mohon gunakan nama lain.',
             'category_icon.max'      => 'Nama icon terlalu panjang.',
             'category_color.max'     => 'Kode warna terlalu panjang.',
         ];
@@ -72,14 +78,24 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        $data = $request->validate($this->rules(), $this->messages());
+        $data = $request->validate($this->rules($category->id), $this->messages());
 
-        $category->update([
+        $processedData = [
             'category_name'        => $data['category_name'],
             'category_description' => $data['category_description'] ?? null,
             'category_icon'        => $this->prefixIcon($data['category_icon'] ?? 'fa-book'),
             'category_color'       => $data['category_color'] ?? '#7C3AED',
-        ]);
+        ];
+
+        $category->fill($processedData);
+
+        if (! $category->isDirty()) {
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('info', 'Tidak ada perubahan data yang dilakukan pada kategori.');
+        }
+
+        $category->save();
 
         return redirect()
             ->route('admin.categories.index')
