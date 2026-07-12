@@ -57,10 +57,6 @@
                             bg-slate-50 dark:bg-[#1A1625]
                             border border-slate-200 dark:border-slate-700
                             focus:ring-2 focus:ring-primary/40 transition">
-
-                    @error('email')
-                    <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <div>
@@ -80,10 +76,6 @@
                                 text-slate-400 hover:text-slate-600 cursor-pointer"
                             data-target="password"></i>
                     </div>
-
-                    @error('password')
-                    <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <div class="flex items-center justify-between text-sm">

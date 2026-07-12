@@ -57,7 +57,7 @@
             <div class="mb-10 text-center animate-fade-down">
                 <div class="inline-flex items-center gap-2 mb-2 text-green-500 font-bold">
                     <i class="fas fa-check-circle text-lg"></i>
-                    <span class="text-[12px] uppercase tracking-widest">Certificate of Completion</span>
+                    <span class="text-[12px] uppercase tracking-widest">Sertifikat Kelulusan</span>
                 </div>
                 <p class="text-sm text-slate-500 dark:text-gray-400 max-w-md mx-auto">
                     Sertifikat ini memverifikasi bahwa siswa telah berhasil menyelesaikan kursus.
@@ -65,7 +65,7 @@
             </div>
 
             {{-- Kertas Sertifikat Utama --}}
-            <div class="bg-white rounded-2xl shadow-2xl shadow-[#7C3AED]/10 ring-1 ring-slate-100 p-10 md:p-16 mb-8 relative overflow-hidden animate-fade-scale">
+            <div class="bg-white rounded-2xl shadow-2xl shadow-[#7C3AED]/10 ring-1 ring-slate-200 dark:ring-0 p-10 md:p-16 mb-8 relative overflow-hidden animate-fade-scale">
 
                 {{-- Efek Glow Halus di Background Kertas --}}
                 <div class="absolute -top-24 -left-24 w-64 h-64 bg-[#7C3AED] opacity-10 rounded-full blur-[100px]"></div>
@@ -73,14 +73,14 @@
                 {{-- Konten Kertas --}}
                 <div class="relative z-10 text-center text-[#1c1826]">
 
-                    {{-- Medali/Ikon Emas --}}
-                    <div class="w-20 h-20 mx-auto mb-8 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/20 text-white text-4xl">
-                        <i class="fas fa-medal"></i>
+                    {{-- Logo Clearn (Dark) --}}
+                    <div class="mx-auto mb-8 flex justify-center">
+                        <img src="{{ asset('images/logo-light.png') }}" alt="Logo Clearn" class="h-16 object-contain">
                     </div>
 
                     {{-- Judul Besar --}}
                     <h2 class="text-3xl font-extrabold mb-5 tracking-tight border-b border-gray-100 pb-5 inline-block mx-auto">
-                        Certificate of Achievement
+                        Sertifikat Penghargaan
                     </h2>
 
                     <p class="text-sm text-gray-500 mb-6 font-medium">Dengan ini menyatakan bahwa</p>
@@ -117,7 +117,7 @@
                     {{-- Footer Kertas: ID dan QR --}}
                     <div class="flex justify-between items-end border-t border-gray-100 pt-10 text-left">
                         <div>
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Certificate ID</p>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">ID Sertifikat</p>
                             <p class="text-sm font-extrabold">{{ $certificate->certificate_number }}</p>
                         </div>
 
@@ -125,7 +125,7 @@
                             <div class="w-16 h-16 rounded-lg bg-white p-1">
                                 {!! app('qrcode')->format('svg')->size(56)->generate(route('student.certificate.show', $certificate->id)) !!}
                             </div>
-                            <p class="text-[10px] font-medium text-gray-500 max-w-[80px]">Scan to verify authenticity</p>
+                            <p class="text-[10px] font-medium text-gray-500 max-w-[80px]">Pindai untuk verifikasi</p>
                         </div>
                     </div>
                 </div>
@@ -140,7 +140,7 @@
             {{-- Tombol Aksi --}}
             <div class="flex flex-col md:flex-row justify-center gap-4 animate-fade-up">
                 <a href="{{ route('student.certificate.download', $certificate->id) }}" class="bg-[#9F67F2] text-white font-bold px-8 py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all hover:bg-[#8B5CF6] shadow-lg shadow-violet-500/20 active:scale-95 uppercase tracking-widest text-[10px]">
-                    <i class="fas fa-download"></i> Download Certificate (PDF)
+                    <i class="fas fa-download"></i> Unduh Sertifikat (PDF)
                 </a>
             </div>
 

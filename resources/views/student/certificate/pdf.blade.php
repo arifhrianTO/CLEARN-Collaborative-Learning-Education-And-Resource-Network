@@ -36,16 +36,10 @@
             box-shadow: 0 0 25px rgba(124, 58, 237, 0.15);
         }
 
-        .medal {
-            width: 65px;
+        .logo-img {
             height: 65px;
-            border-radius: 50%;
-            background-color: #f2b90c;
-            color: #ffffff;
-            font-size: 28px;
-            font-weight: bold;
-            line-height: 65px;
             margin: 0 auto 20px auto;
+            display: block;
         }
 
         h2.cert-title {
@@ -162,9 +156,14 @@
     <div class="page-wrapper">
         <div class="certificate-card">
 
-            <div class="medal">★</div>
+            @php
+                $logoPath = public_path('images/logo-dark.png');
+                $logoData = base64_encode(file_get_contents($logoPath));
+                $logoSrc = 'data:image/png;base64,' . $logoData;
+            @endphp
+            <img src="{{ $logoSrc }}" class="logo-img" alt="Logo Clearn">
 
-            <h2 class="cert-title">Certificate of Achievement</h2>
+            <h2 class="cert-title">Sertifikat Penghargaan</h2>
 
             <p class="small-label">Dengan ini menyatakan bahwa</p>
 
@@ -194,12 +193,12 @@
             <table class="footer-table">
                 <tr>
                     <td>
-                        <div class="cert-id-label">Certificate ID</div>
+                        <div class="cert-id-label">ID Sertifikat</div>
                         <div class="cert-id-value">{{ $certificate->certificate_number }}</div>
                     </td>
                     <td class="qr-cell">
                         <img src="data:image/svg+xml;base64,{{ base64_encode(app('qrcode')->format('svg')->size(150)->generate(route('student.certificate.show', $certificate->id))) }}" alt="QR Code">
-                        <div class="qr-caption">Scan to verify authenticity</div>
+                        <div class="qr-caption">Pindai untuk verifikasi</div>
                     </td>
                 </tr>
             </table>
