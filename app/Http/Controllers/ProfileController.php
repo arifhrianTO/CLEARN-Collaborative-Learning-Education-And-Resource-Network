@@ -35,15 +35,6 @@ class ProfileController extends Controller
         // Validasi langsung di sini, menggantikan ProfileUpdateRequest
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($user->id),
-                new \App\Rules\DisposableEmail,
-            ],
             'phone' => ['nullable', 'string', 'max:20'],
             'username' => [
                 'nullable',
