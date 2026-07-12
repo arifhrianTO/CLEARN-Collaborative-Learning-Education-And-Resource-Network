@@ -139,7 +139,7 @@
           </div>
 
           <div>
-              <iframe class="rounded-2xl flex items-center justify-center" width="560" height="315" src="https://www.youtube.com/embed/OXr9HwyYqaI?si=iwxr1xZvnxuuBo7r" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe class="rounded-2xl flex items-center justify-center" width="560" height="315" src="https://www.youtube.com/embed/05f7P6OCa3Y?start=2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
 
       </div>

@@ -36,7 +36,7 @@ class MentorRegisterController extends Controller
             'certificate_file' => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
             'ijazah'           => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
             'cv'               => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
-            'profile_picture'  => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'profile_picture'  => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:5120'],
         ];
     }
 

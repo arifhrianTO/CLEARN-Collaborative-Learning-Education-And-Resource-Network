@@ -151,9 +151,23 @@ class CourseController extends Controller
         try {
             DB::beginTransaction();
 
-            $thumbnailPath = $request
-                ->file('course_thumbnail')
-                ->store('course-thumbnails', 'public');
+            if ($request->hasFile('course_thumbnail')) {
+                $file = $request->file('course_thumbnail');
+                $filename = uniqid() . '_' . $file->getClientOriginalName();
+                $path = 'course-thumbnails/' . $filename;
+                
+                // Inisialisasi ImageManager dengan GD Driver
+                $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
+                
+                // Baca dan proses gambar (potong jadi persegi panjang 800x450 / rasio 16:9)
+                $image = $manager->read($file->getRealPath());
+                $image->cover(800, 450);
+                $encoded = $image->toJpeg(75); // Kualitas 75%
+                
+                Storage::disk('public')->put($path, (string) $encoded);
+                
+                $thumbnailPath = $path;
+            }
 
             $course = Course::create([
                 'mentor_id' =>  Auth::id(),
@@ -308,9 +322,26 @@ class CourseController extends Controller
             DB::beginTransaction();
 
             if ($request->hasFile('course_thumbnail')) {
-                $newThumbnail = $request
-                    ->file('course_thumbnail')
-                    ->store('course-thumbnails', 'public');
+                // Hapus thumbnail lama jika ada
+                if ($oldThumbnail && Storage::disk('public')->exists($oldThumbnail)) {
+                    Storage::disk('public')->delete($oldThumbnail);
+                }
+                
+                $file = $request->file('course_thumbnail');
+                $filename = uniqid() . '_' . $file->getClientOriginalName();
+                $path = 'course-thumbnails/' . $filename;
+                
+                // Inisialisasi ImageManager dengan GD Driver
+                $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
+                
+                // Baca dan proses gambar (potong jadi persegi panjang 800x450 / rasio 16:9)
+                $image = $manager->read($file->getRealPath());
+                $image->cover(800, 450);
+                $encoded = $image->toJpeg(75); // Kualitas 75%
+                
+                Storage::disk('public')->put($path, (string) $encoded);
+                
+                $newThumbnail = $path;
             }
 
             $course->update([
