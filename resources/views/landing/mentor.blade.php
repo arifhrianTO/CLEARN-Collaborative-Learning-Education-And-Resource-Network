@@ -70,7 +70,6 @@
             :title="$mentor->profileAccount->expertise ?? 'Pengajar'"
             :description="$mentor->profileAccount->bio ?? 'Pengajar berpengalaman di Clearn.'"
             :tags="[]"
-            :rating="number_format($mentor->rating, 1)"
             :students="$mentor->student_count ?? 0"
             :courses="$mentor->courses_count ?? 0" />  
         @endforeach
