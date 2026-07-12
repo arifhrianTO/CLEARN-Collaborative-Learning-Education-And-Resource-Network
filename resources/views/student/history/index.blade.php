@@ -102,8 +102,12 @@
                         <div class="flex gap-2">
                             @if($payment->connection_status === 'success' || $payment->connection_status === 'settlement')
                                 <a href="{{ route('student.course.lesson', $payment->enrollment->course->course_slug) }}" class="inline-block bg-primary text-white text-[10px] font-extrabold px-5 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 active:scale-95 transition-all uppercase tracking-widest">Mulai Belajar</a>
+                                <button type="button" 
+                                    onclick="showReceipt('{{ $payment->midtrans_order_id }}', '{{ $payment->created_at->format('d M Y, H:i') }}', '{{ addslashes($payment->enrollment->course->course_title) }}', '{{ addslashes($payment->enrollment->course->mentor->name ?? 'Pengajar Clearn') }}', '{{ number_format($payment->gross_amount, 0, ',', '.') }}', '{{ $payment->payment_type ?? 'Transfer' }}')" 
+                                    class="inline-block border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 text-[10px] font-extrabold px-5 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-white/5 active:scale-95 transition-all uppercase tracking-widest">
+                                    Detail Pembayaran
+                                </button>
                             @endif
-                            <a href="{{ route('student.course.show', $payment->enrollment->course->course_slug) }}" class="inline-block border dark:border-white/5 border-slate-200 dark:text-slate-400 text-slate-500 text-[10px] font-extrabold px-5 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-white/5 active:scale-95 transition-all uppercase tracking-widest">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -125,5 +129,114 @@
         </div>
     </div>
 </main>
+
+{{-- Modal Resi --}}
+<div id="receiptModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden p-4 bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-0" aria-hidden="true">
+    <div class="bg-white dark:bg-[#1A1625] p-6 md:p-8 rounded-3xl shadow-2xl border dark:border-white/5 w-full max-w-md transform transition-all duration-300 scale-95 opacity-0" id="receiptModalContent">
+        
+        {{-- Modal Header / Logo --}}
+        <div class="text-center mb-6 border-b dark:border-white/5 border-slate-100 pb-6">
+            <div class="w-14 h-14 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center mb-3">
+                <i class="fa-solid fa-receipt text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-black text-slate-800 dark:text-white tracking-tight">Resi Pembayaran</h3>
+            <p class="text-[11px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-widest mt-1">CLEARN E-Learning</p>
+        </div>
+
+        {{-- Modal Body --}}
+        <div class="space-y-4">
+            <div class="flex justify-between items-center bg-slate-50 dark:bg-[#0F0B1A] p-4 rounded-xl border dark:border-white/5 border-slate-100">
+                <div>
+                    <p class="text-[10px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-wider mb-1">Status</p>
+                    <span class="px-2.5 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider bg-green-500/10 text-green-500 border border-green-500/20">LUNAS</span>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] font-bold dark:text-slate-500 text-slate-400 uppercase tracking-wider mb-1">Tanggal</p>
+                    <p class="text-[12px] font-black tracking-tight dark:text-white text-slate-800" id="receiptDate">-</p>
+                </div>
+            </div>
+
+            <div class="px-1">
+                <div class="flex justify-between py-2 border-b border-dashed dark:border-slate-700 border-slate-200">
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400">Order ID</span>
+                    <span class="text-xs font-black text-slate-800 dark:text-white" id="receiptOrderId">-</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-dashed dark:border-slate-700 border-slate-200">
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400">Kursus</span>
+                    <span class="text-xs font-black text-slate-800 dark:text-white text-right max-w-[200px] truncate" id="receiptCourseTitle">-</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-dashed dark:border-slate-700 border-slate-200">
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400">Pengajar</span>
+                    <span class="text-xs font-black text-slate-800 dark:text-white" id="receiptMentorName">-</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-dashed dark:border-slate-700 border-slate-200">
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400">Metode</span>
+                    <span class="text-xs font-black text-slate-800 dark:text-white uppercase" id="receiptPaymentType">-</span>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-primary/5 p-4 rounded-xl border border-primary/10 flex justify-between items-center">
+                <span class="text-sm font-black text-slate-800 dark:text-white">Total Bayar</span>
+                <span class="text-lg font-black text-primary" id="receiptTotalAmount">-</span>
+            </div>
+        </div>
+
+        {{-- Modal Footer --}}
+        <div class="mt-8 flex justify-center">
+            <button type="button" onclick="closeReceipt()" class="w-full py-3.5 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-[11px] font-black uppercase tracking-widest rounded-2xl hover:bg-slate-200 dark:hover:bg-white/10 active:scale-95 transition-all">
+                Tutup
+            </button>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    const receiptModal = document.getElementById('receiptModal');
+    const receiptModalContent = document.getElementById('receiptModalContent');
+
+    function showReceipt(orderId, date, courseTitle, mentorName, amount, paymentType) {
+        // Set Data
+        document.getElementById('receiptOrderId').textContent = orderId;
+        document.getElementById('receiptDate').textContent = date;
+        document.getElementById('receiptCourseTitle').textContent = courseTitle;
+        document.getElementById('receiptMentorName').textContent = mentorName;
+        document.getElementById('receiptTotalAmount').textContent = 'Rp' + amount;
+        
+        // Format payment type
+        let formattedType = paymentType.replace(/_/g, ' ');
+        document.getElementById('receiptPaymentType').textContent = formattedType;
+
+        // Tampilkan Modal
+        receiptModal.classList.remove('hidden');
+        
+        // Efek animasi muncul (butuh sedikit delay agar class remove hidden selesai dirender)
+        setTimeout(() => {
+            receiptModal.classList.remove('opacity-0');
+            receiptModalContent.classList.remove('scale-95', 'opacity-0');
+            receiptModalContent.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    function closeReceipt() {
+        // Efek animasi menghilang
+        receiptModal.classList.add('opacity-0');
+        receiptModalContent.classList.remove('scale-100', 'opacity-100');
+        receiptModalContent.classList.add('scale-95', 'opacity-0');
+
+        // Sembunyikan modal setelah animasi selesai (300ms dari durasi tailwind)
+        setTimeout(() => {
+            receiptModal.classList.add('hidden');
+        }, 300);
+    }
+
+    // Menutup modal jika klik di luar area modal (backdrop)
+    receiptModal.addEventListener('click', function(e) {
+        if (e.target === receiptModal) {
+            closeReceipt();
+        }
+    });
+</script>
+@endpush
 
 @endsection
