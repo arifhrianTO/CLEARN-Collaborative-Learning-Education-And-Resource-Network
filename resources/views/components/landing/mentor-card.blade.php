@@ -46,11 +46,7 @@
     </div>
 
     {{-- Stats --}}
-    <div class="grid grid-cols-3 gap-4 text-sm text-slate-300">
-        <div>
-            <p class="text-yellow-400 font-semibold">★ {{ $rating }}</p>
-            <span class="text-xs text-slate-500">Rating</span>
-        </div>
+    <div class="grid grid-cols-2 gap-4 text-sm text-slate-300">
         <div>
             <p class="font-semibold">{{ $students }}</p>
             <span class="text-xs text-slate-500">Pelajar</span>

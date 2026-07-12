@@ -70,13 +70,6 @@ class DashboardController extends Controller
         $ratingColumn = Schema::hasColumn('rates', 'rating')
             ? 'rating'
             : 'rate';
-            
-        $rataRating = Rate::whereHas('course', function ($query) use ($mentorId) {
-            $query->where('mentor_id', $mentorId);
-        })
-            ->avg('course_rate');
-
-        $rataRating = $rataRating ? round($rataRating, 1) : 0;
 
         /*
         |--------------------------------------------------------------------------
@@ -122,7 +115,6 @@ class DashboardController extends Controller
             'totalPendapatan',
             'totalPelajar',
             'kursusAktif',
-            'rataRating',
             'chartLabels',
             'revenueChartData',
             'enrollmentChartData'

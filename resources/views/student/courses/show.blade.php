@@ -37,9 +37,6 @@
                                 </div>
                                 <span class="text-muted-custom">{{ $course->mentor->name ?? 'Tim Pengajar Clearn' }}</span>
                             </div>
-                            <span class="text-yellow-500 flex items-center gap-1">
-                                <i class="fas fa-star"></i> 4.8
-                            </span>
                             <span class="text-muted-custom">| {{ $course->enrollments->count() }} Peserta</span>
                         </div>
 

@@ -90,21 +90,6 @@
                 </p>
             </div>
 
-            {{-- Rata-rata Penilaian --}}
-            <div class="card-bg p-5">
-                <div class="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500 mb-3 text-sm">
-                    <i class="fa-solid fa-star"></i>
-                </div>
-
-                <h3 class="text-xl font-bold">
-                    {{ number_format($rataRating ?? 0, 1) }}
-                </h3>
-
-                <p class="text-[10px] font-bold text-slate-400 uppercase mt-1">
-                    Rata-rata Penilaian
-                </p>
-            </div>
-
         </div>
 
         {{-- Chart --}}
