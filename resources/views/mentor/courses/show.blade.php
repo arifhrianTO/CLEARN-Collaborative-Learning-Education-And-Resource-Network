@@ -600,42 +600,40 @@
 
                             {{-- Tugas Akhir --}}
                             @forelse($session->finalProjects as $project)
-                            <div class="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+                            <div class="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 mb-4 last:mb-0">
                                 <div class="flex items-start gap-4">
                                     <div class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
                                         <i class="fa-solid fa-diagram-project"></i>
                                     </div>
 
-                                    <div class="flex-1">
-                                        <div class="flex items-start justify-between gap-4">
-                                            <div>
-                                                <h4 class="text-sm font-black text-emerald-500">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-3">
+                                            <div class="min-w-0">
+                                                <h4 class="text-sm font-black text-emerald-500 mb-1">
                                                     {{ $project->project_title }}
                                                 </h4>
                                                 
-                                                <div class="flex items-center gap-3 mt-1.5">
-                                                    @if($project->duration_days)
-                                                    <div class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600/80 dark:text-emerald-400/80">
+                                                @if($project->duration_days)
+                                                <div class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600/80 dark:text-emerald-400/80 mt-2">
+                                                    <div class="flex items-center gap-1">
                                                         <i class="fa-regular fa-clock"></i>
                                                         <span>Waktu Pengerjaan: {{ $project->duration_days }} Hari</span>
                                                     </div>
+                                                    @if($project->allowed_extensions)
+                                                    <span class="px-1 text-emerald-500/50">|</span>
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa-solid fa-file-code"></i>
+                                                        <span>Format: {{ $project->allowed_extensions }}</span>
+                                                    </div>
                                                     @endif
                                                 </div>
-                                            </div>
-
-                                            <div class="flex flex-col gap-2">
-                                                <a href="{{ route('mentor.projects.submissions', $project->id) }}" class="px-4 py-2 text-center rounded-xl bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest hover:brightness-110 transition shadow-md shadow-emerald-500/20">
-                                                    Lihat Pengumpulan
-                                                </a>
-                                                <button type="button" class="px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition">
-                                                    Detail Tugas
-                                                </button>
+                                                @endif
                                             </div>
                                         </div>
 
-                                        <p class="text-xs dark:text-slate-400 text-slate-600 mt-3 leading-relaxed line-clamp-3">
-                                            {{ $project->project_description }}
-                                        </p>
+                                        <div class="text-[12px] dark:text-slate-400 text-slate-600 leading-relaxed prose prose-sm prose-emerald dark:prose-invert max-w-none">
+                                            {!! $project->project_description !!}
+                                        </div>
 
                                         {{-- Material Preview --}}
                                         @if($project->materials && $project->materials->count() > 0)
