@@ -193,7 +193,7 @@
                         <div class="p-6 rounded-2xl bg-white dark:bg-card-dark border border-gray-100 dark:border-transparent shadow-sm">
                             @error('profile_picture') <span>{{ $message }}</span> @enderror
                             <input type="file" name="profile_picture" class="text-[10px] text-gray-400 w-full font-bold mb-1">
-                            <p class="text-[9px] text-gray-500 italic">Format: JPG, PNG, & JPEG, Maks 1MB</p>
+                            <p class="text-[9px] text-gray-500 italic">Format: JPG, PNG, & JPEG, Maks 5MB</p>
                         </div>
                     </div>
                 </div>

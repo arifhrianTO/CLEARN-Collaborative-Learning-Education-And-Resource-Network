@@ -17,8 +17,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminSeeder::class,
-            CourseSeeder::class,
-            PythonCourseSeeder::class,
+            CategorySeeder::class,
+            MentorSeeder::class,
+            DummyCourseSeeder::class,
         ]); 
 
         User::firstOrCreate(

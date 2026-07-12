@@ -69,8 +69,22 @@ class ProfileController extends Controller
             if ($user->profile_picture) {
                 Storage::disk('public')->delete($user->profile_picture);
             }
-            // Sesuai folder: storage/app/public/profile/
-            $user->profile_picture = $request->file('photo')->store('profile', 'public');
+            
+            $file = $request->file('photo');
+            $filename = uniqid() . '_' . $file->getClientOriginalName();
+            $path = 'profile/' . $filename;
+            
+            // Inisialisasi ImageManager dengan GD Driver
+            $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
+            
+            // Baca dan proses gambar (potong jadi persegi 300x300, lalu kompres ke format jpg)
+            $image = $manager->read($file->getRealPath());
+            $image->cover(300, 300);
+            $encoded = $image->toJpeg(75); // Kualitas 75%
+            
+            Storage::disk('public')->put($path, (string) $encoded);
+            
+            $user->profile_picture = $path;
         }
 
         if ($user->isDirty('email')) {

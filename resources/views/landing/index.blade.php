@@ -78,7 +78,7 @@
             <div class="bg-white dark:bg-[#0F0B1A] p-8 rounded-3xl text-center border border-slate-200 dark:border-gray-800 hover:border-[#A487F8] transition-all shadow-md">
                 <img src="{{ $mentor->profile_picture ? asset('storage/' . $mentor->profile_picture) : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random' }}" class="w-28 h-28 rounded-full mx-auto mb-6 object-cover border-4 border-slate-200 dark:border-gray-800" alt="{{ $mentor->name }}">
                 <h6 class="font-bold text-lg mb-1.5">{{ $mentor->name }}</h6>
-                <p class="text-xs text-[#A487F8] dark:text-[#A487F8] mb-6 font-semibold tracking-wider">{{ $mentor->occupation ?? 'Pengajar' }}</p>
+                <p class="text-xs text-[#A487F8] dark:text-[#A487F8] mb-6 font-semibold tracking-wider">{{ $mentor->profileAccount->expertise ?? $mentor->occupation ?? 'Pengajar' }}</p>
                 <div class="flex items-center justify-center gap-1 mb-3 text-yellow-400">
                     @for($i = 1; $i <= 5; $i++)
                         <i class="fas fa-star text-xs {{ $i <= round($mentor->rating) ? '' : 'text-slate-300 dark:text-slate-600' }}"></i>

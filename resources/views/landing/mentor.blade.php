@@ -52,9 +52,9 @@
     <div class="flex justify-between items-end mb-12 max-w-[1200px] mx-auto transition-colors">
         <div>
             @if(request('search'))
-                <p class="text-slate-500 dark:text-gray-400 text-sm">Menemukan {{ $mentors->count() }} pengajar untuk pencarian "<span class="font-bold text-primary">{{ request('search') }}</span>"</p>
+            <p class="text-slate-500 dark:text-gray-400 text-sm">Menemukan {{ $mentors->count() }} pengajar untuk pencarian "<span class="font-bold text-primary">{{ request('search') }}</span>"</p>
             @else
-                <p class="text-slate-500 dark:text-gray-400 text-sm">Menampilkan {{ $mentors->count() }} pengajar</p>
+            <p class="text-slate-500 dark:text-gray-400 text-sm">Menampilkan {{ $mentors->count() }} pengajar</p>
             @endif
         </div>
     </div>
@@ -62,15 +62,17 @@
     @if($mentors->count() > 0)
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1200px] mx-auto">
         @foreach($mentors as $mentor)
-            <x-landing.mentor-card
-                photo="{{ $mentor->profile_picture ? asset('storage/' . $mentor->profile_picture) : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random' }}"
-                name="{{ $mentor->name }}"
-                title="{{ $mentor->occupation ?? 'Instruktur' }}"
-                description="{{ $mentor->profileAccount->bio ?? 'Pengajar berpengalaman di Clearn.' }}"
-                :tags="[]"
-                rating="{{ number_format($mentor->rating, 1) }}"
-                students="{{ $mentor->student_count ?? 0 }}"
-                courses="{{ $mentor->courses_count ?? 0 }}" />
+        <x-landing.mentor-card
+            :photo="$mentor->profile_picture
+        ? asset('storage/' . $mentor->profile_picture)
+        : 'https://ui-avatars.com/api/?name=' . urlencode($mentor->name) . '&background=random'"
+            :name="$mentor->name"
+            :title="$mentor->profileAccount->expertise ?? 'Pengajar'"
+            :description="$mentor->profileAccount->bio ?? 'Pengajar berpengalaman di Clearn.'"
+            :tags="[]"
+            :rating="number_format($mentor->rating, 1)"
+            :students="$mentor->student_count ?? 0"
+            :courses="$mentor->courses_count ?? 0" />  
         @endforeach
     </div>
     @else
@@ -103,41 +105,41 @@
 
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('mentorSearch');
-        
+
         if (searchInput) {
             let timer;
-            
+
             searchInput.addEventListener('input', function() {
                 clearTimeout(timer);
-                
+
                 timer = setTimeout(function() {
                     const searchValue = searchInput.value;
                     const url = new URL(window.location.href);
                     url.searchParams.set('search', searchValue);
-                    
+
                     fetch(url.toString(), {
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                    .then(response => response.text())
-                    .then(html => {
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        
-                        // Update the mentor list section
-                        const currentSection = document.getElementById('pengajar');
-                        const newSection = doc.getElementById('pengajar');
-                        
-                        if (currentSection && newSection) {
-                            currentSection.innerHTML = newSection.innerHTML;
-                        }
-                        
-                        window.history.pushState({}, '', url);
-                    })
-                    .catch(error => console.error('Error fetching search results:', error));
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+
+                            // Update the mentor list section
+                            const currentSection = document.getElementById('pengajar');
+                            const newSection = doc.getElementById('pengajar');
+
+                            if (currentSection && newSection) {
+                                currentSection.innerHTML = newSection.innerHTML;
+                            }
+
+                            window.history.pushState({}, '', url);
+                        })
+                        .catch(error => console.error('Error fetching search results:', error));
                 }, 300); // 300ms debounce
             });
         }
