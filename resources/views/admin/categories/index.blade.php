@@ -35,6 +35,13 @@
         </div>
         @endif
 
+        {{-- Alert info/warning --}}
+        @if (session('info'))
+        <div class="mb-5 p-4 rounded-xl bg-yellow-100 text-yellow-700 text-xs font-bold">
+            {{ session('info') }}
+        </div>
+        @endif
+
         {{-- Alert error --}}
         @if (session('error'))
         <div class="mb-5 p-4 rounded-xl bg-red-100 text-red-700 text-xs font-bold">
