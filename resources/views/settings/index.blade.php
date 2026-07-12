@@ -141,13 +141,10 @@ $hideUsername = $isAdmin || $isStudent;
                             </label>
                             <input
                                 type="email"
-                                name="email"
-                                value="{{ old('email', $user?->email) }}"
-                                class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-200 text-slate-800 dark:placeholder:text-slate-600 placeholder:text-slate-400 text-[13px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition"
-                                placeholder="email@kamu.com">
-                            @error('email')
-                            <p class="dark:text-red-400 text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
+                                value="{{ $user?->email }}"
+                                class="w-full px-4 py-2.5 dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 rounded-xl dark:text-slate-400 text-slate-400 cursor-not-allowed text-[13px]"
+                                disabled>
+                            <p class="text-slate-400 dark:text-slate-500 text-[11px] mt-1">Email tidak dapat diubah</p>
                         </div>
 
                         <div>
