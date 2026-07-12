@@ -78,7 +78,6 @@
         </div>
         <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Kategori Tidak Ditemukan</h3>
         <p class="text-slate-500 dark:text-gray-400 text-sm mb-6 max-w-md mx-auto">Maaf, kami tidak dapat menemukan kategori yang cocok dengan pencarian Anda. Coba gunakan kata kunci lain.</p>
-        <a href="{{ route('category') }}" class="inline-block px-6 py-2.5 bg-primary text-white rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Lihat Semua Kategori</a>
     </div>
     @endif
 </section>

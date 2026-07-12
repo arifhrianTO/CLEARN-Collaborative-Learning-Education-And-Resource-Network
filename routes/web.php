@@ -3,12 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\StudentRegisterController;
 use App\Http\Controllers\Auth\MentorRegisterController;
-
-use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\MentorVerificationController;
@@ -31,16 +30,19 @@ use App\Http\Controllers\Student\DashboardController as StudentDashboardControll
 use App\Http\Controllers\Student\CourseController as StudentCourseController;
 use App\Http\Controllers\Student\ExerciseController as StudentExerciseController;
 use App\Http\Controllers\Student\PaymentController as StudentPaymentController;
+use App\Http\Controllers\Student\FinalProjectController as StudentFinalProjectController;
 
-Route::get('/', fn() => redirect()->route('home'));
+Route::get('/', fn () => redirect()->route('home'));
 
 Route::get('/landing', [LandingController::class, 'index'])->name('home');
 Route::get('/course', [LandingController::class, 'course'])->name('course');
 Route::get('/course/{slug}', [StudentCourseController::class, 'show'])->name('public.course.show');
-Route::post('/course/{slug}/enroll', [StudentCourseController::class, 'enroll'])->name('public.course.enroll')->middleware(['auth', 'role:student']);
+Route::post('/course/{slug}/enroll', [StudentCourseController::class, 'enroll'])
+    ->name('public.course.enroll')
+    ->middleware(['auth', 'role:student']);
 Route::get('/category', [LandingController::class, 'category'])->name('category');
 Route::get('/mentor', [LandingController::class, 'mentor'])->name('mentor');
-Route::get('/choose-role', fn() => view('auth.choose_role'))->name('choose_role');
+Route::get('/choose-role', fn () => view('auth.choose_role'))->name('choose_role');
 Route::get('/tutorial', [LandingController::class, 'tutorial'])->name('tutorial');
 
 Route::middleware('guest')->group(function () {
@@ -63,20 +65,11 @@ Route::middleware('auth')->group(function () {
         return redirect()->route($role . '.dashboard');
     })->name('dashboard');
 
-    Route::get('/settings', [ProfileController::class, 'edit'])
-        ->name('settings.edit');
-
-    Route::patch('/settings/profile', [ProfileController::class, 'update'])
-        ->name('settings.profile.update');
-
-    Route::put('/settings/password', [ProfileController::class, 'updatePassword'])
-        ->name('settings.password.update');
-
-    Route::patch('/settings/bank', [ProfileController::class, 'updateBank'])
-        ->name('settings.bank.update');
-
-    Route::delete('/settings/profile', [ProfileController::class, 'destroy'])
-        ->name('settings.profile.destroy');
+    Route::get('/settings', [ProfileController::class, 'edit'])->name('settings.edit');
+    Route::patch('/settings/profile', [ProfileController::class, 'update'])->name('settings.profile.update');
+    Route::put('/settings/password', [ProfileController::class, 'updatePassword'])->name('settings.password.update');
+    Route::patch('/settings/bank', [ProfileController::class, 'updateBank'])->name('settings.bank.update');
+    Route::delete('/settings/profile', [ProfileController::class, 'destroy'])->name('settings.profile.destroy');
 
     Route::middleware('role:student')
         ->prefix('student')
@@ -88,27 +81,27 @@ Route::middleware('auth')->group(function () {
             Route::get('/courses/{slug}', [StudentCourseController::class, 'show'])->name('course.show');
             Route::post('/courses/{slug}/enroll', [StudentCourseController::class, 'enroll'])->name('course.enroll');
             Route::get('/courses/{slug}/lesson', [StudentCourseController::class, 'showLesson'])->name('course.lesson');
+            Route::get('/courses/progress', [StudentCourseController::class, 'progress'])->name('progress');
+            Route::post('/rate/{enrollment}', [StudentCourseController::class, 'submitRating'])->name('rate.submit');
+
             Route::get('/certif', [StudentCourseController::class, 'certificates'])->name('certif');
             Route::get('/certificate/{id}/show', [StudentCourseController::class, 'showCertificates'])->name('certificate.show');
             Route::get('/certificate/{id}/download', [StudentCourseController::class, 'downloadCertificate'])->name('certificate.download');
             Route::post('/certificate/claim/{enrollment}', [StudentCourseController::class, 'claimCertificate'])->name('certificate.claim');
-            Route::get('/courses/progress', [StudentCourseController::class, 'progress'])->name('progress');
 
             Route::get('/exercise/{exerciseId}', [StudentExerciseController::class, 'show'])->name('exercise.show');
             Route::get('/exercise/{exerciseId}/start', [StudentExerciseController::class, 'start'])->name('exercise.start');
             Route::post('/exercise/{exerciseId}', [StudentExerciseController::class, 'submit'])->name('exercise.submit');
             Route::get('/quiz/{exerciseId}', [StudentExerciseController::class, 'quiz'])->name('quiz.show');
 
-            Route::get('/project/{projectId}', [\App\Http\Controllers\Student\FinalProjectController::class, 'show'])->name('project.show');
-            Route::post('/project/{projectId}', [\App\Http\Controllers\Student\FinalProjectController::class, 'submit'])->name('project.submit');
-
-            Route::post('/rate/{enrollment}', [StudentCourseController::class, 'submitRating'])->name('rate.submit');
+            Route::get('/project/{projectId}', [StudentFinalProjectController::class, 'show'])->name('project.show');
+            Route::post('/project/{projectId}', [StudentFinalProjectController::class, 'submit'])->name('project.submit');
 
             Route::get('/history', [StudentPaymentController::class, 'history'])->name('history');
             Route::get('/checkout/{course_id}', [StudentPaymentController::class, 'checkout'])->name('checkout');
             Route::get('/payment/success', [StudentPaymentController::class, 'successCallback'])->name('payment.success');
 
-            Route::get('/settings', fn() => view('settings.settings'))->name('settings');
+            Route::get('/settings', fn () => view('settings.settings'))->name('settings');
         });
 
     Route::middleware('role:mentor')
@@ -126,23 +119,26 @@ Route::middleware('auth')->group(function () {
             Route::get('/courses/{course}', [MentorCourseController::class, 'show'])->name('courses.show');
             Route::patch('/courses/{course}/submit-verification', [MentorCourseController::class, 'submitVerification'])->name('courses.submitVerification');
             Route::delete('/courses/{course}', [MentorCourseController::class, 'destroy'])->name('courses.destroy');
+
             Route::get('/courses/{course}/sessions/edit', [SessionController::class, 'editByCourse'])->name('courses.sessions.edit');
             Route::put('/courses/{course}/sessions', [SessionController::class, 'updateByCourse'])->name('courses.sessions.update');
             Route::post('/courses/{course}/sessions', [SessionController::class, 'store'])->name('courses.sessions.store');
+
             Route::get('/sessions/{session}/lessons/create', [LessonController::class, 'create'])->name('sessions.lessons.create');
             Route::post('/sessions/{session}/lessons', [LessonController::class, 'store'])->name('sessions.lessons.store');
             Route::get('/lessons/{lesson}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
             Route::put('/lessons/{lesson}', [LessonController::class, 'update'])->name('lessons.update');
             Route::delete('/lessons/{lesson}', [LessonController::class, 'destroy'])->name('lessons.destroy');
+
             Route::post('/sessions/{session}/exercises/create-empty', [ExerciseController::class, 'storeEmpty'])->name('sessions.exercises.storeEmpty');
             Route::post('/sessions/{session}/exercises', [ExerciseController::class, 'store'])->name('sessions.exercises.store');
             Route::get('/exercises/{exercise}/edit', [ExerciseController::class, 'edit'])->name('sessions.exercises.edit');
             Route::put('/exercises/{exercise}', [ExerciseController::class, 'update'])->name('sessions.exercises.update');
             Route::delete('/exercises/{exercise}', [ExerciseController::class, 'destroy'])->name('sessions.exercises.destroy');
+
             Route::get('/sessions/{session}/projects/create', [FinalProjectController::class, 'create'])->name('sessions.projects.create');
             Route::post('/sessions/{session}/projects', [FinalProjectController::class, 'store'])->name('sessions.projects.store');
-            Route::delete('/projects/{finalProject}', [FinalProjectController::class, 
-'destroy'])->name('projects.destroy');
+            Route::delete('/projects/{finalProject}', [FinalProjectController::class, 'destroy'])->name('projects.destroy');
             Route::get('/projects/{project}/submissions', [FinalProjectController::class, 'submissions'])->name('projects.submissions');
             Route::get('/projects/submissions/{result}', [FinalProjectController::class, 'submissionDetail'])->name('projects.submission.detail');
             Route::post('/projects/submissions/{result}/grade', [FinalProjectController::class, 'gradeSubmission'])->name('projects.submission.grade');
@@ -153,10 +149,9 @@ Route::middleware('auth')->group(function () {
             Route::post('/penilaian/{result}/grade', [PenilaianController::class, 'grade'])->name('penilaian.grade');
 
             Route::get('/student', [StudentController::class, 'index'])->name('student.index');
-
             Route::get('/finance', [MentorFinanceController::class, 'index'])->name('finance.index');
 
-            Route::get('/settings', fn() => view('settings.settings'))->name('settings');
+            Route::get('/settings', fn () => view('settings.settings'))->name('settings');
         });
 
     Route::middleware('role:admin')
@@ -164,20 +159,25 @@ Route::middleware('auth')->group(function () {
         ->name('admin.')
         ->group(function () {
             Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
             Route::get('/verify-mentors', [MentorVerificationController::class, 'index'])->name('verify.mentors');
             Route::post('/mentor/{id}/approve', [MentorVerificationController::class, 'approve'])->name('mentor.approve');
             Route::post('/mentor/{id}/reject', [MentorVerificationController::class, 'reject'])->name('mentor.reject');
+
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
             Route::resource('categories', CategoryController::class);
+
             Route::get('/courses', [CourseApprovalController::class, 'index'])->name('courses.index');
             Route::get('/courses/{course}/detail', [CourseApprovalController::class, 'show'])->name('courses.show');
             Route::patch('/courses/{course}/approve', [CourseApprovalController::class, 'approve'])->name('courses.approve');
             Route::patch('/courses/{course}/reject', [CourseApprovalController::class, 'reject'])->name('courses.reject');
+
             Route::get('/finance', [FinanceController::class, 'index'])->name('finance.index');
 
-            Route::get('/settings', fn() => view('settings.settings'))->name('settings');
+            Route::get('/settings', fn () => view('settings.settings'))->name('settings');
         });
 });
-// Removed duplicated checkout view without course_id
+
 Route::post('/api/midtrans/webhook', [StudentPaymentController::class, 'webhook'])->name('midtrans.webhook');
+
 require __DIR__ . '/auth.php';
