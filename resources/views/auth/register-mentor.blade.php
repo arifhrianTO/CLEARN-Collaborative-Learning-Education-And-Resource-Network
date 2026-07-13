@@ -131,21 +131,21 @@
 
                 <div class="space-y-5">
                     <div>
-                        <label class="text-sm font-bold mb-2.5 block">Link LinkedIn</label>
+                        <label class="text-sm font-bold mb-2.5 block">Tautan LinkedIn</label>
                         <div class="relative">
                             <i class="fab fa-linkedin absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
                             <input type="url" name="linkedin_link" value="{{ old('linkedin_link') }}" placeholder="https://linkedin.com/in/username" class="input-custom w-full py-3 bg-white dark:bg-card-dark border border-gray-200 dark:border-none rounded-xl outline-none text-sm dark:text-white font-medium">
                         </div>
                     </div>
                     <div>
-                        <label class="text-sm font-bold mb-2.5 block">Link Scopus</label>
+                        <label class="text-sm font-bold mb-2.5 block">Tautan Scopus</label>
                         <div class="relative">
                             <i class="fas fa-link absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
                             <input type="url" name="scopus_link" value="{{ old('scopus_link') }}" placeholder="https://scopus.com/..." class="input-custom w-full py-3 bg-white dark:bg-card-dark border border-gray-200 dark:border-none rounded-xl outline-none text-sm dark:text-white font-medium">
                         </div>
                     </div>
                     <div>
-                        <label class="text-sm font-bold mb-2.5 block">Link Sinta</label>
+                        <label class="text-sm font-bold mb-2.5 block">Tautan Sinta</label>
                         <div class="relative">
                             <i class="fas fa-graduation-cap absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
                             <input type="url" name="sinta_link" value="{{ old('sinta_link') }}" placeholder="https://sinta.kemdikbud.go.id/..." class="input-custom w-full py-3 bg-white dark:bg-card-dark border border-gray-200 dark:border-none rounded-xl outline-none text-sm dark:text-white font-medium">
