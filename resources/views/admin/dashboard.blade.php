@@ -14,7 +14,7 @@
     <div class="max-w-5xl mx-auto">
 
         <div class="mb-6">
-            <h1 class="text-lg font-bold">Dasboard Admin</h1>
+            <h1 class="text-lg font-bold">Dashboard Admin</h1>
             <p class="text-[10px] text-slate-500">Selamat datang kembali, berikut adalah ringkasan data platform hari ini.</p>
         </div>
 
