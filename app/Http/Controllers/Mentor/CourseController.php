@@ -160,9 +160,9 @@ class CourseController extends Controller
                 $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
                 
                 // Baca dan proses gambar (potong jadi persegi panjang 800x450 / rasio 16:9)
-                $image = $manager->read($file->getRealPath());
+                $image = $manager->decode($file->getRealPath());
                 $image->cover(800, 450);
-                $encoded = $image->toJpeg(75); // Kualitas 75%
+                $encoded = $image->encode();
                 
                 Storage::disk('public')->put($path, (string) $encoded);
                 
@@ -335,9 +335,9 @@ class CourseController extends Controller
                 $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
                 
                 // Baca dan proses gambar (potong jadi persegi panjang 800x450 / rasio 16:9)
-                $image = $manager->read($file->getRealPath());
+                $image = $manager->decode($file->getRealPath());
                 $image->cover(800, 450);
-                $encoded = $image->toJpeg(75); // Kualitas 75%
+                $encoded = $image->encode();
                 
                 Storage::disk('public')->put($path, (string) $encoded);
                 

@@ -70,9 +70,9 @@ class ProfileController extends Controller
             $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
             
             // Baca dan proses gambar (potong jadi persegi 300x300, lalu kompres ke format jpg)
-            $image = $manager->read($file->getRealPath());
+            $image = $manager->decode($file->getRealPath());
             $image->cover(300, 300);
-            $encoded = $image->toJpeg(75); // Kualitas 75%
+            $encoded = $image->encode();
             
             Storage::disk('public')->put($path, (string) $encoded);
             
