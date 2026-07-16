@@ -115,7 +115,7 @@ class CourseController extends Controller
                 'exists:categories,id',
             ],
             'course_price' => [
-                'required',
+                'nullable',
                 'numeric',
                 'min:0',
             ],
@@ -136,7 +136,6 @@ class CourseController extends Controller
             'course_description.required' => 'Deskripsi course wajib diisi.',
             'category_id.required' => 'Kategori wajib dipilih.',
             'category_id.exists' => 'Kategori tidak ditemukan.',
-            'course_price.required' => 'Harga kursus wajib diisi.',
             'course_price.numeric' => 'Harga course harus berupa angka.',
             'course_thumbnail.required' => 'Thumbnail course wajib dipilih.',
             'course_thumbnail.image' => 'Thumbnail harus berupa gambar.',
@@ -176,7 +175,7 @@ class CourseController extends Controller
                 'course_slug' => Str::slug($validated['course_title']) . '-' . time(),
                 'course_description' => $validated['course_description'],
                 'course_thumbnail' => $thumbnailPath,
-                'course_price' => $validated['course_price'],
+                'course_price' => $validated['course_price'] ?? 0,
 
                 // Course baru belum diajukan ke admin.
                 'status_publish' => 'draft',
@@ -292,7 +291,7 @@ class CourseController extends Controller
                 'exists:categories,id',
             ],
             'course_price' => [
-                'required',
+                'nullable',
                 'numeric',
                 'min:0',
             ],
@@ -349,7 +348,7 @@ class CourseController extends Controller
                 'course_title' => $validated['course_title'],
                 'course_slug' => Str::slug($validated['course_title']) . '-' . $course->id,
                 'course_description' => $validated['course_description'],
-                'course_price' => $validated['course_price'],
+                'course_price' => $validated['course_price'] ?? 0,
                 'course_thumbnail' => $newThumbnail ?: $oldThumbnail,
 
                 // Setelah diedit, course harus diajukan ulang.

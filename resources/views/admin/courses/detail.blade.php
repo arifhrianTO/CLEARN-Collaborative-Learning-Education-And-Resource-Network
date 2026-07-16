@@ -106,8 +106,8 @@
                                     Harga Kursus
                                 </label>
 
-                                <span class="text-xs font-black text-[#A487F8] bg-[#A487F8]/10 px-3 py-1.5 rounded-xl inline-block">
-                                    Rp {{ number_format($course->course_price ?? 0, 0, ',', '.') }}
+                                <span class="text-xs font-black {{ $course->course_price == 0 ? 'text-green-500 bg-green-500/10' : 'text-[#A487F8] bg-[#A487F8]/10' }} px-3 py-1.5 rounded-xl inline-block">
+                                    {{ $course->course_price == 0 ? 'Gratis' : 'Rp ' . number_format($course->course_price ?? 0, 0, ',', '.') }}
                                 </span>
                             </div>
                         </div>
