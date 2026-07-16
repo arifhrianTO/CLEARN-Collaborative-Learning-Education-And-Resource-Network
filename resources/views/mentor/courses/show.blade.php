@@ -102,8 +102,8 @@
                         <span class="text-[11px] dark:text-slate-400 text-slate-500 font-bold">
                             Harga
                         </span>
-                        <span class="text-sm font-black text-primary">
-                            Rp {{ number_format($course->course_price ?? 0, 0, ',', '.') }}
+                        <span class="text-sm font-black {{ $course->course_price == 0 ? 'text-green-500' : 'text-primary' }}">
+                            {{ $course->course_price == 0 ? 'Gratis' : 'Rp ' . number_format($course->course_price ?? 0, 0, ',', '.') }}
                         </span>
                     </div>
 

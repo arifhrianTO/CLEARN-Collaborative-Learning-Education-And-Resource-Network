@@ -112,9 +112,13 @@
                         </span>
                     </div>
 
-                    <div class="mt-auto flex items-center gap-1 w-fit px-2 py-1 bg-emerald-500/5 dark:bg-emerald-500/10 rounded-lg border border-emerald-500/10 dark:border-emerald-500/20 text-emerald-600 font-black">
-                        <span class="text-[8px] uppercase">Rp</span>
-                        <span class="text-[10px]">{{ number_format($course->course_price ?? 0, 0, ',', '.') }}</span>
+                    <div class="mt-auto flex items-center gap-1 w-fit px-2 py-1 {{ $course->course_price == 0 ? 'bg-green-500/5 dark:bg-green-500/10 text-green-600 border-green-500/10 dark:border-green-500/20' : 'bg-emerald-500/5 dark:bg-emerald-500/10 text-emerald-600 border-emerald-500/10 dark:border-emerald-500/20' }} rounded-lg border font-black">
+                        @if($course->course_price == 0)
+                            <span class="text-[10px]">Gratis</span>
+                        @else
+                            <span class="text-[8px] uppercase">Rp</span>
+                            <span class="text-[10px]">{{ number_format($course->course_price ?? 0, 0, ',', '.') }}</span>
+                        @endif
                     </div>
                 </div>
 

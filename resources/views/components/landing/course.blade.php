@@ -22,8 +22,12 @@
             </div>
         </div>
         <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-gray-800">
-            <div class="text-2xl font-extrabold text-[#A487F8] dark:text-[#A487F8]">
-                Rp{{ number_format($course->course_price, 0, ',', '.') }}
+            <div class="text-2xl font-extrabold {{ $course->course_price == 0 ? 'text-green-500' : 'text-[#A487F8] dark:text-[#A487F8]' }}">
+                @if($course->course_price == 0)
+                    Gratis
+                @else
+                    Rp{{ number_format($course->course_price, 0, ',', '.') }}
+                @endif
             </div>
             <span class="text-xs font-semibold text-[#A487F8] dark:text-[#A487F8]">
                 Detail <i class="fas fa-chevron-right ml-1"></i>

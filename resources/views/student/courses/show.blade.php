@@ -144,8 +144,8 @@
 
                     <div class="pt-6 border-t border-gray-100 dark:border-[#2d2644]">
                         <p class="text-[9px] text-muted-custom mb-1 font-black uppercase tracking-[0.2em]">Investasi Ilmu</p>
-                        <div class="text-3xl font-black text-primary mb-8 tracking-tighter">
-                            Rp{{ number_format($course->course_price, 0, ',', '.') }}
+                        <div class="text-3xl font-black {{ $course->course_price == 0 ? 'text-green-500' : 'text-primary' }} mb-8 tracking-tighter">
+                            {{ $course->course_price == 0 ? 'Gratis' : 'Rp' . number_format($course->course_price, 0, ',', '.') }}
                         </div>
 
                         @if(isset($sudahEnroll) && $sudahEnroll && isset($isPaid) && $isPaid)
@@ -193,6 +193,9 @@
             @if($course->course_price > 0)
                 <br><br>
                 <span class="text-primary font-bold">Investasi Ilmu: Rp{{ number_format($course->course_price, 0, ',', '.') }}</span>
+            @else
+                <br><br>
+                <span class="text-green-500 font-bold">Kursus Gratis</span>
             @endif
         </p>
         <div class="flex gap-3">
