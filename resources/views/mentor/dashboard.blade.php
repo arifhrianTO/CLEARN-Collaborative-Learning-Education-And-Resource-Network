@@ -43,7 +43,7 @@
         </div>
 
         {{-- Statistik --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
 
             {{-- Total Pendapatan --}}
             <div class="card-bg p-5">
@@ -175,7 +175,7 @@
                     labels: chartLabels,
                     datasets: [{
                         data: enrollmentChartData,
-                        borderColor: '#A855F7',
+                        borderColor: '#A487F8',
                         tension: 0.4
                     }]
                 },
