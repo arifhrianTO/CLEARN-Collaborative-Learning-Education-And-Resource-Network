@@ -6,7 +6,7 @@
         <img src="{{ $course->course_thumbnail ? asset('storage/' . $course->course_thumbnail) : asset('images/default-course.png') }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             alt="{{ $course->course_title }}">
-        <span class="absolute top-4 right-4 bg-[#A487F8] text-white text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider">Populer</span>
+
     </div>
     <div class="p-7">
         <h4 class="font-bold text-lg leading-snug mb-2.5 h-12 overflow-hidden">{{ $course->course_title }}</h4>

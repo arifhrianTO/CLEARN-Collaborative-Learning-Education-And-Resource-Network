@@ -87,9 +87,7 @@
                     </p>
                 </div>
 
-                <button class="text-[8px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50 dark:bg-white/5 px-3 py-1 rounded-md border border-slate-100 dark:border-white/5 hover:border-primary transition-colors">
-                    Download Report
-                </button>
+
             </div>
 
             <div class="overflow-x-auto">
